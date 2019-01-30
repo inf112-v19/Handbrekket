@@ -15,7 +15,7 @@ public interface IBoard {
     int getWidth();
 
     /**
-     * Returns the square in the given coordinates
+     * Returns the Square in the given coordinates
      *
      * @param x the x coordinate on the board
      * @param y the y coordinate on the board

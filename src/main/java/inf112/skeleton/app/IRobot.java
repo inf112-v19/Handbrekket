@@ -1,5 +1,11 @@
 package inf112.skeleton.app;
 
+/**
+ * The most important piece in the game,
+ * represents the robots and controls their abilities
+ *
+ * Should store its direction, HP and ID
+ */
 public interface IRobot {
 
     /**
@@ -14,19 +20,18 @@ public interface IRobot {
      *
      * @return direction
      */
-    //todo: add DIRECTION as return type once that's ready
-    void getDir();
+    void getDir(Direction dir);
 
     /**
      * Changes the current direction
      *
      * @param dir, the new direction to face
      */
-    //todo: replace int with DIRECTION
-    void setDir(int dir);
+    void setDir(Direction dir);
 
     /**
      * Attempts to move forward,
+     * Should throw some kind of exception if not possible
      * NON-ESSENTIAL ATM
      */
     void move();

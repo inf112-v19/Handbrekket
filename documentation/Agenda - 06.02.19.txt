@@ -1,14 +1,14 @@
 Facilitator:
-Jonas?
+Jonas
 
 Participants:
 
-
-Agenda: 
-	1. Kanban
-	2. LibGdx ()
-	3. Oppfølging av arbeid
-	4. Arbeidsfordeling
-	5. Dokumentasjon struktur
-	6. Diskutere presentasjon
-	7. Diskutere ekstra funksjonalitet (non-mvp)
+Agenda:
+	1. Korte introduksjoner
+	2. Oppfølging av arbeid
+	3. LibGdx ()
+	4. Oppdatere Dokumentasjon
+	5. Diskutere presentasjon
+	6. Kjapp gjennomgang om spillmanualen
+	7. Arbeidsfordeling
+    8. Arrangere en spillkveld hvor vi spiller Robo Rally?

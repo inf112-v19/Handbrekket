@@ -35,7 +35,9 @@ public class testSquare {
     }
 
     @Test
-    public void hasWallsWithDirection() {
+    public void hasWallsWithDirection(Direction direction) {
+        Square square = new Square(5,5,"robot",false);
+
         
     }
 }

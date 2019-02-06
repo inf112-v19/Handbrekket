@@ -11,21 +11,35 @@ public class Square implements ISquare{
     private String state; //State -> empty or robot
     private boolean wall;
 
-    public Square (int length, int width, String state, boolean wall) {
-        this.length=length;
-        this.width=width;
+    /**
+     * Square Constructor
+    @param xCoordinate
+     @param yCoordinate
+     @param state
+     @param wall
+     */
+
+    public Square (int xCoordinate, int yCoordinate, String state, boolean wall) {
+        this.length=xCoordinate;
+        this.width=yCoordinate;
         this.state=state;
         this.wall=wall;
+
+        //TODO: put Robot in Square?
     }
 
 
+    /**
+     *
+     * @return 
+     */
     public IRobot getRobot() {
         if(this.state=="robot"){
             //return robotObjekt
         } else if (this.state=="empty"){
             return null;
         } else {
-            System.err.println("Uknown state");
+            System.err.println("Unknown state");
         }
         return null;
     }
@@ -35,8 +49,8 @@ public class Square implements ISquare{
 
     }
 
-    public boolean hasWall(int dir){
-
+    public boolean hasWall(Direction dir){
+        return this.wall;
 
     }
 

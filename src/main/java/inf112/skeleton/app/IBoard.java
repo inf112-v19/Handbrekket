@@ -29,4 +29,13 @@ public interface IBoard {
      * @return the Square
      */
     ISquare getSquare(int x, int y);
+    
+    /**
+     * Set the content of the square
+     * 
+     * @param x - width
+     * @param y - height
+     */
+    void setSquare(int x, int y);
+    
 }

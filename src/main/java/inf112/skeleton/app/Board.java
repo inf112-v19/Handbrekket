@@ -23,8 +23,7 @@ public class Board implements IBoard {
 		for(int i = 0; i < x; i++) {
 			ArrayList<ISquare> line = new ArrayList<ISquare>();
 			for(int j = 0; j < y; j++) {
-//				TODO: Wait for the implementation of the Square class before adding Squares.
-//				line.add(new ISquare());
+				line.add(new Square(0,0,"empty",false));
 			}
 			board.add(line);
 		}
@@ -44,6 +43,11 @@ public class Board implements IBoard {
 	public ISquare getSquare(int x, int y) {
 		
 		return board.get(x).get(y);
+	}
+
+	@Override
+	public void setSquare(int x, int y) {
+		board.get(x).set(y, new Square(0,0,"robot",false));
 	}
 
 }

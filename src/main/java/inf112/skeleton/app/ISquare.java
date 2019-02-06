@@ -1,5 +1,11 @@
 package inf112.skeleton.app;
 
+/**
+ * Represents a square on the board,
+ * should be able to store special squares, walls and robots
+ *
+ * Todo:implement special squares
+ */
 public interface ISquare {
     /**
      * Returns the Robot currently in the Square
@@ -15,8 +21,7 @@ public interface ISquare {
      * @return True if there is a wall, false otherwise.
      *
      */
-    //todo: Implement the DIRECTION ENUM type & replace the int with DIRECTION
-    boolean hasWall(int dir);
+    boolean hasWall(Direction dir);
 
     /**
      * Checks if the Square has any walls
@@ -24,4 +29,6 @@ public interface ISquare {
      * @return True if there are any walls, false otherwise.
      */
     boolean hasWalls();
+
+
 }

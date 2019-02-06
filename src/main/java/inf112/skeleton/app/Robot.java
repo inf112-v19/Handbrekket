@@ -28,28 +28,28 @@ public class Robot implements IRobot{
         switch (id) {
             case 1 :
                 try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/twitch.png"));
+                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case1.png"));
                 } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/sam.png could not be read");
+                    System.out.println("robots/case1.png could not be read");
                 }
                 break;
             case 2 :
                 try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/hank.png"));
+                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case2.png"));
                 } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/thehammer.png could not be read");
+                    System.out.println("robots/case2.png could not be read");
                 }
                 break;
             case 3 :
                 try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/frellster.png"));
+                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case3.png"));
                 } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/thehammer.png could not be read");
+                    System.out.println("robots/case3.png could not be read");
                 }
                 break;
             default:
                 try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/twitch.png"));
+                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case3.png"));
                 } catch (java.io.IOException | NullPointerException e) {
                     System.out.println("robots/thedragen.png could not be read");
                 }

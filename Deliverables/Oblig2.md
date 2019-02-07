@@ -1,6 +1,24 @@
 # Obligatorisk øvelse 2 Håndbrekket
 
 ## Deloppgave 1 - Organiser teamet
+### Team Handbrekket     
+**Teamlead:** Jonas     
+**Kundekontakt:** Emilia     
+
+#### Gruppaskvalifikasjonar:
+ * Marius: Java, JUnit, algoritmer, database
+ * Jonas : Erfaring med github , Java, JUnit, algoritmer, database
+ * Emilia : erfaring med prosjekt, Java, JUnit, algoritmer, database
+ * Mari : Java, JUnit, algoritmer, database
+ * Alba : Java , JUinit, algoritmer, github, 
+ * Eirik : Java , JUinit, algoritmer, github, database
+ * Nichola - Python
+
+
+#### Verktøy vi brukar: 
+ * Github project board
+ * Maven 
+ * IntelliJ
 
 ## Deloppgave 2 - Få oversikt over forventet produkt
 ### Overordnede målet for applikasjonen:
@@ -47,10 +65,30 @@ Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i
 
 
 ## Deloppgave 3 - Velg og tilpass en prosess for laget
+### Beskrivelse av organisering og planlegging på prosjekt INF112
+Planlegging og organisering av vårt prosjekt den første tiden
+ 
+skal være på følgende måte:
 
+**Kommunikasjon:** Vi kommer til å ha aktiv kommunikasjon via msn og slack mellom 
+alle medlemmer i gruppen.
 
+**- Prosjekt (obligatoriske innleveringer):** Vi lagger en grunnleggende struktur (Game og kort), 
+på samme måte som vi kommer til å lage et diagram med de forskjellige faser som vårt 
+prosjekt kommer til å ha. Vi følger med forretningsregler som står beskrevet i GitHub (master 
+fra foreleser).
 
-## Deloppgave 4 - kode
+Dette er noe som kommer til å utvikle seg etter hvert vi ser hvordan det går med utviklingen 
+av med selve prosjektet.
+
+**- Dokumentasjon:** Vi dokumenterer alt som blir avtalt i våre møter på samme måte lager leder 
+av gruppen en agenda for hva skal vi gjøre til neste møte. Dette er noe som vi forsette å ha 
+videre i organisering.
+
+Vi kommer til å bruke Kanban for å ha en effektiv måte å følge med prosjektet vårt.
+
+**- Fordeling av oppgaver:** Vi kommer til å jobbe med tester og par programmering. Dette kommer til å være spesiell brukt når vi begynner å jobbe mer, med de avanserte oppgavene (Interface, kjerne «featurers», visualisering, osv.) i prosjektet vårt.
+Vi kommer til å dele oppgaver slik at alle for å gjøre sin del (dette gjelder med kompetanse av hvert medlem i vår gruppen), men samtidig kommer vi til å være forsiktig med at ingen av oss skal sitte alene med en oppgave eller skal ha alt for mye arbeid for seg selv. 
 
 
 

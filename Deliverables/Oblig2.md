@@ -1,6 +1,24 @@
 # Obligatorisk øvelse 2 Håndbrekket
 
 ## Deloppgave 1 - Organiser teamet
+###Team Handbrekket
+**Teamlead:** Jonas
+**Kundekontakt:** Emilia
+
+####Gruppaskvalifikasjonar:
+ * Marius: Java, JUnit, algoritmer, database
+ * Jonas : Erfaring med github , Java, JUnit, algoritmer, database
+ * Emilia : erfaring med prosjekt, Java, JUnit, algoritmer, database
+ * Mari : Java, JUnit, algoritmer, database
+ * Alba : Java , JUinit, algoritmer, github, 
+ * Eirik : Java , JUinit, algoritmer, github, database
+ * Nichola - Python
+
+
+####Verktøy vi brukar: 
+ * Github project board
+ * Maven 
+ * IntelliJ
 
 ## Deloppgave 2 - Få oversikt over forventet produkt
 ### Overordnede målet for applikasjonen:

@@ -12,7 +12,7 @@ public interface ISquare {
      *
      * @return Robot or NULL if empty
      */
-    IRobot getRobot();
+    boolean doesTheSquareContainARobot();
 
     /**
      * Checks if there is a wall in the given direction
@@ -21,14 +21,25 @@ public interface ISquare {
      * @return True if there is a wall, false otherwise.
      *
      */
-    boolean hasWall(Direction dir);
+    boolean hasSquareWall(Direction dir);
 
     /**
      * Checks if the Square has any walls
      *
      * @return True if there are any walls, false otherwise.
      */
-    boolean hasWalls();
+    boolean hasSquareWalls();
 
+    /**
+     * Puts Robot in Square
+     */
+
+    void putRobotInSquare ();
+
+    /**
+     * Prints the square
+     */
+
+    void printSquare ();
 
 }

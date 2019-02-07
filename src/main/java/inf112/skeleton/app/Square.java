@@ -1,57 +1,52 @@
 package inf112.skeleton.app;
 
-
-
-import java.awt.*;
-
 public class Square implements ISquare{
 
-    private int length;
-    private int width;
-    private String state; //State -> empty or robot
-    private boolean wall;
+    private int xCoordinate;
+    private int yCoordinate;
+    private Robot robot=new Robot(5);
 
-    /**
-     * Square Constructor
-    @param xCoordinate
-     @param yCoordinate
-     @param state
-     @param wall
-     */
-
-    public Square (int xCoordinate, int yCoordinate, String state, boolean wall) {
-        this.length=xCoordinate;
-        this.width=yCoordinate;
-        this.state=state;
-        this.wall=wall;
-
-        //TODO: put Robot in Square?
+    public Square (int xCoordinate, int yCoordinate) {
+        this.xCoordinate=xCoordinate;
+        this.yCoordinate=yCoordinate;
     }
 
-
-    /**
-     *
-     * @return 
-     */
-    public IRobot getRobot() {
-        if(this.state=="robot"){
-            //return robotObjekt
-        } else if (this.state=="empty"){
-            return null;
+    public boolean doesTheSquareContainARobot() {
+        if(Square.this.equals(robot.getRobot())){
+            return true;
+        } else if (!Square.this.equals(robot.getRobot())){
+            return false;
         } else {
             System.err.println("Unknown state");
+            return false;
         }
-        return null;
-    }
-
-    public boolean hasWalls(){
-        return this.wall;
 
     }
 
-    public boolean hasWall(Direction dir){
-        return this.wall;
+    public void printSquare () {
 
+        if(doesTheSquareContainARobot()){
+            robot.getRobot();
+        } else {
+            System.out.println("X");
+        }
+    }
+
+
+    public boolean hasSquareWalls(){
+
+        return false;
+    }
+
+
+    public boolean hasSquareWall(Direction dir){
+        return false;
+
+    }
+
+    //TODO: put Robot in Square?   
+    public void putRobotInSquare () {
+                
     }
 
 

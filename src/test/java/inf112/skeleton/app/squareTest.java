@@ -4,39 +4,36 @@ import org.junit.Test;
 
 import org.junit.Assert;
 
-import inf112.skeleton.app.Square;
 
-
-
-public class testSquare {
+public class squareTest {
 
 
 
     @Test
     public void squareIsEmpty () {
-        Square sqaure = new Square(5,5,"empty",true);
-        Assert.assertEquals(sqaure.getRobot(),null);
+        Square sqaure = new Square(5,5);
+        Assert.assertEquals(sqaure.doesTheSquareContainARobot(),null);
 
     }
 
     @Test
     public void squareContainsRobot () {
-        Square sqaure = new Square(5,5,"robot",false);
+        Square sqaure = new Square(5,5);
         //Robot robot = new Robot();
-        //Assert.assertEquals(sqaure.getRobot(),robot);
+        //Assert.assertEquals(sqaure.doesTheSquareContainsaRobot(),robot);
 
     }
 
     @Test
     public void hasWalls(){
-        Square square = new Square(5,5,"empty",true);
+        Square square = new Square(5,5);
         //Assert.assertTrue(true);
 
     }
 
     @Test
     public void hasWallsWithDirection(Direction direction) {
-        Square square = new Square(5,5,"robot",false);
+        Square square = new Square(5,5);
 
         
     }

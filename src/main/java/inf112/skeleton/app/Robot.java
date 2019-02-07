@@ -85,6 +85,11 @@ public class Robot implements IRobot{
 
     }
 
+    public Robot getRobot(){
+        System.out.println("X_R");
+        return Robot.this;
+    }
+
     public void setDir(Direction dirIn) {
         dir = dirIn;
     }

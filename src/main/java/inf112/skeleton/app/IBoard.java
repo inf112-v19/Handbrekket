@@ -28,7 +28,7 @@ public interface IBoard {
      * @param y the y coordinate on the board
      * @return the Square
      */
-    ISquare getSquare(int x, int y);
+    Square getSquare(int x, int y);
     
     /**
      * Set the content of the square

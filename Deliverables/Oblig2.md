@@ -1,11 +1,11 @@
 # Obligatorisk øvelse 2 Håndbrekket
 
 ## Deloppgave 1 - Organiser teamet
-###Team Handbrekket
-**Teamlead:** Jonas
-**Kundekontakt:** Emilia
+### Team Handbrekket     
+**Teamlead:** Jonas     
+**Kundekontakt:** Emilia     
 
-####Gruppaskvalifikasjonar:
+#### Gruppaskvalifikasjonar:
  * Marius: Java, JUnit, algoritmer, database
  * Jonas : Erfaring med github , Java, JUnit, algoritmer, database
  * Emilia : erfaring med prosjekt, Java, JUnit, algoritmer, database
@@ -15,7 +15,7 @@
  * Nichola - Python
 
 
-####Verktøy vi brukar: 
+#### Verktøy vi brukar: 
  * Github project board
  * Maven 
  * IntelliJ
@@ -65,7 +65,7 @@ Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i
 
 
 ## Deloppgave 3 - Velg og tilpass en prosess for laget
-###Beskrivelse av organisering og planlegging på prosjekt INF112
+### Beskrivelse av organisering og planlegging på prosjekt INF112
 Planlegging og organisering av vårt prosjekt den første tiden
  
 skal være på følgende måte:
@@ -89,8 +89,6 @@ Vi kommer til å bruke Kanban for å ha en effektiv måte å følge med prosjekt
 
 **- Fordeling av oppgaver:** Vi kommer til å jobbe med tester og par programmering. Dette kommer til å være spesiell brukt når vi begynner å jobbe mer, med de avanserte oppgavene (Interface, kjerne «featurers», visualisering, osv.) i prosjektet vårt.
 Vi kommer til å dele oppgaver slik at alle for å gjøre sin del (dette gjelder med kompetanse av hvert medlem i vår gruppen), men samtidig kommer vi til å være forsiktig med at ingen av oss skal sitte alene med en oppgave eller skal ha alt for mye arbeid for seg selv. 
-
-## Deloppgave 4 - kode
 
 
 

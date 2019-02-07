@@ -17,8 +17,8 @@ public class Robot implements IRobot{
 
     /**
      * Gets a name from the Robotbuilder class and creates the robot character with that name.
-     * @param name The name of the robot character.
-     * @param color The color associated with the robot (for prints in the console etc.).
+     * @param
+     * @param
      */
     public Robot(int id) {
         dir = Direction.EAST;
@@ -81,8 +81,8 @@ public class Robot implements IRobot{
         return hp;
     }
 
-    public void getDir(Direction dirIn) {
-
+    public Direction getDir() {
+        return dir;
     }
 
     public Robot getRobot(){
@@ -98,10 +98,10 @@ public class Robot implements IRobot{
 
     }
 
-
     public int changeHP(int HP) {
         return hp+=HP;
     }
+
     public int getID(){
         return this.id;
     }

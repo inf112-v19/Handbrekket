@@ -44,10 +44,9 @@ public class Square implements ISquare{
 
     }
 
-    //TODO: put Robot in Square?   
-    public void putRobotInSquare () {
-                
+    //TODO: Change this to use a try statement or similar once it becomes appropriate
+    public boolean putRobotInSquare(Robot robot) {
+        this.robot = robot;
+        return true;
     }
-
-
 }

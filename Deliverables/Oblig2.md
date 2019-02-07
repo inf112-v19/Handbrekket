@@ -1,11 +1,11 @@
-#Obligatorisk øvelse 2 Håndbrekket
+# Obligatorisk øvelse 2 Håndbrekket
 
-##Deloppgave 1 - Organiser teamet
+## Deloppgave 1 - Organiser teamet
 
-##Deloppgave 2 - Få oversikt over forventet produkt
-###Overordnede målet for applikasjonen:
+## Deloppgave 2 - Få oversikt over forventet produkt
+### Overordnede målet for applikasjonen:
 Det overordnende målet for applikasjonen er å implementere spillet Robot Rally. Lage et system som følger settet med Regler for dette spillet. 
-###En liste over krav til systemet baser på høynivåkravene gjennomgått i forelesning:
+### En liste over krav til systemet baser på høynivåkravene gjennomgått i forelesning:
 Dette er listen over krav gjennomgått i forelesningen.
 * Ha et spillbrett
 * vise en brikke
@@ -34,7 +34,7 @@ Dette er listen over krav gjennomgått i forelesningen.
 * for mye skade brenner fast programkort fra runde til runde
 
 
-###Prioritert liste over hvilke krav dere vil ha med i første iterasjon:
+### Prioritert liste over hvilke krav dere vil ha med i første iterasjon:
 Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i første iterasjon:
  * Interfaces for de klassene vi tenker å implementere til første iterasjon
  * Board klasse med enkle metoder
@@ -46,11 +46,11 @@ Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i
  * Fylle eventuelle Squares med Robot
 
 
-##Deloppgave 3 - Velg og tilpass en prosess for laget
+## Deloppgave 3 - Velg og tilpass en prosess for laget
 
 
 
-##Deloppgave 4 - kode
+## Deloppgave 4 - kode
 
 
 

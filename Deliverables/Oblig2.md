@@ -91,7 +91,6 @@ prosjektet vårt. Vi planlegger å fordele hoveddeler av prosjektet (gfx, spill-
 for at vi har en bedre forståelse for koden og for å gjøre organisering og planlegging fremover lettere. 
  
 ##Oppsummering
-
 ###Problemer
 Ut ifra diskusjonen vår har vi kommet frem til at de to største problemene som vi støtte på i den første tiden i prosjektet.
 Disse kan hovedsakelig oppsummeres som to hoved-utfordringer.

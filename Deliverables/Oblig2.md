@@ -60,7 +60,7 @@ Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i
  * Robot klasse med enkle metoder
  * Lage et enkelt spillbrett, vi tenker å vise det i terminalen først.
  * Main klassen skriver ut et spillbrett ved hjelp av Board klassen
- * Fylle board klassen med Squares
+ * Fylle Board klassen med Squares
  * Fylle eventuelle Squares med Robot
 
 
@@ -71,29 +71,30 @@ Planlegging og organisering av vårt prosjekt den første tiden skal være på f
 **Kommunikasjon:** Vi kommer til å ha aktiv kommunikasjon via Facebook Messenger og Slack mellom 
 alle medlemmer i gruppen.
 
-**- Prosjekt (obligatoriske innleveringer):** På kort sikt planlegger vi å få på plass en grunnleggende struktur (Game og Card), 
+**Prosjekt (obligatoriske innleveringer):** På kort sikt planlegger vi å få på plass en grunnleggende struktur (Game og Card), 
 og snarest mulig legge en mer langsiktig fremgangsplan. Vi følger med forretningsregler som står beskrevet i GitHub (master 
 fra foreleser).
 
 Dette er noe som kommer til å utvikle seg etter hvert vi ser hvordan det går med utviklingen 
 av selve prosjektet.
 
-**- Dokumentasjon:** Vi dokumenterer alt som blir avtalt i våre møter på samme måte lager leder 
-av gruppen en agenda for hva skal vi gjøre til neste møte. Dette er noe som vi forsette å ha 
+**Dokumentasjon:** Vi dokumenterer alt som blir avtalt i våre møter på samme måte lager leder 
+av gruppen en agenda for hva skal vi gjøre til neste møte. Dette er noe som vi fortsette å ha 
 videre i organisering.
 
 Vi kommer til å bruke Kanban for å ha en effektiv måte å følge med på prosjektet vårt.
 
-**- Fordeling av oppgaver:** Vi kommer til å jobbe med tester og par programmering. Dette kommer til å være spesiell 
+**Fordeling av oppgaver:** Vi kommer til å jobbe med tester og par programmering. Dette kommer til å være spesiell 
 brukt når vi begynner å jobbe mer med de avanserte oppgavene (Interface, kjerne «featurers», visualisering, osv.) i 
 prosjektet vårt. Vi planlegger å fordele hoveddeler av prosjektet (gfx, spill-logikk osv.) til spesifikke personer 
 (gjerne to eller flere) i gruppen som kommer til å ha ansvar for denne delen. Dette har vi tenkt til å gjøre for å sørge 
 for at vi har en bedre forståelse for koden og for å gjøre organisering og planlegging fremover lettere. 
  
 ##Oppsummering
+
 ###Problemer
-Utifra diskusjonen vår har vi kommet frem til at de to største problemene som vi støtte på i den første tiden i prosjektet.
-Disse kan hovedsaklig oppsummeres som to hoved-utfordringer.
+Ut ifra diskusjonen vår har vi kommet frem til at de to største problemene som vi støtte på i den første tiden i prosjektet.
+Disse kan hovedsakelig oppsummeres som to hoved-utfordringer.
 
 **Gruppe-sammenslåing:** Originalt ble vi delt inn i to grupper, en med fire medlemmer og en med fem. På grunn av manglende
 oppmøte ble gruppene slått sammen for å sørge for at det ikke ble for mye arbeid. På grunn av dette har vi måtte bruke ekstra 
@@ -105,5 +106,5 @@ medlemmene ikke var blitt lagt til i Slack kanalen gruppen planlegger å bruke. 
 sjekke Slack. Vi planlegger alle å bli flinkere på å sjekke det, men vi har også opprettet en Facebook gruppe-chat for å 
 gjøre kommunikasjon lettere.
 
-Utifra erfaringene fra den første uken og utfordringene vi har måtte løse har vi tenkt til å bli bedre på å følge opp hverandre
+Ut ifra erfaringene fra den første uken og utfordringene vi har måtte løse har vi tenkt til å bli bedre på å følge opp hverandre
 og kommunisere oftere, slik at det blir lettere å følge med på fremgangen i prosjektet.

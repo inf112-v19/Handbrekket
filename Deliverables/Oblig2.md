@@ -23,6 +23,7 @@
 ## Deloppgave 2 - Få oversikt over forventet produkt
 ### Overordnede målet for applikasjonen:
 Det overordnende målet for applikasjonen er å implementere spillet Roborally. Lage et system som følger settet med Regler for dette spillet. 
+
 ### En liste over krav til systemet baser på høynivåkravene gjennomgått i forelesning:
 Dette er listen over krav gjennomgått i forelesningen.
 * Ha et spillbrett
@@ -51,7 +52,6 @@ Dette er listen over krav gjennomgått i forelesningen.
 * vanskelighetsgrad på brett??
 * for mye skade brenner fast programkort fra runde til runde
 
-
 ### Prioritert liste over hvilke krav dere vil ha med i første iterasjon:
 Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i første iterasjon:
  * Interfaces for de klassene vi tenker å implementere til første iterasjon
@@ -62,7 +62,6 @@ Per siste gruppemøte (06.02.2019) har vi følge liste over krav vi vil ha med i
  * Main klassen skriver ut et spillbrett ved hjelp av Board klassen
  * Fylle Board klassen med Squares
  * Fylle eventuelle Squares med Robot
-
 
 ## Deloppgave 3 - Velg og tilpass en prosess for laget
 ### Beskrivelse av organisering og planlegging på prosjekt INF112
@@ -90,8 +89,8 @@ prosjektet vårt. Vi planlegger å fordele hoveddeler av prosjektet (gfx, spill-
 (gjerne to eller flere) i gruppen som kommer til å ha ansvar for denne delen. Dette har vi tenkt til å gjøre for å sørge 
 for at vi har en bedre forståelse for koden og for å gjøre organisering og planlegging fremover lettere. 
  
-##Oppsummering
-###Problemer
+## Oppsummering
+### Problemer
 Ut ifra diskusjonen vår har vi kommet frem til at de to største problemene som vi støtte på i den første tiden i prosjektet.
 Disse kan hovedsakelig oppsummeres som to hoved-utfordringer.
 

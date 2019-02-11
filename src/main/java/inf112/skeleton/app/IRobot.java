@@ -20,7 +20,7 @@ public interface IRobot {
      *
      * @return direction
      */
-    void getDir(Direction dir);
+    Direction getDir();
 
     /**
      * Changes the current direction
@@ -41,7 +41,7 @@ public interface IRobot {
      * Positive to add health
      * Negative to remove health
      *
-     * @param HP
+     * @param HP the HP to be added/removed
      * @return new HP
      */
     int changeHP(int HP);

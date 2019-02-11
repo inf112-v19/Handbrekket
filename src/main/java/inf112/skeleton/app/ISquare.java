@@ -33,13 +33,17 @@ public interface ISquare {
     /**
      * Puts Robot in Square
      */
-
-    void putRobotInSquare ();
+    //TODO: change Robot to IRobot
+    boolean putRobotInSquare(Robot robot);
 
     /**
      * Prints the square
      */
+<<<<<<< HEAD
 
     String printSquare ();
+=======
+    void printSquare ();
+>>>>>>> 75e0aa42de5ad4109c27d82c66961190cd753e02
 
 }

@@ -40,6 +40,6 @@ public interface ISquare {
      * Prints the square
      */
 
-    void printSquare ();
+    String printSquare ();
 
 }

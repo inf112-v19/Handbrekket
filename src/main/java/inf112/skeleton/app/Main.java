@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "hello-world";
+        cfg.title = "Board";
         cfg.width = 480;
         cfg.height = 320;
 
@@ -21,9 +21,4 @@ public class Main {
 
     }
 
-    public void run () {
-        Board board = new Board(50,50);
-        board.printBoard();
-
-    }
 }

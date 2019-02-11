@@ -29,16 +29,18 @@ public class Board implements IBoard {
 		}
 	}
 
-	public void printBoard () {
+	public String printBoard () {
 
+		String printout="";
 		for (int i = 0; i < board.size(); i++) {
-			System.out.println("Column : " + i);
+			printout="Column : "+i;
 
 			for (int j = 0; j < board.get(i).size(); j++) {
 				Square square = board.get(i).get(i);
-				square.printSquare();
+				printout+="\n"+square.printSquare();
 			}
 		}
+		return printout;
 	}
 
 	

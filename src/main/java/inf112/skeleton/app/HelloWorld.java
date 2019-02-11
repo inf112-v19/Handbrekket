@@ -24,6 +24,12 @@ public class HelloWorld implements ApplicationListener {
         font.dispose();
     }
 
+    public static String run () {
+        Board board = new Board(50,50);
+        return board.printBoard();
+
+    }
+
     @Override
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);

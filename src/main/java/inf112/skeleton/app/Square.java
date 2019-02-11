@@ -23,12 +23,12 @@ public class Square implements ISquare{
 
     }
 
-    public void printSquare () {
+    public String printSquare () {
 
         if(doesTheSquareContainARobot()){
-            robot.getRobot();
+            return robot.printRobot();
         } else {
-            System.out.println("X");
+            return "X";
         }
     }
 

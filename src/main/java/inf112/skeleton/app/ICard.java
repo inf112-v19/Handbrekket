@@ -2,12 +2,20 @@ package inf112.skeleton.app;
 
 /**
  * Construction of cards
+ * Methods : getType and getPriority
  */
 public interface ICard {
 
-    void getType();
+    /**
+     * gets the type of the card (Icardmovement or Icardrotation)
+     * @return int 1 if movement or 2 if rotation
+     */
+    int getType();
 
-    void getPriority();
+    /**
+     * Gets the priority number of the card
+     */
+    int getPriority();
 
 
 }

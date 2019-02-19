@@ -57,7 +57,7 @@ public interface IGame {
 	/**
 	 * reads and executes events in order
 	 */
-	void readEvents(arrayList<Events>);
+	void readEvents(arrayList<Event>);
 	
 	
 	/**

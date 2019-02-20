@@ -10,6 +10,7 @@ public class Game implements IGame {
      * @return
      */
     public IBoard getBoard() {
+        //TODO:
         return null;
     }
 
@@ -61,12 +62,18 @@ public class Game implements IGame {
     public ArrayList<Event> makeEventList() {
         return null;
     }
-
+        //TODO:
+        //Roboter beveger seg.
+        //MAP...
+        //liste over eventer i fasen
     /**
      * Marius
      * @param listOfEvents
      */
-    public void readEvents(ArrayList<Event> listOfEvents) {
+    public Event readEvents(ArrayList<Event> listOfEvents) {
+        //TODO:
+        //
+
 
     }
 

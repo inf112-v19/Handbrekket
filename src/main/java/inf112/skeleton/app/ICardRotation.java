@@ -4,7 +4,7 @@ package inf112.skeleton.app;
  * Describes rotation movement of robot
  * methods : getRotationDirection and getRotationValue
  */
-public interface ICardRotation {
+public interface ICardRotation extends ICard{
 
     /**
      * gets the rotation direction

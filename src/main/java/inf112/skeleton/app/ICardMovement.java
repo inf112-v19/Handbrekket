@@ -5,7 +5,7 @@ package inf112.skeleton.app;
  * Methods : getMoveValue
  *
  */
-public interface ICardMovement {
+public interface ICardMovement extends ICard{
 
    // int moveValue();
 

@@ -2,6 +2,9 @@ package inf112.skeleton.app.card;
 
 import inf112.skeleton.app.ICardMovement;
 
+/**
+ * A fairly straightforward implementation of the ICardMovement interface
+ */
 public class MovementCard implements ICardMovement {
     private final int type = 1;
     private int priority;

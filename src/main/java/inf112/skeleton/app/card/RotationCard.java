@@ -1,6 +1,6 @@
 package inf112.skeleton.app.card;
 
-import inf112.skeleton.app.ICardRotation;
+import inf112.skeleton.app.card.ICardRotation;
 
 /**
  * A fairly straightforward implementation of the ICardRotation interface

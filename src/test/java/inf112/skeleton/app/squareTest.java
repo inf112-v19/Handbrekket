@@ -1,8 +1,13 @@
 package inf112.skeleton.app;
 
+<<<<<<< Updated upstream
 import inf112.skeleton.app.board.*;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Robot;
+=======
+import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.board.Square;
+>>>>>>> Stashed changes
 import org.junit.Test;
 
 import org.junit.Assert;

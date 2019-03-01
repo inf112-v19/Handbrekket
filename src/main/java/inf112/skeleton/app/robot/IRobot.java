@@ -11,6 +11,19 @@ import inf112.skeleton.app.board.Direction;
 public interface IRobot {
 
     /**
+     * Returns current lives
+     *
+     * @return Lives
+     */
+    int getLives();
+
+    /**
+     * Decrease lives by one
+     *
+     */
+    void decreaseLives();
+
+    /**
      * Returns current hitpoints
      *
      * @return HP

@@ -5,12 +5,18 @@ import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.robot.*;
 import inf112.skeleton.app.robot.IRobot;
 
+import javax.smartcardio.Card;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mari on 24.02.2019.
  */
 public class ProgramRegisters implements IProgramRegisters{
+
+    private Card[] listOfCards = new Card[9];
+    private Card[] cardSlots = new Card[5];
+    private boolean[] flipped = new boolean[5];
 
     /**
      * power down a robot
@@ -19,9 +25,8 @@ public class ProgramRegisters implements IProgramRegisters{
      */
     @Override
     public void powerDown(IRobot robot) {
-        robot.changeHP(0);
-//        isPoweredDown(robot) = true;
-
+        robot.setHP(0);
+        robot.powerDown();
     }
 
     /**
@@ -32,8 +37,7 @@ public class ProgramRegisters implements IProgramRegisters{
      */
     @Override
     public boolean isPoweredDown(IRobot robot) {
-        // ventar på GUI
-        return false;
+        return robot.isPoweredDown();
     }
 
     /**
@@ -54,9 +58,7 @@ public class ProgramRegisters implements IProgramRegisters{
      */
     @Override
     public void removeLife(IRobot robot) {
-        robot.changeLives();
-//  kill robot in main
-
+        robot.decreaseLives();
     }
 
     /**
@@ -75,12 +77,9 @@ public class ProgramRegisters implements IProgramRegisters{
      */
     @Override
     public boolean isCardSlotsFilled() {
-// lagar cardslots i Card
-//  kor lagrar ein cardslots?
-        ArrayList<ICard> cardSlots = new ArrayList<>();
 
-        for (int i = 0; i < cardSlots.size(); i++) {
-            if (cardSlots.get(i) == null) {
+        for (int i = 0; i < cardSlots.length; i++) {
+            if (cardSlots[1] == null) {
                 return false;
 
             }
@@ -105,9 +104,7 @@ public class ProgramRegisters implements IProgramRegisters{
      */
     @Override
     public void turnACard(ICard card) {
-//    public void turnACard(ArrayList<ICard> listOfCards) {
-//        card nextMove = listOfCards[0];
-//        listOfCards.remove(0);
 
     }
+
 }

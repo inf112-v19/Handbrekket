@@ -31,6 +31,17 @@ public interface IRobot {
     int getHP();
 
     /**
+     * powerDowns a robot
+     *
+     */
+    void powerDown();
+
+    /**
+     * check if robot is powerDown
+     */
+    boolean isPoweredDown();
+
+    /**
      * Returns the current direction the robot is facing
      *
      * @return direction
@@ -50,6 +61,13 @@ public interface IRobot {
      * NON-ESSENTIAL ATM
      */
     void move();
+
+    /**
+     *
+     * @param HP the new HP
+     * @return new HP
+     */
+    int setHP(int HP);
 
     /**
      * Changes the HP,

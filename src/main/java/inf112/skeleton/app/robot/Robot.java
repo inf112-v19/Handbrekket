@@ -15,7 +15,7 @@ public class Robot implements IRobot{
     private final int id;
     private BufferedImage image;
     private int lives;
-
+    private boolean powerDown;
     /**
      * Gets a name from the Robotbuilder class and creates the robot character with that name.
      * @param
@@ -26,7 +26,7 @@ public class Robot implements IRobot{
         hp = 0;
         lives = 3;
         this.id = id;
-
+        powerDown = false;
     }
 
     /**
@@ -57,6 +57,16 @@ public class Robot implements IRobot{
         return hp;
     }
 
+    @Override
+    public void powerDown() {
+        powerDown = true;
+    }
+
+    @Override
+    public boolean isPoweredDown() {
+        return powerDown;
+    }
+
     public Direction getDir() {
         return dir;
     }
@@ -75,6 +85,12 @@ public class Robot implements IRobot{
 
     public void move() {
 
+    }
+
+    @Override
+    public int setHP(int HP) {
+        hp = HP;
+        return hp;
     }
 
     public int changeHP(int HP) {

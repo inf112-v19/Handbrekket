@@ -80,4 +80,12 @@ public class RobotTest {
         assertFalse(2 == robot.getID());
     }
 
+    @Test
+    public void isPoweredDown(){
+        IRobot robot = new Robot(1);
+        assertEquals(false, robot.isPoweredDown());
+        assertFalse(robot.isPoweredDown());
+        robot.powerDown();
+        assertEquals(true, robot.isPoweredDown());
+    }
 }

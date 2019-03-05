@@ -1,0 +1,10 @@
+Facilitator:
+Jonas
+
+Agenda:
+	1. Oppfølging av arbeid
+	2. Kanban, Scrum & Pull Requests - Jonas
+	3. Innlevering 8. Mars
+	4. Tiled
+	5. Diskusjon om verktøy(Intellij) og kjennskap til Java
+  6. Arbeidsfordeling

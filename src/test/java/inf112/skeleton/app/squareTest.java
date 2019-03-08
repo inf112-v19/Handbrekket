@@ -1,5 +1,7 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.board.Square;
 import org.junit.Test;
 
 import org.junit.Assert;

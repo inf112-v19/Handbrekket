@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class GFX extends ApplicationAdapter implements InputProcessor{
     Texture img;
     TiledMap tiledMap;
+    TiledMapTileLayer layer;
     OrthographicCamera camera;
     TiledMapRenderer tiledMapRenderer;
 
@@ -32,13 +32,20 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("roboRally.tmx");
+        tiledMap = new TmxMapLoader().load("assets/testLIb.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         Gdx.input.setInputProcessor(this);
 
         batch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("bot-g.gif"));
+        texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         sprite = new Sprite(texture);
+        sprite.setPosition(20, 20);
+        tiledMap.getTileSets();
+        TiledMapTileSets mapSet = tiledMap.getTileSets();
+        layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
+        layer.getCell(sprite.getRegionX(),sprite.getRegionY());
+        MapObjects objects = layer.getObjects();
+
     }
 
     @Override
@@ -61,14 +68,15 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
+
         if(keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
-            sprite.setPosition(sprite.getX() - 48, sprite.getY());
+            sprite.setPosition(sprite.getX() - 80, sprite.getY());
         if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
-            sprite.setPosition(sprite.getX() + 48, sprite.getY());
+            sprite.setPosition(sprite.getX() + 80, sprite.getY());
         if(keycode == Input.Keys.UP || keycode == Input.Keys.W)
-            sprite.setPosition(sprite.getX(), sprite.getY() + 48);
+            sprite.setPosition(sprite.getX(), sprite.getY() + 80);
         if(keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
-            sprite.setPosition(sprite.getX(), sprite.getY() - 48);
+            sprite.setPosition(sprite.getX(), sprite.getY() - 80);
         if(keycode == Input.Keys.Q)
             sprite.rotate90(true);
         if(keycode == Input.Keys.E)
@@ -110,4 +118,5 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     public boolean scrolled(int amount) {
         return false;
     }
+
 }

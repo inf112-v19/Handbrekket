@@ -52,13 +52,16 @@ Oppdatere hvilke krav dere har prioritert, hvor langt dere har kommet og hva der
 
 ### Oppdatering av hvilke krav vi har prioritert
  * Forbedre tiledMap og bruke det aktivit.
- *
+ * Forbedre tester.
+ * Utvidet robot klassen.
+ * Prioritert å få til et enkelt visulet sysytem.
+ * Lagt til Iprogramregister  
 
 ### Hva har blitt gjort siden sist
  * Commits ; cbedc3463e6d23403e8e09b92b61dd0346bbe21d
 9b55a4d3feaa497f3d402add8eb79df1e1b90a6c
 a0c2ffdd8eae574cb68d90258424ffcbe0cfa3dc
 
-Ble ikke registrert på bruker siden jeg ikke var innlogget på GitHub via terminalen
+Ble ikke registrert på bruker siden Alba ikke var innlogget på GitHub via terminalen
 De commitsene tilhører Ettosan.
  *

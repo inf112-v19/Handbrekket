@@ -1,5 +1,7 @@
 package inf112.skeleton.app.board;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+
 /**
  * The main structure that contains the game board.
  * As of right now it should only keep a list of the game squares,
@@ -22,20 +24,11 @@ public interface IBoard {
     int getWidth();
 
     /**
-     * Returns the Square in the given coordinates
+     * Returns the map
      *
-     * @param x the x coordinate on the board
-     * @param y the y coordinate on the board
-     * @return the Square
+
+     * @return the map
      */
-    Square getSquare(int x, int y);
-    
-    /**
-     * Set the content of the square
-     * 
-     * @param x - width
-     * @param y - height
-     */
-    void setSquare(int x, int y);
-    
+    TiledMap getMap();
+
 }

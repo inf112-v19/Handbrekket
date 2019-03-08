@@ -1,14 +1,14 @@
 # Obligatorisk øvelse 3 Håndbrekket
 
 Obligatorisk øvelse 3
-##Deloppgave 1: Prosjekt og prosjektstruktur
-###Rollene i teamet
+## Deloppgave 1: Prosjekt og prosjektstruktur
+### Rollene i teamet
  * Teamleder kommuniserer med alle, og sørger for at det ikke går helt skeis med utviklingen av programmet.
 
 Rollene fungerer ganske bra, og vi har en teamleder om er flink til å . Men pga sykdom trenger vi å oppdatere kundekontakt fra Emilia til Mari.
 Vi har bestemt oss for hvem som skal jobbe med libGDX.
 
-###Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
+### Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
 Noen dårlige valg vi har tatt
  * startet med å utvikle grid (vi har kommet frem til at tiles fra Tiled Map Editor er en bedre løsning)
  * nedprioritering av libGDX

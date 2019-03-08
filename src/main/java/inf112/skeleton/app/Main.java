@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Board";
-        cfg.width = 1200;
-        cfg.height = 1200;
+        cfg.width = 960;
+        cfg.height = 960;
 
         new LwjglApplication(new GFX(), cfg);
     }

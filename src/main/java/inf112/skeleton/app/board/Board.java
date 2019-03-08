@@ -1,49 +1,25 @@
 package inf112.skeleton.app.board;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+
 import java.util.ArrayList;
 
 public class Board implements IBoard {
 	private int width;
 	private int height;
-	private ArrayList<ArrayList<Square>> board;
-	
+	private TiledMap map;
+
 	/**
 	 * board constructor
-	 * 
+	 *
 	 * @param x - width
-	 * @param y	- height
+	 * @param y - height
 	 */
-	public Board(int x, int y) {
+	public Board(int x, int y, TiledMap mapIn) {
 		width = x;
 		height = y;
-		board = new ArrayList<ArrayList<Square>>();
-		/*
-		 * Filling the board with Squares, x*y
-		 */
-		for(int i = 0; i < x; i++) {
-			ArrayList<Square> line = new ArrayList<Square>();
-			for(int j = 0; j < y; j++) {
-				line.add(new Square(0,0));
-			}
-			board.add(line);
-		}
+		map = mapIn;
 	}
-
-	public String printBoard () {
-
-		String printout="";
-		for (int i = 0; i < board.size(); i++) {
-			printout="Column : "+i;
-
-			for (int j = 0; j < board.get(i).size(); j++) {
-				Square square = board.get(i).get(i);
-				//printout+="\n"+square.printSquare();
-			}
-		}
-		return printout;
-	}
-
-	
 	@Override
 	public int getHeight() {
 		return height;
@@ -53,16 +29,18 @@ public class Board implements IBoard {
 	public int getWidth() {
 		return width;
 	}
-	@Override
-
-	public Square getSquare(int x, int y) {
-		
-		return board.get(x).get(y);
-	}
 
 	@Override
-	public void setSquare(int x, int y) {
-		board.get(x).set(y, new Square(0,0));
+	public TiledMap getMap() {
+		return map;
 	}
 
+		/*
+	public BoardElements checkSquare() {
+
+	}
+	*/
 }
+
+
+

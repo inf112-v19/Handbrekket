@@ -77,7 +77,7 @@ public class ProgramRegisters implements IProgramRegisters{
     public boolean isCardSlotsFilled() {
 
         for (int i = 0; i < cardSlots.length; i++) {
-            if (cardSlots[1] == null) {
+            if (cardSlots[i] == null) {
                 return false;
 
             }

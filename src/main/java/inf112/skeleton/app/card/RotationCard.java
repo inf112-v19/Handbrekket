@@ -1,6 +1,5 @@
 package inf112.skeleton.app.card;
 
-
 /**
  * A fairly straightforward implementation of the ICardRotation interface
  */

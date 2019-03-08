@@ -1,9 +1,6 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.board.Direction;
-import inf112.skeleton.app.board.Square;
 import org.junit.Test;
-
 import org.junit.Assert;
 
 
@@ -12,16 +9,34 @@ public class squareTest {
 
 
     @Test
-    public void squareIsEmpty () {
+    public void squareIsEmptyTest () {
         Square sqaure = new Square(5,5);
         Assert.assertEquals(sqaure.doesTheSquareContainARobot(),null);
 
     }
 
     @Test
-    public void squareContainsRobot () {
-        Square sqaure = new Square(5,5);
-        //Robot robot = new Robot();
+    public void squareContainsRobotTest () {
+        ISquare squaren= new Square(5,5);
+        IRobot robot = new Robot()
+
+
+
+            @Override
+            public boolean hasSquareWall(Direction dir) {
+                return false;
+            }
+
+            @Override
+            public boolean hasSquareWalls() {
+                return false;
+            }
+
+            @Override
+            public boolean putRobotInSquare(Robot robot) {
+                return false;
+            }
+        }
         //Assert.assertEquals(sqaure.doesTheSquareContainsaRobot(),robot);
 
     }

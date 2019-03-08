@@ -14,7 +14,8 @@ public class Robot implements IRobot{
     private Direction dir;
     private final int id;
     private BufferedImage image;
-
+    private int lives;
+    private boolean powerDown;
     /**
      * Gets a name from the Robotbuilder class and creates the robot character with that name.
      * @param
@@ -22,55 +23,30 @@ public class Robot implements IRobot{
      */
     public Robot(int id) {
         dir = Direction.EAST;
-        hp = 1;
+        hp = 0;
+        lives = 3;
         this.id = id;
-        /*
-        switch (id) {
-            case 1 :
-                try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case1.png"));
-                } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/case1.png could not be read");
-                }
-                break;
-            case 2 :
-                try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case2.png"));
-                } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/case2.png could not be read");
-                }
-                break;
-            case 3 :
-                try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case3.png"));
-                } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/case3.png could not be read");
-                }
-                break;
-            default:
-                try {
-                    image = ImageIO.read(this.getClass().getClassLoader().getResource("robots/case3.png"));
-                } catch (java.io.IOException | NullPointerException e) {
-                    System.out.println("robots/thedragen.png could not be read");
-                }
-                break;
-        */
-
+        powerDown = false;
     }
-
-    /*
-    Getters
-     */
-
 
     /**
-     * Returns the image of the robot.
-     * @return The image of the robot.
-
-    public BufferedImage getImage() {
-        return image;
+     * Returns current lives
+     *
+     * @return Lives
+     */
+    @Override
+    public int getLives() {
+        return lives;
     }
-    */
+
+    /**
+     * Decrease lives by one
+     */
+    @Override
+    public void decreaseLives() {
+        lives --;
+    }
+
     /**
      * Returns current hitpoints
      *
@@ -79,6 +55,16 @@ public class Robot implements IRobot{
     //
     public int getHP() {
         return hp;
+    }
+
+    @Override
+    public void powerDown() {
+        powerDown = true;
+    }
+
+    @Override
+    public boolean isPoweredDown() {
+        return powerDown;
     }
 
     public Direction getDir() {
@@ -101,8 +87,17 @@ public class Robot implements IRobot{
 
     }
 
+    @Override
+    public int setHP(int HP) {
+        hp = HP;
+        return hp;
+    }
+
     public int changeHP(int HP) {
-        return hp+=HP;
+        hp+=HP;
+        if(hp < 0)
+            hp=0;
+        return hp;
     }
 
     public int getID(){

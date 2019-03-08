@@ -85,4 +85,52 @@ public interface IRobot {
      * @return ID
      */
     int getID();
+
+    /**
+     * returns an array of the backup
+     * with coordinate x on pos 0, and coordinate y on pos 1
+     *
+     * @return position
+     */
+    int[] getBackup();
+
+
+    /**
+     * sets the state of the backup
+     * with the coordinate x on pos 0, and coordinate y on pos 1
+     *
+     * @param backup
+     */
+    void setBackup(int[] backup);
+
+    /**
+     * returns the position of the robot in the x-coordinate
+     *
+     * @return the x-position of the robot
+     */
+    int getXPosition();
+
+    /**
+     * Sets the x-position of the robot
+     *
+     * @param x-coordinate of current position
+     */
+    void setXPosition(int xCoordinate);
+
+
+
+    /**
+     * returns the position of the robot in the x-coordinate
+     *
+     * @return the y-position of the robot
+     */
+    int getYPosition();
+
+    /**
+     * Sets the y-position of the robot
+     *
+     * @param y-coordinate of current position
+     */
+    void setYPosition(int yCoordinate);
+
 }

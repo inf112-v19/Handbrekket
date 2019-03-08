@@ -13,20 +13,29 @@ public class Robot implements IRobot{
     private int hp;
     private Direction dir;
     private final int id;
-    private BufferedImage image;
     private int lives;
     private boolean powerDown;
+    private int xCoordinate;
+    private int yCoordinate;
+    private int[] backup;
+
     /**
      * Gets a name from the Robotbuilder class and creates the robot character with that name.
      * @param
      * @param
      */
-    public Robot(int id) {
+    public Robot(int id, int xCoordinate, int yCoordinate) {
         dir = Direction.EAST;
         hp = 0;
         lives = 3;
         this.id = id;
         powerDown = false;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+
+        int[] backup = new int[2];
+        backup[0] = xCoordinate;
+        backup[1] = yCoordinate;
     }
 
     /**
@@ -75,9 +84,6 @@ public class Robot implements IRobot{
         return Robot.this;
     }
 
-    public String printRobot () {
-        return "X_R";
-    }
 
     public void setDir(Direction dirIn) {
         dir = dirIn;
@@ -103,4 +109,38 @@ public class Robot implements IRobot{
     public int getID(){
         return this.id;
     }
+
+    @Override
+    public int[] getBackup() {
+
+        return backup;
+    }
+
+    @Override
+    public void setBackup(int[] backup) {
+        this.backup = backup;
+    }
+
+    @Override
+    public int getXPosition() {
+        return xCoordinate;
+    }
+
+    @Override
+    public void setXPosition(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    @Override
+    public int getYPosition() {
+        return yCoordinate;
+    }
+
+    @Override
+    public void setYPosition(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+
+
 }

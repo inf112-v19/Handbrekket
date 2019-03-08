@@ -1,9 +1,7 @@
 package inf112.skeleton.app;
 
 import inf112.skeleton.app.card.*;
-import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.robot.*;
-import inf112.skeleton.app.robot.IRobot;
 
 import javax.smartcardio.Card;
 import java.util.ArrayList;
@@ -17,14 +15,18 @@ public class ProgramRegisters implements IProgramRegisters{
     private Card[] listOfCards = new Card[9];
     private Card[] cardSlots = new Card[5];
     private boolean[] flipped = new boolean[5];
+    private IRobot robot;
 
+    public ProgramRegisters(IRobot robot){
+        this.robot = robot;
+
+    }
     /**
      * power down a robot
      *
-     * @param robot
      */
     @Override
-    public void powerDown(IRobot robot) {
+    public void powerDown() {
         robot.setHP(0);
         robot.powerDown();
     }
@@ -32,41 +34,37 @@ public class ProgramRegisters implements IProgramRegisters{
     /**
      * checks if a robot is powered down
      *
-     * @param robot
      * @return
      */
     @Override
-    public boolean isPoweredDown(IRobot robot) {
+    public boolean isPoweredDown() {
         return robot.isPoweredDown();
     }
 
     /**
      * Checks how many lives a robot has left
      *
-     * @param robot
      * @return int lives
      */
     @Override
-    public int howManyLivesLeft(IRobot robot) {
+    public int howManyLivesLeft() {
         return robot.getLives();
     }
 
     /**
      * removes one life from a robot
      *
-     * @param robot
      */
     @Override
-    public void removeLife(IRobot robot) {
+    public void removeLife() {
         robot.decreaseLives();
     }
 
     /**
-     * @param robot
      * @return
      */
     @Override
-    public int amountOfDamage(IRobot robot) {
+    public int amountOfDamage() {
         return robot.getHP();
     }
 
@@ -79,7 +77,7 @@ public class ProgramRegisters implements IProgramRegisters{
     public boolean isCardSlotsFilled() {
 
         for (int i = 0; i < cardSlots.length; i++) {
-            if (cardSlots[1] == null) {
+            if (cardSlots[i] == null) {
                 return false;
 
             }

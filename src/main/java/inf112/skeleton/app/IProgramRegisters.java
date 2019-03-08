@@ -12,36 +12,35 @@ public interface IProgramRegisters {
 
     /**
      * power down a robot
-     * @param robot
+     *
      */
-    void powerDown(IRobot robot);
+    void powerDown();
 
     /**
      * checks if a robot is powered down
-     * @param robot
+     *
      * @return
      */
-    boolean isPoweredDown(IRobot robot);
+    boolean isPoweredDown();
 
     /**
      * Checks how many lives a robot has left
-     * @param robot
+     *
      * @return int lives
      */
-    int howManyLivesLeft(IRobot robot);
+    int howManyLivesLeft();
 
     /**
      * removes one life from a robot
-     * @param robot
+     *
      */
-    void removeLife(IRobot robot);
+    void removeLife();
 
     /**
      *
-     * @param robot
      * @return
      */
-    int amountOfDamage (IRobot robot);
+    int amountOfDamage ();
 
     /**
      * Checks if all five card slots are filles

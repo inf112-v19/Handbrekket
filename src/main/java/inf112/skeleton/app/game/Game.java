@@ -1,15 +1,28 @@
 package inf112.skeleton.app.game;
 
+import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.ISquare;
-import inf112.skeleton.app.card.ICardMovement;
-import inf112.skeleton.app.card.ICardRotation;
+import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.IRobot;
+import inf112.skeleton.app.robot.Robot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game implements IGame {
 
+    IRobot robot;
+    Direction dir;
+    ArrayList<ICard> programCards;
+
+
+    public Game (IRobot robot, Direction dir ) {
+        robot = new Robot(1,1,1);
+        robot.setDir(dir);
+        programCards = new ArrayList<ICard>();
+    }
     /**
      * Gets board
      * Marius
@@ -20,13 +33,10 @@ public class Game implements IGame {
         return null;
     }
 
-    /**
-     * Eirik
-     * @param x the new x-coordinate
-     * @param y the new y-coordinate
-     */
     public void move(int x, int y) {
-
+        //((IBoard) player).setSquare(x,y);
+        robot.setXPosition(x);
+        robot.setYPosition(y);
     }
 
     /**
@@ -34,9 +44,35 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-    public void move(IRobot robot, ICardMovement card) {
 
+    //lagrer pos i robot, x -og y verdi
+
+    public void move(IRobot robot, ICardMovement card) {
+        //get current position of robot
+        // Square s = ((IBoard) player).getSquare(x, y);
+
+
+        int currentPosX = robot.getXPosition();
+        int currentPosY = robot.getYPosition();
+
+        // retrieve moveValue
+        int numberOfSteps = card.getMoveValue();
+
+        //find which direction the robot is heading in
+        Direction d = robot.getDir();
+        String dir = d.getSymbol();
+        if (dir == "N" || dir == "S") {
+            currentPosY += numberOfSteps;
+            int posY = currentPosY;
+            robot.move(0, posY); //update position
+        } else if (dir == "W" || dir == "E") {
+            currentPosX += numberOfSteps;
+            int posX = currentPosX;
+            robot.move(posX,  0); //update position
+        }
     }
+
+
 
     /**
      * Eirik
@@ -44,22 +80,119 @@ public class Game implements IGame {
      * @param card the rotation card
      */
     public void move(IRobot robot, ICardRotation card) {
+        boolean right = card.getRotationDirection();
+        int value =  card.getRotationValue();
 
+        Direction dir = robot.getDir();
+        String d = dir.getSymbol();
+        if (d == "N" && right == true){
+
+            if (value == 1){ // turn 90 degrees to the right
+                robot.setDir(Direction.EAST); //want to have dir = south
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.SOUTH);
+            }
+        }
+        else if (d == "N" && right == false) {
+
+            if (value == 1) { // turn 90 degrees to the left
+                robot.setDir(Direction.WEST);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.SOUTH);
+            }
+        }
+        else if (d == "E" && right == true){
+
+            if (value == 1){ // turn 90 degrees to the right
+                robot.setDir(Direction.SOUTH);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.WEST);
+            }
+        }
+        else if (d == "E" && right == false) {
+
+            if (value == 1) { // turn 90 degrees to the left
+                robot.setDir(Direction.NORTH);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.WEST);
+            }
+        }
+        else if (d == "S" && right == true){
+
+            if (value == 1){ // turn 90 degrees to the right
+                robot.setDir(Direction.WEST);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.NORTH);
+            }
+        }
+        else if (d == "S" && right == false) {
+
+            if (value == 1) { // turn 90 degrees to the left
+                robot.setDir(Direction.EAST);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.NORTH);
+            }
+        }
+        else if (d == "W" && right == true){
+
+            if (value == 1){ // turn 90 degrees to the right
+                robot.setDir(Direction.NORTH);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.EAST);
+            }
+        }
+        else if (d == "W" && right == false) {
+
+            if (value == 1) { // turn 90 degrees to the left
+                robot.setDir(Direction.SOUTH);
+            }
+            else if (value == 2){ //make a u-turn
+                robot.setDir(Direction.EAST);
+            }
+        }
     }
 
     /**
      * Eirik
      */
     public void doPhase() {
+        //TODO
+        // Snu programkort
+        //void turnProgramCard();
+        //Flytte roboter utfra prioritet
+        //void moveByPriority();
+        // Bevege samlebånd
+        //
+        //Bevege tannhjul
+        //Aktivere laser
+        //Telle opp skade
+
+        //Flytte backup
+        //Registrere flagg
+    }
+
+    @Override
+    public void doRound() {
 
     }
 
     /**
      * Eirik
-     */
-    public void doRound() {
 
+    public void doRound() /**{
+        //cardLocked(); // Program card must be locked
+        for (int i = 0; i < 4; i++){
+            doPhase(); //1 round = 4 phases
+        }
     }
+    */
 
     /**
      * Marius
@@ -187,6 +320,7 @@ public class Game implements IGame {
     private void createRotationCards(int cardNum, int interval, int intervalStart, boolean rotationDirection, int rotationValue) {
         for(int i = 0; i < cardNum; i++){
             programCards.add(new RotationCard(intervalStart + i * interval, rotationDirection, rotationValue));
+
         }
     }
 

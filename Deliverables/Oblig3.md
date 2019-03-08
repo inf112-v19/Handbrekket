@@ -58,6 +58,9 @@ Oppdatere hvilke krav dere har prioritert, hvor langt dere har kommet og hva der
  * Lagt til Iprogramregister  
 
 ### Hva har blitt gjort siden sist
+
+* Det vi har valgt å prioritere
+* Fikk ikke kommet så langt på libGDX visualiseringen. 
  * Commits ; cbedc3463e6d23403e8e09b92b61dd0346bbe21d
 9b55a4d3feaa497f3d402add8eb79df1e1b90a6c
 a0c2ffdd8eae574cb68d90258424ffcbe0cfa3dc
@@ -65,3 +68,10 @@ a0c2ffdd8eae574cb68d90258424ffcbe0cfa3dc
 Ble ikke registrert på bruker, siden Alba ikke var innlogget på GitHub via terminalen
 De commitsene tilhører Ettosan.
  *
+
+## Deloppgave 3: Kode
+
+* For å kjøre programmet må man kjøre main.javafilen
+* Testene ligger i test mappen.
+* Testene kjøres som JUint testfiler.
+* Klassediagramet er UML.klassediagramm v2 bildefil

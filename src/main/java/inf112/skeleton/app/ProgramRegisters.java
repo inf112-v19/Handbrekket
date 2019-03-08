@@ -24,7 +24,6 @@ public class ProgramRegisters implements IProgramRegisters{
     /**
      * power down a robot
      *
-     * @param robot
      */
     @Override
     public void powerDown() {

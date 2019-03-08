@@ -11,7 +11,7 @@ Vi har bestemt oss for hvem som skal jobbe med libGDX.
 ### Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
 Noen dårlige valg vi har tatt
  * startet med å utvikle grid (vi har kommet frem til at tiles fra Tiled Map Editor er en bedre løsning)
- * nedprioritering av libGDX
+ * nedprioritering av libgdx
 
 Når det kommer til overordnede valg vi har tatt, har det stort sett gått greit.
 

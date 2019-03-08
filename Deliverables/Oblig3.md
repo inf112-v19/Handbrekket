@@ -62,6 +62,6 @@ Oppdatere hvilke krav dere har prioritert, hvor langt dere har kommet og hva der
 9b55a4d3feaa497f3d402add8eb79df1e1b90a6c
 a0c2ffdd8eae574cb68d90258424ffcbe0cfa3dc
 
-Ble ikke registrert på bruker siden Alba ikke var innlogget på GitHub via terminalen
+Ble ikke registrert på bruker, siden Alba ikke var innlogget på GitHub via terminalen
 De commitsene tilhører Ettosan.
  *

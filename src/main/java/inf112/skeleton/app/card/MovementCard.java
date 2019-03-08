@@ -1,7 +1,5 @@
 package inf112.skeleton.app.card;
 
-import inf112.skeleton.app.card.ICardMovement;
-
 /**
  * A fairly straightforward implementation of the ICardMovement interface
  */

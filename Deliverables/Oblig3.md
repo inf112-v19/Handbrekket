@@ -44,8 +44,9 @@ Vi kommer ikke til å rekke alle innleveringskravene, som å kunne spille en ful
  * Kunne spille en fullverdig runde med alle faser
  * Få nye kort til ny runde
 
-**Teamets prioritering av oppgavene** Vi prioriterer å bruke libGDX mest mulig fremover.
-Vi har prioritert å forbedre tester.
+**Teamets prioritering av oppgavene** 
+- Vi prioriterer å bruke libGDX mest mulig fremover.
+- Vi har prioritert å forbedre tester.
 
 ### Akeptansekriteriene (Hvordan vil dere verifisere at kravene er oppfylt?)
 Oppdatere hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang

@@ -79,7 +79,7 @@ public class Game implements IGame {
     public Event readEvents(ArrayList<Event> listOfEvents) {
         //TODO:
         //
-
+        return null;
 
     }
 

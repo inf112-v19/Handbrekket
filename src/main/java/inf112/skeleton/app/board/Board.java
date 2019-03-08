@@ -37,7 +37,7 @@ public class Board implements IBoard {
 
 			for (int j = 0; j < board.get(i).size(); j++) {
 				Square square = board.get(i).get(i);
-				printout+="\n"+square.printSquare();
+				//printout+="\n"+square.printSquare();
 			}
 		}
 		return printout;

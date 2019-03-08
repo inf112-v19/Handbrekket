@@ -6,7 +6,7 @@ Obligatorisk øvelse 3
  * Teamleder kommuniserer med alle, og sørger for at det ikke går helt skeis med utviklingen av programmet.
 
 Rollene fungerer ganske bra, og vi har en teamleder som om er flink til å holde oversikt over arbeidsfordelingene og holder seg oppdatert på hvor langt alle gruppemedlemmene har kommet med arbeidet sitt. Men pga sykdom trenger vi å oppdatere kundekontakt fra Emilia til Mari.
-Vi har bestemt oss for hvem som skal jobbe med libGDX.
+Vi har bestemt oss for at Jonas, Alba, Marius og Erik skal jobbe med libGDX. 
 
 ### Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
 Noen dårlige valg vi har tatt
@@ -55,7 +55,7 @@ Oppdatere hvilke krav dere har prioritert, hvor langt dere har kommet og hva der
  * Forbedre tester.
  * Utvidet robot klassen.
  * Prioritert å få til et enkelt visulet sysytem.
- * Lagt til Iprogramregister  
+ * Lagt til Iprogramregister.
 
 ### Hva har blitt gjort siden sist
 

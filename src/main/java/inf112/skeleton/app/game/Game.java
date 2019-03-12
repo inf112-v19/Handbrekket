@@ -56,16 +56,27 @@ public class Game implements IGame {
         //find which direction the robot is heading in
         Direction d = robot.getDir();
         String dir = d.getSymbol();
-        if (dir.equals("N") || dir.equals("S")) {
+        if (dir.equals("N")) {
             currentPosY += numberOfSteps;
             int posY = currentPosY;
             robot.move(0, posY); //update vertical position
-        } else if (dir.equals("W") || dir.equals("E")) {
+        } else if (dir.equals("S")) {
+            currentPosY -= numberOfSteps;
+            int posY = currentPosY;
+            robot.move(0, posY); //update vertical position
+        } else if (dir.equals("E")) {
             currentPosX += numberOfSteps;
             int posX = currentPosX;
-            robot.move(posX,  0); //update horizontal position
+            robot.move(posX, 0); //update horizontal position
+        } else if (dir.equals("W")) {
+            currentPosX -= numberOfSteps;
+            int posX = currentPosX;
+            robot.move(posX, 0); //update horizontal position
         }
     }
+
+
+
 
 
 
@@ -80,7 +91,7 @@ public class Game implements IGame {
 
         Direction dir = robot.getDir();
         String d = dir.getSymbol();
-        if (d.equals("N") && right){
+        if (d.equals("N") && right){  //if the robot currently faces north and rotates to the right
 
             if (value == 1){ // turn 90 degrees to the right
                 robot.setDir(Direction.EAST); //want to have dir = south
@@ -89,7 +100,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.SOUTH);
             }
         }
-        else if (d.equals("N")) {
+        else if (d.equals("N")) { //if the robot currently faces north and rotates to the left
 
             if (value == 1) { // turn 90 degrees to the left
                 robot.setDir(Direction.WEST);
@@ -98,7 +109,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.SOUTH);
             }
         }
-        else if (d.equals("E") && right){
+        else if (d.equals("E") && right){ //if robot faces east and rotates to the right
 
             if (value == 1){ // turn 90 degrees to the right
                 robot.setDir(Direction.SOUTH);
@@ -107,7 +118,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.WEST);
             }
         }
-        else if (d.equals("E")) {
+        else if (d.equals("E")) { //if robot faces east and rotates to the left
 
             if (value == 1) { // turn 90 degrees to the left
                 robot.setDir(Direction.NORTH);
@@ -116,7 +127,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.WEST);
             }
         }
-        else if (d.equals("S") && right){
+        else if (d.equals("S") && right){ //if robot faces south and rotates to the right
 
             if (value == 1){ // turn 90 degrees to the right
                 robot.setDir(Direction.WEST);
@@ -125,7 +136,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.NORTH);
             }
         }
-        else if (d.equals("S")) {
+        else if (d.equals("S")) { //of robot faces south and rotates to the left
 
             if (value == 1) { // turn 90 degrees to the left
                 robot.setDir(Direction.EAST);
@@ -134,7 +145,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.NORTH);
             }
         }
-        else if (d.equals("W") && right){
+        else if (d.equals("W") && right){ //if robot faces west and rotates to the right
 
             if (value == 1){ // turn 90 degrees to the right
                 robot.setDir(Direction.NORTH);
@@ -143,7 +154,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.EAST);
             }
         }
-        else if (d.equals("W")) {
+        else if (d.equals("W")) { //if robot faces west and rotates to the left
 
             if (value == 1) { // turn 90 degrees to the left
                 robot.setDir(Direction.SOUTH);

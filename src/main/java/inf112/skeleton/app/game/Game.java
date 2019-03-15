@@ -1,5 +1,6 @@
 package inf112.skeleton.app.game;
 
+import inf112.skeleton.app.IProgramRegisters;
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.ISquare;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game implements IGame {
-
+    IProgramRegisters programRegisters;
     IRobot robot;
     Direction dir;
     ArrayList<ICard> programCards;
@@ -231,17 +232,26 @@ public class Game implements IGame {
     }
 
     /**
-     * Marius
+     * Mari
      * @param robot to update the backup of
      */
     public void updateBackUp(IRobot robot) {
-
+        int[]backUp = new int[2];
+        backUp[0] = robot.getXPosition();
+        backUp[1] = robot.getYPosition();
+        robot.setBackup(backUp);
     }
 
     /**
      * Alba
      */
     public void dealCards() {
+        int howManyNewCards = 9-programRegisters.getRobot().getHP();
+        ArrayList<ICard> newCards = new ArrayList<>(howManyNewCards);
+        for(int i = 0; i < howManyNewCards; i++){
+            newCards.set(i, programCards.get(i));
+            programCards.remove(i);
+        }
 
     }
 

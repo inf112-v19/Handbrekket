@@ -3,17 +3,15 @@ package inf112.skeleton.app;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.*;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mari on 24.02.2019.
  */
 public class ProgramRegisters implements IProgramRegisters{
 
-    private Card[] listOfCards = new Card[9];
-    private Card[] cardSlots = new Card[5];
+    private ArrayList<ICard> listOfCards;
+    private ICard[] cardSlots = new ICard[5];
     private boolean[] flipped = new boolean[5];
     private IRobot robot;
 
@@ -21,6 +19,12 @@ public class ProgramRegisters implements IProgramRegisters{
         this.robot = robot;
 
     }
+
+    @Override
+    public IRobot getRobot() {
+        return robot;
+    }
+
     /**
      * power down a robot
      *
@@ -94,6 +98,12 @@ public class ProgramRegisters implements IProgramRegisters{
     public void discardOFCards(ArrayList<ICard> listOfCards) {
         listOfCards.clear();
     }
+
+    @Override
+    public void dealCards(ArrayList<ICard> listOfCards) {
+        this.listOfCards = listOfCards;
+    }
+
 
     /**
      * Turns a card during a phase/register

@@ -17,7 +17,6 @@ public class Game implements IGame {
     Direction dir;
     ArrayList<ICard> programCards;
 
-
     public Game (IRobot robot, Direction dir ) {
         robot = new Robot(1,1,1);
         robot.setDir(dir);
@@ -43,8 +42,6 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-
-
     public void move(IRobot robot, ICardMovement card) {
         //get current position of robot
         int currentPosX = robot.getXPosition();
@@ -75,11 +72,6 @@ public class Game implements IGame {
         }
     }
 
-
-
-
-
-
     /**
      * Eirik
      * @param robot to be moved
@@ -91,7 +83,7 @@ public class Game implements IGame {
 
         Direction dir = robot.getDir();
         String d = dir.getSymbol();
-        if (d.equals("N") && right){  //if the robot currently faces north and rotates to the right
+        if (d.equals("N") && right){  //if the robot faces north and rotates to the right
 
             if (value == 1){ // turn 90 degrees to the right
                 robot.setDir(Direction.EAST); //want to have dir = south
@@ -100,7 +92,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.SOUTH);
             }
         }
-        else if (d.equals("N")) { //if the robot currently faces north and rotates to the left
+        else if (d.equals("N")) { //if the robot faces north and rotates to the left
 
             if (value == 1) { // turn 90 degrees to the left
                 robot.setDir(Direction.WEST);
@@ -136,7 +128,7 @@ public class Game implements IGame {
                 robot.setDir(Direction.NORTH);
             }
         }
-        else if (d.equals("S")) { //of robot faces south and rotates to the left
+        else if (d.equals("S")) { //if robot faces south and rotates to the left
 
             if (value == 1) { // turn 90 degrees to the left
                 robot.setDir(Direction.EAST);
@@ -227,7 +219,7 @@ public class Game implements IGame {
      * @param robot to be repaired
      */
     public void repair(IRobot robot) {
-
+        robot.changeHP(-1);
     }
 
     /**

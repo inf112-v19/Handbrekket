@@ -43,32 +43,27 @@ public class Game implements IGame {
      * @param card the movement card
      */
     public void move(IRobot robot, ICardMovement card) {
-        //get current position of robot
-        int currentPosX = robot.getXPosition();
-        int currentPosY = robot.getYPosition();
+        public void move (IRobot robot, ICardMovement card){
+            //get current position of robot
+            int currentPosX = robot.getXPosition();
+            int currentPosY = robot.getYPosition();
 
-        // retrieve moveValue
-        int numberOfSteps = card.getMoveValue();
+            // retrieve moveValue
+            int numberOfSteps = card.getMoveValue();
 
-        //find which direction the robot is heading in
-        Direction d = robot.getDir();
-        String dir = d.getSymbol();
-        if (dir.equals("N")) {
-            currentPosY += numberOfSteps;
-            int posY = currentPosY;
-            robot.move(0, posY); //update vertical position
-        } else if (dir.equals("S")) {
-            currentPosY -= numberOfSteps;
-            int posY = currentPosY;
-            robot.move(0, posY); //update vertical position
-        } else if (dir.equals("E")) {
-            currentPosX += numberOfSteps;
-            int posX = currentPosX;
-            robot.move(posX, 0); //update horizontal position
-        } else if (dir.equals("W")) {
-            currentPosX -= numberOfSteps;
-            int posX = currentPosX;
-            robot.move(posX, 0); //update horizontal position
+            //find which direction the robot is heading in
+            Direction dir = robot.getDir();
+            if (dir == Direction.NORTH) {
+                currentPosY += numberOfSteps;
+            } else if (dir == Direction.SOUTH) {
+                currentPosY -= numberOfSteps;
+            } else if (dir == Direction.EAST) {
+                currentPosX += numberOfSteps;
+            } else if (dir == Direction.WEST) {
+                currentPosX -= numberOfSteps;
+            }
+            robot.setXPosition(currentPosX);
+            robot.setYPosition(currentPosY);
         }
     }
 

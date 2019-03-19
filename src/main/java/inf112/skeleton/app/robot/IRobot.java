@@ -11,11 +11,35 @@ import inf112.skeleton.app.board.Direction;
 public interface IRobot {
 
     /**
+     * Returns current lives
+     *
+     * @return Lives
+     */
+    int getLives();
+
+    /**
+     * Decrease lives by one
+     *
+     */
+    void decreaseLives();
+
+    /**
      * Returns current hitpoints
      *
      * @return HP
      */
     int getHP();
+
+    /**
+     * powerDowns a robot
+     *
+     */
+    void powerDown();
+
+    /**
+     * check if robot is powerDown
+     */
+    boolean isPoweredDown();
 
     /**
      * Returns the current direction the robot is facing
@@ -37,6 +61,13 @@ public interface IRobot {
      * NON-ESSENTIAL ATM
      */
     void move();
+
+    /**
+     *
+     * @param HP the new HP
+     * @return new HP
+     */
+    int setHP(int HP);
 
     /**
      * Changes the HP,

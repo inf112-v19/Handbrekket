@@ -1,13 +1,22 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.board;
 
 /**
  *  Temporary implementation for board elements.
  *  Will make into separate classes later.
  */
 public enum BoardElements {
-    FLAG,
-    CONVEYORBELT_TURN_RIGHT,
-    CONVEYORBELT_TURN_LEFT,
+    FLAG1,
+    FLAG2,
+    FLAG3,
+    FLAG4,
+    CONVEYORBELT_TURN_LEFT_MOVE_NORTH,
+    CONVEYORBELT_TURN_LEFT_MOVE_SOUTH,
+    CONVEYORBELT_TURN_LEFT_MOVE_WEST,
+    CONVEYORBELT_TURN_LEFT_MOVE_EAST,
+    CONVEYORBELT_TURN_RIGHT_MOVE_NORTH,
+    CONVEYORBELT_TURN_RIGHT_MOVE_SOUTH,
+    CONVEYORBELT_TURN_RIGHT_MOVE_WEST,
+    CONVEYORBELT_TURN_RIGHT_MOVE_EAST,
     CONVEYORBELT_MOVE_NORTH,
     CONVEYORBELT_MOVE_SOUTH,
     CONVEYORBELT_MOVE_WEST,
@@ -15,8 +24,8 @@ public enum BoardElements {
     GEAR_LEFT,
     GEAR_RIGHT,
     HOLES,
-    REPAIR,
-    SPECIAL_REPAIR,
+    WRENCH,
+    SPECIAL_WRENCH,
     STARTING_POSITION;
 
 

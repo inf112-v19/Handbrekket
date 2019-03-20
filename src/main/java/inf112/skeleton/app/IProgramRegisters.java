@@ -11,6 +11,12 @@ import inf112.skeleton.app.robot.IRobot;
 public interface IProgramRegisters {
 
     /**
+     * returns the robot
+     * @return
+     */
+    IRobot getRobot();
+
+    /**
      * power down a robot
      *
      */
@@ -53,6 +59,12 @@ public interface IProgramRegisters {
      * @param listOfCards
      */
     void discardOFCards (ArrayList<ICard> listOfCards);
+
+    /**
+     * Deals new cards
+     * @param listOfCards
+     */
+    void dealCards(ArrayList<ICard> listOfCards);
 
     /**
      * Turns a card during a phase/register

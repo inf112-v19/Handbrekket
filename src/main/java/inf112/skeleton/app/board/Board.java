@@ -30,6 +30,8 @@ public class Board implements IBoard {
 		return width;
 	}
 
+
+
 	@Override
 	public TiledMap getMap() {
 		return map;

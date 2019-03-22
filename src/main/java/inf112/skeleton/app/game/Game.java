@@ -1,6 +1,7 @@
 package inf112.skeleton.app.game;
 
 import inf112.skeleton.app.IProgramRegisters;
+import inf112.skeleton.app.ProgramRegisters;
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.ISquare;
@@ -13,15 +14,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game implements IGame {
-    IProgramRegisters programRegisters;
-    IRobot robot;
-    Direction dir;
+    //Todo: remove, eventually
+    private IRobot robot;
     ArrayList<ICard> programCards;
+    private IProgramRegisters currentRegister;
 
-    public Game (IRobot robot, Direction dir ) {
-        robot = new Robot(1,1,1);
-        robot.setDir(dir);
+    //Todo: Used for testing, should be removed before next hand-in
+    public ArrayList<ICard> get9Cards() {
+        ArrayList<ICard> temp = new ArrayList<>();
+        temp.addAll(programCards.subList(0,9));
+        return temp;
+    }
+
+    public Game (IRobot robot) {
+        this.robot = new Robot(1,1,1);
         programCards = new ArrayList<ICard>();
+        createDeck();
+        shuffleDeck();
+
+        currentRegister = new ProgramRegisters(robot);
     }
     /**
      * Gets board
@@ -232,7 +243,7 @@ public class Game implements IGame {
      * Alba
      */
     public void dealCards() {
-        int howManyNewCards = 9-programRegisters.getRobot().getHP();
+        int howManyNewCards = 9-currentRegister.getRobot().getHP();
         ArrayList<ICard> newCards = new ArrayList<>(howManyNewCards);
         for(int i = 0; i < howManyNewCards; i++){
             newCards.set(i, programCards.get(i));

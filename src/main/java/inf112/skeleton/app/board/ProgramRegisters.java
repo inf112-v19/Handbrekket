@@ -109,10 +109,12 @@ public class ProgramRegisters implements IProgramRegisters {
     /**
      * Turns a card during a phase/register
      *
-     * @param card
+     * @param numCard
      */
     @Override
-    public void turnACard(ICard card) {
+    public void turnACard(int numCard) {
+        flipped[numCard]=!flipped[numCard];
+
 
     }
 

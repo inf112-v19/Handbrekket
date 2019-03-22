@@ -1,6 +1,7 @@
 package inf112.skeleton.app.board;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import inf112.skeleton.app.board.BoardElements;
 
 /**
  * The main structure that contains the game board.
@@ -26,9 +27,16 @@ public interface IBoard {
     /**
      * Returns the map
      *
-
      * @return the map
      */
     TiledMap getMap();
 
+    /**
+     * Returns a BoardElement from a square, given the x and y coordinate, will return null if it's a normal square
+     *
+     * @param x the x coordinate of the square to be checked
+     * @param y the y coordinate of the square to be checked
+     * @return the type of BoardElement in the square, or null if none are present
+     */
+    BoardElements checkSquare(int x, int y);
 }

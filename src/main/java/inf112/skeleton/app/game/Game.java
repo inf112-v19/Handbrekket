@@ -68,8 +68,7 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-    public void move(IRobot robot, ICardMovement card) {
-        public void move (IRobot robot, ICardMovement card){
+    public void move (IRobot robot, ICardMovement card){
             //get current position of robot
             int currentPosX = robot.getXPosition();
             int currentPosY = robot.getYPosition();
@@ -90,8 +89,8 @@ public class Game implements IGame {
             }
             robot.setXPosition(currentPosX);
             robot.setYPosition(currentPosY);
-        }
     }
+
 
     /**
      * Eirik

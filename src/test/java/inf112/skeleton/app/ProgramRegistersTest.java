@@ -1,6 +1,11 @@
 package inf112.skeleton.app;
+<<<<<<< Updated upstream
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.MovementCard;
+=======
+import inf112.skeleton.app.board.IProgramRegisters;
+import inf112.skeleton.app.board.ProgramRegisters;
+>>>>>>> Stashed changes
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Robot;
 import org.junit.Test;

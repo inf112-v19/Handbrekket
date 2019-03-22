@@ -1,6 +1,11 @@
 package inf112.skeleton.app.game;
 
+<<<<<<< Updated upstream
 import inf112.skeleton.app.IProgramRegisters;
+=======
+import inf112.skeleton.app.board.IProgramRegisters;
+import inf112.skeleton.app.board.ProgramRegisters;
+>>>>>>> Stashed changes
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.ISquare;
@@ -8,11 +13,11 @@ import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Robot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game implements IGame {
+<<<<<<< Updated upstream
     IProgramRegisters programRegisters;
     IRobot robot;
     Direction dir;
@@ -21,7 +26,27 @@ public class Game implements IGame {
     public Game (IRobot robot, Direction dir ) {
         robot = new Robot(1,1,1);
         robot.setDir(dir);
+=======
+    ArrayList<ICard> programCards;
+    private IProgramRegisters currentRegister;
+    private  ArrayList<IProgramRegisters> allProgramRegisters;
+
+    //Todo: Used for testing, should be removed before next hand-in
+    public ArrayList<ICard> get9Cards() {
+        ArrayList<ICard> temp = new ArrayList<>();
+        temp.addAll(programCards.subList(0,9));
+        return temp;
+    }
+
+    public Game (int numberOfPlayers) {
+>>>>>>> Stashed changes
         programCards = new ArrayList<ICard>();
+    }
+
+    private ProgramRegistersFactory (int numberOfPlayers) {
+        for(int i = 0 ; i<numberOfPlayers; i++){
+            IRobot robot = new Robot(1,1+i,1+i);
+        }
     }
     /**
      * Gets board

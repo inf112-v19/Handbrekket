@@ -1,5 +1,6 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.board;
 
+import inf112.skeleton.app.board.IProgramRegisters;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.*;
 
@@ -8,14 +9,14 @@ import java.util.ArrayList;
 /**
  * Created by mari on 24.02.2019.
  */
-public class ProgramRegisters implements IProgramRegisters{
+public class ProgramRegisters implements IProgramRegisters {
 
     private ArrayList<ICard> listOfCards;
     private ICard[] cardSlots = new ICard[5];
     private boolean[] flipped = new boolean[5];
     private IRobot robot;
 
-    public ProgramRegisters(IRobot robot){
+    public ProgramRegisters(IRobot robot,int maxCards, int activeCards, int maxLives, int maxDamage){
         this.robot = robot;
 
     }

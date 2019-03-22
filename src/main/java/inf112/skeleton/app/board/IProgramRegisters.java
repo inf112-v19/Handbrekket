@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.board;
 
 import java.util.ArrayList;
 import inf112.skeleton.app.card.ICard;

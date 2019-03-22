@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class GFX extends ApplicationAdapter implements InputProcessor{
+<<<<<<< Updated upstream
     Texture img;
     TiledMap tiledMap;
     TiledMapTileLayer layer;
@@ -23,12 +24,25 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Texture texture;
     Sprite sprite;
+=======
+    private Texture img;
+    private TiledMap tiledMap;
+   private  TiledMapTileLayer layer;
+    private OrthographicCamera camera;
+   private TiledMapRenderer tiledMapRenderer;
+    private IGame game;
+    private ShapeRenderer shapeRenderer;
+
+    private SpriteBatch batch;
+    private Texture texture;
+    private Sprite sprite;
+>>>>>>> Stashed changes
 
     @Override
     public void create () {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-
+        game=new Game();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();

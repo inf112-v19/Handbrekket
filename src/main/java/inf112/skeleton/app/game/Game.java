@@ -44,7 +44,7 @@ public class Game implements IGame {
         return null;
     }
 
-    public void move(int x, int y) {
+    public void absoluteMove(int x, int y) {
         robot.setXPosition(x);
         robot.setYPosition(y);
     }
@@ -54,7 +54,7 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-    public void move (IRobot robot, ICardMovement card){
+    public void relativeMove (IRobot robot, ICardMovement card){
             //get current position of robot
             int currentPosX = robot.getXPosition();
             int currentPosY = robot.getYPosition();
@@ -77,13 +77,23 @@ public class Game implements IGame {
             robot.setYPosition(currentPosY);
     }
 
+    //Todo: update when remove Robot
+    public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate){
+        if(xCoordinate == robot.getXPosition())
+            return true;
+        else if (yCoordinate == robot.getYPosition())
+            return true;
+        else
+            return false;
+    }
+
 
     /**
      * Eirik
      * @param robot to be moved
      * @param card the rotation card
      */
-    public void move(IRobot robot, ICardRotation card) {
+    public void rotationMove(IRobot robot, ICardRotation card) {
         boolean right = card.getRotationDirection();
         int value =  card.getRotationValue();
 

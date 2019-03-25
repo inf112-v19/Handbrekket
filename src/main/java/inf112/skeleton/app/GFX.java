@@ -14,18 +14,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-<<<<<<< HEAD
-import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.game.IGame;
-
-public class GFX extends ApplicationAdapter implements InputProcessor{
-    private Texture img;
-    private TiledMap tiledMap;
-    private  TiledMapTileLayer layer;
-    private OrthographicCamera camera;
-    private TiledMapRenderer tiledMapRenderer;
-    private IGame game;
-=======
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.IGame;
@@ -39,15 +27,10 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
 
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
     private ShapeRenderer shapeRenderer;
 
     private SpriteBatch batch;
     private Texture texture;
-<<<<<<< HEAD
-    private Sprite sprite;
-
-=======
     private Texture textureP;
     private Texture damage;
     private Texture damageRed;
@@ -74,13 +57,12 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private ArrayList<ICard> testCards;
     //Todo: bad name, fix
     private int cardId = 0;
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
 
     @Override
     public void create () {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        game = new Game(1);
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();

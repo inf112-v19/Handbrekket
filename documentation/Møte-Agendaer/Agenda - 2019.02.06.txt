@@ -5,8 +5,8 @@ Participants:
 
 Agenda:
 	1. Korte introduksjoner
-	2. Rask oppsummering om klassestruktur så langt
-	3. Oppfølging av arbeid
+	2. Rask oppsummering om klassestruktur sÃ¥ langt
+	3. OppfÃ¸lging av arbeid
 	4. LibGdx ()
 	5. Oppdatere Dokumentasjon
 	6. Diskutere presentasjon

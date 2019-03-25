@@ -68,8 +68,8 @@ public interface IProgramRegisters {
 
     /**
      * Turns a card during a phase/register
-     * @param card
+     * @param numCard
      */
-    void turnACard (ICard card);
+    void turnACard (int numCard);
 }
 

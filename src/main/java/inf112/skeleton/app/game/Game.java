@@ -1,9 +1,13 @@
 package inf112.skeleton.app.game;
 
+<<<<<<< HEAD
 
 import inf112.skeleton.app.board.IProgramRegisters;
+=======
+>>>>>>> f6586670132455418a6facfc991c5d217d7953a3
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
+import inf112.skeleton.app.board.IProgramRegisters;
 import inf112.skeleton.app.board.ISquare;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.IRobot;
@@ -14,10 +18,14 @@ import java.util.Collections;
 
 public class Game implements IGame {
 
+<<<<<<< HEAD
     private IProgramRegisters programRegister;
     private IRobot robot;
     private Direction dir;
     private ArrayList<ICard> programCards;
+=======
+    ArrayList<ICard> programCards;
+>>>>>>> f6586670132455418a6facfc991c5d217d7953a3
     private IProgramRegisters currentRegister;
     private  ArrayList<IProgramRegisters> allProgramRegisters;
 
@@ -55,8 +63,8 @@ public class Game implements IGame {
     }
 
     public void move(int x, int y) {
-        robot.setXPosition(x);
-        robot.setYPosition(y);
+        currentRegister.getRobot().setXPosition(x);
+        currentRegister.getRobot().setYPosition(y);
     }
 
     /**
@@ -64,7 +72,11 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
+<<<<<<< HEAD
     public void move(IRobot robot, ICardMovement card) {
+=======
+    public void move (IRobot robot, ICardMovement card){
+>>>>>>> f6586670132455418a6facfc991c5d217d7953a3
             //get current position of robot
             int currentPosX = robot.getXPosition();
             int currentPosY = robot.getYPosition();
@@ -85,7 +97,12 @@ public class Game implements IGame {
             }
             robot.setXPosition(currentPosX);
             robot.setYPosition(currentPosY);
+<<<<<<< HEAD
         }
+=======
+    }
+>>>>>>> f6586670132455418a6facfc991c5d217d7953a3
+
 
     /**
      * Eirik
@@ -252,7 +269,11 @@ public class Game implements IGame {
      * Alba
      */
     public void dealCards() {
+<<<<<<< HEAD
         int howManyNewCards = 9 - programRegister.getRobot().getHP();
+=======
+        int howManyNewCards = 9-currentRegister.getRobot().getHP();
+>>>>>>> f6586670132455418a6facfc991c5d217d7953a3
         ArrayList<ICard> newCards = new ArrayList<>(howManyNewCards);
         for(int i = 0; i < howManyNewCards; i++){
             newCards.set(i, programCards.get(i));

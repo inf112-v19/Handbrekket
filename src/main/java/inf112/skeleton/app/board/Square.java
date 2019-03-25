@@ -6,7 +6,7 @@ public class Square implements ISquare{
 
     private int xCoordinate;
     private int yCoordinate;
-    private Robot robot=new Robot(5);
+    private Robot robot=new Robot(5,xCoordinate,yCoordinate);
 
     public Square (int xCoordinate, int yCoordinate) {
         this.xCoordinate=xCoordinate;

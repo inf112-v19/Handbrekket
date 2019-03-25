@@ -2,7 +2,7 @@ package inf112.skeleton.app.board;
 
 import inf112.skeleton.app.board.IProgramRegisters;
 import inf112.skeleton.app.card.*;
-import inf112.skeleton.app.game.GameRuleConstans;
+import inf112.skeleton.app.game.GameRuleConstants;
 import inf112.skeleton.app.robot.*;
 
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class ProgramRegisters implements IProgramRegisters {
 
     private ArrayList<ICard> listOfCards;
-    private ICard[] cardSlots = new ICard[GameRuleConstans.ACTIVE_CARDS_IN_REGISTER.getValue()];
-    private boolean[] flipped = new boolean[GameRuleConstans.ACTIVE_CARDS_IN_REGISTER.getValue()];
+    private ICard[] cardSlots = new ICard[GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue()];
+    private boolean[] flipped = new boolean[GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue()];
     private IRobot robot;
     private int maxCards;
     private int activeCards;
@@ -23,10 +23,10 @@ public class ProgramRegisters implements IProgramRegisters {
 
     public ProgramRegisters(IRobot robot){
         this.robot = robot;
-        this.activeCards=GameRuleConstans.ACTIVE_CARDS_IN_REGISTER.getValue();
-        this.maxCards=GameRuleConstans.MAX_CARDS_IN_REGISTER.getValue();
-        this.maxLives=GameRuleConstans.MAX_LIVES.getValue();
-        this.maxDamage=GameRuleConstans.MAX_DAMAGE.getValue();
+        this.activeCards=GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue();
+        this.maxCards=GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
+        this.maxLives=GameRuleConstants.MAX_LIVES.getValue();
+        this.maxDamage=GameRuleConstants.MAX_DAMAGE.getValue();
     }
 
     @Override

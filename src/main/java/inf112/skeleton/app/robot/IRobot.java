@@ -60,7 +60,7 @@ public interface IRobot {
      * Should throw some kind of exception if not possible
      * NON-ESSENTIAL ATM
      */
-    void move();
+    void move(int xCoordinate, int yCoordinate);
 
     /**
      *

@@ -89,7 +89,10 @@ public class Robot implements IRobot{
         dir = dirIn;
     }
 
-    public void move() {
+    @Override
+    public void move(int xCoordinate, int yCoordinate) {
+        this.xCoordinate += xCoordinate;
+        this.yCoordinate += yCoordinate;
 
     }
 

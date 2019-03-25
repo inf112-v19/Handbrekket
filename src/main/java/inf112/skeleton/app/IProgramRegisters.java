@@ -74,5 +74,14 @@ public interface IProgramRegisters {
 
     //Todo: add comments
     boolean addCard(ICard inputCard);
+
+    /**
+     * Turns in arraylist storen in iprogramregister
+     */
+    ArrayList<ICard> getProgramCards ();
+
+
+
+
 }
 

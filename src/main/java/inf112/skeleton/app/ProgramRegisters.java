@@ -127,4 +127,12 @@ public class ProgramRegisters implements IProgramRegisters{
         }
         return false;
     }
+
+    /**
+     * Turns in arraylist storen in iprogramregister
+     */
+    @Override
+    public ArrayList<ICard> getProgramCards() {
+        return listOfCards;
+    }
 }

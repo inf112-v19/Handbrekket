@@ -1,16 +1,5 @@
 package inf112.skeleton.app.game;
 
-<<<<<<< HEAD
-=======
-import inf112.skeleton.app.IProgramRegisters;
-import inf112.skeleton.app.ProgramRegisters;
-import inf112.skeleton.app.board.Direction;
-import inf112.skeleton.app.board.IBoard;
-import inf112.skeleton.app.board.ISquare;
-import inf112.skeleton.app.card.*;
-import inf112.skeleton.app.robot.IRobot;
-import inf112.skeleton.app.robot.Robot;
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
 
 import inf112.skeleton.app.board.*;
 import inf112.skeleton.app.card.*;
@@ -19,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game implements IGame {
-<<<<<<< HEAD
 
 
     private IProgramRegisters programRegister;
@@ -38,31 +26,13 @@ public class Game implements IGame {
 
     //Todo: Used for testing, should be removed before next hand-in
     public ArrayList<ICard> getCards() {
-=======
-    //Todo: remove, eventually
-    private IRobot robot;
-    ArrayList<ICard> programCards;
-    private IProgramRegisters currentRegister;
-
-    //Todo: Used for testing, should be removed before next hand-in
-    public ArrayList<ICard> get9Cards() {
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
         ArrayList<ICard> temp = new ArrayList<>();
         temp.addAll(programCards.subList(0,9));
         return temp;
     }
 
-<<<<<<< HEAD
     public Game (int numberOfPlayers) {
-=======
-    public Game (IRobot robot) {
-        this.robot = new Robot(1,1,1);
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
         programCards = new ArrayList<ICard>();
-        createDeck();
-        shuffleDeck();
-
-        currentRegister = new ProgramRegisters(robot);
     }
 
     private void ProgramRegistersFactory (int numberOfPlayers) {
@@ -80,15 +50,9 @@ public class Game implements IGame {
         return null;
     }
 
-<<<<<<< HEAD
     public void move(int x, int y) {
         currentRegister.getRobot().setXPosition(x);
         currentRegister.getRobot().setYPosition(y);
-=======
-    public void absoluteMove(int x, int y) {
-        robot.setXPosition(x);
-        robot.setYPosition(y);
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
     }
 
     /**
@@ -96,7 +60,6 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-<<<<<<< HEAD
     public void move(IRobot robot, ICardMovement card) {
         //get current position of robot
         int currentPosX = robot.getXPosition();
@@ -118,39 +81,6 @@ public class Game implements IGame {
         }
         robot.setXPosition(currentPosX);
         robot.setYPosition(currentPosY);
-=======
-    public void relativeMove (IRobot robot, ICardMovement card){
-            //get current position of robot
-            int currentPosX = robot.getXPosition();
-            int currentPosY = robot.getYPosition();
-
-            // retrieve moveValue
-            int numberOfSteps = card.getMoveValue();
-
-            //find which direction the robot is heading in
-            Direction dir = robot.getDir();
-            if (dir == Direction.NORTH) {
-                currentPosY += numberOfSteps;
-            } else if (dir == Direction.SOUTH) {
-                currentPosY -= numberOfSteps;
-            } else if (dir == Direction.EAST) {
-                currentPosX += numberOfSteps;
-            } else if (dir == Direction.WEST) {
-                currentPosX -= numberOfSteps;
-            }
-            robot.setXPosition(currentPosX);
-            robot.setYPosition(currentPosY);
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
-    }
-
-    //Todo: update when remove Robot
-    public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate){
-        if(xCoordinate == robot.getXPosition())
-            return true;
-        else if (yCoordinate == robot.getYPosition())
-            return true;
-        else
-            return false;
     }
 
 
@@ -160,7 +90,7 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the rotation card
      */
-    public void rotationMove(IRobot robot, ICardRotation card) {
+    public void move(IRobot robot, ICardRotation card) {
         boolean right = card.getRotationDirection();
         int value =  card.getRotationValue();
 
@@ -267,13 +197,13 @@ public class Game implements IGame {
     /**
      * Eirik
 
-    public void doRound() /**{
-        //cardLocked(); // Program card must be locked
-        for (int i = 0; i < 4; i++){
-            doPhase(); //1 round = 4 phases
-        }
-    }
-    */
+     public void doRound() /**{
+     //cardLocked(); // Program card must be locked
+     for (int i = 0; i < 4; i++){
+     doPhase(); //1 round = 4 phases
+     }
+     }
+     */
 
     /**
      * Marius
@@ -282,10 +212,10 @@ public class Game implements IGame {
     public ArrayList<Event> makeEventList() {
         return null;
     }
-        //TODO:
-        //Roboter beveger seg.
-        //MAP...
-        //liste over eventer i fasen
+    //TODO:
+    //Roboter beveger seg.
+    //MAP...
+    //liste over eventer i fasen
     /**
      * Marius
      * @param listOfEvents
@@ -320,12 +250,8 @@ public class Game implements IGame {
      * Alba
      */
     public void dealCards() {
-<<<<<<< HEAD
         int howManyNewCards = 9 - programRegister.getRobot().getHP();
         //int howManyNewCards = 9- currentRegister.getRobot().getHP();
-=======
-        int howManyNewCards = 9-currentRegister.getRobot().getHP();
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
         ArrayList<ICard> newCards = new ArrayList<>(howManyNewCards);
         for(int i = 0; i < howManyNewCards; i++){
             newCards.set(i, programCards.get(i));
@@ -424,5 +350,24 @@ public class Game implements IGame {
      */
     private void shuffleDeck() {
         Collections.shuffle(programCards);
+    }
+
+    public void absoluteMove(int x, int y){
+
+    }
+
+    @Override
+    public void relativeMove(IRobot robot, ICardMovement card) {
+
+    }
+
+    @Override
+    public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate) {
+        return false;
+    }
+
+    @Override
+    public void rotationMove(IRobot robot, ICardRotation card) {
+
     }
 }

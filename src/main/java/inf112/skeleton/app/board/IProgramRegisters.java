@@ -70,6 +70,22 @@ public interface IProgramRegisters {
      * Turns a card during a phase/register
      * @param numCard
      */
+<<<<<<< HEAD:src/main/java/inf112/skeleton/app/board/IProgramRegisters.java
     void turnACard (int numCard);
+=======
+    void turnACard (ICard card);
+
+    //Todo: add comments
+    boolean addCard(ICard inputCard);
+
+    /**
+     * Turns in arraylist storen in iprogramregister
+     */
+    ArrayList<ICard> getProgramCards ();
+
+
+
+
+>>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f:src/main/java/inf112/skeleton/app/IProgramRegisters.java
 }
 

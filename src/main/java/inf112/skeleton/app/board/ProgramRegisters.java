@@ -126,5 +126,25 @@ public class ProgramRegisters implements IProgramRegisters {
 
     }
 
+    //Todo: better method name & write better comments
+    //Attempts to fill a cardSlot, return true if sucess, false if fail
+    @Override
+    public boolean addCard(ICard inputCard) {
+        for(int i = 0; i < cardSlots.length;i++) {
+            if(cardSlots[i] == null){
+                cardSlots[i] = inputCard;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Turns in arraylist storen in iprogramregister
+     */
+    @Override
+    public ArrayList<ICard> getProgramCards() {
+        return listOfCards;
+    }
 }
 

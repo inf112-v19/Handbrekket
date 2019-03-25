@@ -26,7 +26,7 @@ public interface IGame {
 	 * @param x the new x-coordinate
 	 * @param y the new y-coordinate
 	 */
-	void move(int x, int y);
+	void absoluteMove(int x, int y);
 	
 	
 	/**
@@ -34,15 +34,23 @@ public interface IGame {
 	 * @param robot to be moved
 	 * @param card the movement card
 	 */
-	void move(IRobot robot, ICardMovement card);
+	void relativeMove(IRobot robot, ICardMovement card);
 
-	
+
+	/**
+	 * Checks if tile contains a robot
+	 * @param xCoordinate x-ccordinate on board
+	 * @param yCoordinate y-coordinate on board
+	 * @return
+	 */
+	public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate);
+
 	/**
 	 * relative movement (robot)
 	 * @param robot to be moved
 	 * @param card the rotation card
 	 */
-	void move(IRobot robot, ICardRotation card);
+	void rotationMove(IRobot robot, ICardRotation card);
 
 	/**
 	 * execute a phase

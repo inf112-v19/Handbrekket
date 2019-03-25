@@ -71,5 +71,8 @@ public interface IProgramRegisters {
      * @param card
      */
     void turnACard (ICard card);
+
+    //Todo: add comments
+    boolean addCard(ICard inputCard);
 }
 

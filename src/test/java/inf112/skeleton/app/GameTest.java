@@ -28,7 +28,7 @@ public class GameTest {
     public void setUp() {
         robot = new Robot(0,0,0);
         robot.setDir(Direction.EAST);
-        game = new Game(robot);
+        game = new Game(1);
     }
 
     @Test

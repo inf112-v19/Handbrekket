@@ -12,13 +12,13 @@ public interface IProgramRegisters {
 
     /**
      * returns the robot
+     *
      * @return
      */
     IRobot getRobot();
 
     /**
      * power down a robot
-     *
      */
     void powerDown();
 
@@ -38,42 +38,43 @@ public interface IProgramRegisters {
 
     /**
      * removes one life from a robot
-     *
      */
     void removeLife();
 
     /**
-     *
      * @return
      */
-    int amountOfDamage ();
+    int amountOfDamage();
 
     /**
      * Checks if all five card slots are filles
+     *
      * @return true if they are filled
      */
-    boolean isCardSlotsFilled ();
+    boolean isCardSlotsFilled();
 
     /**
      * Removes unused cards
+     *
      * @param listOfCards
      */
-    void discardOFCards (ArrayList<ICard> listOfCards);
+    void discardOFCards(ArrayList<ICard> listOfCards);
 
     /**
      * Deals new cards
+     *
      * @param listOfCards
      */
     void dealCards(ArrayList<ICard> listOfCards);
 
     /**
      * Turns a card during a phase/register
+     *
      * @param numCard
      */
-<<<<<<< HEAD:src/main/java/inf112/skeleton/app/board/IProgramRegisters.java
-    void turnACard (int numCard);
-=======
-    void turnACard (ICard card);
+
+    void turnACard(int numCard);
+
 
     //Todo: add comments
     boolean addCard(ICard inputCard);
@@ -81,11 +82,5 @@ public interface IProgramRegisters {
     /**
      * Turns in arraylist storen in iprogramregister
      */
-    ArrayList<ICard> getProgramCards ();
-
-
-
-
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f:src/main/java/inf112/skeleton/app/IProgramRegisters.java
+    ArrayList<ICard> getProgramCards();
 }
-

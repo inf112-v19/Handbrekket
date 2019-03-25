@@ -116,9 +116,9 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         //spriteCardFront.setPosition(1080, 680);
 
         //Also for testing
-        Game game = new Game(new Robot(1,2,3));
-        testCards = game.get9Cards();
-        shapeRenderer = new ShapeRenderer();
+        //Game game = new Game(new Robot(1,2,3));
+        //testCards = game.get9Cards();
+        //shapeRenderer = new ShapeRenderer();
         //printCards();
     }
 

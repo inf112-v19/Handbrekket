@@ -136,6 +136,9 @@ public interface IGame {
 	 * @param cards
 	 */
 	void removeCard(boolean[] cards);
-	
-	
+
+	/**
+	 * Activate Coveyorbelts
+	 */
+	void activateConveyorBelts();
 }

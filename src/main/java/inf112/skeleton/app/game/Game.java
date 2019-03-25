@@ -370,4 +370,9 @@ public class Game implements IGame {
     public void rotationMove(IRobot robot, ICardRotation card) {
 
     }
+    public void activateConveyorBelts() {
+
+
+
+    }
 }

@@ -22,17 +22,35 @@ import inf112.skeleton.app.robot.Robot;
 import java.util.ArrayList;
 
 public class GFX extends ApplicationAdapter implements InputProcessor{
-    Texture img;
-    TiledMap tiledMap;
-    TiledMapTileLayer layer;
-    OrthographicCamera camera;
-    TiledMapRenderer tiledMapRenderer;
+    private TiledMap tiledMap;
+    private TiledMapTileLayer layer;
+    private OrthographicCamera camera;
+    private TiledMapRenderer tiledMapRenderer;
 
-    ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer;
 
-    SpriteBatch batch;
-    Texture texture;
-    Sprite sprite;
+    private SpriteBatch batch;
+    private Texture texture;
+    private Texture textureP;
+    private Texture damage;
+    private Texture damageRed;
+    private Texture damageBack;
+    private Texture cardBack;
+    private Texture cardFront;
+
+    private Sprite sprite;
+    private Sprite spriteP;
+    private Sprite spriteCardBack;
+    private Sprite spriteCardFront;
+    private Sprite[] damageArr;
+    private Sprite[] getDamageArrBack;
+    private Sprite spriteDamageRed;
+    private Sprite[] damageArrback;
+    private Sprite[] cards;
+
+
+
+
 
     //Used for testing, should not be pushed
     private boolean showCards = false;
@@ -62,6 +80,40 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         layer.getCell(sprite.getRegionX(),sprite.getRegionY());
         MapObjects objects = layer.getObjects();
 
+
+        textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
+        spriteP = new Sprite(textureP);
+        spriteP.setPosition(960, 760);
+
+        cardBack = new Texture(Gdx.files.internal("assets/card_back.png"));
+        cardFront = new Texture(Gdx.files.internal("assets/card_front.png"));
+        damage = new Texture(Gdx.files.internal("assets/damage.png"));
+        damageArr = new Sprite[9];
+        damageRed = new Texture(Gdx.files.internal("assets/damage_red.png"));
+        spriteDamageRed = new Sprite(damageRed);
+        spriteDamageRed.setPosition(1000, 857);
+        damageBack = new Texture(Gdx.files.internal("assets/damage_background.png"));
+        damageArrback = new Sprite[9];
+        spriteCardBack = new Sprite(cardBack);
+        spriteCardFront = new Sprite(cardFront);
+        cards = new Sprite[5];
+        for(int i = 0; i < 5; i++){
+            cards[i] = new Sprite(cardBack);
+            cards[i].setPosition(970+(i*110), 680);
+        }
+        for(int i = 0; i < damageArrback.length; i++){
+            damageArrback[i] = new Sprite(damageBack);
+            damageArrback[i].setPosition((1047+(i*50)),857);
+        }
+        for(int i = 3; i < damageArr.length; i++){
+            damageArr[i] = new Sprite(damage);
+            damageArr[i].setPosition((1050+(i*50)),860);
+        }
+        spriteCardBack = new Sprite(cardBack);
+        spriteCardFront = new Sprite(cardFront);
+        //spriteCardBack.setPosition(970,680);
+        //spriteCardFront.setPosition(1080, 680);
+
         //Also for testing
         Game game = new Game(new Robot(1,2,3));
         testCards = game.get9Cards();
@@ -79,6 +131,17 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         tiledMapRenderer.render();
         batch.begin();
         sprite.draw(batch);
+        spriteP.draw(batch);
+        spriteDamageRed.draw(batch);
+        for (int i = 0; i < 5; i++){
+            cards[i].draw(batch);
+        }
+        for (int i = 0; i < damageArrback.length; i++){
+            damageArrback[i].draw(batch);
+        }
+        for (int i = 3; i < damageArr.length; i++){
+            damageArr[i].draw(batch);
+        }
         batch.end();
         if(showCards)
             renderCards(testCards);

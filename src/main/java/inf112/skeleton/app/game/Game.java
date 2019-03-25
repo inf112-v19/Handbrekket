@@ -1,15 +1,9 @@
 package inf112.skeleton.app.game;
 
 
-import inf112.skeleton.app.board.IProgramRegisters;
-import inf112.skeleton.app.board.Direction;
-import inf112.skeleton.app.board.IBoard;
-import inf112.skeleton.app.board.IProgramRegisters;
-import inf112.skeleton.app.board.ISquare;
+import inf112.skeleton.app.board.*;
 import inf112.skeleton.app.card.*;
-import inf112.skeleton.app.robot.IRobot;
-import inf112.skeleton.app.robot.Robot;
-
+import inf112.skeleton.app.robot.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,7 +25,7 @@ public class Game implements IGame {
 
 
     //Todo: Used for testing, should be removed before next hand-in
-    public ArrayList<ICard> get9Cards() {
+    public ArrayList<ICard> getCards() {
         ArrayList<ICard> temp = new ArrayList<>();
         temp.addAll(programCards.subList(0,9));
         return temp;
@@ -67,28 +61,26 @@ public class Game implements IGame {
      * @param card the movement card
      */
     public void move(IRobot robot, ICardMovement card) {
-    public void move (IRobot robot, ICardMovement card){
-            //get current position of robot
-            int currentPosX = robot.getXPosition();
-            int currentPosY = robot.getYPosition();
+        //get current position of robot
+        int currentPosX = robot.getXPosition();
+        int currentPosY = robot.getYPosition();
 
-            // retrieve moveValue
-            int numberOfSteps = card.getMoveValue();
+        // retrieve moveValue
+        int numberOfSteps = card.getMoveValue();
 
-            //find which direction the robot is heading in
-            Direction dir = robot.getDir();
-            if (dir == Direction.NORTH) {
-                currentPosY += numberOfSteps;
-            } else if (dir == Direction.SOUTH) {
-                currentPosY -= numberOfSteps;
-            } else if (dir == Direction.EAST) {
-                currentPosX += numberOfSteps;
-            } else if (dir == Direction.WEST) {
-                currentPosX -= numberOfSteps;
-            }
-            robot.setXPosition(currentPosX);
-            robot.setYPosition(currentPosY);
+        //find which direction the robot is heading in
+        Direction dir = robot.getDir();
+        if (dir == Direction.NORTH) {
+            currentPosY += numberOfSteps;
+        } else if (dir == Direction.SOUTH) {
+            currentPosY -= numberOfSteps;
+        } else if (dir == Direction.EAST) {
+            currentPosX += numberOfSteps;
+        } else if (dir == Direction.WEST) {
+            currentPosX -= numberOfSteps;
         }
+        robot.setXPosition(currentPosX);
+        robot.setYPosition(currentPosY);
     }
 
 
@@ -259,7 +251,7 @@ public class Game implements IGame {
      */
     public void dealCards() {
         int howManyNewCards = 9 - programRegister.getRobot().getHP();
-        int howManyNewCards = 9-currentRegister.getRobot().getHP();
+        //int howManyNewCards = 9- currentRegister.getRobot().getHP();
         ArrayList<ICard> newCards = new ArrayList<>(howManyNewCards);
         for(int i = 0; i < howManyNewCards; i++){
             newCards.set(i, programCards.get(i));

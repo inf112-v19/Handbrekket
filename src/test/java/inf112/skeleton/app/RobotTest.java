@@ -11,12 +11,7 @@ import static junit.framework.TestCase.assertFalse;
 public class RobotTest {
     IRobot robot;
 
-    @Before
-<<<<<<< HEAD
-    public void initialize() {
-=======
     public void initialize(){
->>>>>>> 2e27f7e7ffbfbdf1f4328bf0a6cae66a5c44b73f
         robot = new Robot(1,1,1);
     }
 

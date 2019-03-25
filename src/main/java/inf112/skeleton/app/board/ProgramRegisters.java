@@ -1,6 +1,8 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.board;
 
+import inf112.skeleton.app.board.IProgramRegisters;
 import inf112.skeleton.app.card.*;
+import inf112.skeleton.app.game.GameRuleConstans;
 import inf112.skeleton.app.robot.*;
 
 import java.util.ArrayList;
@@ -8,16 +10,23 @@ import java.util.ArrayList;
 /**
  * Created by mari on 24.02.2019.
  */
-public class ProgramRegisters implements IProgramRegisters{
+public class ProgramRegisters implements IProgramRegisters {
 
     private ArrayList<ICard> listOfCards;
-    private ICard[] cardSlots = new ICard[5];
-    private boolean[] flipped = new boolean[5];
+    private ICard[] cardSlots = new ICard[GameRuleConstans.ACTIVE_CARDS_IN_REGISTER.getValue()];
+    private boolean[] flipped = new boolean[GameRuleConstans.ACTIVE_CARDS_IN_REGISTER.getValue()];
     private IRobot robot;
+    private int maxCards;
+    private int activeCards;
+    private int maxLives;
+    private int maxDamage;
 
     public ProgramRegisters(IRobot robot){
         this.robot = robot;
-
+        this.activeCards=GameRuleConstans.ACTIVE_CARDS_IN_REGISTER.getValue();
+        this.maxCards=GameRuleConstans.MAX_CARDS_IN_REGISTER.getValue();
+        this.maxLives=GameRuleConstans.MAX_LIVES.getValue();
+        this.maxDamage=GameRuleConstans.MAX_DAMAGE.getValue();
     }
 
     @Override
@@ -108,11 +117,14 @@ public class ProgramRegisters implements IProgramRegisters{
     /**
      * Turns a card during a phase/register
      *
-     * @param card
+     * @param numCard
      */
     @Override
-    public void turnACard(ICard card) {
+    public void turnACard(int numCard) {
+        flipped[numCard]=!flipped[numCard];
+
 
     }
 
 }
+

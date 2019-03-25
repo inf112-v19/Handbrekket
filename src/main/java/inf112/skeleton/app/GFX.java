@@ -9,26 +9,32 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.game.IGame;
 
 public class GFX extends ApplicationAdapter implements InputProcessor{
-    Texture img;
-    TiledMap tiledMap;
-    TiledMapTileLayer layer;
-    OrthographicCamera camera;
-    TiledMapRenderer tiledMapRenderer;
+    private Texture img;
+    private TiledMap tiledMap;
+    private  TiledMapTileLayer layer;
+    private OrthographicCamera camera;
+    private TiledMapRenderer tiledMapRenderer;
+    private IGame game;
+    private ShapeRenderer shapeRenderer;
 
-    SpriteBatch batch;
-    Texture texture;
-    Sprite sprite;
+    private SpriteBatch batch;
+    private Texture texture;
+    private Sprite sprite;
+
 
     @Override
     public void create () {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-
+        game = new Game(1);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();

@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.board;
 
 import java.util.ArrayList;
 import inf112.skeleton.app.card.ICard;
@@ -68,8 +68,8 @@ public interface IProgramRegisters {
 
     /**
      * Turns a card during a phase/register
-     * @param card
+     * @param numCard
      */
-    void turnACard (ICard card);
+    void turnACard (int numCard);
 }
 

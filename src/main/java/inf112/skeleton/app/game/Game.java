@@ -1,11 +1,7 @@
 package inf112.skeleton.app.game;
 
-<<<<<<< Updated upstream
-import inf112.skeleton.app.IProgramRegisters;
-=======
+
 import inf112.skeleton.app.board.IProgramRegisters;
-import inf112.skeleton.app.board.ProgramRegisters;
->>>>>>> Stashed changes
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.ISquare;
@@ -17,19 +13,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game implements IGame {
-<<<<<<< Updated upstream
-    IProgramRegisters programRegisters;
-    IRobot robot;
-    Direction dir;
-    ArrayList<ICard> programCards;
 
-    public Game (IRobot robot, Direction dir ) {
-        robot = new Robot(1,1,1);
-        robot.setDir(dir);
-=======
-    ArrayList<ICard> programCards;
+    private IProgramRegisters programRegister;
+    private IRobot robot;
+    private Direction dir;
+    private ArrayList<ICard> programCards;
     private IProgramRegisters currentRegister;
     private  ArrayList<IProgramRegisters> allProgramRegisters;
+
+    public Game (IRobot robot, Direction dir ) {
+        robot = new Robot(1, 1, 1);
+        robot.setDir(dir);
+    }
+
+
 
     //Todo: Used for testing, should be removed before next hand-in
     public ArrayList<ICard> get9Cards() {
@@ -39,11 +36,10 @@ public class Game implements IGame {
     }
 
     public Game (int numberOfPlayers) {
->>>>>>> Stashed changes
         programCards = new ArrayList<ICard>();
     }
 
-    private ProgramRegistersFactory (int numberOfPlayers) {
+    private void ProgramRegistersFactory (int numberOfPlayers) {
         for(int i = 0 ; i<numberOfPlayers; i++){
             IRobot robot = new Robot(1,1+i,1+i);
         }
@@ -69,7 +65,6 @@ public class Game implements IGame {
      * @param card the movement card
      */
     public void move(IRobot robot, ICardMovement card) {
-        public void move (IRobot robot, ICardMovement card){
             //get current position of robot
             int currentPosX = robot.getXPosition();
             int currentPosY = robot.getYPosition();
@@ -91,7 +86,6 @@ public class Game implements IGame {
             robot.setXPosition(currentPosX);
             robot.setYPosition(currentPosY);
         }
-    }
 
     /**
      * Eirik
@@ -258,7 +252,7 @@ public class Game implements IGame {
      * Alba
      */
     public void dealCards() {
-        int howManyNewCards = 9-programRegisters.getRobot().getHP();
+        int howManyNewCards = 9 - programRegister.getRobot().getHP();
         ArrayList<ICard> newCards = new ArrayList<>(howManyNewCards);
         for(int i = 0; i < howManyNewCards; i++){
             newCards.set(i, programCards.get(i));

@@ -300,7 +300,19 @@ public class Game implements IGame {
      */
     public void removeCard(boolean[] cards) {
 
-    }/**
+    }
+
+    /**
+     * add used card to stack
+     *
+     * @param card
+     */
+    @Override
+    public void putCardToStack(ICard card) {
+        programCards.add(card);
+    }
+
+    /**
      * Creates a deck of programCards of all of the "simple" types, stored in the ArrayList programCards
      * As of right now it's hard-coded, but in the future we should probably make it more dynamic
      */

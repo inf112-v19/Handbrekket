@@ -23,7 +23,7 @@ public class Flag implements IFlag {
         x = (int) flag.getRectangle().getX();
         y = (int) flag.getRectangle().getY();
 
-        Texture texture = new Texture(".png");
+        Texture texture = new Texture("flag.png");
         sprite = new Sprite(texture);
         sprite.setSize(5, 5);
     }

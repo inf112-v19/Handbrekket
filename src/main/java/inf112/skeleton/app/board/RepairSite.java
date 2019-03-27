@@ -17,7 +17,7 @@ public class RepairSite implements IRepairSite {
     Sprite sprite;
 
 
-    public RepairSite(@org.jetbrains.annotations.NotNull RectangleMapObject repair, TiledMap map){
+    public RepairSite(RectangleMapObject repair, TiledMap map){
         x = (int) repair.getRectangle().getX();
         y = (int) repair.getRectangle().getY();
 

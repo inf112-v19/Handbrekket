@@ -14,7 +14,7 @@ public interface IMovementBoardElements {
      *
      * @return
      */
-    int[] getCorrdinates();
+    int[] getCoordinates();
 
     /**
      * Return the direction conveyor belt

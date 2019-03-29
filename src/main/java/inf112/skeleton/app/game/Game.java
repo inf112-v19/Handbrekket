@@ -273,11 +273,8 @@ public class Game implements IGame {
 
     }
 
-    /**
-     * Alba
-     * @param square
-     */
-    public void activateFlag(ISquare square) {
+    @Override
+    public void activateFlag() {
 
     }
 
@@ -385,13 +382,5 @@ public class Game implements IGame {
 
 
     public void activateConveyorBelts() {
-    }
-      
-    @Override
-    public void rotationMove(IRobot robot, ICardRotation card) {
-
-    }
-    public void activateConveyorBelts(IRobot) {
-
     }
 }

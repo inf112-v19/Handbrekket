@@ -1,7 +1,6 @@
 package inf112.skeleton.app.game;
 
 import inf112.skeleton.app.board.IBoard;
-import inf112.skeleton.app.board.ISquare;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
@@ -100,10 +99,9 @@ public interface IGame {
 	 * then checks if the robot hits flags in right order.
 	 * If so, updates the robot programming card. 
 	 * Finally, it always places a new backup.
-	 * 
-	 * @param square
+	 *
 	 */
-	void activateFlag(ISquare square);
+	void activateFlag();
 	
 	
 	/**

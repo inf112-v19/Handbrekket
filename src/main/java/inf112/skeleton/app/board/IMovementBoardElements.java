@@ -34,5 +34,5 @@ public interface IMovementBoardElements {
      * True if rotate clockwise , False if rotate counter clockwise
      * @return
      */
-    boolean getRotationDirection()
+    boolean getRotationDirection();
 }

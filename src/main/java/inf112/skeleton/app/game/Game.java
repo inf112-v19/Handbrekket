@@ -383,6 +383,15 @@ public class Game implements IGame {
         return false;
     }
 
+
     public void activateConveyorBelts() {
+    }
+      
+    @Override
+    public void rotationMove(IRobot robot, ICardRotation card) {
+
+    }
+    public void activateConveyorBelts(IRobot) {
+
     }
 }

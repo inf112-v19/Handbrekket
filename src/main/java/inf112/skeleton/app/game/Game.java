@@ -9,7 +9,6 @@ import java.util.Collections;
 
 public class Game implements IGame {
 
-
     private IProgramRegisters programRegister;
     private IRobot robot;
     private Direction dir;
@@ -22,7 +21,6 @@ public class Game implements IGame {
 //        robot = new Robot(1, 1, 1);
         robot.setDir(dir);
     }
-
 
 
     //Todo: Used for testing, should be removed before next hand-in
@@ -52,20 +50,17 @@ public class Game implements IGame {
         return null;
     }
 
-    /**
-     * Absolute movement (robot)
-     *
-     * @param coordinate the new coordinate
-     */
-    @Override
-    public void absoluteMove(int[] coordinate) {
-
-    }
 
     //TODO
     public void move(int x, int y) {
 //        currentRegister.getRobot().setXPosition(x);
 //        currentRegister.getRobot().setYPosition(y);
+    }
+    public void absoluteMove(int[] coordinate){
+//TODO
+//        currentRegister.getRobot().setXPosition(x);
+//        currentRegister.getRobot().setYPosition(y);
+            return;
     }
 
     /**
@@ -73,7 +68,7 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-    public void move(IRobot robot, ICardMovement card) {
+    public void relativeMove(IRobot robot, ICardMovement card) {
         //get current position of robot
 //TODO
 //        int currentPosX = robot.getXPosition();
@@ -106,7 +101,7 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the rotation card
      */
-    public void move(IRobot robot, ICardRotation card) {
+    public void rotationMove(IRobot robot, ICardRotation card) {
         boolean right = card.getRotationDirection();
         int value =  card.getRotationValue();
 
@@ -190,17 +185,20 @@ public class Game implements IGame {
      * Eirik
      */
     public void doPhase() {
+        //Game game = new Game()
         //TODO
         // Snu programkort
         //void turnProgramCard();
         //Flytte roboter utfra prioritet
         //void moveByPriority();
         // Bevege samlebånd
-        //
+        //game.activateConveyorBelt();
+
         //Bevege tannhjul
         //Aktivere laser
+        //game.activateLaser();
         //Telle opp skade
-
+        //(if() HP++)
         //Flytte backup
         //Registrere flagg
     }
@@ -208,18 +206,18 @@ public class Game implements IGame {
     @Override
     public void doRound() {
 
+        /**
+         * Eirik
+
+         public void doRound() /**{
+         //cardLocked(); // Program card must be locked
+         for (int i = 0; i < 4; i++){
+         doPhase(); //1 round = 4 phases
+         }
+         }
+         */
     }
 
-    /**
-     * Eirik
-
-     public void doRound() /**{
-     //cardLocked(); // Program card must be locked
-     for (int i = 0; i < 4; i++){
-     doPhase(); //1 round = 4 phases
-     }
-     }
-     */
 
     /**
      * Marius
@@ -379,27 +377,12 @@ public class Game implements IGame {
         Collections.shuffle(programCards);
     }
 
-    public void absoluteMove(int x, int y){
-
-    }
-
-    @Override
-    public void relativeMove(IRobot robot, ICardMovement card) {
-
-    }
 
     @Override
     public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate) {
         return false;
     }
 
-    @Override
-    public void rotationMove(IRobot robot, ICardRotation card) {
-
-    }
     public void activateConveyorBelts() {
-
-
-
     }
 }

@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game implements IGame {
-
     private IProgramRegisters programRegister;
     private IRobot robot;
     private Direction dir;
     private ArrayList<ICard> programCards;
+    private ArrayList<int[]> boardHoles;
     private IProgramRegisters currentRegister;
-    private  ArrayList<IProgramRegisters> allProgramRegisters;
+    private ArrayList<IProgramRegisters> allProgramRegisters;
+    private Board board;
 
     public Game (IRobot robot, Direction dir ) {
 // TODO
@@ -182,6 +183,36 @@ public class Game implements IGame {
     }
 
     /**
+     * Checks if the robot from the currentRegister is on any of the holes in the board
+     * TODO: needs to be tested
+     * @return true if on any holes, false otherwise
+     */
+    public boolean checkIfOnHole(){
+        int[] robotPos = currentRegister.getRobot().getPosition();
+        for(int[] holePos : boardHoles){
+            if(holePos.equals(robotPos))
+                return true;
+        }
+        return false;
+    }
+
+    //TODO: needs to be expanded with conveyorbelts & similar
+    private void initializeBoardElements() {
+        int widht = board.getWidth();
+        int height = board.getHeight();
+
+        for(int i = 0; i < widht; i++) {
+            for(int j = 0; j < height; j++) {
+                BoardElements elem = board.checkSquare(i,j);
+                if(elem == BoardElements.HOLES) {
+                    int[] tempArray = {i,j};
+                    boardHoles.add(tempArray);
+                }
+            }
+        }
+    }
+
+    /**
      * Eirik
      */
     public void doPhase() {
@@ -270,7 +301,6 @@ public class Game implements IGame {
             newCards.set(i, programCards.get(i));
             programCards.remove(i);
         }
-
     }
 
     @Override

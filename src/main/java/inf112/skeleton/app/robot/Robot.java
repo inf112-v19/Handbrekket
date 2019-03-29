@@ -15,8 +15,7 @@ public class Robot implements IRobot{
     private final int id;
     private int lives;
     private boolean powerDown;
-    private int xCoordinate;
-    private int yCoordinate;
+    private int[] coordinate;
     private int[] backup;
 
     /**
@@ -24,18 +23,15 @@ public class Robot implements IRobot{
      * @param
      * @param
      */
-    public Robot(int id, int xCoordinate, int yCoordinate) {
+    public Robot(int id, int[] coordinate) {
         dir = Direction.EAST;
         hp = 0;
         lives = 3;
         this.id = id;
         powerDown = false;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
 
-        int[] backup = new int[2];
-        backup[0] = xCoordinate;
-        backup[1] = yCoordinate;
+        this.coordinate = coordinate;
+        int[] backup = coordinate;
     }
 
     /**
@@ -90,13 +86,6 @@ public class Robot implements IRobot{
     }
 
     @Override
-    public void move(int xCoordinate, int yCoordinate) {
-        this.xCoordinate += xCoordinate;
-        this.yCoordinate += yCoordinate;
-
-    }
-
-    @Override
     public int setHP(int HP) {
         hp = HP;
         return hp;
@@ -115,7 +104,6 @@ public class Robot implements IRobot{
 
     @Override
     public int[] getBackup() {
-
         return backup;
     }
 
@@ -125,25 +113,12 @@ public class Robot implements IRobot{
     }
 
     @Override
-    public int getXPosition() {
-        return xCoordinate;
+    public int[] getPosition() {
+        return coordinate;
     }
 
     @Override
-    public void setXPosition(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
+    public void setPosition(int[] position) {
+        coordinate = position;
     }
-
-    @Override
-    public int getYPosition() {
-        return yCoordinate;
-    }
-
-    @Override
-    public void setYPosition(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
-    }
-
-
-
 }

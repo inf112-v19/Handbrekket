@@ -18,7 +18,8 @@ public class Game implements IGame {
     private  ArrayList<IProgramRegisters> allProgramRegisters;
 
     public Game (IRobot robot, Direction dir ) {
-        robot = new Robot(1, 1, 1);
+// TODO
+//        robot = new Robot(1, 1, 1);
         robot.setDir(dir);
     }
 
@@ -35,9 +36,10 @@ public class Game implements IGame {
         programCards = new ArrayList<ICard>();
     }
 
+// TODO
     private void ProgramRegistersFactory (int numberOfPlayers) {
         for(int i = 0 ; i<numberOfPlayers; i++){
-            IRobot robot = new Robot(1,1+i,1+i);
+//            IRobot robot = new Robot(1,1+i,1+i);
         }
     }
     /**
@@ -50,9 +52,20 @@ public class Game implements IGame {
         return null;
     }
 
+    /**
+     * Absolute movement (robot)
+     *
+     * @param coordinate the new coordinate
+     */
+    @Override
+    public void absoluteMove(int[] coordinate) {
+
+    }
+
+    //TODO
     public void move(int x, int y) {
-        currentRegister.getRobot().setXPosition(x);
-        currentRegister.getRobot().setYPosition(y);
+//        currentRegister.getRobot().setXPosition(x);
+//        currentRegister.getRobot().setYPosition(y);
     }
 
     /**
@@ -62,14 +75,16 @@ public class Game implements IGame {
      */
     public void move(IRobot robot, ICardMovement card) {
         //get current position of robot
-        int currentPosX = robot.getXPosition();
-        int currentPosY = robot.getYPosition();
+//TODO
+//        int currentPosX = robot.getXPosition();
+//        int currentPosY = robot.getYPosition();
 
         // retrieve moveValue
         int numberOfSteps = card.getMoveValue();
 
         //find which direction the robot is heading in
-        Direction dir = robot.getDir();
+//TODO
+/*        Direction dir = robot.getDir();
         if (dir == Direction.NORTH) {
             currentPosY += numberOfSteps;
         } else if (dir == Direction.SOUTH) {
@@ -81,6 +96,7 @@ public class Game implements IGame {
         }
         robot.setXPosition(currentPosX);
         robot.setYPosition(currentPosY);
+*/
     }
 
 
@@ -241,8 +257,7 @@ public class Game implements IGame {
      */
     public void updateBackUp(IRobot robot) {
         int[]backUp = new int[2];
-        backUp[0] = robot.getXPosition();
-        backUp[1] = robot.getYPosition();
+        backUp = robot.getPosition();
         robot.setBackup(backUp);
     }
 

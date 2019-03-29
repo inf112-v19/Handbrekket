@@ -24,10 +24,9 @@ public interface IGame {
 	
 	/**
 	 * Absolute movement (robot) 
-	 * @param x the new x-coordinate
-	 * @param y the new y-coordinate
+	 * @param coordinate the new coordinate
 	 */
-	void absoluteMove(int x, int y);
+	void absoluteMove(int[] coordinate);
 	
 	
 	/**

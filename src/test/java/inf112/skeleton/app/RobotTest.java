@@ -12,7 +12,8 @@ public class RobotTest {
     IRobot robot;
 
     public void initialize(){
-        robot = new Robot(1,1,1);
+        int[] testCoordinates = {1,1};
+        robot = new Robot(1, testCoordinates);
     }
 
     @Test

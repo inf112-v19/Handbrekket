@@ -17,7 +17,8 @@ public class ProgramRegistersTest {
     IProgramRegisters pR;
 
     public void initialize(){
-        robot = new Robot(1,1,1);
+        int[] testCoordinates = {1,1};
+        robot = new Robot(1,testCoordinates);
         pR = new ProgramRegisters(robot);
     }
 

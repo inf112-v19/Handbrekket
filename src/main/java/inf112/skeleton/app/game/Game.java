@@ -9,7 +9,6 @@ import java.util.Collections;
 
 public class Game implements IGame {
 
-
     private IProgramRegisters programRegister;
     private IRobot robot;
     private Direction dir;
@@ -18,10 +17,10 @@ public class Game implements IGame {
     private  ArrayList<IProgramRegisters> allProgramRegisters;
 
     public Game (IRobot robot, Direction dir ) {
-        robot = new Robot(1, 1, 1);
+// TODO
+//        robot = new Robot(1, 1, 1);
         robot.setDir(dir);
     }
-
 
 
     //Todo: Used for testing, should be removed before next hand-in
@@ -35,9 +34,10 @@ public class Game implements IGame {
         programCards = new ArrayList<ICard>();
     }
 
+// TODO
     private void ProgramRegistersFactory (int numberOfPlayers) {
         for(int i = 0 ; i<numberOfPlayers; i++){
-            IRobot robot = new Robot(1,1+i,1+i);
+//            IRobot robot = new Robot(1,1+i,1+i);
         }
     }
     /**
@@ -50,9 +50,17 @@ public class Game implements IGame {
         return null;
     }
 
+
+    //TODO
     public void move(int x, int y) {
-        currentRegister.getRobot().setXPosition(x);
-        currentRegister.getRobot().setYPosition(y);
+//        currentRegister.getRobot().setXPosition(x);
+//        currentRegister.getRobot().setYPosition(y);
+    }
+    public void absoluteMove(int[] coordinate){
+//TODO
+//        currentRegister.getRobot().setXPosition(x);
+//        currentRegister.getRobot().setYPosition(y);
+            return;
     }
 
     /**
@@ -60,16 +68,18 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the movement card
      */
-    public void move(IRobot robot, ICardMovement card) {
+    public void relativeMove(IRobot robot, ICardMovement card) {
         //get current position of robot
-        int currentPosX = robot.getXPosition();
-        int currentPosY = robot.getYPosition();
+//TODO
+//        int currentPosX = robot.getXPosition();
+//        int currentPosY = robot.getYPosition();
 
         // retrieve moveValue
         int numberOfSteps = card.getMoveValue();
 
         //find which direction the robot is heading in
-        Direction dir = robot.getDir();
+//TODO
+/*        Direction dir = robot.getDir();
         if (dir == Direction.NORTH) {
             currentPosY += numberOfSteps;
         } else if (dir == Direction.SOUTH) {
@@ -81,6 +91,7 @@ public class Game implements IGame {
         }
         robot.setXPosition(currentPosX);
         robot.setYPosition(currentPosY);
+*/
     }
 
 
@@ -90,7 +101,7 @@ public class Game implements IGame {
      * @param robot to be moved
      * @param card the rotation card
      */
-    public void move(IRobot robot, ICardRotation card) {
+    public void rotationMove(IRobot robot, ICardRotation card) {
         boolean right = card.getRotationDirection();
         int value =  card.getRotationValue();
 
@@ -174,17 +185,20 @@ public class Game implements IGame {
      * Eirik
      */
     public void doPhase() {
+        //Game game = new Game()
         //TODO
         // Snu programkort
         //void turnProgramCard();
         //Flytte roboter utfra prioritet
         //void moveByPriority();
         // Bevege samlebånd
-        //
+        //game.activateConveyorBelt();
+
         //Bevege tannhjul
         //Aktivere laser
+        //game.activateLaser();
         //Telle opp skade
-
+        //(if() HP++)
         //Flytte backup
         //Registrere flagg
     }
@@ -192,18 +206,18 @@ public class Game implements IGame {
     @Override
     public void doRound() {
 
+        /**
+         * Eirik
+
+         public void doRound() /**{
+         //cardLocked(); // Program card must be locked
+         for (int i = 0; i < 4; i++){
+         doPhase(); //1 round = 4 phases
+         }
+         }
+         */
     }
 
-    /**
-     * Eirik
-
-     public void doRound() /**{
-     //cardLocked(); // Program card must be locked
-     for (int i = 0; i < 4; i++){
-     doPhase(); //1 round = 4 phases
-     }
-     }
-     */
 
     /**
      * Marius
@@ -241,8 +255,7 @@ public class Game implements IGame {
      */
     public void updateBackUp(IRobot robot) {
         int[]backUp = new int[2];
-        backUp[0] = robot.getXPosition();
-        backUp[1] = robot.getYPosition();
+        backUp = robot.getPosition();
         robot.setBackup(backUp);
     }
 
@@ -260,11 +273,8 @@ public class Game implements IGame {
 
     }
 
-    /**
-     * Alba
-     * @param square
-     */
-    public void activateFlag(ISquare square) {
+    @Override
+    public void activateFlag() {
 
     }
 
@@ -300,7 +310,19 @@ public class Game implements IGame {
      */
     public void removeCard(boolean[] cards) {
 
-    }/**
+    }
+
+    /**
+     * add used card to stack
+     *
+     * @param card
+     */
+    @Override
+    public void putCardToStack(ICard card) {
+        programCards.add(card);
+    }
+
+    /**
      * Creates a deck of programCards of all of the "simple" types, stored in the ArrayList programCards
      * As of right now it's hard-coded, but in the future we should probably make it more dynamic
      */
@@ -352,27 +374,13 @@ public class Game implements IGame {
         Collections.shuffle(programCards);
     }
 
-    public void absoluteMove(int x, int y){
-
-    }
-
-    @Override
-    public void relativeMove(IRobot robot, ICardMovement card) {
-
-    }
 
     @Override
     public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate) {
         return false;
     }
 
-    @Override
-    public void rotationMove(IRobot robot, ICardRotation card) {
 
-    }
-    public void activateConveyorBelts(IRobot) {
-
-
-
+    public void activateConveyorBelts() {
     }
 }

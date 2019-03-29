@@ -54,7 +54,7 @@ public interface IProgramRegisters {
     boolean isCardSlotsFilled();
 
     /**
-     * Removes unused cards
+     * Removes unused cards and put them back to stack
      *
      * @param listOfCards
      */

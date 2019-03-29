@@ -3,6 +3,7 @@ package inf112.skeleton.app.board;
 import inf112.skeleton.app.board.IProgramRegisters;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.game.GameRuleConstants;
+import inf112.skeleton.app.game.IGame;
 import inf112.skeleton.app.robot.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ProgramRegisters implements IProgramRegisters {
     private int activeCards;
     private int maxLives;
     private int maxDamage;
+    private IGame game;
 
     public ProgramRegisters(IRobot robot){
         this.robot = robot;
@@ -27,6 +29,7 @@ public class ProgramRegisters implements IProgramRegisters {
         this.maxCards=GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
         this.maxLives=GameRuleConstants.MAX_LIVES.getValue();
         this.maxDamage=GameRuleConstants.MAX_DAMAGE.getValue();
+        this.game = game;
     }
 
     @Override
@@ -99,12 +102,15 @@ public class ProgramRegisters implements IProgramRegisters {
     }
 
     /**
-     * Removes unused cards
+     * Removes unused cards and put them back to stack
      *
      * @param listOfCards
      */
     @Override
     public void discardOFCards(ArrayList<ICard> listOfCards) {
+        for(int i = 0; i < listOfCards.size(); i++){
+            game.putCardToStack(listOfCards.get(i));
+        }
         listOfCards.clear();
     }
 

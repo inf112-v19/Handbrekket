@@ -17,13 +17,12 @@ public class Flag implements IFlag {
 
     /**
      * @param flag
-     * @param map
      */
-    public Flag(@org.jetbrains.annotations.NotNull RectangleMapObject flag, TiledMap map) {
+    public Flag(RectangleMapObject flag) {
         x = (int) flag.getRectangle().getX();
         y = (int) flag.getRectangle().getY();
 
-        Texture texture = new Texture(".png");
+        Texture texture = new Texture("flag.png");
         sprite = new Sprite(texture);
         sprite.setSize(5, 5);
     }

@@ -56,13 +56,6 @@ public interface IRobot {
     void setDir(Direction dir);
 
     /**
-     * Attempts to move forward,
-     * Should throw some kind of exception if not possible
-     * NON-ESSENTIAL ATM
-     */
-    void move(int xCoordinate, int yCoordinate);
-
-    /**
      *
      * @param HP the new HP
      * @return new HP
@@ -104,33 +97,19 @@ public interface IRobot {
     void setBackup(int[] backup);
 
     /**
-     * returns the position of the robot in the x-coordinate
+     * returns the position of the robot as an array,
+     * with x as the first value,
+     * and y as the second value
      *
-     * @return the x-position of the robot
+     * @return the position of the robot
      */
-    int getXPosition();
+    int[] getPosition();
 
     /**
-     * Sets the x-position of the robot
+     * Sets the position of the robot
      *
-     * @param x-coordinate of current position
+     * @param coordinate -coordinate of current position
      */
-    void setXPosition(int xCoordinate);
-
-
-
-    /**
-     * returns the position of the robot in the x-coordinate
-     *
-     * @return the y-position of the robot
-     */
-    int getYPosition();
-
-    /**
-     * Sets the y-position of the robot
-     *
-     * @param y-coordinate of current position
-     */
-    void setYPosition(int yCoordinate);
+    void setPosition(int[] coordinate);
 
 }

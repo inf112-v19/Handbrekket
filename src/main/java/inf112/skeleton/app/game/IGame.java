@@ -2,6 +2,7 @@ package inf112.skeleton.app.game;
 
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.ISquare;
+import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.robot.IRobot;
@@ -23,10 +24,9 @@ public interface IGame {
 	
 	/**
 	 * Absolute movement (robot) 
-	 * @param x the new x-coordinate
-	 * @param y the new y-coordinate
+	 * @param coordinate the new coordinate
 	 */
-	void absoluteMove(int x, int y);
+	void absoluteMove(int[] coordinate);
 	
 	
 	/**
@@ -136,6 +136,12 @@ public interface IGame {
 	 * @param cards
 	 */
 	void removeCard(boolean[] cards);
+
+	/**
+	 * add used card to stack
+	 * @param card
+	 */
+	void putCardToStack(ICard card);
 
 	/**
 	 * Activate Coveyorbelts

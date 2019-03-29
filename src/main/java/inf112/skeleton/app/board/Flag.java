@@ -17,9 +17,8 @@ public class Flag implements IFlag {
 
     /**
      * @param flag
-     * @param map
      */
-    public Flag(RectangleMapObject flag, TiledMap map) {
+    public Flag(RectangleMapObject flag) {
         x = (int) flag.getRectangle().getX();
         y = (int) flag.getRectangle().getY();
 

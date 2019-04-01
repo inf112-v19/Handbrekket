@@ -1,6 +1,7 @@
 package inf112.skeleton.app.game;
 
 import inf112.skeleton.app.board.IBoard;
+import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
@@ -77,9 +78,9 @@ public interface IGame {
 
 	/**
 	 * repair the robot
-	 * @param robot to be repaired
+	 * @param programRegister to be repaired
 	 */
-	void repair(IRobot robot);
+	void repair(IProgramRegister programRegister);
 
 	/**
 	 * updates the backup of the robot
@@ -103,30 +104,12 @@ public interface IGame {
 	 */
 	void activateFlag();
 
-
-	/**
-	 * a simple board constructor
-	 *
-	 * @param width the width of the board
-	 * @param height the height of the board
-	 * @param board the board given 2D integer array
-	 */
-	void createBoard(int width, int height, int[][] board);
-
-
-	/**
-	 * check if the robot has left the bounds of the board.
-	 * If that happens, destroy the robot
-	 */
-	void checkLeaveBoard(IRobot robot);
-
-
 	/**
 	 * restores the destroyed robot and places it back on the board in the
 	 * backup location
-	 * @param robot
+	 * @param programRegister
 	 */
-	void restoreRobot(IRobot robot);
+	void restoreRobot(IProgramRegister programRegister);
 
 
 	/**

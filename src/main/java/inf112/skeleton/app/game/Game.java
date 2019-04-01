@@ -247,10 +247,10 @@ public class Game implements IGame {
 
     /**
      * Eirik
-     * @param robot to be repaired
+     * @param programRegister to be repaired
      */
-    public void repair(IRobot robot) {
-        robot.changeHP(-1);
+    public void repair(IProgramRegister programRegister) {
+        programRegister.changeHP(-1);
     }
 
     /**
@@ -277,28 +277,10 @@ public class Game implements IGame {
     }
 
     /**
-     * Marius
-     * @param width the width of the board
-     * @param height the height of the board
-     * @param board the board given 2D integer array
-     */
-    public void createBoard(int width, int height, int[][] board) {
-
-    }
-
-    /**
-     * Marius
-     * @param robot
-     */
-    public void checkLeaveBoard(IRobot robot) {
-
-    }
-
-    /**
      * Alba
-     * @param robot
+     * @param programRegister
      */
-    public void restoreRobot(IRobot robot) {
+    public void restoreRobot(IProgramRegister programRegister) {
 
     }
 

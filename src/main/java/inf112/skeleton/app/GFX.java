@@ -75,7 +75,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("assets/testFredag.tmx");
+        tiledMap = new TmxMapLoader().load("assets/tilemap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);

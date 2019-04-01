@@ -1,5 +1,6 @@
 
 package inf112.skeleton.app;
+
 import inf112.skeleton.app.board.IProgramRegisters;
 import inf112.skeleton.app.board.ProgramRegisters;
 import inf112.skeleton.app.robot.IRobot;
@@ -15,11 +16,11 @@ public class ProgramRegistersTest {
     IRobot robot;
     IProgramRegisters pR;
 
-    @Before
-    public void initialize() {
-    robot = new Robot(1,1,1);
-    pR = new ProgramRegisters(robot);
- }
+    public void initialize(){
+        int[] testCoordinates = {1,1};
+        robot = new Robot(1,testCoordinates);
+        pR = new ProgramRegisters(robot);
+    }
 
     @Test
     public void isCardSlotsFilledTest(){
@@ -32,12 +33,18 @@ public class ProgramRegistersTest {
 
 
     @Test
-    public void powerDownTest(){
+    public void powerDownTest() {
         assertEquals(false, pR.isPoweredDown());
         pR.powerDown();
         assertEquals(true, pR.isPoweredDown());
         assertFalse(false == pR.isPoweredDown());
-
+    }
+    @Test
+    public void LivesTests(){
+        assertEquals(3, pR.howManyLivesLeft());
+        pR.removeLife();
+        pR.removeLife();
+        assertEquals(1, pR.howManyLivesLeft());
     }
 
     @Test

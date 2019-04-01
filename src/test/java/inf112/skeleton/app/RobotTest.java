@@ -5,18 +5,15 @@ import inf112.skeleton.app.robot.*;
 import inf112.skeleton.app.robot.Robot;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.awt.*;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 
 public class RobotTest {
     IRobot robot;
 
-    @Before
-    public void initialize() {
-        robot = new Robot(1,1,1);
+    public void initialize(){
+        int[] testCoordinates = {1,1};
+        robot = new Robot(1, testCoordinates);
     }
 
     @Test

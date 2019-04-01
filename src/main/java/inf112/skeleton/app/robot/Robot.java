@@ -10,109 +10,49 @@ import java.awt.image.BufferedImage;
  * Creates a robot character to assign to a player.
  */
 public class Robot implements IRobot{
-    private int hp;
     private Direction dir;
     private final int id;
-    private int lives;
-    private boolean powerDown;
-    private int xCoordinate;
-    private int yCoordinate;
+    private int[] coordinate;
     private int[] backup;
 
     /**
-     * Gets a name from the Robotbuilder class and creates the robot character with that name.
-     * @param
-     * @param
+     * Creates a robot using the coordinates and id supplied
+     *
+     * @param id the id of the robot
+     * @param coordinate the coordinates the robot is on
      */
-    public Robot(int id, int xCoordinate, int yCoordinate) {
-        dir = Direction.EAST;
-        hp = 0;
-        lives = 3;
+    public Robot(int id, int[] coordinate) {
+        dir = Direction.SOUTH; //TODO: really shouldn't automatically be set to east (I think?)
         this.id = id;
-        powerDown = false;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-
-        int[] backup = new int[2];
-        backup[0] = xCoordinate;
-        backup[1] = yCoordinate;
-    }
-
-    /**
-     * Returns current lives
-     *
-     * @return Lives
-     */
-    @Override
-    public int getLives() {
-        return lives;
-    }
-
-    /**
-     * Decrease lives by one
-     */
-    @Override
-    public void decreaseLives() {
-        lives --;
-    }
-
-    /**
-     * Returns current hitpoints
-     *
-     * @return HP
-     */
-    //
-    public int getHP() {
-        return hp;
+        this.coordinate = coordinate;
+        int[] backup = coordinate;
     }
 
     @Override
-    public void powerDown() {
-        powerDown = true;
+    public void rotate(Boolean rotateDirection) {
+        if(rotateDirection)
+            dir = dir.next();
+        else
+            dir = dir.previous();
     }
 
     @Override
-    public boolean isPoweredDown() {
-        return powerDown;
-    }
-
     public Direction getDir() {
         return dir;
     }
 
-    public Robot getRobot(){
-        return Robot.this;
-    }
-
-
+    @Override
     public void setDir(Direction dirIn) {
         dir = dirIn;
     }
 
-    public void move() {
-
-    }
-
     @Override
-    public int setHP(int HP) {
-        hp = HP;
-        return hp;
-    }
-
-    public int changeHP(int HP) {
-        hp+=HP;
-        if(hp < 0)
-            hp=0;
-        return hp;
-    }
-
     public int getID(){
         return this.id;
     }
 
     @Override
     public int[] getBackup() {
-
         return backup;
     }
 
@@ -122,25 +62,12 @@ public class Robot implements IRobot{
     }
 
     @Override
-    public int getXPosition() {
-        return xCoordinate;
+    public int[] getPosition() {
+        return coordinate;
     }
 
     @Override
-    public void setXPosition(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
+    public void setPosition(int[] position) {
+        coordinate = position;
     }
-
-    @Override
-    public int getYPosition() {
-        return yCoordinate;
-    }
-
-    @Override
-    public void setYPosition(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
-    }
-
-
-
 }

@@ -21,7 +21,7 @@ public class RepairSite implements IRepairSite {
         x = (int) repair.getRectangle().getX();
         y = (int) repair.getRectangle().getY();
 
-        Texture texture = new Texture(".png");
+        Texture texture = new Texture("wrench.png");
         sprite = new Sprite(texture);
         sprite.setSize(5, 5);
     }

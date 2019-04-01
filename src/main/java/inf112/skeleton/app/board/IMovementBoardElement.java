@@ -27,7 +27,7 @@ public interface IMovementBoardElement {
      * @return
      */
 
-    int[] getMoveValue();
+    int getMoveValue();
 
     /**
      * Returns the direction to rotate

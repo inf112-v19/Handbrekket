@@ -1,44 +1,56 @@
 package inf112.skeleton.app.board;
 
-public class MovementBoardElement implements IMovementBoardElement{
+public class MovementBoardElement implements IMovementBoardElement {
+    private int[] coordinates;
+    private Direction direction;
+    private int moveValue;
+    private Boolean rotationDirection;
+
+    public MovementBoardElement(int[] coordinates, Direction direction, int moveValue, Boolean rotationDirection) {
+        this.coordinates = coordinates;
+        this.direction = direction;
+        this.moveValue = moveValue;
+        this.rotationDirection = rotationDirection;
+    }
+
     /**
      * Return coordinates as a Array with X as the first value and Y as the second value
      *
-     * @return
+     * @return coordinates as an int[]
      */
     @Override
     public int[] getCoordinates() {
-        return new int[0];
+        return coordinates;
     }
 
     /**
-     * Return the direction conveyor belt
+     * Return the direction of the conveyor belt points(if the element is a conveyor belt)
      *
-     * @return
+     * @return Direction or null if not a conveyor belt
      */
     @Override
     public Direction getDirection() {
-        return null;
+        return direction;
     }
 
     /**
-     * Returns movement value
+     * Returns movement value (movement caused by the element)
      *
-     * @return
+     * @return moveValue, or null if the element doesn't have one
      */
     @Override
-    public int[] getMoveValue() {
-        return new int[0];
+    public int getMoveValue() {
+        return moveValue;
     }
 
     /**
      * Returns the direction to rotate
      * True if rotate clockwise , False if rotate counter clockwise
      *
-     * @return
+     * @return boolean indicating direction
      */
     @Override
     public boolean getRotationDirection() {
-        return false;
+        return rotationDirection;
     }
 }

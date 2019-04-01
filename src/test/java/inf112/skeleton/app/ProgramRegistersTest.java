@@ -16,6 +16,7 @@ public class ProgramRegistersTest {
     IRobot robot;
     IProgramRegister pR;
 
+    @Before
     public void initialize(){
         int[] testCoordinates = {1,1};
         robot = new Robot(1,testCoordinates);

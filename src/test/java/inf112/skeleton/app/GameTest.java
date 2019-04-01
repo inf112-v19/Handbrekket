@@ -25,7 +25,6 @@ public class GameTest {
     private ICardRotation moveLeft;
     private ICardRotation uTurn;
 
-    //TODO: update tests, commented lines are the old code
     @Before
     public void setUp() {
         int[] testCoordinates = {0,0};

@@ -263,12 +263,13 @@ public class Game implements IGame {
         robot.setBackup(backUp);
     }
 
-    //TODO: change to deal to ALL registers, not just the current one.
     @Override
     public void dealCards() {
-        final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
-        ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0,numberOfCardsToDeal));
-        currentRegister.setAvailableCards(temp);
+        for(IProgramRegister register : allProgramRegisters){
+            final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
+            ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0,numberOfCardsToDeal));
+            register.setAvailableCards(temp);
+        }
     }
 
     @Override

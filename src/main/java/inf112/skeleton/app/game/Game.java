@@ -119,6 +119,7 @@ public class Game implements IGame {
         return false;
     }
 
+    @Override
     public boolean checkIfOnFlag(IRobot robot){
         int[] robotPos = robot.getPosition();
         for(int[] flagPos : boardFlags){
@@ -128,6 +129,7 @@ public class Game implements IGame {
         return false;
     }
 
+    @Override
     public boolean checkIfOnRepairSite(IRobot robot){
         int[] robotPos = robot.getPosition();
         for(int[] repairSitePos : boardRepairSites){

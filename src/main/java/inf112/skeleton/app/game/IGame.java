@@ -151,13 +151,13 @@ public interface IGame {
 	 * Checks if robot has touched a flag
 	 * @return true or false
 	 */
-	boolean checkIfOnFlag();
+	boolean checkIfOnFlag(IRobot robot);
 
 	/**
 	 * Checks if robot is on a repairSite
 	 * @return true or false
 	 */
-	boolean checkIfOnRepairSite();
+	boolean checkIfOnRepairSite(IRobot robot);
 
 	/**
 	 * Checks if robot will crash into a wall

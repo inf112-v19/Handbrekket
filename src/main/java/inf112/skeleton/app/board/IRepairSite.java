@@ -16,12 +16,6 @@ public interface IRepairSite {
      */
     public Sprite getSprite();
 
-    /**
-     * executes the repair-method in game
-     *
-     * @param robot the robot to be repaired
-     */
-    public void action(IRobot robot);
 
     /**
      * A method that updates the robot's archive location. If the robot is destroyed

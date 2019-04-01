@@ -21,28 +21,28 @@
    <property name="value" type="int" value="0"/>
   </properties>
  </tile>
- <tile id="6">
+ <tile id="9">
   <properties>
    <property name="direction" value="right"/>
    <property name="type" value="straightArrow"/>
    <property name="value" value="1"/>
   </properties>
  </tile>
- <tile id="7">
+ <tile id="10">
   <properties>
    <property name="direction" value="left"/>
    <property name="type" value="straightArrow"/>
    <property name="value" value="0"/>
   </properties>
  </tile>
- <tile id="8">
+ <tile id="11">
   <properties>
    <property name="name" value="normal"/>
    <property name="type" value="wrench"/>
    <property name="value" type="int" value="0"/>
   </properties>
  </tile>
- <tile id="12">
+ <tile id="18">
   <properties>
    <property name="direction" value="right"/>
    <property name="rotate" type="bool" value="true"/>
@@ -50,7 +50,7 @@
    <property name="value" value="1"/>
   </properties>
  </tile>
- <tile id="13">
+ <tile id="19">
   <properties>
    <property name="direction" value="down"/>
    <property name="rotate" type="bool" value="true"/>
@@ -58,14 +58,14 @@
    <property name="value" value="3"/>
   </properties>
  </tile>
- <tile id="14">
+ <tile id="20">
   <properties>
    <property name="name" value="hammer"/>
    <property name="type" value="wrench"/>
    <property name="value" type="int" value="-1"/>
   </properties>
  </tile>
- <tile id="18">
+ <tile id="27">
   <properties>
    <property name="direction" value="up"/>
    <property name="rotate" type="bool" value="true"/>
@@ -73,7 +73,7 @@
    <property name="value" value="2"/>
   </properties>
  </tile>
- <tile id="19">
+ <tile id="28">
   <properties>
    <property name="direction" value="left"/>
    <property name="rotate" type="bool" value="true"/>
@@ -81,21 +81,21 @@
    <property name="value" value="0"/>
   </properties>
  </tile>
- <tile id="20">
+ <tile id="29">
   <properties>
    <property name="name" value="flag1"/>
    <property name="type" value="wrench"/>
    <property name="value" type="int" value="1"/>
   </properties>
  </tile>
- <tile id="21">
+ <tile id="30">
   <properties>
    <property name="name" value="flag2"/>
    <property name="type" value="wrench"/>
    <property name="value" type="int" value="2"/>
   </properties>
  </tile>
- <tile id="24">
+ <tile id="36">
   <properties>
    <property name="direction" value="down"/>
    <property name="rotate" type="bool" value="false"/>
@@ -103,7 +103,7 @@
    <property name="value" value="3"/>
   </properties>
  </tile>
- <tile id="25">
+ <tile id="37">
   <properties>
    <property name="direction" value="left"/>
    <property name="rotate" type="bool" value="false"/>
@@ -111,21 +111,21 @@
    <property name="value" value="0"/>
   </properties>
  </tile>
- <tile id="26">
+ <tile id="38">
   <properties>
    <property name="name" value="flag3"/>
    <property name="type" value="wrench"/>
    <property name="value" type="int" value="3"/>
   </properties>
  </tile>
- <tile id="27">
+ <tile id="39">
   <properties>
    <property name="name" value="flag4"/>
    <property name="type" value="wrench"/>
    <property name="value" type="int" value="4"/>
   </properties>
  </tile>
- <tile id="30">
+ <tile id="45">
   <properties>
    <property name="direction" value="right"/>
    <property name="rotate" type="bool" value="false"/>
@@ -133,7 +133,7 @@
    <property name="value" value="1"/>
   </properties>
  </tile>
- <tile id="31">
+ <tile id="46">
   <properties>
    <property name="direction" value="up"/>
    <property name="rotate" type="bool" value="false"/>

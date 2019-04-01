@@ -33,11 +33,6 @@ public class RepairSite implements IRepairSite {
     }
 
     @Override
-    public void action(IRobot robot) {
-        game.repair(robot);
-    }
-
-    @Override
     public void updateArchiveLocation(IRobot robot) {
         int[] backup = new int[2];
         backup[0] = x;

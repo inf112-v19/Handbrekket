@@ -38,11 +38,11 @@ public interface IGame {
 
 	/**
 	 * Checks if tile contains a robot
-	 * @param xCoordinate x-ccordinate on board
-	 * @param yCoordinate y-coordinate on board
+	 * @param coordinate x-ccordinate on index 0,
+	 *                   y-ccordinate on index 1 on board
 	 * @return
 	 */
-	public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate);
+	public boolean checkIfContainsRobot(int[] coordinate);
 
 	/**
 	 * relative movement (robot)

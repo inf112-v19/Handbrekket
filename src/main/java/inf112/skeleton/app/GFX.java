@@ -66,7 +66,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("assets/testFredag.tmx");
+        tiledMap = new TmxMapLoader().load("assets/tilemap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         Gdx.input.setInputProcessor(this);
 
@@ -111,7 +111,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         }
         spriteCardBack = new Sprite(cardBack);
         spriteCardFront = new Sprite(cardFront);
-        
+
         //spriteCardBack.setPosition(970,680);
         //spriteCardFront.setPosition(1080, 680);
 

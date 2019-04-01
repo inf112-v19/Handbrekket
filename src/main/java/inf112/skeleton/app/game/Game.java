@@ -302,7 +302,7 @@ public class Game implements IGame {
 
 
     @Override
-    public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate) {
+    public boolean checkIfContainsRobot(int[] coordinate) {
         return false;
     }
 

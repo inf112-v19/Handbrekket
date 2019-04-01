@@ -37,18 +37,18 @@ public class GameTest {
     public void testMoveTwoSteps() {
         moveTwoSteps = new MovementCard(1,2);
         game.relativeMove(robot, moveTwoSteps);
-        //robot.setXPosition(robot.getXPosition());
-        //robot.setYPosition(robot.getYPosition());
-        //assertEquals(robot.getYPosition() == 0, robot.getXPosition() == 2);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 2));
     }
 
     @Test
     public void testMoveOneStep() {
         moveThreeSteps = new MovementCard(3,1);
         game.relativeMove(robot, moveThreeSteps);
-        //robot.setXPosition(robot.getXPosition());
-        //robot.setYPosition(robot.getYPosition());
-        //assertEquals(robot.getYPosition() == 0, robot.getXPosition() == 3);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 3));
     }
 
 
@@ -56,18 +56,18 @@ public class GameTest {
     public void testMoveThreeStep() {
         moveOneStep = new MovementCard(2,3);
         game.relativeMove(robot, moveOneStep);
-        //robot.setXPosition(robot.getXPosition());
-        //robot.setYPosition(robot.getYPosition());
-        //assertEquals(robot.getYPosition() == 0, robot.getXPosition() == 1);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 1));
     }
 
     @Test
     public void testMoveOneBackwards() {
         moveOneBackwards = new MovementCard(1,-1);
         game.relativeMove(robot, moveOneBackwards);
-        //robot.setXPosition(robot.getXPosition());
-        //robot.setYPosition(robot.getYPosition());
-        //assertEquals(robot.getYPosition() == 0, robot.getXPosition() == -1);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == -1));
     }
 
     @Test

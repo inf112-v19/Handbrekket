@@ -1,7 +1,6 @@
 package inf112.skeleton.app.game;
 
 import inf112.skeleton.app.board.IBoard;
-import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
@@ -9,7 +8,7 @@ import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
 
-/**
+/** 
  * The interface contains the logic for the whole game.
  * game will implement board as field.
  */
@@ -20,15 +19,15 @@ public interface IGame {
 	 * @return board from IBoard
 	 */
 	IBoard getBoard();
-
-
+	
+	
 	/**
-	 * Absolute movement of the robot in the current register
+	 * Absolute movement (robot) 
 	 * @param coordinate the new coordinate
 	 */
-	void absoluteMove(IRobot robot, int[] coordinate);
-
-
+	void absoluteMove(int[] coordinate);
+	
+	
 	/**
 	 * Relative movement (robot)
 	 * @param robot to be moved
@@ -46,8 +45,8 @@ public interface IGame {
 	public boolean checkIfContainsRobot(int xCoordinate, int yCoordinate);
 
 	/**
-	 * Turns the current Robot
-	 * @param robot the robot to be rotated
+	 * relative movement (robot)
+	 * @param robot to be moved
 	 * @param card the rotation card
 	 */
 	void rotationMove(IRobot robot, ICardRotation card);
@@ -55,63 +54,81 @@ public interface IGame {
 	/**
 	 * execute a phase
 	 */
-	void doPhase(int phaseNumber);
-
-
+	void doPhase();
+	
+	
 	/**
 	 * execute a round
 	 */
 	void doRound();
-
-
+	
+	
 	/**
 	 * @return an ordered list of events
 	 */
 	ArrayList<Event> makeEventList();
-
-
+	
+	
 	/**
 	 * reads and executes events in order
 	 */
 	Event readEvents(ArrayList<Event> listOfEvents);
-
-
+	
+	
 	/**
 	 * repair the robot
-	 * @param programRegister to be repaired
+	 * @param robot to be repaired
 	 */
-	void repair(IProgramRegister programRegister);
-
+	void repair(IRobot robot);
+	
 	/**
 	 * updates the backup of the robot
 	 * @param robot to update the backup of
 	 */
 	void updateBackUp(IRobot robot);
-
-
+	
+	
 	/**
-	 * Deals cards to all of the programRegisters
+	 * deals the cards
 	 */
 	void dealCards();
-
-
+	
+	
 	/**
-	 * first checks if there is a flag and a robot,
+	 * first checks if there is a flag and a robot, 
 	 * then checks if the robot hits flags in right order.
-	 * If so, updates the robot programming card.
+	 * If so, updates the robot programming card. 
 	 * Finally, it always places a new backup.
 	 *
 	 */
 	void activateFlag();
-
+	
+	
 	/**
-	 * restores the destroyed robot and places it back on the board in the
-	 * backup location
-	 * @param programRegister
+	 * a simple board constructor
+	 * 
+	 * @param width the width of the board
+	 * @param height the height of the board
+	 * @param board the board given 2D integer array
 	 */
-	void restoreRobot(IProgramRegister programRegister);
-
-
+	void createBoard(int width, int height, int[][] board);
+	
+	
+	/**
+	 * check if the robot has left the bounds of the board.
+	 * If that happens, destroy the robot
+	 */
+	void checkLeaveBoard(IRobot robot);
+	
+	
+	/**
+	 * restores the destroyed robot and places it back on the board in the 
+	 * backup location
+	 * @param robot
+	 */
+	void restoreRobot(IRobot robot);
+	
+	
 	/**
 	 * removes the card
 	 * @param cards
@@ -119,24 +136,35 @@ public interface IGame {
 	void removeCard(boolean[] cards);
 
 	/**
+	 * add used card to stack
+	 * @param card
+	 */
+	void putCardToStack(ICard card);
+
+	/**
 	 * Activate Coveyorbelts
 	 */
 	void activateConveyorBelts();
 
-	/**
-	 * Adds a card to the deck
-	 *
-	 * @param card to be added to the deck
-	 */
-	void addCardToDeck(ICard card);
 
 	/**
-	 * Checks if it's possible to go from one space to the other
-	 * Has to be adjacent, if not, an exception will be thrown
-	 *
-	 * @param startCoordinates the start of the movement
-	 * @param destinationCoordinates the end of the movement
-	 * @return true if possible, false if not
+	 * Checks if robot has touched a flag
+	 * @return true or false
 	 */
-	boolean canMove(int[] startCoordinates, int[] destinationCoordinates);
+	boolean checkIfOnFlag();
+
+	/**
+	 * Checks if robot is on a repairSite
+	 * @return true or false
+	 */
+	boolean checkIfOnRepairSite();
+
+	/**
+	 * Checks if robot will crash into a wall
+	 * @param card
+	 * @return true or false
+	 */
+	boolean checkIfCrash(ICardMovement card);
+
+
 }

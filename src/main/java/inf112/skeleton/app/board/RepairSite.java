@@ -32,10 +32,10 @@ public class RepairSite implements IRepairSite {
         return sprite;
     }
 
-    @Override
-    public void action(IRobot robot) {
-        game.repair(robot);
-    }
+    //@Override
+    //public void action(IRobot robot) {
+    //    game.repair(robot);
+    //}
 
     @Override
     public void updateArchiveLocation(IRobot robot) {

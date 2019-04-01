@@ -6,6 +6,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.app.robot.IRobot;
 
+/**
+ *
+ */
 public interface IRepairSite {
 
     /**

@@ -1,7 +1,7 @@
 package inf112.skeleton.app.board;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import java.uitl.ArrayList;
+import java.util.ArrayList;
 
 /**
  * The main structure that contains the game board.

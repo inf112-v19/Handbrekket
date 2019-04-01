@@ -88,7 +88,6 @@ public class Board implements IBoard {
 			    break;
 			case "hole": elementType = BoardElements.HOLES; break;
 			case "wrench":
-			    //TODO: change from int value to String name
                 int value = (int) cell.getTile().getProperties().get("value");
                 switch (value) {
                     case 0: elementType = BoardElements.WRENCH; break;

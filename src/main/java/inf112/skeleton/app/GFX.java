@@ -58,10 +58,8 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     //Used for testing, should not be pushed
     private boolean showCards = false;
     private BitmapFont font;
-    //Todo: bad name, fix
     private int cardId = 0;
 
-    //TODO: remove at some point
     private int phaseNumber = 0;
 
     private Game game;
@@ -83,7 +81,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         Gdx.input.setInputProcessor(this);
 
-        //TODO: the amount of players should not be hard-coded
         game = new Game(tiledMap, 1);
         game.dealCards();
 
@@ -135,7 +132,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
-        //TODO: find out why the setRotation offsets the position by -25 pixels
         sprite.setPosition(xPos * tilePixelHeight + 5, yPos * tilePixelWidth + 5);
         sprite.setRotation(robot.getDir().getDirectionInDegrees());
     }
@@ -169,7 +165,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         renderActiveCards(game.getCurrentRegister().getActiveCards());
     }
 
-    //TODO: reduce redundant code repetition
     private void renderAvailableCards(ArrayList<ICard> availableCards) {
         Sprite[] cardSpriteTest = new Sprite[GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue()];
 
@@ -186,7 +181,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
                 cardSpriteTest[i].setSize(90f, 140f);
                 cardSpriteTest[i].draw(batch);
 
-                //TODO: most of this should be replaced with images instead, priority should still be drawn manually
                 font.draw(batch, Integer.toString(availableCards.get(i).getPriority()), i * 105 + 66, y + 128);
                 int type = availableCards.get(i).getType();
                 String strType = "";
@@ -239,7 +233,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
 
             font.draw(batch, Integer.toString(activeCards.get(i).getPriority()), i * 110 + 56 + x, y + 136);
-            //TODO: duplicate code, but should be replaced anyway
             int type = activeCards.get(i).getType();
             String strType = "";
             String strValue = "";
@@ -274,7 +267,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-        //TODO: make the max not be hard-coded here
         if(keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             if(showCards) {
                 if(cardId == 0)

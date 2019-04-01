@@ -6,7 +6,6 @@ package inf112.skeleton.app.board;
  * North, west, south, east
  */
 public enum Direction {
-    //TODO: change dirValue to be more consistent with cardinal directions, N should be 0 and S 2, but this is done because of how libGDX works
     NORTH ("N", 2, 0, 1),
     EAST ("E", 1, 1, 0),
     SOUTH ("S", 0, 0, -1),

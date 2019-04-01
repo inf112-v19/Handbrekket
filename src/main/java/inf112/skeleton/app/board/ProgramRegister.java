@@ -139,7 +139,6 @@ public class ProgramRegister implements IProgramRegister {
         isCardFlipped[numCard] = !isCardFlipped[numCard];
     }
 
-    //TODO: Need to change it so that it also removes the input card
     @Override
     public boolean makeCardActive(int numCard) {
         for(int i = 0; i < activeCards.length; i++) {

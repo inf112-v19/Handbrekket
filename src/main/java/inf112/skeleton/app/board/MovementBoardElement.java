@@ -1,6 +1,6 @@
 package inf112.skeleton.app.board;
 
-public class MovementBoardElements implements IMovementBoardElements{
+public class MovementBoardElement implements IMovementBoardElement{
     /**
      * Return coordinates as a Array with X as the first value and Y as the second value
      *

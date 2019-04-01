@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.2" name="drawingtest" tilewidth="80" tileheight="80" tilecount="54" columns="9">
- <image source="drawingtestWL.png" width="720" height="482"/>
+ <image source="tileset.png" width="720" height="482"/>
  <tile id="0">
   <properties>
    <property name="direction" value="up"/>

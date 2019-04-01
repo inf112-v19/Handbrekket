@@ -13,15 +13,22 @@ import java.util.Collections;
 public class Game implements IGame {
     private ArrayList<ICard> programCards = new ArrayList<>();
     private ArrayList<int[]> boardHoles = new ArrayList<>();
-    private ArrayList<IMovementBoardElement> conveyorBelts = new ArrayList<>();
-    private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
+    private ArrayList<int[]> boardFlags;
+    private ArrayList<int[]> boardRepairSites;
+    private ArrayList<int[]> boardWalls;
+    private ArrayList<IMovementBoardElements> conveyorBelts = new ArrayList<>();
+    private ArrayList<IMovementBoardElements> expressConveyorBelts = new ArrayList<>();
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
+    private Game game;
+    int x;
+    int y;
+
 
     //TODO: consider making numberOfPlayers a private variable in Game
     public Game(TiledMap tiledMap, int numberOfPlayers) {
-        board = new Board(tiledMap);
+        board = new Board(x, y, tiledMap);
         createDeck();
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
@@ -112,6 +119,26 @@ public class Game implements IGame {
         return false;
     }
 
+    public boolean checkIfOnFlag(IRobot robot){
+        int[] robotPos = robot.getPosition();
+        for(int[] flagPos : boardFlags){
+            if(flagPos.equals(robotPos))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfOnRepairSite(IRobot robot){
+        int[] robotPos = robot.getPosition();
+        for(int[] repairSitePos : boardRepairSites){
+            if(repairSitePos.equals(robotPos)) {
+                game.repair(robot);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //TODO: needs to be expanded with conveyorbelts & similar, also more comments
     private void initializeBoardElements() {
         int width = board.getWidth();
@@ -133,7 +160,7 @@ public class Game implements IGame {
                     } else
                         turnDirection = null;
 
-                    IMovementBoardElement movementBoardElement = new MovementBoardElement(tempCoordinates, dir, 1, turnDirection);
+                    IMovementBoardElements movementBoardElement = new MovementBoardElements(tempCoordinates, dir, 1, turnDirection);
                     conveyorBelts.add(movementBoardElement);
                 }
             }
@@ -363,7 +390,7 @@ public class Game implements IGame {
         for(int i = 0; i < allProgramRegisters.size(); i++) {
             //Gets the coordinates of each robot and compares them to the coordinates of the conveyor belts
             int[] currentRobotCoordinates = allProgramRegisters.get(i).getRobot().getPosition();
-            for(IMovementBoardElement conveyorBelt : conveyorBelts) {
+            for(IMovementBoardElements conveyorBelt : conveyorBelts) {
                 if(Arrays.equals(currentRobotCoordinates,conveyorBelt.getCoordinates())) {
                     currentRobotCoordinates[0] += conveyorBelt.getDirection().getDeltaX();
                     currentRobotCoordinates[1] += conveyorBelt.getDirection().getDeltaY();
@@ -393,4 +420,6 @@ public class Game implements IGame {
 
         return true;
     }
+
+
 }

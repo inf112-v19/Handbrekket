@@ -12,7 +12,7 @@ public class BoardTest {
 	@Test
 	public void testCheckSquare () {
 		TiledMap map = new TiledMap();
-		IBoard board = new Board(60,70,map);
+		IBoard board = new Board(map);
 
 		int xCoordinate = 0;
 		int yCoordinate = 0;
@@ -23,7 +23,7 @@ public class BoardTest {
 	@Test
 	public void widthTest (){
 		TiledMap map = new TiledMap();
-		IBoard board = new Board(60,70,map);
+		IBoard board = new Board(map);
 
 		int width=60;
 
@@ -36,7 +36,7 @@ public class BoardTest {
 	public void heightTest (){
 
 		TiledMap map = new TiledMap();
-		IBoard board = new Board(90,30,map);
+		IBoard board = new Board(map);
 
 		int height = 30;
 
@@ -47,7 +47,7 @@ public class BoardTest {
 	@Test
 	public void testGetMap () {
 		TiledMap map = new TiledMap();
-		IBoard board = new Board(50,50,map);
+		IBoard board = new Board(map);
 
 		TiledMap mapFromMethod = board.getMap();
 

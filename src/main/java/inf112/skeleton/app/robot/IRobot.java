@@ -9,38 +9,6 @@ import inf112.skeleton.app.board.Direction;
  * Should store its direction, HP and ID
  */
 public interface IRobot {
-
-    /**
-     * Returns current lives
-     *
-     * @return Lives
-     */
-    int getLives();
-
-    /**
-     * Decrease lives by one
-     *
-     */
-    void decreaseLives();
-
-    /**
-     * Returns current hitpoints
-     *
-     * @return HP
-     */
-    int getHP();
-
-    /**
-     * powerDowns a robot
-     *
-     */
-    void powerDown();
-
-    /**
-     * check if robot is powerDown
-     */
-    boolean isPoweredDown();
-
     /**
      * Returns the current direction the robot is facing
      *
@@ -56,21 +24,11 @@ public interface IRobot {
     void setDir(Direction dir);
 
     /**
+     * Rotates the robot in the given direction
      *
-     * @param HP the new HP
-     * @return new HP
+     * @param rotateDirection, true for clockwise, false for counterclockwise
      */
-    int setHP(int HP);
-
-    /**
-     * Changes the HP,
-     * Positive to add health
-     * Negative to remove health
-     *
-     * @param HP the HP to be added/removed
-     * @return new HP
-     */
-    int changeHP(int HP);
+    void rotate(Boolean rotateDirection);
 
     /**
      * Returns the ID of the robot
@@ -111,5 +69,4 @@ public interface IRobot {
      * @param coordinate -coordinate of current position
      */
     void setPosition(int[] coordinate);
-
 }

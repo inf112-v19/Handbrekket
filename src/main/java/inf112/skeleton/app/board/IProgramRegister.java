@@ -10,6 +10,25 @@ import inf112.skeleton.app.robot.IRobot;
  * the board that players uses to "do stuff" in game
  */
 public interface IProgramRegister {
+    /**
+     * Checks if the player is dead
+     *
+     * @return true if lives = 0; false otherwise
+     */
+    boolean isDead();
+
+    /**
+     * Returns the flag counter
+     *
+     * @return flagCounter
+     */
+    int getFlagCounter();
+
+
+    /**
+     * Increases the flag counter by 1
+     */
+    void increaseFlagCounter();
 
     /**
      * returns the robot

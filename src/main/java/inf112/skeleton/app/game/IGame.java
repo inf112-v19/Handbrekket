@@ -44,7 +44,7 @@ public interface IGame {
 	 *                   y-ccordinate on index 1 on board
 	 * @return
 	 */
-	public boolean checkIfContainsRobot(int[] coordinate);
+	boolean checkIfContainsRobot(int[] coordinate);
 
 	/**
 	 * Turns the current Robot
@@ -143,10 +143,24 @@ public interface IGame {
 
 	/**
 	 * Checks if there is a wall in the given direction for the given position.
-	 *
-	 * @param position position to check
-	 * @param dir direction to check
+	 * @param position Position to check
+	 * @param dir Direction to check
 	 * @return true if there is a wall, false if there is not.
 	 */
 	boolean checkForWall(int[] position, Direction dir);
+
+    /**
+     * Checks if robot is on a flag-tile
+     * @param robot The robot to check
+     * @return true if it is on a flag, false otherwise
+     */
+    boolean checkIfOnFlag(IRobot robot);
+
+    /**
+     * Checks if robot is on a repairSite-tile. If so, repair the given programregister
+     * @param robot The robot to check
+     * @param programRegister The programregister to be repaired
+     * @return true if it is on a repairSite, false otherwise
+     */
+    boolean checkIfOnRepairSite(IRobot robot, IProgramRegister programRegister);
 }

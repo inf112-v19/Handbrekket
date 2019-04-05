@@ -157,10 +157,10 @@ public interface IGame {
     boolean checkIfOnFlag(IRobot robot);
 
     /**
-     * Checks if robot is on a repairSite-tile. If so, repair the given programregister
+     * Iterates through the registers and performs any repairs on robots on repairSites
      * @param robot The robot to check
      * @param programRegister The programregister to be repaired
      * @return true if it is on a repairSite, false otherwise
      */
-    boolean checkIfOnRepairSite(IRobot robot, IProgramRegister programRegister);
+    void doRepairs();
 }

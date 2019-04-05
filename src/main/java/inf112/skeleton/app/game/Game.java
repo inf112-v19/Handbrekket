@@ -144,23 +144,25 @@ public class Game implements IGame {
     public boolean checkIfOnFlag(IRobot robot){
         int[] robotPos = robot.getPosition();
         for(int[] flagPos : boardFlags){
-            if(flagPos.equals(robotPos))
+            if(Arrays.equals(flagPos, robotPos))
                 return true;
         }
         return false;
     }
 
     @Override
-    public boolean checkIfOnRepairSite(IRobot robot, IProgramRegister programRegister){
+    public boolean doRepairs(IRobot robot, IProgramRegister programRegister){
         int[] robotPos = robot.getPosition();
         for(int[] repairSitePos : boardRepairSites){
-            if(repairSitePos.equals(robotPos)) {
+            if(Arrays.equals(repairSitePos, robotPos)) {
                 game.repair(programRegister);
                 return true;
             }
         }
         return false;
     }
+
+    //TODO setHoles(): sets the holes on the board
 
     //TODO: needs to be expanded with conveyorbelts & similar, also more comments
     private void initializeBoardElements() {
@@ -173,7 +175,20 @@ public class Game implements IGame {
                 int[] tempCoordinates = {i,j}; //Temporarily creates coordinates for the elements that need those
                 if(elem == BoardElements.HOLES) {
                     boardHoles.add(tempCoordinates);
-                } else if (BoardElements.CONVEYORBELTS.contains(elem)) {
+                }
+                else if (elem == BoardElements.WALL_SOUTH) {
+                    southWalls.add(tempCoordinates);
+                }
+                else if (elem == BoardElements.WALL_EAST) {
+                    eastWalls.add(tempCoordinates);
+                }
+                else if (elem == BoardElements.WALL_NORTH) {
+                    northWalls.add(tempCoordinates);
+                }
+                else if (elem == BoardElements.WALL_WEST) {
+                    westWalls.add(tempCoordinates);
+                }
+                else if (BoardElements.CONVEYORBELTS.contains(elem)) {
                     Direction dir = elem.getDirection();
                     Boolean turnDirection;
                     if(BoardElements.CONVEYORBELTS_TURN_LEFT.contains(elem)) {
@@ -445,3 +460,5 @@ public class Game implements IGame {
     }
 
 }
+
+//

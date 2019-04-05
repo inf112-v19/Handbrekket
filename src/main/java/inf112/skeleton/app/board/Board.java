@@ -75,6 +75,15 @@ public class Board implements IBoard {
 				    case "east": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_EAST; break;
 			    }
 			    break;
+			case "wall":
+				dir = cell.getTile().getProperties().get("direction").toString();
+				switch (dir) {
+					case "north": elementType = BoardElements.WALL_NORTH; break;
+					case "south": elementType = BoardElements.WALL_SOUTH; break;
+					case "west": elementType = BoardElements.WALL_WEST; break;
+					case "east": elementType = BoardElements.WALL_EAST; break;
+			}
+			break;
 			case "hole": elementType = BoardElements.HOLES; break;
 			case "wrench":
 			    //TODO: change from int value to String name

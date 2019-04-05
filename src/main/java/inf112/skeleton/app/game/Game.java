@@ -20,7 +20,7 @@ public class Game implements IGame {
     private ArrayList<int[]> westWalls = new ArrayList<>();
     private ArrayList<int[]> eastWalls = new ArrayList<>();
     private ArrayList<int[]> southWalls = new ArrayList<>();
-    private ArrayList<int[]>[] boardWalls = new ArrayList[];
+    private ArrayList<int[]>[] boardWalls = new ArrayList[4];
     private ArrayList<IMovementBoardElement> conveyorBelts = new ArrayList<>();
     private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
@@ -148,10 +148,10 @@ public class Game implements IGame {
     }
 
     @Override
-    public void doRepairs(){
+    public void doRepairs() {
         for(IProgramRegister currentRegister : allProgramRegisters) {
             for(int[] repairSitePos : boardRepairSites){
-                if(Arrays.equals(currentRegister.getRobot().getPosition, repairSitePos)) {
+                if(Arrays.equals(currentRegister.getRobot().getPosition(), repairSitePos)) {
                     game.repair(currentRegister);
                 }
             }

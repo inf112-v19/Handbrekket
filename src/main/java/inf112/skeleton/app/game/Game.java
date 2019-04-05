@@ -159,7 +159,6 @@ public class Game implements IGame {
                 }
             }
         }
-        return false;
     }
 
     //TODO: needs to be expanded with conveyorbelts & similar, also more comments

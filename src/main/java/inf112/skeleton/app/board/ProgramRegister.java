@@ -18,6 +18,7 @@ public class ProgramRegister implements IProgramRegister {
     private int lives;              //The current amount of lives
     private boolean powerDowned;    //Whether the robot in the register should be powered down or not
     private int hp;
+    private int flagCounter;
 
 
     /**
@@ -37,6 +38,22 @@ public class ProgramRegister implements IProgramRegister {
         lives = maxLives;
         powerDowned = false;
         hp = 0;
+        flagCounter = 0;
+    }
+
+    @Override
+    public boolean isDead() {
+        return lives == 0;
+    }
+
+    @Override
+    public int getFlagCounter() {
+        return flagCounter;
+    }
+
+    @Override
+    public void increaseFlagCounter() {
+        flagCounter++;
     }
 
     @Override
@@ -139,7 +156,6 @@ public class ProgramRegister implements IProgramRegister {
         isCardFlipped[numCard] = !isCardFlipped[numCard];
     }
 
-    //TODO: Need to change it so that it also removes the input card
     @Override
     public boolean makeCardActive(int numCard) {
         for(int i = 0; i < activeCards.length; i++) {

@@ -10,12 +10,10 @@ import inf112.skeleton.app.robot.IRobot;
  *
  */
 public interface IRepairSite {
-
     /**
      * @return sprite
      */
     public Sprite getSprite();
-
 
     /**
      * A method that updates the robot's archive location. If the robot is destroyed

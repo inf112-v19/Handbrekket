@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
@@ -24,13 +25,13 @@ public class GameTest {
     private ICardRotation moveLeft;
     private ICardRotation uTurn;
 
-    //TODO: update tests, commented lines are the old code
     @Before
     public void setUp() {
         int[] testCoordinates = {0,0};
         robot = new Robot(0,testCoordinates);
         robot.setDir(Direction.EAST);
-        game = new Game(1);
+        TiledMap map = new TiledMap();
+        game = new Game(map, 1);
     }
 
     @Test
@@ -99,4 +100,5 @@ public class GameTest {
         System.out.println("Robot has direction " + robot.getDir() + " after u-turn-card.");
         assertEquals(robot.getDir(), Direction.WEST);
     }
+
 }

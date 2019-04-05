@@ -28,7 +28,6 @@ public class Game implements IGame {
     private Board board;
     private Game game;
 
-    //TODO: consider making numberOfPlayers a private variable in Game
     public Game(TiledMap tiledMap, int numberOfPlayers) {
         board = new Board(tiledMap);
         createDeck();
@@ -44,7 +43,6 @@ public class Game implements IGame {
 
     private void programRegistersFactory (int numberOfPlayers) {
         for(int i = 0; i < numberOfPlayers; i++){
-            //TODO: get starting position from the board.
             int[] robotPos = {i+5,5};
             Robot robot = new Robot(i+1, robotPos);
             ProgramRegister programRegister = new ProgramRegister(robot);
@@ -105,7 +103,6 @@ public class Game implements IGame {
 
     /**
      * Checks if the robot from the currentRegister is on any of the holes in the board
-     * TODO: needs to be tested
      * @return true if on any holes, false otherwise
      */
     public boolean checkIfOnHoleOrOutsideBoard(IRobot robot){
@@ -189,7 +186,6 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: consider renaming methods
     private void doMoveAccordingToCardType(IRobot robot, ICard inputCard) {
         if(inputCard.getType() == 1) { //Movement Cards
             relativeMove(robot, (ICardMovement) inputCard);
@@ -208,8 +204,6 @@ public class Game implements IGame {
          * 1: Reveal Program Cards
          * 2: Move robots according to priority
          * 3: Board Elements Move
-         * TODO 4: Lasers Fire
-         * TODO 5: Touch checkpoints
          */
 
         //Flips a card in each of the registers
@@ -218,7 +212,6 @@ public class Game implements IGame {
         }
 
         //Makes a new list of all of the registers then in turn does the move of the highest priority then removes that register from the list
-        //TODO: needs to be tested, not sure if it works as intended to be honest
         ArrayList<IProgramRegister> programRegistersToSort = new ArrayList<>(allProgramRegisters);
         for(int i = 0; i < allProgramRegisters.size(); i++) {
             int highestPriorityIndex = 0;
@@ -236,40 +229,12 @@ public class Game implements IGame {
             programRegistersToSort.remove(currentHighestPriority);
         }
 
-        //TODO: should be expanded to have all boardElements
         activateConveyorBelts();
-        //fireLasers(); not implemented yet
-
-        //Game game = new Game()
-        //TODO
-        // Snu programkort
-        //void turnProgramCard();
-        //Flytte roboter utfra prioritet
-        //void moveByPriority();
-        // Bevege samlebånd
-        //game.activateConveyorBelt();
-
-        //Bevege tannhjul
-        //Aktivere laser
-        //game.activateLaser();
-        //Telle opp skade
-        //(if() HP++)
-        //Flytte backup
-        //Registrere flagg
     }
 
     @Override
     public void doRound() {
 
-        /**
-         * Eirik
-         public void doRound() /**{
-         //cardLocked(); // Program card must be locked
-         for (int i = 0; i < 4; i++){
-         doPhase(); //1 round = 4 phases
-         }
-         }
-         */
     }
 
     /**
@@ -279,17 +244,12 @@ public class Game implements IGame {
     public ArrayList<Event> makeEventList() {
         return null;
     }
-    //TODO:
-    //Roboter beveger seg.
-    //MAP...
-    //liste over eventer i fasen
+
     /**
      * Marius
      * @param listOfEvents
      */
     public Event readEvents(ArrayList<Event> listOfEvents) {
-        //TODO:
-        //
         return null;
 
     }
@@ -312,12 +272,13 @@ public class Game implements IGame {
         robot.setBackup(backUp);
     }
 
-    //TODO: change to deal to ALL registers, not just the current one.
     @Override
     public void dealCards() {
-        final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
-        ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0,numberOfCardsToDeal));
-        currentRegister.setAvailableCards(temp);
+        for (IProgramRegister register : allProgramRegisters) {
+            final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
+            ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0, numberOfCardsToDeal));
+            register.setAvailableCards(temp);
+        }
     }
 
     @Override
@@ -393,7 +354,6 @@ public class Game implements IGame {
         Collections.shuffle(programCards);
     }
 
-    //TODO: should probably have guards
     @Override
     public void addCardToDeck(ICard card) {
         programCards.add(card);
@@ -421,15 +381,12 @@ public class Game implements IGame {
             predictedCoordinates.add(currentRobotCoordinates);
         }
 
-        //TODO: finish section that checks if movement is legal by processing the predictedCoordinates list
 
         for(int i = 0; i < allProgramRegisters.size(); i++) {
-            //TODO: change this, it shouldn't use absolute movement
             absoluteMove(allProgramRegisters.get(i).getRobot(), predictedCoordinates.get(i));
         }
     }
 
-    //TODO: complete
     @Override
     public boolean canMove(int[] startCoordinates, int[] destinationCoordinates) {
         //Checks to see if the positions are adjacent

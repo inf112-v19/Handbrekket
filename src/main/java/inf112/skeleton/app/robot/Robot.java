@@ -22,7 +22,7 @@ public class Robot implements IRobot{
      * @param coordinate the coordinates the robot is on
      */
     public Robot(int id, int[] coordinate) {
-        dir = Direction.SOUTH; //TODO: really shouldn't automatically be set to east (I think?)
+        dir = Direction.SOUTH;
         this.id = id;
         this.coordinate = coordinate;
         int[] backup = coordinate;

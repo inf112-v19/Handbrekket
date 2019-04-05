@@ -1,8 +1,8 @@
 
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.board.IProgramRegisters;
-import inf112.skeleton.app.board.ProgramRegisters;
+import inf112.skeleton.app.board.IProgramRegister;
+import inf112.skeleton.app.board.ProgramRegister;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Robot;
 import org.junit.Before;
@@ -14,12 +14,13 @@ import static junit.framework.TestCase.*;
  */
 public class ProgramRegistersTest {
     IRobot robot;
-    IProgramRegisters pR;
+    IProgramRegister pR;
 
+    @Before
     public void initialize(){
         int[] testCoordinates = {1,1};
         robot = new Robot(1,testCoordinates);
-        pR = new ProgramRegisters(robot);
+        pR = new ProgramRegister(robot);
     }
 
     @Test
@@ -41,17 +42,17 @@ public class ProgramRegistersTest {
     }
     @Test
     public void LivesTests(){
-        assertEquals(3, pR.howManyLivesLeft());
+        assertEquals(3, pR.getLives());
         pR.removeLife();
         pR.removeLife();
-        assertEquals(1, pR.howManyLivesLeft());
+        assertEquals(1, pR.getLives());
     }
 
     @Test
     public void amountOfDamageTest(){
-        assertEquals(0, pR.amountOfDamage());
-        robot.changeHP(4);
-        assertEquals(4, pR.amountOfDamage());
-        assertFalse(9 == pR.amountOfDamage());
+        assertEquals(0, pR.getHP());
+        pR.changeHP(4);
+        assertEquals(4, pR.getHP());
+        assertFalse(9 == pR.getHP());
     }
 }

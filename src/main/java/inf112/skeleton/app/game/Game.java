@@ -144,19 +144,19 @@ public class Game implements IGame {
     public boolean checkIfOnFlag(IRobot robot){
         int[] robotPos = robot.getPosition();
         for(int[] flagPos : boardFlags){
-            if(flagPos.equals(robotPos))
+            if(Arrays.equals(robotPos, flagPos))
                 return true;
         }
         return false;
     }
 
     @Override
-    public boolean checkIfOnRepairSite(IRobot robot, IProgramRegister programRegister){
-        int[] robotPos = robot.getPosition();
-        for(int[] repairSitePos : boardRepairSites){
-            if(repairSitePos.equals(robotPos)) {
-                game.repair(programRegister);
-                return true;
+    public void doRepairs(){
+        for(IProgramRegister currentRegister : allProgramRegisters) {
+            for(int[] repairSitePos : boardRepairSites){
+                if(Arrays.equals(currentRegister.getRobot().getPosition, repairSitePos)) {
+                    game.repair(currentRegister);
+                }
             }
         }
         return false;

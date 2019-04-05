@@ -1,5 +1,6 @@
 package inf112.skeleton.app.game;
 
+import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
@@ -43,7 +44,7 @@ public interface IGame {
 	 *                   y-ccordinate on index 1 on board
 	 * @return
 	 */
-	public boolean checkIfContainsRobot(int[] coordinate);
+	boolean checkIfContainsRobot(int[] coordinate);
 
 	/**
 	 * Turns the current Robot
@@ -139,4 +140,27 @@ public interface IGame {
 	 * @return true if possible, false if not
 	 */
 	boolean canMove(int[] startCoordinates, int[] destinationCoordinates);
+
+	/**
+	 * Checks if there is a wall in the given direction for the given position.
+	 * @param position Position to check
+	 * @param dir Direction to check
+	 * @return true if there is a wall, false if there is not.
+	 */
+	boolean checkForWall(int[] position, Direction dir);
+
+    /**
+     * Checks if robot is on a flag-tile
+     * @param robot The robot to check
+     * @return true if it is on a flag, false otherwise
+     */
+    boolean checkIfOnFlag(IRobot robot);
+
+    /**
+     * Iterates through the registers and performs any repairs on robots on repairSites
+     * @param robot The robot to check
+     * @param programRegister The programregister to be repaired
+     * @return true if it is on a repairSite, false otherwise
+     */
+    void doRepairs();
 }

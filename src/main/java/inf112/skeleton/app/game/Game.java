@@ -13,11 +13,20 @@ import java.util.Collections;
 public class Game implements IGame {
     private ArrayList<ICard> programCards = new ArrayList<>();
     private ArrayList<int[]> boardHoles = new ArrayList<>();
+    private ArrayList<int[]> boardFlags;
+    private ArrayList<int[]> boardRepairSites;
+
+    private ArrayList<int[]> northWalls = new ArrayList<>();
+    private ArrayList<int[]> westWalls = new ArrayList<>();
+    private ArrayList<int[]> eastWalls = new ArrayList<>();
+    private ArrayList<int[]> southWalls = new ArrayList<>();
+    private ArrayList<int[]>[] boardWalls = new ArrayList[];
     private ArrayList<IMovementBoardElement> conveyorBelts = new ArrayList<>();
     private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
+    private Game game;
 
     public Game(TiledMap tiledMap, int numberOfPlayers) {
         board = new Board(tiledMap);
@@ -25,6 +34,11 @@ public class Game implements IGame {
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
         currentRegister = allProgramRegisters.get(0);
+        boardWalls[0] = southWalls;
+        boardWalls[1] = eastWalls;
+        boardWalls[2] = northWalls;
+        boardWalls[3] = westWalls;
+
     }
 
     private void programRegistersFactory (int numberOfPlayers) {
@@ -109,6 +123,42 @@ public class Game implements IGame {
         return false;
     }
 
+    @Override
+    public boolean checkForWall(int[] position, Direction dir){
+        int[] pos = position;
+        Direction direction = dir;
+
+        for(int[] wallPosition : boardWalls[direction.getDirectionValue()]) {
+            if (Arrays.equals(pos,wallPosition)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean checkIfOnFlag(IRobot robot){
+        int[] robotPos = robot.getPosition();
+        for(int[] flagPos : boardFlags){
+            if(Arrays.equals(robotPos, flagPos))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void doRepairs(){
+        for(IProgramRegister currentRegister : allProgramRegisters) {
+            for(int[] repairSitePos : boardRepairSites){
+                if(Arrays.equals(currentRegister.getRobot().getPosition, repairSitePos)) {
+                    game.repair(currentRegister);
+                }
+            }
+        }
+    }
+
+    //TODO: needs to be expanded with conveyorbelts & similar, also more comments
     private void initializeBoardElements() {
         int width = board.getWidth();
         int height = board.getHeight();
@@ -349,4 +399,5 @@ public class Game implements IGame {
 
         return true;
     }
+
 }

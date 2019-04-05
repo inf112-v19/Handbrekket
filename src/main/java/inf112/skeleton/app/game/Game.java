@@ -126,7 +126,6 @@ public class Game implements IGame {
         return false;
     }
 
-
     @Override
     public boolean checkForWall(int[] position, Direction dir){
         int[] pos = position;
@@ -162,8 +161,6 @@ public class Game implements IGame {
         }
         return false;
     }
-    //setWall
-    //liste med koordinater legge til hull manuelt
 
     //TODO: needs to be expanded with conveyorbelts & similar, also more comments
     private void initializeBoardElements() {
@@ -176,20 +173,7 @@ public class Game implements IGame {
                 int[] tempCoordinates = {i,j}; //Temporarily creates coordinates for the elements that need those
                 if(elem == BoardElements.HOLES) {
                     boardHoles.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_SOUTH) {
-                    southWalls.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_EAST)  {
-                    eastWalls.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_NORTH) {
-                    northWalls.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_WEST) {
-                    westWalls.add(tempCoordinates);
-                }
-                else if (BoardElements.CONVEYORBELTS.contains(elem)) {
+                } else if (BoardElements.CONVEYORBELTS.contains(elem)) {
                     Direction dir = elem.getDirection();
                     Boolean turnDirection;
                     if(BoardElements.CONVEYORBELTS_TURN_LEFT.contains(elem)) {
@@ -459,4 +443,5 @@ public class Game implements IGame {
 
         return true;
     }
+
 }

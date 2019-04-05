@@ -1,6 +1,6 @@
 package inf112.skeleton.app.board;
 
-public interface IMovementBoardElements {
+public interface IMovementBoardElement {
 
     /**
      * Coordinates int[]
@@ -27,7 +27,7 @@ public interface IMovementBoardElements {
      * @return
      */
 
-    int[] getMoveValue();
+    int getMoveValue();
 
     /**
      * Returns the direction to rotate

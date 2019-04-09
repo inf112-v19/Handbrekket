@@ -55,6 +55,7 @@
   <properties>
    <property name="position" value="vertical"/>
    <property name="type" value="laser"/>
+   <property name="value" type="int" value="1"/>
   </properties>
  </tile>
  <tile id="9">
@@ -74,6 +75,13 @@
   </properties>
  </tile>
  <tile id="11">
+  <properties>
+   <property name="name" value="normal"/>
+   <property name="type" value="wrench"/>
+   <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="12">
   <properties>
    <property name="direction" type="bool" value="false"/>
    <property name="type" value="gear"/>
@@ -105,6 +113,7 @@
   <properties>
    <property name="position" value="horizontal"/>
    <property name="type" value="laser"/>
+   <property name="value" type="int" value="1"/>
   </properties>
  </tile>
  <tile id="18">
@@ -154,6 +163,13 @@
   <properties>
    <property name="direction" value=""/>
    <property name="type" value="wall"/>
+  </properties>
+ </tile>
+ <tile id="26">
+  <properties>
+   <property name="position" value="vertical"/>
+   <property name="type" value="laser"/>
+   <property name="value" type="int" value="2"/>
   </properties>
  </tile>
  <tile id="27">
@@ -212,6 +228,13 @@
    <property name="type" value="wall"/>
   </properties>
  </tile>
+ <tile id="35">
+  <properties>
+   <property name="position" value="horizontal"/>
+   <property name="type" value="laser"/>
+   <property name="value" type="int" value="2"/>
+  </properties>
+ </tile>
  <tile id="36">
   <properties>
    <property name="direction" value="down"/>
@@ -268,6 +291,13 @@
    <property name="type" value="wall"/>
   </properties>
  </tile>
+ <tile id="44">
+  <properties>
+   <property name="position" value="vertical"/>
+   <property name="type" value="laser"/>
+   <property name="value" type="int" value="3"/>
+  </properties>
+ </tile>
  <tile id="45">
   <properties>
    <property name="direction" value="right"/>
@@ -302,6 +332,237 @@
    <property name="rotate" type="bool" value="false"/>
    <property name="type" value="leftArrow"/>
    <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="53">
+  <properties>
+   <property name="position" value="horizontal"/>
+   <property name="type" value="laser"/>
+   <property name="value" type="int" value="3"/>
+  </properties>
+ </tile>
+ <tile id="54">
+  <properties>
+   <property name="direction" value="right"/>
+   <property name="from" value="SOUTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="1"/>
+  </properties>
+ </tile>
+ <tile id="55">
+  <properties>
+   <property name="direction" value="down"/>
+   <property name="from" value="WEST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="56">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="direction" value="right"/>
+   <property name="from" value="SOUTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="1"/>
+  </properties>
+ </tile>
+ <tile id="59">
+  <properties>
+   <property name="direction" value="down"/>
+   <property name="from" value="WEST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="63">
+  <properties>
+   <property name="direction" value="up"/>
+   <property name="from" value="EAST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="64">
+  <properties>
+   <property name="direction" value="left"/>
+   <property name="from" value="NORTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="65">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="66">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="67">
+  <properties>
+   <property name="direction" value="up"/>
+   <property name="from" value="EAST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="68">
+  <properties>
+   <property name="direction" value="left"/>
+   <property name="from" value="NORTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="72">
+  <properties>
+   <property name="direction" value="down"/>
+   <property name="from" value="EAST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="73">
+  <properties>
+   <property name="direction" value="left"/>
+   <property name="from" value="SOUTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="74">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="75">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="76">
+  <properties>
+   <property name="direction" value="down"/>
+   <property name="from" value="EAST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="77">
+  <properties>
+   <property name="direction" value="left"/>
+   <property name="from" value="SOUTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="81">
+  <properties>
+   <property name="direction" value="right"/>
+   <property name="from" value="NORTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="1"/>
+  </properties>
+ </tile>
+ <tile id="82">
+  <properties>
+   <property name="direction" value="up"/>
+   <property name="from" value="WEST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="83">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="from" value=""/>
+  </properties>
+ </tile>
+ <tile id="85">
+  <properties>
+   <property name="direction" value="right"/>
+   <property name="from" value="NORTH"/>
+   <property name="type" value="into"/>
+   <property name="value" value="1"/>
+  </properties>
+ </tile>
+ <tile id="86">
+  <properties>
+   <property name="direction" value="up"/>
+   <property name="from" value="WEST"/>
+   <property name="type" value="into"/>
+   <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="90">
+  <properties>
+   <property name="direction" value="up"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="91">
+  <properties>
+   <property name="direction" value="down"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="94">
+  <properties>
+   <property name="direction" value="up"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="2"/>
+  </properties>
+ </tile>
+ <tile id="95">
+  <properties>
+   <property name="direction" value="down"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="99">
+  <properties>
+   <property name="direction" value="right"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="1"/>
+  </properties>
+ </tile>
+ <tile id="100">
+  <properties>
+   <property name="direction" value="left"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="direction" value="right"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="1"/>
+  </properties>
+ </tile>
+ <tile id="104">
+  <properties>
+   <property name="direction" value="left"/>
+   <property name="type" value="combine"/>
+   <property name="value" value="0"/>
   </properties>
  </tile>
 </tileset>

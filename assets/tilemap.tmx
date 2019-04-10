@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="80" tileheight="80" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="80" tileheight="80" infinite="0" nextlayerid="9" nextobjectid="1">
  <tileset firstgid="1" source="tileProperties.tsx"/>
  <layer id="1" name="board" width="12" height="12">
   <data encoding="csv">
@@ -17,9 +17,8 @@
 22,22,22,22,22,2,1,22,22,22,1,3
 </data>
  </layer>
- <group id="7" name="walls">
-  <layer id="4" name="westWalls" width="12" height="12">
-   <data encoding="csv">
+ <layer id="4" name="westWalls" width="12" height="12">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,44,0,0,0,0,
 44,0,0,0,0,0,0,0,0,0,0,0,
@@ -33,9 +32,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="5" name="southWalls" width="12" height="12">
-   <data encoding="csv">
+ </layer>
+ <layer id="5" name="southWalls" width="12" height="12">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -49,9 +48,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,17,0,17,0,0,17,0,17,0,0
 </data>
-  </layer>
-  <layer id="6" name="eastWalls" width="12" height="12">
-   <data encoding="csv">
+ </layer>
+ <layer id="6" name="eastWalls" width="12" height="12">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,35,0,0,0,0,0,0,35,
@@ -65,9 +64,9 @@
 0,0,0,35,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,35,0,0,0,0
 </data>
-  </layer>
-  <layer id="2" name="northWalls" width="12" height="12">
-   <data encoding="csv">
+ </layer>
+ <layer id="2" name="northWalls" width="12" height="12">
+  <data encoding="csv">
 0,0,8,0,8,0,0,8,0,8,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -81,8 +80,7 @@
 0,0,0,8,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
- </group>
+ </layer>
  <layer id="3" name="lasers" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -93,6 +91,22 @@
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 18,18,18,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="robot" width="12" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,52,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,65,0,
+0,55,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,

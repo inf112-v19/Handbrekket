@@ -13,14 +13,27 @@ public class Board implements IBoard {
 	private TiledMap map;
 
 	/**
-	 * board constructor
+	 * board constructor, with automatic width and height
+	 *
+	 * @param map - Map to create the board out of
+	 */
+	public Board(TiledMap map) {
+		MapProperties properties = map.getProperties();
+		this.width = properties.get("width", Integer.class);
+		this.height = properties.get("height", Integer.class);
+		this.map = map;
+	}
+	
+	/**
+	 * board constructor, manual width and height
 	 *
 	 * @param x - width
 	 * @param y - height
+	 * @param mapIn - Input map
 	 */
-	public Board(int x, int y, TiledMap mapIn) {
-		width = x;
-		height = y;
+	public Board(int width, int height, TiledMap mapIn) {
+		this.width = width;
+		this.height = height;
 		map = mapIn;
 	}
 	@Override

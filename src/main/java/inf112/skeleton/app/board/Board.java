@@ -1,5 +1,6 @@
 package inf112.skeleton.app.board;
 
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.board.BoardElements;
@@ -27,8 +28,8 @@ public class Board implements IBoard {
 	/**
 	 * board constructor, manual width and height
 	 *
-	 * @param x - width
-	 * @param y - height
+	 * @param width - width
+	 * @param height - height
 	 * @param mapIn - Input map
 	 */
 	public Board(int width, int height, TiledMap mapIn) {

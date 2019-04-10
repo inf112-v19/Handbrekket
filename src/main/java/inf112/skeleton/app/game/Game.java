@@ -28,6 +28,7 @@ public class Game implements IGame {
     private Board board;
     private Game game;
 
+    //TODO: consider making numberOfPlayers a private variable in Game
     public Game(TiledMap tiledMap, int numberOfPlayers) {
         board = new Board(tiledMap);
         createDeck();
@@ -43,6 +44,7 @@ public class Game implements IGame {
 
     private void programRegistersFactory (int numberOfPlayers) {
         for(int i = 0; i < numberOfPlayers; i++){
+            //TODO: get starting position from the board.
             int[] robotPos = {i+5,5};
             Robot robot = new Robot(i+1, robotPos);
             ProgramRegister programRegister = new ProgramRegister(robot);
@@ -103,6 +105,7 @@ public class Game implements IGame {
 
     /**
      * Checks if the robot from the currentRegister is on any of the holes in the board
+     * TODO: needs to be tested
      * @return true if on any holes, false otherwise
      */
     public boolean checkIfOnHoleOrOutsideBoard(IRobot robot){
@@ -141,7 +144,7 @@ public class Game implements IGame {
     public boolean checkIfOnFlag(IRobot robot){
         int[] robotPos = robot.getPosition();
         for(int[] flagPos : boardFlags){
-            if(Arrays.equals(robotPos, flagPos))
+            if(Arrays.equals(flagPos, robotPos))
                 return true;
         }
         return false;
@@ -158,6 +161,8 @@ public class Game implements IGame {
         }
     }
 
+    //TODO setHoles(): sets the holes on the board
+
     //TODO: needs to be expanded with conveyorbelts & similar, also more comments
     private void initializeBoardElements() {
         int width = board.getWidth();
@@ -169,7 +174,21 @@ public class Game implements IGame {
                 int[] tempCoordinates = {i,j}; //Temporarily creates coordinates for the elements that need those
                 if(elem == BoardElements.HOLES) {
                     boardHoles.add(tempCoordinates);
-                } else if (BoardElements.CONVEYORBELTS.contains(elem)) {
+                }
+                //TODO: Remove wall initalization, it needs to be done elsewhere
+                else if (elem == BoardElements.WALL_SOUTH) {
+                    southWalls.add(tempCoordinates);
+                }
+                else if (elem == BoardElements.WALL_EAST) {
+                    eastWalls.add(tempCoordinates);
+                }
+                else if (elem == BoardElements.WALL_NORTH) {
+                    northWalls.add(tempCoordinates);
+                }
+                else if (elem == BoardElements.WALL_WEST) {
+                    westWalls.add(tempCoordinates);
+                }
+                else if (BoardElements.CONVEYORBELTS.contains(elem)) {
                     Direction dir = elem.getDirection();
                     Boolean turnDirection;
                     if(BoardElements.CONVEYORBELTS_TURN_LEFT.contains(elem)) {
@@ -186,6 +205,7 @@ public class Game implements IGame {
         }
     }
 
+    //TODO: consider renaming methods
     private void doMoveAccordingToCardType(IRobot robot, ICard inputCard) {
         if(inputCard.getType() == 1) { //Movement Cards
             relativeMove(robot, (ICardMovement) inputCard);
@@ -204,6 +224,8 @@ public class Game implements IGame {
          * 1: Reveal Program Cards
          * 2: Move robots according to priority
          * 3: Board Elements Move
+         * TODO 4: Lasers Fire
+         * TODO 5: Touch checkpoints
          */
 
         //Flips a card in each of the registers
@@ -212,6 +234,7 @@ public class Game implements IGame {
         }
 
         //Makes a new list of all of the registers then in turn does the move of the highest priority then removes that register from the list
+        //TODO: needs to be tested, not sure if it works as intended to be honest
         ArrayList<IProgramRegister> programRegistersToSort = new ArrayList<>(allProgramRegisters);
         for(int i = 0; i < allProgramRegisters.size(); i++) {
             int highestPriorityIndex = 0;
@@ -229,12 +252,13 @@ public class Game implements IGame {
             programRegistersToSort.remove(currentHighestPriority);
         }
 
+        //TODO: should be expanded to have all boardElements
         activateConveyorBelts();
+        //fireLasers(); not implemented yet
     }
 
     @Override
     public void doRound() {
-
     }
 
     /**
@@ -244,12 +268,17 @@ public class Game implements IGame {
     public ArrayList<Event> makeEventList() {
         return null;
     }
-
+    //TODO:
+    //Roboter beveger seg.
+    //MAP...
+    //liste over eventer i fasen
     /**
      * Marius
      * @param listOfEvents
      */
     public Event readEvents(ArrayList<Event> listOfEvents) {
+        //TODO:
+        //
         return null;
 
     }
@@ -272,6 +301,7 @@ public class Game implements IGame {
         robot.setBackup(backUp);
     }
 
+    //TODO: change to deal to ALL registers, not just the current one.
     @Override
     public void dealCards() {
         for (IProgramRegister register : allProgramRegisters) {
@@ -354,6 +384,7 @@ public class Game implements IGame {
         Collections.shuffle(programCards);
     }
 
+    //TODO: should probably have guards
     @Override
     public void addCardToDeck(ICard card) {
         programCards.add(card);
@@ -381,12 +412,15 @@ public class Game implements IGame {
             predictedCoordinates.add(currentRobotCoordinates);
         }
 
+        //TODO: finish section that checks if movement is legal by processing the predictedCoordinates list
 
         for(int i = 0; i < allProgramRegisters.size(); i++) {
+            //TODO: change this, it shouldn't use absolute movement
             absoluteMove(allProgramRegisters.get(i).getRobot(), predictedCoordinates.get(i));
         }
     }
 
+    //TODO: complete
     @Override
     public boolean canMove(int[] startCoordinates, int[] destinationCoordinates) {
         //Checks to see if the positions are adjacent
@@ -401,3 +435,5 @@ public class Game implements IGame {
     }
 
 }
+
+//

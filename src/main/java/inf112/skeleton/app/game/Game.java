@@ -151,15 +151,14 @@ public class Game implements IGame {
     }
 
     @Override
-    public boolean doRepairs(IRobot robot, IProgramRegister programRegister){
-        int[] robotPos = robot.getPosition();
-        for(int[] repairSitePos : boardRepairSites){
-            if(Arrays.equals(repairSitePos, robotPos)) {
-                game.repair(programRegister);
-                return true;
+    public void doRepairs(){
+        for(IProgramRegister currentRegister : allProgramRegisters) {
+            for(int[] repairSitePos : boardRepairSites){
+                if(Arrays.equals(currentRegister.getRobot().getPosition(), repairSitePos)) {
+                    game.repair(currentRegister);
+                }
             }
         }
-        return false;
     }
 
     //TODO setHoles(): sets the holes on the board

@@ -176,6 +176,7 @@ public class Game implements IGame {
                 if(elem == BoardElements.HOLES) {
                     boardHoles.add(tempCoordinates);
                 }
+                //TODO: Remove wall initalization, it needs to be done elsewhere
                 else if (elem == BoardElements.WALL_SOUTH) {
                     southWalls.add(tempCoordinates);
                 }
@@ -255,37 +256,10 @@ public class Game implements IGame {
         //TODO: should be expanded to have all boardElements
         activateConveyorBelts();
         //fireLasers(); not implemented yet
-
-        //Game game = new Game()
-        //TODO
-        // Snu programkort
-        //void turnProgramCard();
-        //Flytte roboter utfra prioritet
-        //void moveByPriority();
-        // Bevege samlebånd
-        //game.activateConveyorBelt();
-
-        //Bevege tannhjul
-        //Aktivere laser
-        //game.activateLaser();
-        //Telle opp skade
-        //(if() HP++)
-        //Flytte backup
-        //Registrere flagg
     }
 
     @Override
     public void doRound() {
-
-        /**
-         * Eirik
-         public void doRound() /**{
-         //cardLocked(); // Program card must be locked
-         for (int i = 0; i < 4; i++){
-         doPhase(); //1 round = 4 phases
-         }
-         }
-         */
     }
 
     /**
@@ -331,9 +305,11 @@ public class Game implements IGame {
     //TODO: change to deal to ALL registers, not just the current one.
     @Override
     public void dealCards() {
-        final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
-        ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0,numberOfCardsToDeal));
-        currentRegister.setAvailableCards(temp);
+        for (IProgramRegister register : allProgramRegisters) {
+            final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
+            ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0, numberOfCardsToDeal));
+            register.setAvailableCards(temp);
+        }
     }
 
     @Override

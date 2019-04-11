@@ -151,6 +151,11 @@
    <property name="value" type="int" value="-1"/>
   </properties>
  </tile>
+ <tile id="21">
+  <properties>
+   <property name="type" value="normal"/>
+  </properties>
+ </tile>
  <tile id="22">
   <properties>
    <property name="conveyorType" value="turn"/>
@@ -482,13 +487,13 @@
  <tile id="69">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="1"/>
+   <property name="value" value="1"/>
   </properties>
  </tile>
  <tile id="70">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="2"/>
+   <property name="value" value="2"/>
   </properties>
  </tile>
  <tile id="72">
@@ -544,13 +549,13 @@
  <tile id="78">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="3"/>
+   <property name="value" value="3"/>
   </properties>
  </tile>
  <tile id="79">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="4"/>
+   <property name="value" value="4"/>
   </properties>
  </tile>
  <tile id="81">
@@ -573,12 +578,12 @@
  </tile>
  <tile id="83">
   <properties>
-   <property name="from" value=""/>
+   <property name="type" value="normal"/>
   </properties>
  </tile>
  <tile id="84">
   <properties>
-   <property name="from" value=""/>
+   <property name="type" value="normal"/>
   </properties>
  </tile>
  <tile id="85">
@@ -602,13 +607,13 @@
  <tile id="87">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="5"/>
+   <property name="value" value="5"/>
   </properties>
  </tile>
  <tile id="88">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="6"/>
+   <property name="value" value="6"/>
   </properties>
  </tile>
  <tile id="90">
@@ -625,6 +630,16 @@
    <property name="direction" value="SOUTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
+  </properties>
+ </tile>
+ <tile id="92">
+  <properties>
+   <property name="type" value="normal"/>
+  </properties>
+ </tile>
+ <tile id="93">
+  <properties>
+   <property name="type" value="normal"/>
   </properties>
  </tile>
  <tile id="94">
@@ -646,13 +661,13 @@
  <tile id="96">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="7"/>
+   <property name="value" value="7"/>
   </properties>
  </tile>
  <tile id="97">
   <properties>
    <property name="type" value="startingPoint"/>
-   <property name="value" type="int" value="8"/>
+   <property name="value" value="8"/>
   </properties>
  </tile>
  <tile id="99">
@@ -669,6 +684,16 @@
    <property name="direction" value="WEST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
+  </properties>
+ </tile>
+ <tile id="101">
+  <properties>
+   <property name="type" value="normal"/>
+  </properties>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="type" value="normal"/>
   </properties>
  </tile>
  <tile id="103">

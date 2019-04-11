@@ -3,8 +3,7 @@ package inf112.skeleton.app.board;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.board.BoardElements;
-import org.lwjgl.Sys;
+import inf112.skeleton.app.board.ConveyorBelts.IConveyorBelt;
 
 import java.util.ArrayList;
 
@@ -60,6 +59,14 @@ public class Board implements IBoard {
 		return map;
 	}
 
+	public IConveyorBelt getConveyorBelt(int x, int y) {
+		return null;
+	}
+
+	public void getLasers(int x, int y) {
+
+	}
+
 	@Override
 	public BoardElements checkSquare(int x, int y) {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -68,45 +75,37 @@ public class Board implements IBoard {
 
 		BoardElements elementType = null;
 		switch (type) {
-			case "straightArrow":
-				String dir = cell.getTile().getProperties().get("direction").toString();
-				switch (dir) {
-					case "north": elementType = BoardElements.CONVEYORBELT_MOVE_NORTH; break;
-					case "south": elementType = BoardElements.CONVEYORBELT_MOVE_SOUTH; break;
-					case "west": elementType = BoardElements.CONVEYORBELT_MOVE_WEST; break;
-					case "east": elementType = BoardElements.CONVEYORBELT_MOVE_EAST; break;
-				}
-				break;
-			case "rightArrow":
-				dir = cell.getTile().getProperties().get("direction").toString();
-				switch (dir) {
-					case "north": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_NORTH; break;
-					case "south": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_SOUTH; break;
-					case "west": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_WEST; break;
-					case "east": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_EAST; break;
-				}
-				break;
-            		case "leftArrow":
-			    	dir = cell.getTile().getProperties().get("direction").toString();
-			    	switch (dir) {
-				    	case "north": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_NORTH; break;
-				    	case "south": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_SOUTH; break;
-				    	case "west": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_WEST; break;
-				    	case "east": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_EAST; break;
-			    	}
-			    	break;
-			case "hole": elementType = BoardElements.HOLES; break;
+			case "conveyorBelt": elementType = BoardElements.CONVEYORBELT; break;
+			case "hole": elementType = BoardElements.HOLE; break;
 			case "wrench":
-			    	//TODO: change from int value to String name
-                		int value = (int) cell.getTile().getProperties().get("value");
-                		switch (value) {
-                    			case 0: elementType = BoardElements.WRENCH; break;
-                    			case -1: elementType = BoardElements.SPECIAL_WRENCH; break;
-                    			case 1: elementType = BoardElements.FLAG1; break;
-                    			case 2: elementType = BoardElements.FLAG2; break;
-                    			case 3: elementType = BoardElements.FLAG3; break;
-                    			case 4: elementType = BoardElements.FLAG4; break;
-                		}
+				String name = cell.getTile().getProperties().get("name").toString();
+                	switch (name) {
+                  		case "normal": elementType = BoardElements.WRENCH; break;
+                   		case "hammer": elementType = BoardElements.SPECIAL_WRENCH; break;
+                   		case "flag1": elementType = BoardElements.FLAG1; break;
+                   		case "flag2": elementType = BoardElements.FLAG2; break;
+                   		case "flag3": elementType = BoardElements.FLAG3; break;
+                   		case "flag4": elementType = BoardElements.FLAG4; break;
+                	}
+				break;
+			case "gear":
+			    boolean rotationDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
+			    if(rotationDirection)
+			        elementType = BoardElements.GEAR_RIGHT;
+			    else
+			        elementType = BoardElements.GEAR_LEFT;
+			    break;
+            case "pusher":
+                Direction dir = Direction.valueOf(cell.getTile().getProperties().get("direction").toString());
+                boolean activatesOnEvenTurns = (boolean) cell.getTile().getProperties().get("activatesOnEvenTurns");
+                if(activatesOnEvenTurns)
+                    elementType = BoardElements.PUSHERS_EVEN.get(dir.getDirectionValue());
+                else
+                    elementType = BoardElements.PUSHERS_ODD.get(dir.getDirectionValue());
+                break;
+			case "startingPoint":
+				String startPoint = "STARTING_POSITION_" + cell.getTile().getProperties().get("value").toString();
+				elementType = BoardElements.valueOf(startPoint);
 				break;
 		}
 		return elementType;

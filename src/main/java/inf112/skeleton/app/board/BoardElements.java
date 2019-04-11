@@ -1,6 +1,7 @@
 package inf112.skeleton.app.board;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public enum BoardElements {
@@ -8,24 +9,21 @@ public enum BoardElements {
     FLAG2(null),
     FLAG3(null),
     FLAG4(null),
-    CONVEYORBELT_TURN_LEFT_MOVE_NORTH(Direction.NORTH),
-    CONVEYORBELT_TURN_LEFT_MOVE_SOUTH(Direction.SOUTH),
-    CONVEYORBELT_TURN_LEFT_MOVE_WEST(Direction.WEST),
-    CONVEYORBELT_TURN_LEFT_MOVE_EAST(Direction.EAST),
-    CONVEYORBELT_TURN_RIGHT_MOVE_NORTH(Direction.NORTH),
-    CONVEYORBELT_TURN_RIGHT_MOVE_SOUTH(Direction.SOUTH),
-    CONVEYORBELT_TURN_RIGHT_MOVE_WEST(Direction.WEST),
-    CONVEYORBELT_TURN_RIGHT_MOVE_EAST(Direction.EAST),
-    CONVEYORBELT_MOVE_NORTH(Direction.NORTH),
-    CONVEYORBELT_MOVE_SOUTH(Direction.SOUTH),
-    CONVEYORBELT_MOVE_WEST(Direction.WEST),
-    CONVEYORBELT_MOVE_EAST(Direction.EAST),
+    CONVEYORBELT(null),
     GEAR_LEFT(null),
     GEAR_RIGHT(null),
     HOLES(null),
     WRENCH(null),
     SPECIAL_WRENCH(null),
     STARTING_POSITION(null),
+    PUSHER_EVEN_NORTH(Direction.NORTH),
+    PUSHER_EVEN_EAST(Direction.EAST),
+    PUSHER_EVEN_SOUTH(Direction.SOUTH),
+    PUSHER_EVEN_WEST(Direction.WEST),
+    PUSHER_ODD_NORTH(Direction.NORTH),
+    PUSHER_ODD_EAST(Direction.EAST),
+    PUSHER_ODD_SOUTH(Direction.SOUTH),
+    PUSHER_ODD_WEST(Direction.WEST),
     WALL_NORTH(Direction.NORTH),
     WALL_EAST(Direction.EAST),
     WALL_SOUTH(Direction.SOUTH),
@@ -45,28 +43,26 @@ public enum BoardElements {
         return direction;
     }
 
+    /**
+     * Contains all of the pushers
+     */
+    public static final List<BoardElements> PUSHERS = Arrays.asList(PUSHER_EVEN_NORTH, PUSHER_EVEN_EAST,
+            PUSHER_EVEN_SOUTH, PUSHER_EVEN_WEST, PUSHER_ODD_NORTH, PUSHER_ODD_EAST, PUSHER_ODD_SOUTH, PUSHER_ODD_WEST);
+
+    /**
+     * Contains all of the pushers that activate on even phases
+     */
+    public static final List<BoardElements> PUSHERS_EVEN = PUSHERS.subList(0,4);
+
+    /**
+     * Contains all of the pushers that activate on odd phases
+     */
+    public static final List<BoardElements> PUSHERS_ODD = PUSHERS.subList(4,8);
+
+    /**
+     * Contains all of the walls
+     */
     public static final List<BoardElements> WALLS = Arrays.asList(WALL_NORTH, WALL_EAST, WALL_SOUTH, WALL_WEST);
-
-    /**
-     * Contains all normal conveyor belts
-     */
-    public static final List<BoardElements> CONVEYORBELTS = Arrays.asList(CONVEYORBELT_TURN_LEFT_MOVE_NORTH,
-            CONVEYORBELT_TURN_LEFT_MOVE_SOUTH, CONVEYORBELT_TURN_LEFT_MOVE_WEST, CONVEYORBELT_TURN_LEFT_MOVE_EAST,
-            CONVEYORBELT_TURN_RIGHT_MOVE_NORTH, CONVEYORBELT_TURN_RIGHT_MOVE_SOUTH, CONVEYORBELT_TURN_RIGHT_MOVE_WEST,
-            CONVEYORBELT_TURN_RIGHT_MOVE_EAST, CONVEYORBELT_MOVE_NORTH, CONVEYORBELT_MOVE_SOUTH, CONVEYORBELT_MOVE_WEST,
-            CONVEYORBELT_MOVE_EAST);
-
-    /**
-     * Contains all conveyor belts that turn counterclockwise
-     */
-    public static final List<BoardElements> CONVEYORBELTS_TURN_LEFT = Arrays.asList(CONVEYORBELT_TURN_LEFT_MOVE_EAST,
-            CONVEYORBELT_TURN_LEFT_MOVE_NORTH, CONVEYORBELT_TURN_LEFT_MOVE_SOUTH, CONVEYORBELT_TURN_LEFT_MOVE_WEST);
-
-    /**
-     * Contains all conveyor belts that turn clockwise
-     */
-    public static final List<BoardElements> CONVEYORBELTS_TURN_RIGHT = Arrays.asList(CONVEYORBELT_TURN_RIGHT_MOVE_EAST,
-            CONVEYORBELT_TURN_RIGHT_MOVE_NORTH, CONVEYORBELT_TURN_RIGHT_MOVE_SOUTH, CONVEYORBELT_TURN_RIGHT_MOVE_WEST);
 
     /**
      * Contains the gears

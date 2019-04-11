@@ -75,15 +75,15 @@ public class Board implements IBoard {
 	@Override
 	public IConveyorBelt getConveyorBelt(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
-        TiledMapTileLayer.Cell cell = layer.getCell(x,y);
-        if(cell.getTile().getProperties().get("conveyorType") == null)
+        MapProperties properties = layer.getCell(x, y).getTile().getProperties();
+        if(properties.get("conveyorType") == null)
         	throw new IllegalArgumentException("The given coordinates do not point to a conveyor belt");
 
-		String conveyorType = cell.getTile().getProperties().get("conveyorType").toString();
-		Direction moveDirection = Direction.valueOf(cell.getTile().getProperties().get("moveDirection").toString());
+		String conveyorType = properties.get("conveyorType").toString();
+		Direction moveDirection = Direction.valueOf(properties.get("moveDirection").toString());
 		int[] position = {x,y};
 		int moveValue;
-		if((boolean) cell.getTile().getProperties().get("isExpress"))
+		if((boolean) properties.get("isExpress"))
 			moveValue = 2;
 		else
 			moveValue = 1;
@@ -92,11 +92,11 @@ public class Board implements IBoard {
 		switch(conveyorType) {
 			case "straight": conveyorBelt = new ConveyorStraight(moveDirection, moveValue, position); break;
 			case "turn":
-				boolean turnDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
+				boolean turnDirection = (boolean) properties.get("rotationDirection");
 				conveyorBelt = new ConveyorTurn(moveDirection, moveValue, position, turnDirection);
 				break;
 			case "into":
-				turnDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
+				turnDirection = (boolean) properties.get("rotationDirection");
 				conveyorBelt = new ConveyorInto(moveDirection, moveValue, position, turnDirection);
 				break;
 			case "combine": conveyorBelt = new ConveyorCombine(moveDirection, moveValue, position); break;
@@ -108,29 +108,28 @@ public class Board implements IBoard {
 	@Override
 	public ILaser getLaser(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("lasers");
-        TiledMapTileLayer.Cell cell = layer.getCell(x,y);
-        String type = cell.getTile().getProperties().get("type").toString();
+        MapProperties properties = layer.getCell(x,y).getTile().getProperties();
+        String type = properties.get("type").toString();
         if(type.isEmpty())
             return null;
 
-        String direction = cell.getTile().getProperties().get("direction").toString();
-        int value = (int) cell.getTile().getProperties().get("value");
-
+        String direction = properties.get("direction").toString();
+        int value = (int) properties.get("value");
         return new Laser(value, direction);
 	}
 
 	@Override
 	public BoardElement getBoardElement(int x, int y) {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
-		TiledMapTileLayer.Cell cell = layer.getCell(x,y);
-		String type = cell.getTile().getProperties().get("type").toString();
+		MapProperties properties = layer.getCell(x, y).getTile().getProperties();
+		String type = properties.get("type").toString();
 
 		BoardElement elementType = null;
 		switch (type) {
 			case "conveyorBelt": elementType = BoardElement.CONVEYORBELT; break;
 			case "hole": elementType = BoardElement.HOLE; break;
 			case "wrench":
-				String name = cell.getTile().getProperties().get("name").toString();
+				String name = properties.get("name").toString();
                 	switch (name) {
                   		case "normal": elementType = BoardElement.WRENCH; break;
                    		case "hammer": elementType = BoardElement.SPECIAL_WRENCH; break;
@@ -141,22 +140,22 @@ public class Board implements IBoard {
                 	}
 				break;
 			case "gear":
-			    boolean rotationDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
+			    boolean rotationDirection = (boolean) properties.get("rotationDirection");
 			    if(rotationDirection)
 			        elementType = BoardElement.GEAR_RIGHT;
 			    else
 			        elementType = BoardElement.GEAR_LEFT;
 			    break;
             case "pusher":
-                Direction dir = Direction.valueOf(cell.getTile().getProperties().get("direction").toString());
-                boolean activatesOnEvenTurns = (boolean) cell.getTile().getProperties().get("activatesOnEvenTurns");
+                Direction dir = Direction.valueOf(properties.get("direction").toString());
+                boolean activatesOnEvenTurns = (boolean) properties.get("activatesOnEvenTurns");
                 if(activatesOnEvenTurns)
                     elementType = BoardElement.PUSHERS_EVEN.get(dir.getDirectionValue());
                 else
                     elementType = BoardElement.PUSHERS_ODD.get(dir.getDirectionValue());
                 break;
 			case "startingPoint":
-				String startPoint = "STARTING_POSITION_" + cell.getTile().getProperties().get("value").toString();
+				String startPoint = "STARTING_POSITION_" + properties.get("value").toString();
 				elementType = BoardElement.valueOf(startPoint);
 				break;
 		}

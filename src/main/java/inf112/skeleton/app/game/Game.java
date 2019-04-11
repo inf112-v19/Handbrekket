@@ -33,11 +33,11 @@ public class Game implements IGame {
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
-    private Game game;
 
     //TODO: consider making numberOfPlayers a private variable in Game
     public Game(TiledMap tiledMap, int numberOfPlayers) {
         board = new Board(tiledMap);
+        initializeBoardElements();
         createDeck();
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
@@ -157,7 +157,7 @@ public class Game implements IGame {
         for(IProgramRegister currentRegister : allProgramRegisters) {
             for(int[] repairSitePos : boardRepairSites){
                 if(Arrays.equals(currentRegister.getRobot().getPosition(), repairSitePos)) {
-                    game.repair(currentRegister);
+                    repair(currentRegister);
                 }
             }
         }
@@ -308,6 +308,20 @@ public class Game implements IGame {
     @Override
     public void activateFlag() {
 
+    }
+
+    /**
+     * Activates all of the gears on the board & applies effects to robots on gears
+     */
+    public void activateGears() {
+        for(IConveyorTurn gear : gears) {
+            for(IProgramRegister register : allProgramRegisters) {
+                if(Arrays.equals(gear.getPosition(), register.getRobot().getPosition())) {
+                    register.getRobot().rotate(gear.getTurnDirection());
+                }
+            }
+            //gear.rotate() Would be cool if we actually rotated the gears in GFX to show that they're activated
+        }
     }
 
     /**

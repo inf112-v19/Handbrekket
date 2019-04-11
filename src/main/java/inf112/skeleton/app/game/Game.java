@@ -4,14 +4,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.app.board.*;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.*;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class Game implements IGame {
-    private ArrayList<ICard> programCards = new ArrayList<>();
+    private ArrayList<ICard> deck = new ArrayList<>();
     private ArrayList<int[]> boardHoles = new ArrayList<>();
     private ArrayList<int[]> boardFlags;
     private ArrayList<int[]> boardRepairSites;
@@ -39,7 +38,6 @@ public class Game implements IGame {
         boardWalls[1] = eastWalls;
         boardWalls[2] = northWalls;
         boardWalls[3] = westWalls;
-
     }
 
     private void programRegistersFactory (int numberOfPlayers) {
@@ -52,11 +50,7 @@ public class Game implements IGame {
         }
     }
 
-    /**
-     * Gets board
-     * Marius
-     * @return
-     */
+    @Override
     public IBoard getBoard() {
         return board;
     }
@@ -170,36 +164,23 @@ public class Game implements IGame {
 
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                BoardElements elem = board.checkSquare(i,j);
+                BoardElement elem = board.checkSquare(i,j);
                 int[] tempCoordinates = {i,j}; //Temporarily creates coordinates for the elements that need those
-                if(elem == BoardElements.HOLES) {
+                if(elem == BoardElement.HOLE) {
                     boardHoles.add(tempCoordinates);
                 }
                 //TODO: Remove wall initalization, it needs to be done elsewhere
-                else if (elem == BoardElements.WALL_SOUTH) {
+                else if (elem == BoardElement.WALL_SOUTH) {
                     southWalls.add(tempCoordinates);
                 }
-                else if (elem == BoardElements.WALL_EAST) {
+                else if (elem == BoardElement.WALL_EAST) {
                     eastWalls.add(tempCoordinates);
                 }
-                else if (elem == BoardElements.WALL_NORTH) {
+                else if (elem == BoardElement.WALL_NORTH) {
                     northWalls.add(tempCoordinates);
                 }
-                else if (elem == BoardElements.WALL_WEST) {
+                else if (elem == BoardElement.WALL_WEST) {
                     westWalls.add(tempCoordinates);
-                }
-                else if (BoardElements.CONVEYORBELTS.contains(elem)) {
-                    Direction dir = elem.getDirection();
-                    Boolean turnDirection;
-                    if(BoardElements.CONVEYORBELTS_TURN_LEFT.contains(elem)) {
-                        turnDirection = false;
-                    } else if(BoardElements.CONVEYORBELTS_TURN_RIGHT.contains(elem)) {
-                        turnDirection = true;
-                    } else
-                        turnDirection = null;
-
-                    IMovementBoardElement movementBoardElement = new MovementBoardElement(tempCoordinates, dir, 1, turnDirection);
-                    conveyorBelts.add(movementBoardElement);
                 }
             }
         }
@@ -301,12 +282,12 @@ public class Game implements IGame {
         robot.setBackup(backUp);
     }
 
-    //TODO: change to deal to ALL registers, not just the current one.
     @Override
     public void dealCards() {
         for (IProgramRegister register : allProgramRegisters) {
             final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
-            ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0, numberOfCardsToDeal));
+            ArrayList<ICard> temp = new ArrayList<>(deck.subList(0, numberOfCardsToDeal));
+            deck.removeAll(temp); //Removes the cards from the deck
             register.setAvailableCards(temp);
         }
     }
@@ -333,7 +314,7 @@ public class Game implements IGame {
     }
 
     /**
-     * Creates a deck of programCards of all of the "simple" types, stored in the ArrayList programCards
+     * Creates a deck of deck of all of the "simple" types, stored in the ArrayList deck
      * As of right now it's hard-coded, but in the future we should probably make it more dynamic
      */
     private void createDeck() {
@@ -358,7 +339,7 @@ public class Game implements IGame {
      */
     private void createMovementCards(int cardNum, int interval, int intervalStart, int moveValue) {
         for(int i = 0; i < cardNum; i++){
-            programCards.add(new MovementCard(intervalStart + i * interval,moveValue));
+            deck.add(new MovementCard(intervalStart + i * interval,moveValue));
         }
     }
 
@@ -372,22 +353,22 @@ public class Game implements IGame {
      */
     private void createRotationCards(int cardNum, int interval, int intervalStart, boolean rotationDirection, int rotationValue) {
         for(int i = 0; i < cardNum; i++){
-            programCards.add(new RotationCard(intervalStart + i * interval, rotationDirection, rotationValue));
+            deck.add(new RotationCard(intervalStart + i * interval, rotationDirection, rotationValue));
 
         }
     }
 
     /**
-     * Shuffles the deck of programCards
+     * Shuffles the deck of deck
      */
     private void shuffleDeck() {
-        Collections.shuffle(programCards);
+        Collections.shuffle(deck);
     }
 
     //TODO: should probably have guards
     @Override
     public void addCardToDeck(ICard card) {
-        programCards.add(card);
+        deck.add(card);
     }
 
     @Override

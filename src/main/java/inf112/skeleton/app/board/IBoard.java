@@ -38,14 +38,14 @@ public interface IBoard {
      * @param y the y coordinate of the square to be checked
      * @return the type of BoardElement in the square, or null if none are present
      */
-    BoardElements checkSquare(int x, int y);
+    BoardElement checkSquare(int x, int y);
 
     /**
     * Returns all (if any) walls in a square
     *
     * @param x the x coordinate of the square to check
     * @param y the y coordinate of the square to check
-    * @return a list of wall BoardElements or null if none are present
+    * @return a list of wall BoardElement or null if none are present
     */
-    ArrayList<BoardElements> getWall(int x, int y);
+    ArrayList<BoardElement> getWall(int x, int y);
 }

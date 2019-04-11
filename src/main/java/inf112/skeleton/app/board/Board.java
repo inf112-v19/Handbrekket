@@ -48,7 +48,7 @@ public class Board implements IBoard {
 
 	//TODO: implement this
 	@Override
-	public ArrayList<BoardElements> getWall(int x, int y) {
+	public ArrayList<BoardElement> getWall(int x, int y) {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
 		TiledMapTileLayer.Cell cell = layer.getCell(x, y);
 		return null;
@@ -68,44 +68,44 @@ public class Board implements IBoard {
 	}
 
 	@Override
-	public BoardElements checkSquare(int x, int y) {
+	public BoardElement checkSquare(int x, int y) {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
 		TiledMapTileLayer.Cell cell = layer.getCell(x,y);
 		String type = cell.getTile().getProperties().get("type").toString();
 
-		BoardElements elementType = null;
+		BoardElement elementType = null;
 		switch (type) {
-			case "conveyorBelt": elementType = BoardElements.CONVEYORBELT; break;
-			case "hole": elementType = BoardElements.HOLE; break;
+			case "conveyorBelt": elementType = BoardElement.CONVEYORBELT; break;
+			case "hole": elementType = BoardElement.HOLE; break;
 			case "wrench":
 				String name = cell.getTile().getProperties().get("name").toString();
                 	switch (name) {
-                  		case "normal": elementType = BoardElements.WRENCH; break;
-                   		case "hammer": elementType = BoardElements.SPECIAL_WRENCH; break;
-                   		case "flag1": elementType = BoardElements.FLAG1; break;
-                   		case "flag2": elementType = BoardElements.FLAG2; break;
-                   		case "flag3": elementType = BoardElements.FLAG3; break;
-                   		case "flag4": elementType = BoardElements.FLAG4; break;
+                  		case "normal": elementType = BoardElement.WRENCH; break;
+                   		case "hammer": elementType = BoardElement.SPECIAL_WRENCH; break;
+                   		case "flag1": elementType = BoardElement.FLAG1; break;
+                   		case "flag2": elementType = BoardElement.FLAG2; break;
+                   		case "flag3": elementType = BoardElement.FLAG3; break;
+                   		case "flag4": elementType = BoardElement.FLAG4; break;
                 	}
 				break;
 			case "gear":
 			    boolean rotationDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
 			    if(rotationDirection)
-			        elementType = BoardElements.GEAR_RIGHT;
+			        elementType = BoardElement.GEAR_RIGHT;
 			    else
-			        elementType = BoardElements.GEAR_LEFT;
+			        elementType = BoardElement.GEAR_LEFT;
 			    break;
             case "pusher":
                 Direction dir = Direction.valueOf(cell.getTile().getProperties().get("direction").toString());
                 boolean activatesOnEvenTurns = (boolean) cell.getTile().getProperties().get("activatesOnEvenTurns");
                 if(activatesOnEvenTurns)
-                    elementType = BoardElements.PUSHERS_EVEN.get(dir.getDirectionValue());
+                    elementType = BoardElement.PUSHERS_EVEN.get(dir.getDirectionValue());
                 else
-                    elementType = BoardElements.PUSHERS_ODD.get(dir.getDirectionValue());
+                    elementType = BoardElement.PUSHERS_ODD.get(dir.getDirectionValue());
                 break;
 			case "startingPoint":
 				String startPoint = "STARTING_POSITION_" + cell.getTile().getProperties().get("value").toString();
-				elementType = BoardElements.valueOf(startPoint);
+				elementType = BoardElement.valueOf(startPoint);
 				break;
 		}
 		return elementType;

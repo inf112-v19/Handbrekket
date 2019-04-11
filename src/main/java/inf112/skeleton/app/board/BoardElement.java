@@ -1,10 +1,9 @@
 package inf112.skeleton.app.board;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public enum BoardElements {
+public enum BoardElement {
     FLAG1(null),
     FLAG2(null),
     FLAG3(null),
@@ -12,10 +11,17 @@ public enum BoardElements {
     CONVEYORBELT(null),
     GEAR_LEFT(null),
     GEAR_RIGHT(null),
-    HOLES(null),
+    HOLE(null),
     WRENCH(null),
     SPECIAL_WRENCH(null),
-    STARTING_POSITION(null),
+    STARTING_POSITION_1(null),
+    STARTING_POSITION_2(null),
+    STARTING_POSITION_3(null),
+    STARTING_POSITION_4(null),
+    STARTING_POSITION_5(null),
+    STARTING_POSITION_6(null),
+    STARTING_POSITION_7(null),
+    STARTING_POSITION_8(null),
     PUSHER_EVEN_NORTH(Direction.NORTH),
     PUSHER_EVEN_EAST(Direction.EAST),
     PUSHER_EVEN_SOUTH(Direction.SOUTH),
@@ -31,7 +37,7 @@ public enum BoardElements {
 
     private final Direction direction;
 
-    BoardElements(Direction dir) {
+    BoardElement(Direction dir) {
         this.direction = dir;
     }
 
@@ -44,28 +50,35 @@ public enum BoardElements {
     }
 
     /**
+     * Contains all of the starting points
+     */
+    public static final List<BoardElement> STARTING_POINTS = Arrays.asList(STARTING_POSITION_1, STARTING_POSITION_2,
+            STARTING_POSITION_3, STARTING_POSITION_4, STARTING_POSITION_5, STARTING_POSITION_6, STARTING_POSITION_7,
+            STARTING_POSITION_8);
+
+    /**
      * Contains all of the pushers
      */
-    public static final List<BoardElements> PUSHERS = Arrays.asList(PUSHER_EVEN_NORTH, PUSHER_EVEN_EAST,
+    public static final List<BoardElement> PUSHERS = Arrays.asList(PUSHER_EVEN_NORTH, PUSHER_EVEN_EAST,
             PUSHER_EVEN_SOUTH, PUSHER_EVEN_WEST, PUSHER_ODD_NORTH, PUSHER_ODD_EAST, PUSHER_ODD_SOUTH, PUSHER_ODD_WEST);
 
     /**
      * Contains all of the pushers that activate on even phases
      */
-    public static final List<BoardElements> PUSHERS_EVEN = PUSHERS.subList(0,4);
+    public static final List<BoardElement> PUSHERS_EVEN = PUSHERS.subList(0,4);
 
     /**
      * Contains all of the pushers that activate on odd phases
      */
-    public static final List<BoardElements> PUSHERS_ODD = PUSHERS.subList(4,8);
+    public static final List<BoardElement> PUSHERS_ODD = PUSHERS.subList(4,8);
 
     /**
      * Contains all of the walls
      */
-    public static final List<BoardElements> WALLS = Arrays.asList(WALL_NORTH, WALL_EAST, WALL_SOUTH, WALL_WEST);
+    public static final List<BoardElement> WALLS = Arrays.asList(WALL_NORTH, WALL_EAST, WALL_SOUTH, WALL_WEST);
 
     /**
      * Contains the gears
      */
-    public static final List<BoardElements> GEARS = Arrays.asList(GEAR_LEFT, GEAR_RIGHT);
+    public static final List<BoardElement> GEARS = Arrays.asList(GEAR_LEFT, GEAR_RIGHT);
 }

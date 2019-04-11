@@ -50,6 +50,16 @@ public enum BoardElement {
     }
 
     /**
+     * Contains the wrenches
+     */
+    public static final List<BoardElement> WRENCHES = Arrays.asList(WRENCH, SPECIAL_WRENCH);
+
+    /**
+     * Contains all of the flags
+     */
+    public static final List<BoardElement> FLAGS = Arrays.asList(FLAG1, FLAG2, FLAG3, FLAG4);
+
+    /**
      * Contains all of the starting points
      */
     public static final List<BoardElement> STARTING_POINTS = Arrays.asList(STARTING_POSITION_1, STARTING_POSITION_2,

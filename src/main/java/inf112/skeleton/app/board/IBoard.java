@@ -65,7 +65,7 @@ public interface IBoard {
     *
     * @param x the x coordinate of the square to check
     * @param y the y coordinate of the square to check
-    * @return a list of wall BoardElement or null if none are present
+    * @return a list of wall BoardElements or null if none are present
     */
-    ArrayList<BoardElement> getWall(int x, int y);
+    ArrayList<BoardElement> getWalls(int x, int y);
 }

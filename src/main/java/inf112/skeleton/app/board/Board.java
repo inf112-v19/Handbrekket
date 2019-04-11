@@ -46,12 +46,25 @@ public class Board implements IBoard {
 		return width;
 	}
 
-	//TODO: implement this
 	@Override
-	public ArrayList<BoardElement> getWall(int x, int y) {
-		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-		TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-		return null;
+	public ArrayList<BoardElement> getWalls(int x, int y) {
+		ArrayList<BoardElement> walls = new ArrayList<>();
+
+		Direction dir = Direction.NORTH;
+		for(int i = 0; i < 4; i++) {
+			TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls"+dir.toString());
+			TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+			if(cell != null) {
+				String type = cell.getTile().getProperties().get("type").toString();
+				if (type.equals("wall"))
+					walls.add(BoardElement.WALLS.get(dir.getDirectionValue()));
+			}
+			dir = dir.next();
+		}
+		if(walls.isEmpty())
+			return null;
+		else
+			return walls;
 	}
 
 	@Override

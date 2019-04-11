@@ -59,17 +59,31 @@ public class Board implements IBoard {
 		return map;
 	}
 
+	@Override
 	public IConveyorBelt getConveyorBelt(int x, int y) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("lasers");
+        TiledMapTileLayer.Cell cell = layer.getCell(x,y);
+
 		return null;
 	}
 
-	public void getLasers(int x, int y) {
+	@Override
+	public ILaser getLaser(int x, int y) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("lasers");
+        TiledMapTileLayer.Cell cell = layer.getCell(x,y);
+        String type = cell.getTile().getProperties().get("type").toString();
+        if(type.isEmpty())
+            return null;
 
+        String direction = cell.getTile().getProperties().get("direction").toString();
+        int value = (int) cell.getTile().getProperties().get("value");
+
+        return new Laser(value, direction);
 	}
 
 	@Override
-	public BoardElement checkSquare(int x, int y) {
-		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+	public BoardElement getBoardElement(int x, int y) {
+		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
 		TiledMapTileLayer.Cell cell = layer.getCell(x,y);
 		String type = cell.getTile().getProperties().get("type").toString();
 

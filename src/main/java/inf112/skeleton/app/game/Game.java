@@ -164,7 +164,7 @@ public class Game implements IGame {
 
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                BoardElement elem = board.checkSquare(i,j);
+                BoardElement elem = board.getBoardElement(i,j);
                 int[] tempCoordinates = {i,j}; //Temporarily creates coordinates for the elements that need those
                 if(elem == BoardElement.HOLE) {
                     boardHoles.add(tempCoordinates);

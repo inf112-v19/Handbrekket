@@ -3,7 +3,7 @@ package inf112.skeleton.app.board;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.board.ConveyorBelts.IConveyorBelt;
+import inf112.skeleton.app.board.ConveyorBelts.*;
 
 import java.util.ArrayList;
 
@@ -74,10 +74,35 @@ public class Board implements IBoard {
 
 	@Override
 	public IConveyorBelt getConveyorBelt(int x, int y) {
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("lasers");
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
         TiledMapTileLayer.Cell cell = layer.getCell(x,y);
+        if(cell.getTile().getProperties().get("conveyorType") == null)
+        	throw new IllegalArgumentException("The given coordinates do not point to a conveyor belt");
 
-		return null;
+		String conveyorType = cell.getTile().getProperties().get("conveyorType").toString();
+		Direction moveDirection = Direction.valueOf(cell.getTile().getProperties().get("moveDirection").toString());
+		int[] position = {x,y};
+		int moveValue;
+		if((boolean) cell.getTile().getProperties().get("isExpress"))
+			moveValue = 2;
+		else
+			moveValue = 1;
+
+		IConveyorBelt conveyorBelt;
+		switch(conveyorType) {
+			case "straight": conveyorBelt = new ConveyorStraight(moveDirection, moveValue, position); break;
+			case "turn":
+				boolean turnDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
+				conveyorBelt = new ConveyorTurn(moveDirection, moveValue, position, turnDirection);
+				break;
+			case "into":
+				turnDirection = (boolean) cell.getTile().getProperties().get("rotationDirection");
+				conveyorBelt = new ConveyorInto(moveDirection, moveValue, position, turnDirection);
+				break;
+			case "combine": conveyorBelt = new ConveyorCombine(moveDirection, moveValue, position); break;
+			default: conveyorBelt = null;
+		}
+		return conveyorBelt;
 	}
 
 	@Override

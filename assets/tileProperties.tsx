@@ -4,8 +4,8 @@
  <tile id="0">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="NORTH"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -13,8 +13,8 @@
  <tile id="1">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="SOUTH"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -34,8 +34,8 @@
  <tile id="4">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="NORTH"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -43,8 +43,8 @@
  <tile id="5">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="SOUTH"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -65,8 +65,8 @@
  <tile id="9">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="EAST"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -74,8 +74,8 @@
  <tile id="10">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="WEST"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -96,8 +96,8 @@
  <tile id="13">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="EAST"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -105,8 +105,8 @@
  <tile id="14">
   <properties>
    <property name="conveyorType" value="straight"/>
-   <property name="direction" value="WEST"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -127,8 +127,8 @@
  <tile id="18">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="EAST"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
@@ -137,8 +137,8 @@
  <tile id="19">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="SOUTH"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
@@ -159,8 +159,8 @@
  <tile id="22">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="EAST"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
@@ -169,8 +169,8 @@
  <tile id="23">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="SOUTH"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
@@ -192,8 +192,8 @@
  <tile id="27">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="NORTH"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
@@ -202,8 +202,8 @@
  <tile id="28">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="WEST"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
@@ -226,8 +226,8 @@
  <tile id="31">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="NORTH"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
@@ -236,8 +236,8 @@
  <tile id="32">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="WEST"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
@@ -259,8 +259,8 @@
  <tile id="36">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="SOUTH"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
@@ -269,8 +269,8 @@
  <tile id="37">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="WEST"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
@@ -293,8 +293,8 @@
  <tile id="40">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="SOUTH"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
@@ -303,8 +303,8 @@
  <tile id="41">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="WEST"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
@@ -326,8 +326,8 @@
  <tile id="45">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="EAST"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
@@ -336,8 +336,8 @@
  <tile id="46">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="NORTH"/>
    <property name="isExpress" type="bool" value="false"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
@@ -360,8 +360,8 @@
  <tile id="49">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="EAST"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
@@ -370,8 +370,8 @@
  <tile id="50">
   <properties>
    <property name="conveyorType" value="turn"/>
-   <property name="direction" value="NORTH"/>
    <property name="isExpress" type="bool" value="true"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
@@ -387,8 +387,8 @@
  <tile id="54">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="SOUTH"/>
    <property name="moveDirection" value="EAST"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -396,8 +396,8 @@
  <tile id="55">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="WEST"/>
    <property name="moveDirection" value="SOUTH"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -419,8 +419,8 @@
  <tile id="58">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="SOUTH"/>
    <property name="moveDirection" value="EAST"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -428,8 +428,8 @@
  <tile id="59">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="WEST"/>
    <property name="moveDirection" value="SOUTH"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -437,8 +437,8 @@
  <tile id="63">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="EAST"/>
    <property name="moveDirection" value="NORTH"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -446,8 +446,8 @@
  <tile id="64">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="NORTH"/>
    <property name="moveDirection" value="WEST"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -469,8 +469,8 @@
  <tile id="67">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="EAST"/>
    <property name="moveDirection" value="NORTH"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -478,8 +478,8 @@
  <tile id="68">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="NORTH"/>
    <property name="moveDirection" value="WEST"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -499,8 +499,8 @@
  <tile id="72">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="EAST"/>
    <property name="moveDirection" value="SOUTH"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -508,8 +508,8 @@
  <tile id="73">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="SOUTH"/>
    <property name="moveDirection" value="WEST"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -531,8 +531,8 @@
  <tile id="76">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="EAST"/>
    <property name="moveDirection" value="SOUTH"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -540,8 +540,8 @@
  <tile id="77">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="SOUTH"/>
    <property name="moveDirection" value="WEST"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -561,8 +561,8 @@
  <tile id="81">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="NORTH"/>
    <property name="moveDirection" value="EAST"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -570,8 +570,8 @@
  <tile id="82">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="WEST"/>
    <property name="moveDirection" value="NORTH"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -589,8 +589,8 @@
  <tile id="85">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="NORTH"/>
    <property name="moveDirection" value="EAST"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -598,8 +598,8 @@
  <tile id="86">
   <properties>
    <property name="conveyorType" value="into"/>
-   <property name="from" value="WEST"/>
    <property name="moveDirection" value="NORTH"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -619,7 +619,7 @@
  <tile id="90">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="NORTH"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -627,7 +627,7 @@
  <tile id="91">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="SOUTH"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -645,7 +645,7 @@
  <tile id="94">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="NORTH"/>
+   <property name="moveDirection" value="NORTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="2"/>
   </properties>
@@ -653,7 +653,7 @@
  <tile id="95">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="SOUTH"/>
+   <property name="moveDirection" value="SOUTH"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="3"/>
   </properties>
@@ -673,7 +673,7 @@
  <tile id="99">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="EAST"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -681,7 +681,7 @@
  <tile id="100">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="WEST"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>
@@ -699,7 +699,7 @@
  <tile id="103">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="EAST"/>
+   <property name="moveDirection" value="EAST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="1"/>
   </properties>
@@ -707,7 +707,7 @@
  <tile id="104">
   <properties>
    <property name="conveyorType" value="combine"/>
-   <property name="direction" value="WEST"/>
+   <property name="moveDirection" value="WEST"/>
    <property name="type" value="conveyorBelt"/>
    <property name="value" value="0"/>
   </properties>

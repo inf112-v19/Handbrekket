@@ -132,8 +132,15 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
+        int rotationValue = robot.getDir().getDirectionInDegrees();
+        //Had to use this "hack" since the "default" rotation in libGDX is South, while in Direction it starts at North
+        if(rotationValue == 180)
+            rotationValue = 0;
+        else if (rotationValue == 0)
+            rotationValue = 180;
+
         sprite.setPosition(xPos * tilePixelHeight + 5, yPos * tilePixelWidth + 5);
-        sprite.setRotation(robot.getDir().getDirectionInDegrees());
+        sprite.setRotation(rotationValue);
     }
 
     @Override

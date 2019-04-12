@@ -38,6 +38,8 @@ public class Game implements IGame {
     public Game(TiledMap tiledMap, int numberOfPlayers) {
         board = new Board(tiledMap);
         initializeBoardElements();
+        initializeWalls();
+        initalizeStartingPoints();
         createDeck();
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
@@ -166,6 +168,35 @@ public class Game implements IGame {
     //TODO: make this
     private void initalizeStartingPoints() {
 
+    }
+
+    /**
+     * Goes through the board and initializes the walls into their perspective ArrayLists
+     */
+    private void initializeWalls() {
+        int width = board.getWidth();
+        int height = board.getHeight();
+
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                ArrayList<BoardElement> walls = board.getWalls(i, j);
+                if(walls != null) {
+                    int[] tempPos = {i, j};
+                    for(BoardElement wall : walls) {
+                        if(!BoardElement.WALLS.contains(wall))
+                            throw new IllegalArgumentException("The given element is not a wall");
+                        else if(wall.getDirection() == Direction.NORTH)
+                            northWalls.add(tempPos);
+                        else if(wall.getDirection() == Direction.EAST)
+                            eastWalls.add(tempPos);
+                        else if(wall.getDirection() == Direction.SOUTH)
+                            southWalls.add(tempPos);
+                        else if(wall.getDirection() == Direction.WEST)
+                            westWalls.add(tempPos);
+                    }
+                }
+            }
+        }
     }
 
     private void initializeBoardElements() {

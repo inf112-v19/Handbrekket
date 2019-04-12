@@ -2,35 +2,42 @@ package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.app.board.*;
+import inf112.skeleton.app.board.ConveyorBelts.ConveyorStraight;
+import inf112.skeleton.app.board.ConveyorBelts.ConveyorTurn;
+import inf112.skeleton.app.board.ConveyorBelts.IConveyorBelt;
+import inf112.skeleton.app.board.ConveyorBelts.IConveyorTurn;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.*;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class Game implements IGame {
-    private ArrayList<ICard> programCards = new ArrayList<>();
+    private ArrayList<ICard> deck = new ArrayList<>();
     private ArrayList<int[]> boardHoles = new ArrayList<>();
-    private ArrayList<int[]> boardFlags;
-    private ArrayList<int[]> boardRepairSites;
+    private ArrayList<int[]> boardFlags = new ArrayList<>(); //TODO: consider sorting the flags
+    private ArrayList<int[]> boardRepairSites = new ArrayList<>();
+    private ArrayList<IConveyorTurn> gears = new ArrayList<>(); //Uses the "turn" type conveyor, since it's essentially a 0 move turner
+    //Works very similar to straight conveyors, thus uses the same class
+    private ArrayList<ConveyorStraight> pushersEven = new ArrayList<>();
+    private ArrayList<ConveyorStraight> pushersOdd = new ArrayList<>();
 
     private ArrayList<int[]> northWalls = new ArrayList<>();
     private ArrayList<int[]> westWalls = new ArrayList<>();
     private ArrayList<int[]> eastWalls = new ArrayList<>();
     private ArrayList<int[]> southWalls = new ArrayList<>();
     private ArrayList<int[]>[] boardWalls = new ArrayList[4];
-    private ArrayList<IMovementBoardElement> conveyorBelts = new ArrayList<>();
-    private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
+    private ArrayList<IConveyorBelt> conveyorBelts = new ArrayList<>();
+    //private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
-    private Game game;
 
     //TODO: consider making numberOfPlayers a private variable in Game
     public Game(TiledMap tiledMap, int numberOfPlayers) {
         board = new Board(tiledMap);
+        initializeBoardElements();
         createDeck();
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
@@ -39,7 +46,6 @@ public class Game implements IGame {
         boardWalls[1] = eastWalls;
         boardWalls[2] = northWalls;
         boardWalls[3] = westWalls;
-
     }
 
     private void programRegistersFactory (int numberOfPlayers) {
@@ -52,11 +58,7 @@ public class Game implements IGame {
         }
     }
 
-    /**
-     * Gets board
-     * Marius
-     * @return
-     */
+    @Override
     public IBoard getBoard() {
         return board;
     }
@@ -155,51 +157,43 @@ public class Game implements IGame {
         for(IProgramRegister currentRegister : allProgramRegisters) {
             for(int[] repairSitePos : boardRepairSites){
                 if(Arrays.equals(currentRegister.getRobot().getPosition(), repairSitePos)) {
-                    game.repair(currentRegister);
+                    repair(currentRegister);
                 }
             }
         }
     }
 
-    //TODO setHoles(): sets the holes on the board
+    //TODO: make this
+    private void initalizeStartingPoints() {
 
-    //TODO: needs to be expanded with conveyorbelts & similar, also more comments
+    }
+
     private void initializeBoardElements() {
         int width = board.getWidth();
         int height = board.getHeight();
 
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                BoardElements elem = board.checkSquare(i,j);
+                BoardElement elem = board.getBoardElement(i, j);
                 int[] tempCoordinates = {i,j}; //Temporarily creates coordinates for the elements that need those
-                if(elem == BoardElements.HOLES) {
+                if(BoardElement.FLAGS.contains(elem)) {
+                    boardFlags.add(tempCoordinates);
+                } else if(elem == BoardElement.CONVEYORBELT) {
+                    conveyorBelts.add(board.getConveyorBelt(i, j));
+                } else if(BoardElement.GEARS.contains(elem)) {
+                    if(elem == BoardElement.GEAR_RIGHT)
+                        gears.add(new ConveyorTurn(null, 0, tempCoordinates, true));
+                    else if(elem == BoardElement.GEAR_LEFT)
+                        gears.add(new ConveyorTurn(null, 0, tempCoordinates, false));
+                } else if(elem == BoardElement.HOLE) {
                     boardHoles.add(tempCoordinates);
-                }
-                //TODO: Remove wall initalization, it needs to be done elsewhere
-                else if (elem == BoardElements.WALL_SOUTH) {
-                    southWalls.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_EAST) {
-                    eastWalls.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_NORTH) {
-                    northWalls.add(tempCoordinates);
-                }
-                else if (elem == BoardElements.WALL_WEST) {
-                    westWalls.add(tempCoordinates);
-                }
-                else if (BoardElements.CONVEYORBELTS.contains(elem)) {
-                    Direction dir = elem.getDirection();
-                    Boolean turnDirection;
-                    if(BoardElements.CONVEYORBELTS_TURN_LEFT.contains(elem)) {
-                        turnDirection = false;
-                    } else if(BoardElements.CONVEYORBELTS_TURN_RIGHT.contains(elem)) {
-                        turnDirection = true;
-                    } else
-                        turnDirection = null;
-
-                    IMovementBoardElement movementBoardElement = new MovementBoardElement(tempCoordinates, dir, 1, turnDirection);
-                    conveyorBelts.add(movementBoardElement);
+                } else if(BoardElement.WRENCHES.contains(elem)) {
+                    boardRepairSites.add(tempCoordinates);
+                } else if(BoardElement.PUSHERS.contains(elem)) {
+                    if(BoardElement.PUSHERS_EVEN.contains(elem))
+                        pushersEven.add(new ConveyorStraight(elem.getDirection(), 1, tempCoordinates));
+                    else if(BoardElement.PUSHERS_ODD.contains(elem))
+                        pushersOdd.add(new ConveyorStraight(elem.getDirection(), 1, tempCoordinates));
                 }
             }
         }
@@ -301,12 +295,12 @@ public class Game implements IGame {
         robot.setBackup(backUp);
     }
 
-    //TODO: change to deal to ALL registers, not just the current one.
     @Override
     public void dealCards() {
         for (IProgramRegister register : allProgramRegisters) {
             final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
-            ArrayList<ICard> temp = new ArrayList<>(programCards.subList(0, numberOfCardsToDeal));
+            ArrayList<ICard> temp = new ArrayList<>(deck.subList(0, numberOfCardsToDeal));
+            deck.removeAll(temp); //Removes the cards from the deck
             register.setAvailableCards(temp);
         }
     }
@@ -314,6 +308,20 @@ public class Game implements IGame {
     @Override
     public void activateFlag() {
 
+    }
+
+    /**
+     * Activates all of the gears on the board & applies effects to robots on gears
+     */
+    public void activateGears() {
+        for(IConveyorTurn gear : gears) {
+            for(IProgramRegister register : allProgramRegisters) {
+                if(Arrays.equals(gear.getPosition(), register.getRobot().getPosition())) {
+                    register.getRobot().rotate(gear.getTurnDirection());
+                }
+            }
+            //gear.rotate() Would be cool if we actually rotated the gears in GFX to show that they're activated
+        }
     }
 
     /**
@@ -333,7 +341,7 @@ public class Game implements IGame {
     }
 
     /**
-     * Creates a deck of programCards of all of the "simple" types, stored in the ArrayList programCards
+     * Creates a deck of deck of all of the "simple" types, stored in the ArrayList deck
      * As of right now it's hard-coded, but in the future we should probably make it more dynamic
      */
     private void createDeck() {
@@ -358,7 +366,7 @@ public class Game implements IGame {
      */
     private void createMovementCards(int cardNum, int interval, int intervalStart, int moveValue) {
         for(int i = 0; i < cardNum; i++){
-            programCards.add(new MovementCard(intervalStart + i * interval,moveValue));
+            deck.add(new MovementCard(intervalStart + i * interval,moveValue));
         }
     }
 
@@ -372,22 +380,22 @@ public class Game implements IGame {
      */
     private void createRotationCards(int cardNum, int interval, int intervalStart, boolean rotationDirection, int rotationValue) {
         for(int i = 0; i < cardNum; i++){
-            programCards.add(new RotationCard(intervalStart + i * interval, rotationDirection, rotationValue));
+            deck.add(new RotationCard(intervalStart + i * interval, rotationDirection, rotationValue));
 
         }
     }
 
     /**
-     * Shuffles the deck of programCards
+     * Shuffles the deck of deck
      */
     private void shuffleDeck() {
-        Collections.shuffle(programCards);
+        Collections.shuffle(deck);
     }
 
     //TODO: should probably have guards
     @Override
     public void addCardToDeck(ICard card) {
-        programCards.add(card);
+        deck.add(card);
     }
 
     @Override
@@ -398,6 +406,7 @@ public class Game implements IGame {
     @Override
     public void activateConveyorBelts() {
         //Because of how the rules handles conflicts with movement a "prediction" of how where the robots will end up is needed
+        /* OLD CODE:
         ArrayList<int[]> predictedCoordinates = new ArrayList<>();
 
         for(int i = 0; i < allProgramRegisters.size(); i++) {
@@ -417,7 +426,7 @@ public class Game implements IGame {
         for(int i = 0; i < allProgramRegisters.size(); i++) {
             //TODO: change this, it shouldn't use absolute movement
             absoluteMove(allProgramRegisters.get(i).getRobot(), predictedCoordinates.get(i));
-        }
+        } */
     }
 
     //TODO: complete

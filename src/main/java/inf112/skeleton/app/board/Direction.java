@@ -6,9 +6,9 @@ package inf112.skeleton.app.board;
  * North, west, south, east
  */
 public enum Direction {
-    NORTH ("N", 2, 0, 1),
+    NORTH ("N", 0, 0, 1),
     EAST ("E", 1, 1, 0),
-    SOUTH ("S", 0, 0, -1),
+    SOUTH ("S", 2, 0, -1),
     WEST ("W", 3, -1, 0);
 
     private final String symbol;

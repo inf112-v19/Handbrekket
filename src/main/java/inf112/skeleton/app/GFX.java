@@ -57,6 +57,9 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     //Used for testing, should not be pushed
     private boolean showCards = false;
+    private int robotRotationValue = 0;
+    private int robotXPos;
+    private int robotYPos;
     private BitmapFont font;
     private int cardId = 0;
 
@@ -73,7 +76,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("assets/tilemap.tmx");
+        tiledMap = new TmxMapLoader().load("assets/map1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);
@@ -83,6 +86,8 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         game = new Game(tiledMap, 1);
         game.dealCards();
+        robotXPos = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
+        robotYPos = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
 
         batch = new SpriteBatch();
         texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
@@ -132,8 +137,30 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
-        sprite.setPosition(xPos * tilePixelHeight + 5, yPos * tilePixelWidth + 5);
-        sprite.setRotation(robot.getDir().getDirectionInDegrees());
+        int rotationValue = robot.getDir().getDirectionInDegrees();
+        //Had to use this "hack" since the "default" rotation in libGDX is South, while in Direction it starts at North
+        if(rotationValue == 180)
+            rotationValue = 0;
+        else if (rotationValue == 0)
+            rotationValue = 180;
+
+        if(robotRotationValue > rotationValue)
+            robotRotationValue -= 10;
+        else if(robotRotationValue < rotationValue)
+            robotRotationValue += 10;
+
+        if(robotXPos > xPos * tilePixelWidth + 5)
+            robotXPos -= 5;
+        else if(robotXPos < xPos * tilePixelWidth + 5)
+            robotXPos += 5;
+        if(robotYPos > yPos * tilePixelHeight + 5)
+            robotYPos -= 5;
+        else if(robotYPos < yPos * tilePixelHeight + 5)
+            robotYPos += 5;
+
+
+        sprite.setPosition(robotXPos, robotYPos);
+        sprite.setRotation(robotRotationValue);
     }
 
     @Override

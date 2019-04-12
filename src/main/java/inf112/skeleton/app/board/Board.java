@@ -3,8 +3,7 @@ package inf112.skeleton.app.board;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.board.BoardElements;
-import org.lwjgl.Sys;
+import inf112.skeleton.app.board.ConveyorBelts.*;
 
 import java.util.ArrayList;
 
@@ -47,12 +46,25 @@ public class Board implements IBoard {
 		return width;
 	}
 
-	//TODO: implement this
 	@Override
-	public ArrayList<BoardElements> getWall(int x, int y) {
-		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-		TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-		return null;
+	public ArrayList<BoardElement> getWalls(int x, int y) {
+		ArrayList<BoardElement> walls = new ArrayList<>();
+
+		Direction dir = Direction.NORTH;
+		for(int i = 0; i < 4; i++) {
+			TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls"+dir.toString());
+			TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+			if(cell != null) {
+				String type = cell.getTile().getProperties().get("type").toString();
+				if (type.equals("wall"))
+					walls.add(BoardElement.WALLS.get(dir.getDirectionValue()));
+			}
+			dir = dir.next();
+		}
+		if(walls.isEmpty())
+			return null;
+		else
+			return walls;
 	}
 
 	@Override
@@ -61,52 +73,90 @@ public class Board implements IBoard {
 	}
 
 	@Override
-	public BoardElements checkSquare(int x, int y) {
-		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
-		TiledMapTileLayer.Cell cell = layer.getCell(x,y);
-		String type = cell.getTile().getProperties().get("type").toString();
+	public IConveyorBelt getConveyorBelt(int x, int y) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
+        MapProperties properties = layer.getCell(x, y).getTile().getProperties();
+        if(properties.get("conveyorType") == null)
+        	throw new IllegalArgumentException("The given coordinates do not point to a conveyor belt");
 
-		BoardElements elementType = null;
+		String conveyorType = properties.get("conveyorType").toString();
+		Direction moveDirection = Direction.valueOf(properties.get("moveDirection").toString());
+		int[] position = {x,y};
+		int moveValue;
+		if((boolean) properties.get("isExpress"))
+			moveValue = 2;
+		else
+			moveValue = 1;
+
+		IConveyorBelt conveyorBelt;
+		switch(conveyorType) {
+			case "straight": conveyorBelt = new ConveyorStraight(moveDirection, moveValue, position); break;
+			case "turn":
+				boolean turnDirection = (boolean) properties.get("rotationDirection");
+				conveyorBelt = new ConveyorTurn(moveDirection, moveValue, position, turnDirection);
+				break;
+			case "into":
+				turnDirection = (boolean) properties.get("rotationDirection");
+				conveyorBelt = new ConveyorInto(moveDirection, moveValue, position, turnDirection);
+				break;
+			case "combine": conveyorBelt = new ConveyorCombine(moveDirection, moveValue, position); break;
+			default: conveyorBelt = null;
+		}
+		return conveyorBelt;
+	}
+
+	@Override
+	public ILaser getLaser(int x, int y) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("lasers");
+        MapProperties properties = layer.getCell(x,y).getTile().getProperties();
+        String type = properties.get("type").toString();
+        if(type.isEmpty())
+            return null;
+
+        String direction = properties.get("direction").toString();
+        int value = (int) properties.get("value");
+        return new Laser(value, direction);
+	}
+
+	@Override
+	public BoardElement getBoardElement(int x, int y) {
+		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
+		MapProperties properties = layer.getCell(x, y).getTile().getProperties();
+		String type = properties.get("type").toString();
+
+		BoardElement elementType = null;
 		switch (type) {
-			case "straightArrow":
-				String dir = cell.getTile().getProperties().get("direction").toString();
-				switch (dir) {
-					case "north": elementType = BoardElements.CONVEYORBELT_MOVE_NORTH; break;
-					case "south": elementType = BoardElements.CONVEYORBELT_MOVE_SOUTH; break;
-					case "west": elementType = BoardElements.CONVEYORBELT_MOVE_WEST; break;
-					case "east": elementType = BoardElements.CONVEYORBELT_MOVE_EAST; break;
-				}
-				break;
-			case "rightArrow":
-				dir = cell.getTile().getProperties().get("direction").toString();
-				switch (dir) {
-					case "north": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_NORTH; break;
-					case "south": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_SOUTH; break;
-					case "west": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_WEST; break;
-					case "east": elementType = BoardElements.CONVEYORBELT_TURN_RIGHT_MOVE_EAST; break;
-				}
-				break;
-            		case "leftArrow":
-			    	dir = cell.getTile().getProperties().get("direction").toString();
-			    	switch (dir) {
-				    	case "north": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_NORTH; break;
-				    	case "south": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_SOUTH; break;
-				    	case "west": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_WEST; break;
-				    	case "east": elementType = BoardElements.CONVEYORBELT_TURN_LEFT_MOVE_EAST; break;
-			    	}
-			    	break;
-			case "hole": elementType = BoardElements.HOLES; break;
+			case "conveyorBelt": elementType = BoardElement.CONVEYORBELT; break;
+			case "hole": elementType = BoardElement.HOLE; break;
 			case "wrench":
-			    	//TODO: change from int value to String name
-                		int value = (int) cell.getTile().getProperties().get("value");
-                		switch (value) {
-                    			case 0: elementType = BoardElements.WRENCH; break;
-                    			case -1: elementType = BoardElements.SPECIAL_WRENCH; break;
-                    			case 1: elementType = BoardElements.FLAG1; break;
-                    			case 2: elementType = BoardElements.FLAG2; break;
-                    			case 3: elementType = BoardElements.FLAG3; break;
-                    			case 4: elementType = BoardElements.FLAG4; break;
-                		}
+				String name = properties.get("name").toString();
+                	switch (name) {
+                  		case "normal": elementType = BoardElement.WRENCH; break;
+                   		case "hammer": elementType = BoardElement.SPECIAL_WRENCH; break;
+                   		case "flag1": elementType = BoardElement.FLAG1; break;
+                   		case "flag2": elementType = BoardElement.FLAG2; break;
+                   		case "flag3": elementType = BoardElement.FLAG3; break;
+                   		case "flag4": elementType = BoardElement.FLAG4; break;
+                	}
+				break;
+			case "gear":
+			    boolean rotationDirection = (boolean) properties.get("rotationDirection");
+			    if(rotationDirection)
+			        elementType = BoardElement.GEAR_RIGHT;
+			    else
+			        elementType = BoardElement.GEAR_LEFT;
+			    break;
+            case "pusher":
+                Direction dir = Direction.valueOf(properties.get("direction").toString());
+                boolean activatesOnEvenTurns = (boolean) properties.get("activatesOnEvenTurns");
+                if(activatesOnEvenTurns)
+                    elementType = BoardElement.PUSHERS_EVEN.get(dir.getDirectionValue());
+                else
+                    elementType = BoardElement.PUSHERS_ODD.get(dir.getDirectionValue());
+                break;
+			case "startingPoint":
+				String startPoint = "STARTING_POSITION_" + properties.get("value").toString();
+				elementType = BoardElement.valueOf(startPoint);
 				break;
 		}
 		return elementType;

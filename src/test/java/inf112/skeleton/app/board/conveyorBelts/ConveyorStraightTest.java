@@ -1,9 +1,9 @@
 package inf112.skeleton.app.board.conveyorBelts;
 
+import inf112.skeleton.app.board.ConveyorBelts.ConveyorStraight;
 import inf112.skeleton.app.board.Direction;
 import org.junit.Before;
 import org.junit.Test;
-import inf112.skeleton.app.board.ConveyorBelts.*;
 import static  org.junit.Assert.*;
 
 public class ConveyorStraightTest {

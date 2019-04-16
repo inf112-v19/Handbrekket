@@ -328,6 +328,8 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         }
         if(keycode == Input.Keys.SPACE)
             game.doPhase(phaseNumber++);
+        if(keycode == Input.Keys.E)
+            game.activateConveyorBelts();
 
         return false;
     }

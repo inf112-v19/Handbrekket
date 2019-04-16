@@ -2,10 +2,7 @@ package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.app.board.*;
-import inf112.skeleton.app.board.ConveyorBelts.ConveyorStraight;
-import inf112.skeleton.app.board.ConveyorBelts.ConveyorTurn;
-import inf112.skeleton.app.board.ConveyorBelts.IConveyorBelt;
-import inf112.skeleton.app.board.ConveyorBelts.IConveyorTurn;
+import inf112.skeleton.app.board.ConveyorBelts.*;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.*;
 
@@ -48,6 +45,11 @@ public class Game implements IGame {
         boardWalls[1] = eastWalls;
         boardWalls[2] = northWalls;
         boardWalls[3] = westWalls;
+
+        int[] testPos = {0, 1}; //TODO: for tests, remove later
+        allProgramRegisters.get(0).getRobot().setPosition(testPos);
+
+        System.out.println(board.getConveyorBelt(1, 5));
     }
 
     private void programRegistersFactory (int numberOfPlayers) {
@@ -278,7 +280,7 @@ public class Game implements IGame {
         }
 
         //TODO: should be expanded to have all boardElements
-        activateConveyorBelts();
+        //activateConveyorBelts(); TODO: Works like it should, but not used yet because of testing
         //fireLasers(); not implemented yet
     }
 
@@ -436,18 +438,77 @@ public class Game implements IGame {
 
     @Override
     public void activateConveyorBelts() {
-        int[][] predictedPosititons = new int[2][allProgramRegisters.size()];
-        for(int i = 0; i < allProgramRegisters.size(); i++) {
+        int numberOfRobots = allProgramRegisters.size();
+
+        boolean[] isMoved = new boolean[numberOfRobots]; //Tracks if a robot will be moved by a conveyor
+        int[][] predictedPositions = new int[numberOfRobots][2]; //Used to store "predicted" positions
+        //Stores the conveyorBelts a robot will interact with, first is the one it's on, the second is the one it will move onto
+        IConveyorBelt[][] conveyorsWithRobot = new IConveyorBelt[numberOfRobots][2];
+
+        for(int i = 0; i < numberOfRobots; i++) {
+            //Initiates array values with the assumption that the robot isn't on a conveyor
+            isMoved[i] = false;
+            conveyorsWithRobot[i][0] = null;
+            conveyorsWithRobot[i][1] = null;
+
             int[] robotPos = allProgramRegisters.get(i).getRobot().getPosition();
-            //predictedPosititons[] TODO:Unfinished
+            predictedPositions[i] = robotPos.clone();
             for(IConveyorBelt conveyorBelt : conveyorBelts) {
+                //Goes through all of the conveyor belts and calculates the predicted position & stores relevant conveyors
                 if(Arrays.equals(robotPos, conveyorBelt.getPosition())){
-                    predictedPosititons[0][i] = robotPos[0] + conveyorBelt.getDirection().getDeltaX();
-                    predictedPosititons[1][i] = robotPos[1] + conveyorBelt.getDirection().getDeltaY();
-                    break;
+                    predictedPositions[i][0] = robotPos[0] + conveyorBelt.getDirection().getDeltaX();
+                    predictedPositions[i][1] = robotPos[1] + conveyorBelt.getDirection().getDeltaY();
+
+                    conveyorsWithRobot[i][0] = conveyorBelt;
+                    conveyorsWithRobot[i][1] = getConveyorInPosition(predictedPositions[i]);
+
+                    isMoved[i] = true;
+                    break; //Breaks to avoid running through the rest of the conveyor list
                 }
             }
         }
+
+        boolean[] canMove = new boolean[numberOfRobots]; //Stores whether a conveyor can move a robot or not
+        //Not the most efficient way to compare positions, but considering the small data size it should be fine
+        for(int i = 0; i < predictedPositions.length; i++) { //checks if there is any overlap in predicted positions
+            for(int j = i + 1; j < predictedPositions.length; j++) {
+                if(Arrays.equals(predictedPositions[i], predictedPositions[j])) {
+                    canMove[i] = false;
+                    canMove[j] = false;
+                }
+            }
+        }
+
+        for(int i = 0; i < numberOfRobots; i++) {
+            canMove[i] = true;
+            IRobot robot = allProgramRegisters.get(i).getRobot();
+            if(isMoved[i] && canMove[i]) {
+                //Checks is the conveyor the robot is moved onto is of the turn type (this includes the into types)
+                if(conveyorsWithRobot[i][1] instanceof IConveyorTurn) {
+                    IConveyorTurn conveyorBelt = (IConveyorTurn) conveyorsWithRobot[i][1];
+                    robot.rotate(conveyorBelt.getTurnDirection());
+                } else if(conveyorsWithRobot[i][1] instanceof IConveyorCombine) {
+                    IConveyorCombine conveyorBelt = (IConveyorCombine) conveyorsWithRobot[i][1];
+                    robot.rotate(conveyorBelt.getRotationDirectionFromPreviousPosition(robot.getPosition()));
+                }
+
+                absoluteMove(robot, predictedPositions[i]);
+            }
+        }
+    }
+
+    /**
+     * A simple help-method that returns a conveyor belt in the given position, or null if none is found
+     * @param position the position to check
+     * @return IConveyorBelt object
+     */
+    private IConveyorBelt getConveyorInPosition(int[] position) {
+        for(IConveyorBelt conveyorBelt : conveyorBelts) {
+            if(Arrays.equals(conveyorBelt.getPosition(), position))
+                return conveyorBelt;
+        }
+
+        return null;
     }
 
     /**

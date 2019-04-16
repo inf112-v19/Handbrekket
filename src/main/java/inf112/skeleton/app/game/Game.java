@@ -436,28 +436,31 @@ public class Game implements IGame {
 
     @Override
     public void activateConveyorBelts() {
-        //Because of how the rules handles conflicts with movement a "prediction" of how where the robots will end up is needed
-        /* OLD CODE:
-        ArrayList<int[]> predictedCoordinates = new ArrayList<>();
-
+        int[][] predictedPosititons = new int[2][allProgramRegisters.size()];
         for(int i = 0; i < allProgramRegisters.size(); i++) {
-            //Gets the coordinates of each robot and compares them to the coordinates of the conveyor belts
-            int[] currentRobotCoordinates = allProgramRegisters.get(i).getRobot().getPosition();
-            for(IMovementBoardElement conveyorBelt : conveyorBelts) {
-                if(Arrays.equals(currentRobotCoordinates,conveyorBelt.getCoordinates())) {
-                    currentRobotCoordinates[0] += conveyorBelt.getDirection().getDeltaX();
-                    currentRobotCoordinates[1] += conveyorBelt.getDirection().getDeltaY();
+            int[] robotPos = allProgramRegisters.get(i).getRobot().getPosition();
+            //predictedPosititons[] TODO:Unfinished
+            for(IConveyorBelt conveyorBelt : conveyorBelts) {
+                if(Arrays.equals(robotPos, conveyorBelt.getPosition())){
+                    predictedPosititons[0][i] = robotPos[0] + conveyorBelt.getDirection().getDeltaX();
+                    predictedPosititons[1][i] = robotPos[1] + conveyorBelt.getDirection().getDeltaY();
+                    break;
                 }
             }
-            predictedCoordinates.add(currentRobotCoordinates);
         }
+    }
 
-        //TODO: finish section that checks if movement is legal by processing the predictedCoordinates list
-
-        for(int i = 0; i < allProgramRegisters.size(); i++) {
-            //TODO: change this, it shouldn't use absolute movement
-            absoluteMove(allProgramRegisters.get(i).getRobot(), predictedCoordinates.get(i));
-        } */
+    /**
+     * Help-method to check if a square is empty, used primarily by conveyor belts
+     * @param position the position to check
+     * @return true if empty, false if not
+     */
+    private boolean isSquareEmpty(int[] position) {
+        for(IProgramRegister register : allProgramRegisters) {
+            if(Arrays.equals(register.getRobot().getPosition(), position))
+                return true;
+        }
+        return false;
     }
 
     //TODO: complete

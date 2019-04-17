@@ -142,17 +142,30 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
-        int rotationValue = robot.getDir().getDirectionInDegrees();
+        int desiredAngle = robot.getDir().getDirectionInDegrees();
         //Had to use this "hack" since the "default" rotation in libGDX is South, while in Direction it starts at North
-        if(rotationValue == 180)
-            rotationValue = 0;
-        else if (rotationValue == 0)
-            rotationValue = 180;
+        if(desiredAngle == 180)
+            desiredAngle = 0;
+        else if (desiredAngle == 0)
+            desiredAngle = 180;
 
-        if(robotPositions[robotId][2] > rotationValue)
-            robotPositions[robotId][2] -= 10;
-        else if(robotPositions[robotId][2] < rotationValue)
-            robotPositions[robotId][2] += 10;
+        int currentAngle = robotPositions[robotId][2];
+        if(currentAngle < desiredAngle) {
+            if(abs(desiredAngle - currentAngle) > 180)
+                currentAngle -= 10;
+            else
+                currentAngle += 10;
+        } else if (currentAngle > desiredAngle){
+            if(abs(desiredAngle - currentAngle) > 180)
+                currentAngle += 10;
+            else
+                currentAngle -= 10;
+        }
+
+        currentAngle = Math.floorMod(currentAngle, 360);
+
+        robotPositions[robotId][2] = currentAngle;
+
 
         if(robotPositions[robotId][0] > xPos * tilePixelWidth + 5)
             robotPositions[robotId][0] -= 5;
@@ -165,7 +178,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
 
         sprite.setPosition(robotPositions[robotId][0], robotPositions[robotId][1]);
-        sprite.setRotation(robotPositions[robotId][2]);
+        sprite.setRotation(currentAngle);
     }
 
     @Override

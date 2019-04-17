@@ -32,7 +32,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private final String MAP_1 = "assets/map1.tmx";
 
     private TiledMap tiledMap;
-    private TiledMapTileLayer layer;
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
     private FitViewport viewport;
@@ -51,7 +50,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private Sprite spriteCardBack;
     private Sprite spriteCardFront;
     private Sprite[] damageArr;
-    private Sprite[] getDamageArrBack;
     private Sprite spriteDamageRed;
     private Sprite[] damageArrback;
     private Sprite[] cards;
@@ -59,11 +57,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private int tilePixelWidth;
     private int tilePixelHeight;
 
+    //Stores all of the robots values, TODO: initialise in create based on number of players
+    private int[][] robotPositions = new int[1][3];
+
     //Used for testing, should not be pushed
     private boolean showCards = false;
-    private int robotRotationValue = 0;
-    private int robotXPos;
-    private int robotYPos;
     private BitmapFont font;
     private int cardId = 0;
 
@@ -131,12 +129,15 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private void createGame() {
         game = new Game(tiledMap, 1);
         game.dealCards();
-        robotXPos = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
-        robotYPos = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
+
+        //TODO: should be dynamically assigned
+        robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
+        robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
+        robotPositions[0][2] = 0; //Rotation value
     }
 
     //Used to render the robot
-    private void calculateRobotPosition() {
+    private void calculateRobotPosition(int robotId) {
         IRobot robot = game.getCurrentRegister().getRobot();
 
         int xPos = robot.getPosition()[0];
@@ -148,23 +149,23 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         else if (rotationValue == 0)
             rotationValue = 180;
 
-        if(robotRotationValue > rotationValue)
-            robotRotationValue -= 10;
-        else if(robotRotationValue < rotationValue)
-            robotRotationValue += 10;
+        if(robotPositions[robotId][2] > rotationValue)
+            robotPositions[robotId][2] -= 10;
+        else if(robotPositions[robotId][2] < rotationValue)
+            robotPositions[robotId][2] += 10;
 
-        if(robotXPos > xPos * tilePixelWidth + 5)
-            robotXPos -= 5;
-        else if(robotXPos < xPos * tilePixelWidth + 5)
-            robotXPos += 5;
-        if(robotYPos > yPos * tilePixelHeight + 5)
-            robotYPos -= 5;
-        else if(robotYPos < yPos * tilePixelHeight + 5)
-            robotYPos += 5;
+        if(robotPositions[robotId][0] > xPos * tilePixelWidth + 5)
+            robotPositions[robotId][0] -= 5;
+        else if(robotPositions[robotId][0] < xPos * tilePixelWidth + 5)
+            robotPositions[robotId][0] += 5;
+        if(robotPositions[robotId][1] > yPos * tilePixelHeight + 5)
+            robotPositions[robotId][1] -= 5;
+        else if(robotPositions[robotId][1] < yPos * tilePixelHeight + 5)
+            robotPositions[robotId][1] += 5;
 
 
-        sprite.setPosition(robotXPos, robotYPos);
-        sprite.setRotation(robotRotationValue);
+        sprite.setPosition(robotPositions[robotId][0], robotPositions[robotId][1]);
+        sprite.setRotation(robotPositions[robotId][2]);
     }
 
     @Override
@@ -179,7 +180,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
 
-        calculateRobotPosition();
+        calculateRobotPosition(0);
         sprite.draw(batch);
         spriteP.draw(batch);
         spriteDamageRed.draw(batch);
@@ -216,24 +217,8 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
                 font.draw(batch, Integer.toString(availableCards.get(i).getPriority()), i * 105 + 66, y + 128);
                 int type = availableCards.get(i).getType();
-                String strType = "";
-                String strValue = "";
-                String strDir = "";
-                if (type == 1) {
-                    ICardMovement tempCard = (ICardMovement) availableCards.get(i);
-                    strType = "Move";
-                    strValue = Integer.toString(tempCard.getMoveValue());
-                } else if (type == 2) {
-                    ICardRotation tempCard = (ICardRotation) availableCards.get(i);
-                    strType = "Rotate";
-                    strValue = Integer.toString(tempCard.getRotationValue());
-                    if (tempCard.getRotationDirection())
-                        strDir = "RIGHT";
-                    else
-                        strDir = "LEFT";
-                }
-                String str = strType + " " + strValue + "\n" + strDir;
-                font.draw(batch, str, i * 105 + 35, y + 100);
+
+                font.draw(batch, createCardTypeString(type, availableCards, i), i * 105 + 35, y + 100);
             } else {
                 cardSpriteTest[i] = new Sprite(cardBack);
                 int y = 10;
@@ -246,6 +231,26 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             }
         }
         batch.end();
+    }
+
+    private String createCardTypeString(int type, ArrayList<ICard> cards, int i) {
+        String strType = "";
+        String strValue = "";
+        String strDir = "";
+        if (type == 1) {
+            ICardMovement tempCard = (ICardMovement) cards.get(i);
+            strType = "Move";
+            strValue = Integer.toString(tempCard.getMoveValue());
+        } else if (type == 2) {
+            ICardRotation tempCard = (ICardRotation) cards.get(i);
+            strType = "Rotate";
+            strValue = Integer.toString(tempCard.getRotationValue());
+            if (tempCard.getRotationDirection())
+                strDir = "RIGHT";
+            else
+                strDir = "LEFT";
+        }
+        return strType + " " + strValue + "\n" + strDir;
     }
 
     private void renderActiveCards(ArrayList<ICard> activeCards) {
@@ -261,30 +266,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             int y = 680;
             int x = 970;
             activeCardArray[i].setPosition(i * 110 + x, y);
-            //activeCardArray[i].setSize();
             activeCardArray[i].draw(batch);
-
 
             font.draw(batch, Integer.toString(activeCards.get(i).getPriority()), i * 110 + 56 + x, y + 136);
             int type = activeCards.get(i).getType();
-            String strType = "";
-            String strValue = "";
-            String strDir = "";
-            if(type == 1) {
-                ICardMovement tempCard = (ICardMovement) activeCards.get(i);
-                strType = "Move";
-                strValue = Integer.toString(tempCard.getMoveValue());
-            } else if(type == 2) {
-                ICardRotation tempCard = (ICardRotation) activeCards.get(i);
-                strType = "Rotate";
-                strValue = Integer.toString(tempCard.getRotationValue());
-                if(tempCard.getRotationDirection())
-                    strDir = "RIGHT";
-                else
-                    strDir = "LEFT";
-            }
-            String str = strType+ " " + strValue + "\n" + strDir;
-            font.draw(batch, str,i * 110 + 25 + x, y + 100);
+            font.draw(batch, createCardTypeString(type, activeCards, i),i * 110 + 25 + x, y + 100);
         }
         batch.end();
     }

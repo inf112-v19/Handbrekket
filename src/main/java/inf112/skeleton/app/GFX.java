@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
@@ -30,8 +32,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private TiledMapTileLayer layer;
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
-
-    private ShapeRenderer shapeRenderer;
 
     private SpriteBatch batch;
     private Texture texture;
@@ -172,6 +172,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         batch.begin();
+        batch.setProjectionMatrix(camera.combined);
 
         calculateRobotPosition();
         sprite.draw(batch);
@@ -341,6 +342,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
         return false;
     }
 
@@ -351,6 +353,10 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        float x = Gdx.input.getDeltaX();
+        float y = Gdx.input.getDeltaY();
+
+        camera.translate(-x,y);
         return false;
     }
 
@@ -361,7 +367,9 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean scrolled(int amount) {
-        return false;
+        float zoomAmount = amount;
+        camera.zoom += zoomAmount / 10;
+        return true;
     }
 
 }

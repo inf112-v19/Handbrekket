@@ -17,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
@@ -28,10 +29,13 @@ import inf112.skeleton.app.robot.IRobot;
 import java.util.ArrayList;
 
 public class GFX extends ApplicationAdapter implements InputProcessor{
+    private final String MAP_1 = "assets/map1.tmx";
+
     private TiledMap tiledMap;
     private TiledMapTileLayer layer;
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
+    private FitViewport viewport;
 
     private SpriteBatch batch;
     private Texture texture;
@@ -69,35 +73,28 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public void create () {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
         font = new BitmapFont();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
-        camera.update();
-        tiledMap = new TmxMapLoader().load("assets/map1.tmx");
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+
+        tiledMap = new TmxMapLoader().load(MAP_1);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);
         tilePixelHeight = properties.get("tileheight", Integer.class);
 
         Gdx.input.setInputProcessor(this);
+        createGame();
+        initialiseSprites();
+    }
 
-        game = new Game(tiledMap, 1);
-        game.dealCards();
-        robotXPos = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
-        robotYPos = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
-
+    private void initialiseSprites() {
         batch = new SpriteBatch();
         texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         sprite = new Sprite(texture);
         sprite.setSize(tilePixelWidth - 10, tilePixelHeight - 10);
-        tiledMap.getTileSets();
-        TiledMapTileSets mapSet = tiledMap.getTileSets();
-        layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
-        layer.getCell(sprite.getRegionX(),sprite.getRegionY());
-        MapObjects objects = layer.getObjects();
 
         textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
         spriteP = new Sprite(textureP);
@@ -129,6 +126,13 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         }
         spriteCardBack = new Sprite(cardBack);
         spriteCardFront = new Sprite(cardFront);
+    }
+
+    private void createGame() {
+        game = new Game(tiledMap, 1);
+        game.dealCards();
+        robotXPos = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
+        robotYPos = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
     }
 
     //Used to render the robot
@@ -168,6 +172,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
@@ -286,6 +291,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     private void choseCard() {
         game.getCurrentRegister().makeCardActive(cardId);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     @Override

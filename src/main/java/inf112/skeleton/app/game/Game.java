@@ -36,7 +36,7 @@ public class Game implements IGame {
         board = new Board(tiledMap);
         initializeBoardElements();
         initializeWalls();
-        initalizeStartingPoints();
+        initializeStartingPoints();
         createDeck();
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
@@ -48,8 +48,6 @@ public class Game implements IGame {
 
         int[] testPos = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos);
-
-        System.out.println(board.getConveyorBelt(1, 5));
     }
 
     private void programRegistersFactory (int numberOfPlayers) {
@@ -168,7 +166,7 @@ public class Game implements IGame {
     }
 
     //TODO: make this
-    private void initalizeStartingPoints() {
+    private void initializeStartingPoints() {
 
     }
 
@@ -241,6 +239,12 @@ public class Game implements IGame {
         }
     }
 
+    public void destroyRobot(IProgramRegister register) {
+        int[] outsidePosisition = {-1, -1};
+        register.getRobot().setPosition(outsidePosisition);
+        register.removeLife();
+    }
+
     /**
      * Eirik
      */
@@ -274,14 +278,25 @@ public class Game implements IGame {
             IProgramRegister currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
             doMoveAccordingToCardType(currentHighestPriority.getRobot(), currentHighestPriority.getActiveCardInPosition(phaseNumber));
 
-            checkIfOnHoleOrOutsideBoard(currentHighestPriority.getRobot());
+            if(checkIfOnHoleOrOutsideBoard(currentHighestPriority.getRobot()))
+
 
             programRegistersToSort.remove(currentHighestPriority);
         }
 
         //TODO: should be expanded to have all boardElements
-        //activateConveyorBelts(); TODO: Works like it should, but not used yet because of testing
+
+        activateBoardElements();
         //fireLasers(); not implemented yet
+    }
+
+    //A collection method to simplify activation
+    private void activateBoardElements() {
+        activateConveyorBelts();
+        activateGears();
+
+        for(IProgramRegister register : allProgramRegisters)
+            checkIfOnHoleOrOutsideBoard(register.getRobot());
     }
 
     @Override

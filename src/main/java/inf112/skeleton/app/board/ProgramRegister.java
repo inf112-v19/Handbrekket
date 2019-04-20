@@ -141,6 +141,22 @@ public class ProgramRegister implements IProgramRegister {
         }
     }
 
+    //TODO: should not remove a card if it's "locked in" because of damage
+    @Override
+    public void discardAllCards(IGame game) {
+        for(ICard availableCard : availableCards) {
+            game.addCardToDeck(availableCard);
+            availableCards.remove(availableCard); //Not the most efficient, might want to change this for performance reasons
+        }
+
+        for(int i = 0; i < activeCards.length; i++) {
+            if(activeCards[i] != null) {
+                game.addCardToDeck(activeCards[i]);
+                activeCards[i] = null;
+            }
+        }
+    }
+
     @Override
     public void setAvailableCards(ArrayList<ICard> listOfCards) {
         this.availableCards = listOfCards;

@@ -31,8 +31,12 @@ public class Game implements IGame {
     private IProgramRegister currentRegister;
     private Board board;
 
+    private GameState gameState;
+    private int phaseNumber = 0;
+
     //TODO: consider making numberOfPlayers a private variable in Game
     public Game(TiledMap tiledMap, int numberOfPlayers) {
+        gameState = GameState.SETUP;
         board = new Board(tiledMap);
         initializeBoardElements();
         initializeWalls();
@@ -48,6 +52,23 @@ public class Game implements IGame {
 
         int[] testPos = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos);
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void progressGameState() {
+        gameState = gameState.nextState(false);
+    }
+
+    public void step() {
+        if(phaseNumber < GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue()) {
+            doPhase(phaseNumber);
+        } else {
+            phaseNumber = 0;
+            doPhase(phaseNumber);
+        }
     }
 
     private void programRegistersFactory (int numberOfPlayers) {
@@ -301,6 +322,17 @@ public class Game implements IGame {
 
     @Override
     public void doRound() {
+        switch (gameState) {
+            case SETUP: break;
+            case DEALING_CARDS:
+                shuffleDeck(); //Shuffles the deck at the start of each round
+                dealCards();
+                break;
+            case CHOOSING_CARDS: break;
+            case ANNOUNCING_POWER_DOWN: break;
+            case EXECUTING_PHASES: break;
+            case END_OF_ROUND_CLEANUP: break;
+        }
     }
 
     /**
@@ -343,9 +375,12 @@ public class Game implements IGame {
         robot.setBackup(backUp);
     }
 
+    //Can this handle locked-in cards?
     @Override
     public void dealCards() {
         for (IProgramRegister register : allProgramRegisters) {
+            register.discardAllCards(this); //Removes any cards, just in case there are some
+
             final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
             ArrayList<ICard> temp = new ArrayList<>(deck.subList(0, numberOfCardsToDeal));
             deck.removeAll(temp); //Removes the cards from the deck

@@ -28,6 +28,9 @@ import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
+@SuppressWarnings("Since15")
 public class GFX extends ApplicationAdapter implements InputProcessor{
     private final String MAP_1 = "assets/map1.tmx";
 

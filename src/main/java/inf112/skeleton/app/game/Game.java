@@ -1,6 +1,7 @@
 package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import inf112.skeleton.app.GFX;
 import inf112.skeleton.app.board.*;
 import inf112.skeleton.app.board.ConveyorBelts.*;
 import inf112.skeleton.app.card.*;
@@ -59,15 +60,16 @@ public class Game implements IGame {
     }
 
     public void progressGameState() {
+        System.out.println("Switching to state " + gameState.nextState(false));
         gameState = gameState.nextState(false);
     }
 
     public void step() {
         if(phaseNumber < GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue()) {
-            doPhase(phaseNumber);
+            doPhase(phaseNumber++);
         } else {
             phaseNumber = 0;
-            doPhase(phaseNumber);
+            doPhase(phaseNumber++);
         }
     }
 
@@ -320,19 +322,60 @@ public class Game implements IGame {
             checkIfOnHoleOrOutsideBoard(register.getRobot());
     }
 
+    //TODO: should probably be renamed for clarity's sake
     @Override
-    public void doRound() {
+    public void doRound(GFX graphicsInterface) {
         switch (gameState) {
-            case SETUP: break;
+            case SETUP:
+                progressGameState(); //TODO: should be changed later
+                break;
             case DEALING_CARDS:
                 shuffleDeck(); //Shuffles the deck at the start of each round
                 dealCards();
+                progressGameState();
+                graphicsInterface.flipShowCard();
                 break;
-            case CHOOSING_CARDS: break;
+            case CHOOSING_CARDS:
+                int playersNotReady = getNumberOfPlayersNotReady();
+                if(playersNotReady == 0) {
+                    graphicsInterface.flipShowCard();
+                    discardAllUnusedCards();
+                    progressGameState();
+                    graphicsInterface.printText("Please chose if you want to power down by pressing y/n");
+                } else {
+                    graphicsInterface.printText("Everyone is not ready");
+                }
+
+                if(playersNotReady == 1 && allProgramRegisters.size() != 1)
+                    startTimer();
+                break;
             case ANNOUNCING_POWER_DOWN: break;
-            case EXECUTING_PHASES: break;
+            case EXECUTING_PHASES:
+                step();
+                break;
             case END_OF_ROUND_CLEANUP: break;
         }
+    }
+
+    public void powerDownRobot(IProgramRegister register, boolean powerDown) {
+        register.powerDown();
+    }
+
+    /**
+     * Checks how many players have readied up
+     * @return number of players not ready
+     */
+    private int getNumberOfPlayersNotReady() {
+        int notReadyCounter = 0;
+        for(IProgramRegister register : allProgramRegisters) {
+            if (!register.isCardSlotsFilled())
+                notReadyCounter++;
+        }
+        return notReadyCounter;
+    }
+
+    private void startTimer() {
+        //TODO: Make this
     }
 
     /**
@@ -373,6 +416,12 @@ public class Game implements IGame {
         int[]backUp = new int[2];
         backUp = robot.getPosition();
         robot.setBackup(backUp);
+    }
+
+    private void discardAllUnusedCards() {
+        for(IProgramRegister register : allProgramRegisters) {
+            register.discardUnusedCards(this);
+        }
     }
 
     //Can this handle locked-in cards?

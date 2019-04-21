@@ -24,6 +24,7 @@ import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameRuleConstants;
+import inf112.skeleton.app.game.GameState;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
@@ -131,7 +132,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     private void createGame() {
         game = new Game(tiledMap, 1);
-        game.dealCards();
 
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
@@ -295,6 +295,15 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         game.getCurrentRegister().makeCardActive(cardId);
     }
 
+    //TODO: should print to the screen
+    public void printText(String input) {
+        System.out.println(input);
+    }
+
+    public void flipShowCard() {
+        showCards = !showCards;
+    }
+
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
@@ -307,6 +316,18 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
+        if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) {
+            if(keycode == Input.Keys.Y) {
+                game.powerDownRobot(game.getCurrentRegister(), true);
+                game.progressGameState();
+            }
+            if(keycode == Input.Keys.N) {
+                game.powerDownRobot(game.getCurrentRegister(), false);
+                game.progressGameState();
+            }
+
+        }
+
         if(keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             if(showCards) {
                 if(cardId == 0)
@@ -333,14 +354,12 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             tiledMap.getLayers().get(3).setVisible(!tiledMap.getLayers().get(3).isVisible());
         if(keycode == Input.Keys.NUM_5)
             tiledMap.getLayers().get(4).setVisible(!tiledMap.getLayers().get(4).isVisible());
-        if(keycode == Input.Keys.C)
-            showCards = !showCards;
         if(keycode == Input.Keys.ENTER) {
             if(showCards)
                 choseCard();
         }
         if(keycode == Input.Keys.SPACE)
-            game.doPhase(phaseNumber++);
+            game.doRound(this);
         if(keycode == Input.Keys.E)
             game.activateConveyorBelts();
 
@@ -365,8 +384,8 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        float x = Gdx.input.getDeltaX();
-        float y = Gdx.input.getDeltaY();
+        float x = Gdx.input.getDeltaX() * camera.zoom;
+        float y = Gdx.input.getDeltaY() * camera.zoom;
 
         camera.translate(-x,y);
         return false;

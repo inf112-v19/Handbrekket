@@ -1,5 +1,6 @@
 package inf112.skeleton.app.game;
 
+import inf112.skeleton.app.GFX;
 import inf112.skeleton.app.board.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.IProgramRegister;
@@ -62,7 +63,7 @@ public interface IGame {
 	/**
 	 * execute a round
 	 */
-	void doRound();
+	void doRound(GFX GraphicsInterface);
 
 
 	/**
@@ -158,8 +159,6 @@ public interface IGame {
 
     /**
      * Iterates through the registers and performs any repairs on robots on repairSites
-     * @param robot The robot to check
-     * @param programRegister The programregister to be repaired
      * @return true if it is on a repairSite, false otherwise
      */
     void doRepairs();

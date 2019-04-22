@@ -64,15 +64,6 @@ public class Game implements IGame {
         gameState = gameState.nextState(false);
     }
 
-    public void step() {
-        if(phaseNumber < GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue()) {
-            doPhase(phaseNumber++);
-        } else {
-            phaseNumber = 0;
-            doPhase(phaseNumber++);
-        }
-    }
-
     private void programRegistersFactory (int numberOfPlayers) {
         for(int i = 0; i < numberOfPlayers; i++){
             //TODO: get starting position from the board.
@@ -351,10 +342,23 @@ public class Game implements IGame {
                 break;
             case ANNOUNCING_POWER_DOWN: break;
             case EXECUTING_PHASES:
-                step();
+                if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
+                    phaseNumber = 0;
+                    progressGameState();
+                } else
+                    doPhase(phaseNumber++);
                 break;
-            case END_OF_ROUND_CLEANUP: break;
+            case END_OF_ROUND_CLEANUP:
+                    doRepairs();
+                    restoreRobots();
+                    progressGameState();
+                break;
         }
+    }
+
+    //TODO: make this
+    private void restoreRobots() {
+
     }
 
     public void powerDownRobot(IProgramRegister register, boolean powerDown) {

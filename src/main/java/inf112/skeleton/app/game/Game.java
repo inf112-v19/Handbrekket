@@ -51,7 +51,7 @@ public class Game implements IGame {
         boardWalls[2] = southWalls;
         boardWalls[3] = westWalls;
 
-        int[] testPos = {2, 8}; //TODO: for tests, remove later
+        int[] testPos = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos);
     }
 
@@ -95,19 +95,20 @@ public class Game implements IGame {
 
     @Override
     public void relativeMove(IRobot robot, ICardMovement card) {
+        relativeMoveStraight(robot, robot.getDir(),  card.getMoveValue());
+    }
+
+    public void relativeMoveStraight(IRobot robot, Direction dir, int moveValue) {
         //get current position of robot
         int[] coordinates = robot.getPosition();
 
-        // retrieve moveValue
-        int numberOfSteps = card.getMoveValue();
-
         //Checks if the robot encounters a wall for each movement
-        for(int i = 0; i < numberOfSteps; i++) {
-            if(!checkForWall(coordinates, robot.getDir())) {
-                coordinates[0] += robot.getDir().getDeltaX();
-                coordinates[1] += robot.getDir().getDeltaY();
+        for(int i = 0; i < moveValue; i++) {
+            if(!checkForWall(coordinates, dir)) {
+                coordinates[0] += dir.getDeltaX();
+                coordinates[1] += dir.getDeltaY();
             } else
-                System.out.println("Robot in {"+coordinates[0]+","+coordinates[1]+"} hit a wall going "+robot.getDir());
+                System.out.println("Robot in {"+coordinates[0]+","+coordinates[1]+"} hit a wall going "+dir);
         }
         robot.setPosition(coordinates);
     }
@@ -605,7 +606,10 @@ public class Game implements IGame {
                     robot.rotate(conveyorBelt.getRotationDirectionFromPreviousPosition(robot.getPosition()));
                 }
 
-                absoluteMove(robot, predictedPositions[i]);
+                if(!Arrays.equals(robot.getPosition(), predictedPositions[i])) {
+                    relativeMoveStraight(robot, conveyorsWithRobot[i][0].getDirection(), 1);
+                }
+                //absoluteMove(robot, predictedPositions[i]); OLD VERSION, KEEP IN CASE THE ABOVE DOESN'T WORK PROPERLY
             }
         }
     }

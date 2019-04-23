@@ -452,9 +452,17 @@ public class Game implements IGame {
         }
     }
 
+    //TODO: incomplete; how to know if robot hits flags in right order?
     @Override
     public void activateFlag() {
-
+        while (game.checkIfOnFlag()) { //checks if there is a flag and a robot
+            for (IProgramRegister register : boardFlags) {
+                if (Arrays.equals(register.getPosition(), register.getRobot().getFlagCounter)) { //checks if the robot hits flags in right order.
+                    register.getRobot().increaseFlagCounter(); //updates the robot programming card.
+                }
+            }
+            game.updateArchiveLocation(robot) //places a new backup
+        }
     }
 
     /**
@@ -675,7 +683,8 @@ public class Game implements IGame {
     public void setHoles(){
         for (int i = 1; i <= 10; i*2) {
             for (int j = 1; j <= 10; j*3) {
-                boardHoles.add(j);
+                boardHoles.add(j); //x-values
+                boardHoles.add(i); //y-values
             }
         }
     }
@@ -688,7 +697,8 @@ public class Game implements IGame {
 
         for (int i = 2; i <= 10; i+1) {
             for (int j = 6; j <= 10; j*2) {
-                boardFlags.add(j);
+                boardFlags.add(j); //x-values
+                boardFlags.add(i); //y-values
             }
         }
     }
@@ -700,7 +710,8 @@ public class Game implements IGame {
     public void setRepairSites(){
         for (int i = 1; i <= 10; i+1) {
             for (int j = 2; j <= 10; j+3) {
-                boardRepairSites.add(j);
+                boardRepairSites.add(j); //x-values
+                boardRepairSites.add(i); //y-values
             }
         }
     }

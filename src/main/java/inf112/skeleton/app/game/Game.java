@@ -655,6 +655,60 @@ public class Game implements IGame {
         return true;
     }
 
+    /**
+     * Method to set an archive-location for the robot
+     * @param robot the robot to
+     */
+    public void updateArchiveLocation(IRobot robot) {
+        int[] backup = new int[2];
+        int coord = robot.getPosition();
+        backup[0] = coord[0];
+        backup[1] = coord[1];
+        robot.setBackup(backup);
+    }
+
+
+    /**
+     * TODO: Below follows some methods to set ramdom holes, flags and repairSites on a board,
+     * (for tests only)
+     */
+    public void setHoles(){
+        for (int i = 1; i <= 10; i*2) {
+            for (int j = 1; j <= 10; j*3) {
+                boardHoles.add(j);
+            }
+        }
+    }
+
+    public void getHoles() {
+        return boardHoles;
+    }
+
+    public void setFlags(){
+
+        for (int i = 2; i <= 10; i+1) {
+            for (int j = 6; j <= 10; j*2) {
+                boardFlags.add(j);
+            }
+        }
+    }
+
+    public void getFlags() {
+        return boardFlags;
+    }
+
+    public void setRepairSites(){
+        for (int i = 1; i <= 10; i+1) {
+            for (int j = 2; j <= 10; j+3) {
+                boardRepairSites.add(j);
+            }
+        }
+    }
+
+    public void getRepairSites() {
+        return boardRepairSites;
+    }
+
 }
 
-//
+

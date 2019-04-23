@@ -46,12 +46,12 @@ public class Game implements IGame {
         shuffleDeck();
         programRegistersFactory(numberOfPlayers);
         currentRegister = allProgramRegisters.get(0);
-        boardWalls[0] = southWalls;
+        boardWalls[0] = northWalls;
         boardWalls[1] = eastWalls;
-        boardWalls[2] = northWalls;
+        boardWalls[2] = southWalls;
         boardWalls[3] = westWalls;
 
-        int[] testPos = {0, 1}; //TODO: for tests, remove later
+        int[] testPos = {2, 8}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos);
     }
 
@@ -92,11 +92,8 @@ public class Game implements IGame {
         robot.setPosition(coordinates);
     }
 
-    /**
-     * Eirik
-     * @param robot to be moved
-     * @param card the movement card
-     */
+
+    @Override
     public void relativeMove(IRobot robot, ICardMovement card) {
         //get current position of robot
         int[] coordinates = robot.getPosition();
@@ -104,9 +101,14 @@ public class Game implements IGame {
         // retrieve moveValue
         int numberOfSteps = card.getMoveValue();
 
-        coordinates[0] += robot.getDir().getDeltaX() * numberOfSteps;
-        coordinates[1] += robot.getDir().getDeltaY() * numberOfSteps;
-
+        //Checks if the robot encounters a wall for each movement
+        for(int i = 0; i < numberOfSteps; i++) {
+            if(!checkForWall(coordinates, robot.getDir())) {
+                coordinates[0] += robot.getDir().getDeltaX();
+                coordinates[1] += robot.getDir().getDeltaY();
+            } else
+                System.out.println("Robot in {"+coordinates[0]+","+coordinates[1]+"} hit a wall going "+robot.getDir());
+        }
         robot.setPosition(coordinates);
     }
 
@@ -146,16 +148,24 @@ public class Game implements IGame {
 
     @Override
     public boolean checkForWall(int[] position, Direction dir){
-        int[] pos = position;
-        Direction direction = dir;
+        //Checks if there is a wall on the same square blocking movement
+        for(int[] wallPosition : boardWalls[dir.getDirectionValue()]) {
+            if(Arrays.equals(position, wallPosition)) {
+                return true;
+            }
+        }
 
-        for(int[] wallPosition : boardWalls[direction.getDirectionValue()]) {
-            if (Arrays.equals(pos,wallPosition)) {
+        //Gets the coordinates of the square the robot is moving into
+        int[] adjacentPosition = position.clone();
+        adjacentPosition[0] += dir.getDeltaX();
+        adjacentPosition[1] += dir.getDeltaY();
+        //Might seem like redundant code, but means you only have to go through two of the wall Lists
+        for(int[] wallPosition : boardWalls[dir.next().next().getDirectionValue()]) { //Uses next() twice to get the opposite direction
+            if(Arrays.equals(adjacentPosition, wallPosition)) {
                 return true;
             }
         }
         return false;
-
     }
 
     @Override

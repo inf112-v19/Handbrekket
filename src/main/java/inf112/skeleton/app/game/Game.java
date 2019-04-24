@@ -452,6 +452,11 @@ public class Game implements IGame {
         }
     }
 
+    @Override
+    public void activateFlag() {
+
+    }
+
 
     /**
      * Activates all of the gears on the board & applies effects to robots on gears

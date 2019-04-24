@@ -452,18 +452,6 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: incomplete; how to know if robot hits flags in right order?
-    @Override
-    public void activateFlag() {
-        while (game.checkIfOnFlag()) { //checks if there is a flag and a robot
-            for (IProgramRegister register : boardFlags) {
-                if (Arrays.equals(register.getPosition(), register.getRobot().getFlagCounter)) { //checks if the robot hits flags in right order.
-                    register.getRobot().increaseFlagCounter(); //updates the robot programming card.
-                }
-            }
-            game.updateArchiveLocation(robot) //places a new backup
-        }
-    }
 
     /**
      * Activates all of the gears on the board & applies effects to robots on gears
@@ -663,62 +651,6 @@ public class Game implements IGame {
         return true;
     }
 
-    /**
-     * Method to set an archive-location for the robot
-     * @param robot the robot to
-     */
-    public void updateArchiveLocation(IRobot robot) {
-        int[] backup = new int[2];
-        int coord = robot.getPosition();
-        backup[0] = coord[0];
-        backup[1] = coord[1];
-        robot.setBackup(backup);
-    }
-
-
-    /**
-     * TODO: Below follows some methods to set ramdom holes, flags and repairSites on a board,
-     * (for tests only)
-     */
-    public void setHoles(){
-        for (int i = 1; i <= 10; i*2) {
-            for (int j = 1; j <= 10; j*3) {
-                boardHoles.add(j); //x-values
-                boardHoles.add(i); //y-values
-            }
-        }
-    }
-
-    public void getHoles() {
-        return boardHoles;
-    }
-
-    public void setFlags(){
-
-        for (int i = 2; i <= 10; i+1) {
-            for (int j = 6; j <= 10; j*2) {
-                boardFlags.add(j); //x-values
-                boardFlags.add(i); //y-values
-            }
-        }
-    }
-
-    public void getFlags() {
-        return boardFlags;
-    }
-
-    public void setRepairSites(){
-        for (int i = 1; i <= 10; i+1) {
-            for (int j = 2; j <= 10; j+3) {
-                boardRepairSites.add(j); //x-values
-                boardRepairSites.add(i); //y-values
-            }
-        }
-    }
-
-    public void getRepairSites() {
-        return boardRepairSites;
-    }
 
 }
 

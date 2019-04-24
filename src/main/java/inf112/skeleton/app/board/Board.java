@@ -72,6 +72,7 @@ public class Board implements IBoard {
 		return map;
 	}
 
+
 	@Override
 	public IConveyorBelt getConveyorBelt(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("boardElements");
@@ -87,6 +88,7 @@ public class Board implements IBoard {
 			moveValue = 2;
 		else
 			moveValue = 1;
+
 
 		IConveyorBelt conveyorBelt;
 		switch(conveyorType) {

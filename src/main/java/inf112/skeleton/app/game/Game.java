@@ -53,8 +53,14 @@ public class Game implements IGame {
         boardWalls[2] = southWalls;
         boardWalls[3] = westWalls;
 
-        int[] testPos = {0, 4}; //TODO: for tests, remove later
-        allProgramRegisters.get(0).getRobot().setPosition(testPos);
+        int[] testPos1 = {0, 1}; //TODO: for tests, remove later
+        allProgramRegisters.get(0).getRobot().setPosition(testPos1);
+        int[] testPos2 = {6, 0};
+        allProgramRegisters.get(1).getRobot().setPosition(testPos2);
+    }
+
+    public ArrayList<IProgramRegister> getAllProgramRegisters() {
+        return allProgramRegisters;
     }
 
     public GameState getGameState() {

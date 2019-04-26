@@ -38,12 +38,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private ProgramRegisterGFX programRegisterGFX;
 
     private SpriteBatch batch;
-    private Texture texture;
-    private Texture textureP;
     private Texture cardBack;
     private Texture cardFront;
 
-    private Sprite sprite;
+    private Sprite humanPlayerSprite;
+    private Sprite[] robotPlayerSprite = new Sprite[1]; //TODO: needs to be assigned dynamically & should be renamed
     private Sprite spriteCardBack;
     private Sprite spriteCardFront;
     private Sprite[] cards;
@@ -52,14 +51,12 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private int tilePixelHeight;
 
     //Stores all of the robots values, TODO: initialise in create based on number of players
-    private int[][] robotPositions = new int[1][3];
+    private int[][] robotPositions = new int[2][3];
 
     //Used for testing, should not be pushed
     private boolean showCards = false;
     private BitmapFont font;
     private int cardId = 0;
-
-    private int phaseNumber = 0;
 
     private Game game;
 
@@ -84,9 +81,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     private void initialiseSprites() {
         batch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
-        sprite = new Sprite(texture);
-        sprite.setSize(tilePixelWidth - 10, tilePixelHeight - 10);
+        Texture texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
+        humanPlayerSprite = new Sprite(texture);
+        texture = new Texture(Gdx.files.internal("assets/bot-r.gif"));
+        for(int i = 0; i < robotPlayerSprite.length; i++)
+            robotPlayerSprite[i] = new Sprite(texture);
 
         programRegisterGFX = new ProgramRegisterGFX();
 
@@ -104,17 +103,21 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     }
 
     private void createGame() {
-        game = new Game(tiledMap, 1);
+        game = new Game(tiledMap, 2);
 
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
         robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
         robotPositions[0][2] = 0; //Rotation value
+
+        robotPositions[1][0] = game.getAllProgramRegisters().get(1).getRobot().getPosition()[0] * tilePixelWidth;
+        robotPositions[1][1] = game.getAllProgramRegisters().get(1).getRobot().getPosition()[1] * tilePixelHeight;
+        robotPositions[1][2] = 0; //Rotation value
     }
 
     //Used to render the robot
     private void calculateRobotPosition(int robotId) {
-        IRobot robot = game.getCurrentRegister().getRobot();
+        IRobot robot = game.getAllProgramRegisters().get(robotId).getRobot();
 
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
@@ -142,7 +145,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         robotPositions[robotId][2] = currentAngle;
 
-
         if(robotPositions[robotId][0] > xPos * tilePixelWidth + 5)
             robotPositions[robotId][0] -= 5;
         else if(robotPositions[robotId][0] < xPos * tilePixelWidth + 5)
@@ -151,14 +153,10 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             robotPositions[robotId][1] -= 5;
         else if(robotPositions[robotId][1] < yPos * tilePixelHeight + 5)
             robotPositions[robotId][1] += 5;
-
-
-        sprite.setPosition(robotPositions[robotId][0], robotPositions[robotId][1]);
-        sprite.setRotation(currentAngle);
     }
 
     @Override
-    public void render () {
+    public void render() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -170,9 +168,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         batch.setProjectionMatrix(camera.combined);
 
         programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown());
-
-        calculateRobotPosition(0);
-        sprite.draw(batch);
+        renderRobots();
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
@@ -180,6 +176,20 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
         renderActiveCards(game.getCurrentRegister().getActiveCards());
+    }
+
+    private void renderRobots() {
+        calculateRobotPosition(0);
+        humanPlayerSprite.setPosition(robotPositions[0][0], robotPositions[0][1]);
+        humanPlayerSprite.setRotation(robotPositions[0][2]);
+        humanPlayerSprite.draw(batch);
+        for(int i = 1; i < game.getAllProgramRegisters().size(); i++) {
+            calculateRobotPosition(i);
+            //Subtracts 1 in the robotPlayerSprite array since it's 1 shorter in length
+            robotPlayerSprite[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
+            robotPlayerSprite[i - 1].setRotation(robotPositions[i][2]);
+            robotPlayerSprite[i - 1].draw(batch);
+        }
     }
 
     private void renderAvailableCards(ArrayList<ICard> availableCards) {

@@ -69,7 +69,7 @@ public class ProgramRegisterGFX {
 
 
     }
-    public void render(SpriteBatch batch, int hp, int lives, boolean isPowerDown){
+    public void render(SpriteBatch batch, int damage, int lives, boolean isPowerDown){
         spriteP.draw(batch);
         spriteDamageRed.draw(batch);
         if(isPowerDown){
@@ -81,13 +81,13 @@ public class ProgramRegisterGFX {
         for (int i = 0; i < damageArrback.length; i++){
             damageArrback[i].draw(batch);
         }
-        for (int i = hp; i < damageArr.length; i++){
-            damageArr[i].draw(batch);
+        for (int i = 0; damage > i; i++){
+            damageArr[8-i].draw(batch);
         }
         for (int i = 0; i < livesArrBack.length; i++){
             livesArrBack[i].draw(batch);
         }
-        for (int i = 0; i < lives-1; i++){
+        for (int i = 0; i < lives; i++){
             livesArr[i].draw(batch);
         }
     }

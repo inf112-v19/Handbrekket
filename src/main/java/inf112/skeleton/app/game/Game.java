@@ -184,7 +184,7 @@ public class Game implements IGame {
 
                 if (currentRegister.getRobot().getPosition()[0] == (currentLaser.getPosition())[0] &&
                     currentRegister.getRobot().getPosition()[1] == (currentLaser.getPosition())[1] ) {
-                    currentRegister.changeDamage(-currentLaser.getDamage());
+                    currentRegister.changeDamage(currentLaser.getDamage());
 
                     break;
                 }
@@ -472,7 +472,7 @@ public class Game implements IGame {
         for (IProgramRegister register : allProgramRegisters) {
             register.discardAllCards(this); //Removes any cards, just in case there are some
 
-            final int numberOfCardsToDeal = register.getDamage();
+            final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getDamage();
             ArrayList<ICard> temp = new ArrayList<>(deck.subList(0, numberOfCardsToDeal));
             deck.removeAll(temp); //Removes the cards from the deck
             register.setAvailableCards(temp);

@@ -341,7 +341,7 @@ public class Game implements IGame {
     }
 
     //A collection method to simplify activation
-    private void activateBoardElements() {
+    public void activateBoardElements() {
         activateConveyorBelts(true);
         activateConveyorBelts(false);
         //activatePushers(); TODO: Make this method
@@ -603,16 +603,18 @@ public class Game implements IGame {
             int[] robotPos = allProgramRegisters.get(i).getRobot().getPosition();
             predictedPositions[i] = robotPos.clone();
             for(IConveyorBelt conveyorBelt : conveyorBelts) {
-                //Goes through all of the conveyor belts and calculates the predicted position & stores relevant conveyors
-                if(Arrays.equals(robotPos, conveyorBelt.getPosition())){
-                    predictedPositions[i][0] = robotPos[0] + conveyorBelt.getDirection().getDeltaX();
-                    predictedPositions[i][1] = robotPos[1] + conveyorBelt.getDirection().getDeltaY();
+                if((conveyorBelt.isExpressType() == activateOnlyExpressConveyors) || !activateOnlyExpressConveyors) {
+                    //Goes through all of the conveyor belts and calculates the predicted position & stores relevant conveyors
+                    if (Arrays.equals(robotPos, conveyorBelt.getPosition())) {
+                        predictedPositions[i][0] = robotPos[0] + conveyorBelt.getDirection().getDeltaX();
+                        predictedPositions[i][1] = robotPos[1] + conveyorBelt.getDirection().getDeltaY();
 
-                    conveyorsWithRobot[i][0] = conveyorBelt;
-                    conveyorsWithRobot[i][1] = getConveyorInPosition(predictedPositions[i]);
+                        conveyorsWithRobot[i][0] = conveyorBelt;
+                        conveyorsWithRobot[i][1] = getConveyorInPosition(predictedPositions[i]);
 
-                    isMoved[i] = true;
-                    break; //Breaks to avoid running through the rest of the conveyor list
+                        isMoved[i] = true;
+                        break; //Breaks to avoid running through the rest of the conveyor list
+                    }
                 }
             }
         }

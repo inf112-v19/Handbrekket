@@ -158,6 +158,12 @@ public interface IGame {
      */
     boolean checkIfOnFlag(IRobot robot);
 
+	/**
+	 * Activate lasers
+	 * Iterate over the robots and lasers
+	 * Changes HP
+	 */
+	void activateLasers();
     /**
      * Iterates through the registers and performs any repairs on robots on repairSites
      * @return true if it is on a repairSite, false otherwise

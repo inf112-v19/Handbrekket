@@ -50,9 +50,9 @@ public class ProgramRegistersTest {
 
     @Test
     public void amountOfDamageTest(){
-        assertEquals(0, pR.getHP());
-        pR.changeHP(4);
-        assertEquals(4, pR.getHP());
-        assertFalse(9 == pR.getHP());
+        assertEquals(0, pR.getDamage());
+        pR.changeDamage(4);
+        assertEquals(4, pR.getDamage());
+        assertFalse(9 == pR.getDamage());
     }
 }

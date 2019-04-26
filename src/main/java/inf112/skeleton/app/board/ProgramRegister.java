@@ -7,7 +7,6 @@ import inf112.skeleton.app.robot.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 /**
  * Created by mari on 24.02.2019.
@@ -18,8 +17,9 @@ public class ProgramRegister implements IProgramRegister {
     private IRobot robot;           //The robot associated with the program register
     private int lives;              //The current amount of lives
     private boolean powerDowned;    //Whether the robot in the register should be powered down or not
-    private int hp;
+    private int damage;
     private int flagCounter;
+    private boolean isRobotDestroyed;
 
 
     /**
@@ -38,8 +38,9 @@ public class ProgramRegister implements IProgramRegister {
         this.robot = robot;
         lives = maxLives;
         powerDowned = false;
-        hp = 0;
+        damage = 0;
         flagCounter = 0;
+        isRobotDestroyed = false;
     }
 
     @Override
@@ -62,13 +63,28 @@ public class ProgramRegister implements IProgramRegister {
         return robot;
     }
 
+    @Override
+    public void destroyRobot() {
+        isRobotDestroyed = true;
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isRobotDestroyed;
+    }
+
+    @Override
+    public void restoreRobot() {
+        isRobotDestroyed = false;
+    }
+
     /**
      * power down a robot
      *
      */
     @Override
     public void powerDown() {
-        setHP(0);
+        setDamage(0);
         powerDowned = true;
     }
 
@@ -103,20 +119,22 @@ public class ProgramRegister implements IProgramRegister {
 
 
     @Override
-    public int getHP() {
-        return hp;
+    public int getDamage() {
+        return damage;
     }
 
     @Override
-    public void setHP(int HP) {
-        hp = HP;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     @Override
-    public void changeHP(int HP) {
-        hp += HP;
-        if(hp < 0)
-            hp = 0;
+    public void changeDamage(int dam) {
+        damage += dam;
+        if(damage < 0)
+            damage = 0;
+        if(damage >= maxDamage)
+            isRobotDestroyed = true;
     }
 
     /**

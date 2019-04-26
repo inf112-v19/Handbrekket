@@ -10,21 +10,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameRuleConstants;
 import inf112.skeleton.app.game.GameState;
+import inf112.skeleton.app.graphics.ProgramRegisterGFX;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
@@ -39,23 +35,17 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
     private FitViewport viewport;
+    private ProgramRegisterGFX programRegisterGFX;
 
     private SpriteBatch batch;
     private Texture texture;
     private Texture textureP;
-    private Texture damage;
-    private Texture damageRed;
-    private Texture damageBack;
     private Texture cardBack;
     private Texture cardFront;
 
     private Sprite sprite;
-    private Sprite spriteP;
     private Sprite spriteCardBack;
     private Sprite spriteCardFront;
-    private Sprite[] damageArr;
-    private Sprite spriteDamageRed;
-    private Sprite[] damageArrback;
     private Sprite[] cards;
 
     private int tilePixelWidth;
@@ -98,33 +88,16 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         sprite = new Sprite(texture);
         sprite.setSize(tilePixelWidth - 10, tilePixelHeight - 10);
 
-        textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
-        spriteP = new Sprite(textureP);
-        spriteP.setPosition(960, 760);
+        programRegisterGFX = new ProgramRegisterGFX();
 
         cardBack = new Texture(Gdx.files.internal("assets/card_back.png"));
         cardFront = new Texture(Gdx.files.internal("assets/card_front.png"));
-        damage = new Texture(Gdx.files.internal("assets/damage.png"));
-        damageArr = new Sprite[9];
-        damageRed = new Texture(Gdx.files.internal("assets/damage_red.png"));
-        spriteDamageRed = new Sprite(damageRed);
-        spriteDamageRed.setPosition(1000, 857);
-        damageBack = new Texture(Gdx.files.internal("assets/damage_background.png"));
-        damageArrback = new Sprite[9];
         spriteCardBack = new Sprite(cardBack);
         spriteCardFront = new Sprite(cardFront);
         cards = new Sprite[5];
         for(int i = 0; i < 5; i++){
             cards[i] = new Sprite(cardBack);
             cards[i].setPosition(970+(i*110), 680);
-        }
-        for(int i = 0; i < damageArrback.length; i++){
-            damageArrback[i] = new Sprite(damageBack);
-            damageArrback[i].setPosition((1047+(i*50)),857);
-        }
-        for(int i = 3; i < damageArr.length; i++){
-            damageArr[i] = new Sprite(damage);
-            damageArr[i].setPosition((1050+(i*50)),860);
         }
         spriteCardBack = new Sprite(cardBack);
         spriteCardFront = new Sprite(cardFront);
@@ -196,18 +169,12 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
 
+        programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown());
+
         calculateRobotPosition(0);
         sprite.draw(batch);
-        spriteP.draw(batch);
-        spriteDamageRed.draw(batch);
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
-        }
-        for (int i = 0; i < damageArrback.length; i++){
-            damageArrback[i].draw(batch);
-        }
-        for (int i = 3; i < damageArr.length; i++){
-            damageArr[i].draw(batch);
         }
         batch.end();
         if(showCards)

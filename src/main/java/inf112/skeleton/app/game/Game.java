@@ -108,6 +108,23 @@ public class Game implements IGame {
                 System.out.println("Robot in {"+coordinates[0]+","+coordinates[1]+"} hit a wall going "+dir);
         }
         robot.setPosition(coordinates);
+        if(checkIfOnHoleOrOutsideBoard(robot)) {
+            //getRegisterFromRobot(robot).destro(); TODO: make this work
+        }
+    }
+
+    /**
+     * Finds a programRegister based on the robot provided
+     * @param robot
+     * @return
+     */
+    private IProgramRegister getRegisterFromRobot(IRobot robot) {
+        for(IProgramRegister register : allProgramRegisters) {
+            if(robot.equals(register.getRobot()))
+                return register;
+        }
+
+        return null;
     }
 
     /**
@@ -314,9 +331,6 @@ public class Game implements IGame {
             IProgramRegister currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
             doMoveAccordingToCardType(currentHighestPriority.getRobot(), currentHighestPriority.getActiveCardInPosition(phaseNumber));
 
-            if(checkIfOnHoleOrOutsideBoard(currentHighestPriority.getRobot()))
-
-
             programRegistersToSort.remove(currentHighestPriority);
         }
 
@@ -328,11 +342,11 @@ public class Game implements IGame {
 
     //A collection method to simplify activation
     private void activateBoardElements() {
-        activateConveyorBelts();
+        activateConveyorBelts(true);
+        activateConveyorBelts(false);
+        //activatePushers(); TODO: Make this method
         activateGears();
 
-        for(IProgramRegister register : allProgramRegisters)
-            checkIfOnHoleOrOutsideBoard(register.getRobot());
     }
 
     //TODO: should probably be renamed for clarity's sake
@@ -572,7 +586,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void activateConveyorBelts() {
+    public void activateConveyorBelts(boolean activateOnlyExpressConveyors) {
         int numberOfRobots = allProgramRegisters.size();
 
         boolean[] isMoved = new boolean[numberOfRobots]; //Tracks if a robot will be moved by a conveyor

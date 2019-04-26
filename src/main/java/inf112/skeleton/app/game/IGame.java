@@ -162,4 +162,16 @@ public interface IGame {
      * @return true if it is on a repairSite, false otherwise
      */
     void doRepairs();
+
+    /**
+     * Checks if a robot has won the game
+     * @param robot The robot to be checked
+     * @return true if robot has won, false otherwise
+     */
+    boolean winCheck(IRobot robot);
+
+    /**
+     * Ends the game if robot has won
+     */
+    void gameOver();
 }

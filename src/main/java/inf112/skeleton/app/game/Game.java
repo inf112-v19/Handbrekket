@@ -566,16 +566,7 @@ public class Game implements IGame {
         return false;
     }
 
-    public void activateGears() {
-        for (IConveyorTurn gear : gears) {
-            for (IProgramRegister register : allProgramRegisters) {
-                if (Arrays.equals(gear.getPosition(), register.getRobot().getPosition())) {
-                    register.getRobot().rotate(gear.getTurnDirection());
-                }
-            }
-            //gear.rotate() Would be cool if we actually rotated the gears in GFX to show that they're activated
-        }
-    }
+
     //TODO: incomplete - how to know if robot hits flags in correct order?
     @Override
     public void activateFlag() {

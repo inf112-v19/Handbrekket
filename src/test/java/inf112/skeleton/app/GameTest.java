@@ -101,4 +101,45 @@ public class GameTest {
         assertEquals(robot.getDir(), Direction.WEST);
     }
 
+    //TODO: incomplete
+    @Test
+    public void testCheckIfOnHole() {
+
+        int[] coord = new int[2];
+        coord[0] = 1;
+        coord[1] = 1;
+        game.absoluteMove(robot, coord);
+
+        //assert(checkIfOnHoleOrOutsideBoard(robot));
+        //assertEquals(coord, game.getHoles);
+    }
+
+    //TODO: incomplete
+    @Test
+    public void testCheckIfOnFlag() {
+
+        int[] coord = new int[2];
+        coord[0] = 6;
+        coord[1] = 2;
+        game.absoluteMove(robot, coord);
+
+        //assert(checkIfOnHoleOrOutsideBoard(robot));
+        //assertEquals(coord, game.getFlags);
+    }
+
+    @Test //TODO: incomplete
+    public void testCheckIfOnRepairSite() {
+
+        int[] coord = new int[2];
+        coord[0] = 2;
+        coord[1] = 3;
+        game.absoluteMove(robot, coord);
+
+        //assert(checkIfOnHoleOrOutsideBoard(robot));
+        //assertEquals(coord, game.getRepairSites);
+    }
+
+
+
+
 }

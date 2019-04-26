@@ -386,16 +386,15 @@ public class Game implements IGame {
                 break;
             case END_OF_ROUND_CLEANUP:
                     doRepairs();
-                    restoreRobots();
+                    for(IProgramRegister register:allProgramRegisters) {
+                        if (register.isDestroyed())
+                            restoreRobot(register);
+                    }
                     progressGameState();
                 break;
         }
     }
 
-    //TODO: make this
-    private void restoreRobots() {
-
-    }
 
     public void powerDownRobot(IProgramRegister register, boolean powerDown) {
         if(powerDown)register.powerDown();
@@ -503,17 +502,16 @@ public class Game implements IGame {
     }
 
     /**
-     * Alba
-     *
      * @param programRegister
      */
     public void restoreRobot(IProgramRegister programRegister) {
-
+        int[] pos = programRegister.getRobot().getBackup();
+        programRegister.getRobot().setPosition(pos);
+        programRegister.removeLife();
+        programRegister.setHP(0);
     }
 
     /**
-     * Alba
-     *
      * @param cards
      */
     public void removeCard(boolean[] cards) {

@@ -38,6 +38,21 @@ public interface IProgramRegister {
     IRobot getRobot();
 
     /**
+     * destroy one life from robot
+     */
+    void destroy();
+
+    /**
+     * checks if a robot is destroyed
+     */
+    boolean isDestroyed();
+
+    /**
+     * reset isRobotDestroyed value
+     */
+    void notDestroyed();
+
+    /**
      * power down a robot
      */
     void powerDown();

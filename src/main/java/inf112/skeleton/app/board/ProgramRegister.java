@@ -20,6 +20,7 @@ public class ProgramRegister implements IProgramRegister {
     private boolean powerDowned;    //Whether the robot in the register should be powered down or not
     private int hp;
     private int flagCounter;
+    private boolean isRobotDestroyed;
 
 
     /**
@@ -40,6 +41,7 @@ public class ProgramRegister implements IProgramRegister {
         powerDowned = false;
         hp = GameRuleConstants.MAX_DAMAGE.getValue();
         flagCounter = 0;
+        isRobotDestroyed = false;
     }
 
     @Override
@@ -60,6 +62,21 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public IRobot getRobot() {
         return robot;
+    }
+
+    @Override
+    public void destroy() {
+        isRobotDestroyed = true;
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isRobotDestroyed;
+    }
+
+    @Override
+    public void notDestroyed() {
+        isRobotDestroyed = false;
     }
 
     /**

@@ -12,6 +12,10 @@ public class ProgramRegisterGFX {
     private Texture damage;
     private Texture damageRed;
     private Texture damageBack;
+    private Texture lives;
+    private Texture livesBack;
+    private Sprite[] livesArrBack;
+    private Sprite[] livesArr;
     private Sprite[] damageArr;
     private Sprite spriteDamageRed;
     private Sprite[] damageArrback;
@@ -20,12 +24,15 @@ public class ProgramRegisterGFX {
 
     public ProgramRegisterGFX(){
         textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
+        lives = new Texture(Gdx.files.internal("assets/lives.png"));
+        livesBack = new Texture(Gdx.files.internal("assets/lives_background.png"));
+
         spriteP = new Sprite(textureP);
         spriteP.setPosition(960, 760);
-
         damage = new Texture(Gdx.files.internal("assets/damage.png"));
         damageArr = new Sprite[9];
         damageRed = new Texture(Gdx.files.internal("assets/damage_red.png"));
+
         spriteDamageRed = new Sprite(damageRed);
         spriteDamageRed.setPosition(1000, 857);
         damageBack = new Texture(Gdx.files.internal("assets/damage_background.png"));
@@ -38,6 +45,18 @@ public class ProgramRegisterGFX {
             damageArr[i] = new Sprite(damage);
             damageArr[i].setPosition((1050+(i*50)),860);
         }
+        livesArr = new Sprite[3];
+        for(int i = 0; i < livesArr.length; i++){
+            livesArr[i] = new Sprite(lives);
+            livesArr[i].setPosition((1201+(i*50)),901   );
+        }
+        livesArrBack = new Sprite[3];
+        for(int i = 0; i < livesArrBack.length; i++){
+            livesArrBack[i] = new Sprite(livesBack);
+            livesArrBack[i].setPosition((1200+(i*50)),900);
+        }
+
+
 
     }
     public void render(SpriteBatch batch, int hp, int lives){
@@ -48,6 +67,12 @@ public class ProgramRegisterGFX {
         }
         for (int i = hp; i < damageArr.length; i++){
             damageArr[i].draw(batch);
+        }
+        for (int i = 0; i < livesArrBack.length; i++){
+            livesArrBack[i].draw(batch);
+        }
+        for (int i = 0; i < lives-1; i++){
+            livesArr[i].draw(batch);
         }
     }
 }

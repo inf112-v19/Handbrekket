@@ -33,6 +33,7 @@ public class Game implements IGame {
     private IProgramRegister currentRegister;
     private Board board;
 
+
     private GameState gameState;
     private int phaseNumber = 0;
 
@@ -561,22 +562,19 @@ public class Game implements IGame {
         deck.add(card);
     }
 
-    @Override
-    public boolean checkIfContainsRobot(int[] coordinate) {
-        return false;
-    }
 
-
-    //TODO: incomplete - how to know if robot hits flags in correct order?
+    //TODO: possibly incomplete
     @Override
     public void activateFlag() {
         while (checkIfOnFlag()) { //checks if there is a flag and a robot on a tile
-            for (IProgramRegister register : boardFlags) {
-                if (Arrays.equals(register.getRobot().getPosition(), register.getRobot().getFlagCounter)) { //checks if the robot hits flags in right order.
-                    register.getRobot().increaseFlagCounter(); //updates the robot programming card.
+            for (IFlag flag : boardFlags) {
+                for (IProgramRegister register : allProgramRegisters) {
+                    if (register.getRobot().getPosition().getFlagCounter() == flag.getPosition().getFlagId()) { //checks if the robot hits flags in right order.
+                        register.getRobot().increaseFlagCounter(); //updates the robot programming card.
+                        updateBackUp(robot); //places a new backup
+                    }
                 }
             }
-            updateBackUp(robot); //places a new backup
         }
     }
 

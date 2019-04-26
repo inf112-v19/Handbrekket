@@ -7,6 +7,7 @@ import inf112.skeleton.app.board.ConveyorBelts.*;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.robot.*;
 
+import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -129,17 +130,19 @@ public class Game implements IGame {
      */
     public boolean checkIfOnHoleOrOutsideBoard(IRobot robot) {
         int[] robotPos = robot.getPosition();
-
         //Checks if the robot's position overlaps with any holes
         for (int[] holePos : boardHoles) {
             if (Arrays.equals(holePos, robotPos))
                 return true;
         }
+        return checkIfOutsideBoard(robot.getPosition());
+    }
+    private boolean checkIfOutsideBoard(int[] position){
 
         //Checks if the robot is outside of the board
-        if (robotPos[0] > board.getWidth() || robotPos[0] < 0)
+        if (position[0] > board.getWidth() || position[0] < 0)
             return true;
-        if (robotPos[1] > board.getHeight() || robotPos[1] < 0)
+        if (position[1] > board.getHeight() || position[1] < 0)
             return true;
 
         return false;
@@ -191,6 +194,37 @@ public class Game implements IGame {
             }
         }
         System.out.println("Damage:" + currentRegister.getDamage()); //For testin
+    }
+    @Override
+    public void activateRobotLasers(){
+        int[] position;
+        Direction direction;
+        int[] positionChange;
+        boolean hit;
+
+        for(IProgramRegister currentRegister : allProgramRegisters) {
+            position = currentRegister.getRobot().getPosition();
+            direction = currentRegister.getRobot().getDir();
+            positionChange = new int[2];
+            switch (direction){
+                case EAST: positionChange[0] = 1;
+                case SOUTH: positionChange[1] = -1;
+                case WEST: positionChange[0] = -1;
+                case NORTH: positionChange[1] = 1;
+            }
+            while (true) {
+                if(checkIfOutsideBoard(position));
+                if(checkForWall(position, direction)) break;
+                if (checkIfContainsRobot(position) != null) {
+                    checkIfContainsRobot(position).changeDamage(1);
+                    break;
+                }
+                else{
+                    position[0] += positionChange[0];
+                    position[1] += positionChange[1];
+                }
+            }
+        }
     }
     @Override
     public void doRepairs () {
@@ -577,8 +611,13 @@ public class Game implements IGame {
     }
 
     @Override
-    public boolean checkIfContainsRobot(int[] coordinate) {
-        return false;
+    public IProgramRegister checkIfContainsRobot(int[] coordinate) {
+        for(IProgramRegister currentRegister : allProgramRegisters){
+            if(currentRegister.getRobot().getPosition()[0] == coordinate[0] && currentRegister.getRobot().getPosition()[1] == coordinate[1]){
+                return currentRegister;
+            }
+        }
+        return null;
     }
 
     @Override

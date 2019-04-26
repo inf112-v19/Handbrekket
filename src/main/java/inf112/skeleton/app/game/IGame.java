@@ -40,12 +40,12 @@ public interface IGame {
 
 
 	/**
-	 * Checks if tile contains a robot
+	 * Checks if tile contains a robot and returns the robot
 	 * @param coordinate x-ccordinate on index 0,
 	 *                   y-ccordinate on index 1 on board
-	 * @return
+	 * @return IRobot robot
 	 */
-	boolean checkIfContainsRobot(int[] coordinate);
+	IProgramRegister checkIfContainsRobot(int[] coordinate);
 
 	/**
 	 * Turns the current Robot
@@ -163,6 +163,12 @@ public interface IGame {
 	 * Changes HP
 	 */
 	void activateLasers();
+
+	/**
+	 * Activate robot lasers
+	 */
+	void activateRobotLasers();
+
     /**
      * Iterates through the registers and performs any repairs on robots on repairSites
      * @return true if it is on a repairSite, false otherwise

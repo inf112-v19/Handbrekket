@@ -169,7 +169,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
 
-        programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives());
+        programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown());
 
         calculateRobotPosition(0);
         sprite.draw(batch);

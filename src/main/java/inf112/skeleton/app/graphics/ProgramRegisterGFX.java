@@ -14,6 +14,10 @@ public class ProgramRegisterGFX {
     private Texture damageBack;
     private Texture lives;
     private Texture livesBack;
+    private Texture powerDownBack;
+    private Texture powerDown;
+    private Sprite spritePowerDown;
+    private Sprite spritePowerDownBack;
     private Sprite[] livesArrBack;
     private Sprite[] livesArr;
     private Sprite[] damageArr;
@@ -26,6 +30,12 @@ public class ProgramRegisterGFX {
         textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
         lives = new Texture(Gdx.files.internal("assets/lives.png"));
         livesBack = new Texture(Gdx.files.internal("assets/lives_background.png"));
+        powerDownBack = new Texture(Gdx.files.internal("assets/powerDown_background.png"));
+        powerDown = new Texture(Gdx.files.internal("assets/powerDown.png"));
+        spritePowerDownBack = new Sprite(powerDownBack);
+        spritePowerDown = new Sprite(powerDown);
+        spritePowerDownBack.setPosition(970,885);
+        spritePowerDown.setPosition(970,885);
 
         spriteP = new Sprite(textureP);
         spriteP.setPosition(960, 760);
@@ -34,16 +44,16 @@ public class ProgramRegisterGFX {
         damageRed = new Texture(Gdx.files.internal("assets/damage_red.png"));
 
         spriteDamageRed = new Sprite(damageRed);
-        spriteDamageRed.setPosition(1000, 857);
+        spriteDamageRed.setPosition(1000, 847);
         damageBack = new Texture(Gdx.files.internal("assets/damage_background.png"));
         damageArrback = new Sprite[9];
         for(int i = 0; i < damageArrback.length; i++){
             damageArrback[i] = new Sprite(damageBack);
-            damageArrback[i].setPosition((1047+(i*50)),857);
+            damageArrback[i].setPosition((1047+(i*50)),847);
         }
         for(int i = 0; i < damageArr.length; i++){
             damageArr[i] = new Sprite(damage);
-            damageArr[i].setPosition((1050+(i*50)),860);
+            damageArr[i].setPosition((1050+(i*50)),850);
         }
         livesArr = new Sprite[3];
         for(int i = 0; i < livesArr.length; i++){
@@ -59,9 +69,15 @@ public class ProgramRegisterGFX {
 
 
     }
-    public void render(SpriteBatch batch, int hp, int lives){
+    public void render(SpriteBatch batch, int hp, int lives, boolean isPowerDown){
         spriteP.draw(batch);
         spriteDamageRed.draw(batch);
+        if(isPowerDown){
+            spritePowerDown.draw(batch);
+        }
+        else {
+            spritePowerDownBack.draw(batch);
+        }
         for (int i = 0; i < damageArrback.length; i++){
             damageArrback[i].draw(batch);
         }

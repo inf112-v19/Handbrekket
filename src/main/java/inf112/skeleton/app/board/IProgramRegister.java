@@ -38,9 +38,9 @@ public interface IProgramRegister {
     IRobot getRobot();
 
     /**
-     * destroy one life from robot
+     * destroyRobot one life from robot
      */
-    void destroy();
+    void destroyRobot();
 
     /**
      * checks if a robot is destroyed
@@ -50,7 +50,7 @@ public interface IProgramRegister {
     /**
      * reset isRobotDestroyed value
      */
-    void notDestroyed();
+    void restoreRobot();
 
     /**
      * power down a robot

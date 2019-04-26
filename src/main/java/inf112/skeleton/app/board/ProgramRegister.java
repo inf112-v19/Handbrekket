@@ -64,7 +64,7 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
-    public void destroy() {
+    public void destroyRobot() {
         isRobotDestroyed = true;
     }
 
@@ -74,7 +74,7 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
-    public void notDestroyed() {
+    public void restoreRobot() {
         isRobotDestroyed = false;
     }
 

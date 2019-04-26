@@ -289,12 +289,6 @@ public class Game implements IGame {
         }
     }
 
-    public void destroyRobot(IProgramRegister register) {
-        int[] outsidePosisition = {-1, -1};
-        register.getRobot().setPosition(outsidePosisition);
-        register.removeLife();
-    }
-
     /**
      * Eirik
      */

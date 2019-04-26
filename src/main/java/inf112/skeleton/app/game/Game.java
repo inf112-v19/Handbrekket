@@ -68,7 +68,7 @@ public class Game implements IGame {
             //TODO: get starting position from the board.
             int[] robotPos = {i + 5, 5};
             Robot robot = new Robot(i + 1, robotPos);
-            ProgramRegister programRegister = new ProgramRegister(robot);
+            ProgramRegister programRegister = new ProgramRegister(robot, true); //TODO: needs to dynamically assign SimpleBraveAI players
             allProgramRegisters.add(programRegister);
         }
     }

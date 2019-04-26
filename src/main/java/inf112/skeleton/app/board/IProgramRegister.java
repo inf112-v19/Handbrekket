@@ -11,14 +11,14 @@ import inf112.skeleton.app.robot.IRobot;
  */
 public interface IProgramRegister {
     /**
-     * Returns whether the associated player should be human or an AI
-     * @return true for human, false for AI
+     * Returns whether the associated player should be human or an SimpleBraveAI
+     * @return true for human, false for SimpleBraveAI
      */
     boolean isPlayerHuman();
 
     /**
-     * Permanently turns a human player into an AI (should be used if a human player disconnects from the game
-     * (Throws an exception if the player is already an AI)
+     * Permanently turns a human player into an SimpleBraveAI (should be used if a human player disconnects from the game
+     * (Throws an exception if the player is already an SimpleBraveAI)
      */
     void turnHumanPlayerIntoAI();
 

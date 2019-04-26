@@ -283,7 +283,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-        if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) {
+        if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) { //TODO: move these to game
             if(keycode == Input.Keys.Y) {
                 game.powerDownRobot(game.getCurrentRegister(), true);
                 game.progressGameState();

@@ -52,7 +52,7 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void turnHumanPlayerIntoAI() {
         if(!isPlayerHuman)
-            throw new IllegalArgumentException("The player is already an AI!");
+            throw new IllegalArgumentException("The player is already an SimpleBraveAI!");
         else
             isPlayerHuman = false;
 

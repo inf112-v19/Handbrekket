@@ -326,7 +326,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
                 choseCard();
         }
         if(keycode == Input.Keys.SPACE)
-            game.doRound(this);
+            game.progressRound(this);
         if(keycode == Input.Keys.E) //TODO: used for testing, remove before hand-in
             game.activateConveyorBelts();
 

@@ -65,6 +65,11 @@ public interface IProgramRegister {
     boolean isPoweredDown();
 
     /**
+     * activates robot from powerDown
+     */
+    void powerOn();
+
+    /**
      * Checks how many lives a robot has left
      *
      * @return int lives

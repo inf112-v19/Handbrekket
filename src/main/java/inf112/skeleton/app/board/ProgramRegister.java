@@ -78,45 +78,34 @@ public class ProgramRegister implements IProgramRegister {
         isRobotDestroyed = false;
     }
 
-    /**
-     * power down a robot
-     *
-     */
     @Override
     public void powerDown() {
         setDamage(0);
         powerDowned = true;
     }
 
-    /**
-     * checks if a robot is powered down
-     *
-     * @return
-     */
     @Override
     public boolean isPoweredDown() {
         return powerDowned;
     }
 
     /**
-     * Checks how many lives a robot has left
-     *
-     * @return int lives
+     * activates robot from powerDown
      */
+    @Override
+    public void powerOn() {
+        powerDowned = false;
+    }
+
     @Override
     public int getLives() {
         return lives;
     }
 
-    /**
-     * removes one life from a robot
-     *
-     */
     @Override
     public void removeLife() {
         lives--;
     }
-
 
     @Override
     public int getDamage() {

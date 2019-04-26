@@ -99,6 +99,11 @@ public interface IProgramRegister {
     void discardUnusedCards(IGame game);
 
     /**
+     * Removes all of the cards in the register, both active and available cards
+     */
+    public void discardAllCards(IGame game);
+
+    /**
      * Deals new cards
      *
      * @param listOfCards

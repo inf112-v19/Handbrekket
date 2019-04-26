@@ -7,6 +7,7 @@ import inf112.skeleton.app.robot.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Created by mari on 24.02.2019.
@@ -133,11 +134,30 @@ public class ProgramRegister implements IProgramRegister {
         return true;
     }
 
+    //TODO: uses the exact same code as discardAllCards first part, consider merging methods
     @Override
     public void discardUnusedCards(IGame game) {
-        for(int i = maxActiveCardAmount - 1; i < activeCards.length; i++) {
-            game.addCardToDeck(activeCards[i]);
-            activeCards[i] = null;
+        int availableCardsSize = availableCards.size();
+        for(int i = 0; i < availableCardsSize; i++) {
+            game.addCardToDeck(availableCards.get(0));
+            availableCards.remove(0);
+        }
+    }
+
+    //TODO: should not remove a card if it's "locked in" because of damage
+    @Override
+    public void discardAllCards(IGame game) {
+        int availableCardsSize = availableCards.size();
+        for(int i = 0; i < availableCardsSize; i++) {
+            game.addCardToDeck(availableCards.get(0));
+            availableCards.remove(0);
+        }
+
+        for(int i = 0; i < activeCards.length; i++) {
+            if(activeCards[i] != null) {
+                game.addCardToDeck(activeCards[i]);
+                activeCards[i] = null;
+            }
         }
     }
 

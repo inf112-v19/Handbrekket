@@ -15,23 +15,30 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameRuleConstants;
+import inf112.skeleton.app.game.GameState;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
+@SuppressWarnings("Since15")
 public class GFX extends ApplicationAdapter implements InputProcessor{
+    private final String MAP_1 = "assets/map1.tmx";
+
     private TiledMap tiledMap;
-    private TiledMapTileLayer layer;
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
-
-    private ShapeRenderer shapeRenderer;
+    private FitViewport viewport;
 
     private SpriteBatch batch;
     private Texture texture;
@@ -47,7 +54,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private Sprite spriteCardBack;
     private Sprite spriteCardFront;
     private Sprite[] damageArr;
-    private Sprite[] getDamageArrBack;
     private Sprite spriteDamageRed;
     private Sprite[] damageArrback;
     private Sprite[] cards;
@@ -55,11 +61,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private int tilePixelWidth;
     private int tilePixelHeight;
 
+    //Stores all of the robots values, TODO: initialise in create based on number of players
+    private int[][] robotPositions = new int[1][3];
+
     //Used for testing, should not be pushed
     private boolean showCards = false;
-    private int robotRotationValue = 0;
-    private int robotXPos;
-    private int robotYPos;
     private BitmapFont font;
     private int cardId = 0;
 
@@ -69,35 +75,28 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public void create () {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
         font = new BitmapFont();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
-        camera.update();
-        tiledMap = new TmxMapLoader().load("assets/map1.tmx");
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+
+        tiledMap = new TmxMapLoader().load(MAP_1);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);
         tilePixelHeight = properties.get("tileheight", Integer.class);
 
         Gdx.input.setInputProcessor(this);
+        createGame();
+        initialiseSprites();
+    }
 
-        game = new Game(tiledMap, 1);
-        game.dealCards();
-        robotXPos = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
-        robotYPos = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
-
+    private void initialiseSprites() {
         batch = new SpriteBatch();
         texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         sprite = new Sprite(texture);
         sprite.setSize(tilePixelWidth - 10, tilePixelHeight - 10);
-        tiledMap.getTileSets();
-        TiledMapTileSets mapSet = tiledMap.getTileSets();
-        layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
-        layer.getCell(sprite.getRegionX(),sprite.getRegionY());
-        MapObjects objects = layer.getObjects();
 
         textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
         spriteP = new Sprite(textureP);
@@ -131,36 +130,58 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         spriteCardFront = new Sprite(cardFront);
     }
 
+    private void createGame() {
+        game = new Game(tiledMap, 1);
+
+        //TODO: should be dynamically assigned
+        robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
+        robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
+        robotPositions[0][2] = 0; //Rotation value
+    }
+
     //Used to render the robot
-    private void calculateRobotPosition() {
+    private void calculateRobotPosition(int robotId) {
         IRobot robot = game.getCurrentRegister().getRobot();
 
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
-        int rotationValue = robot.getDir().getDirectionInDegrees();
+        int desiredAngle = robot.getDir().getDirectionInDegrees();
         //Had to use this "hack" since the "default" rotation in libGDX is South, while in Direction it starts at North
-        if(rotationValue == 180)
-            rotationValue = 0;
-        else if (rotationValue == 0)
-            rotationValue = 180;
+        if(desiredAngle == 180)
+            desiredAngle = 0;
+        else if (desiredAngle == 0)
+            desiredAngle = 180;
 
-        if(robotRotationValue > rotationValue)
-            robotRotationValue -= 10;
-        else if(robotRotationValue < rotationValue)
-            robotRotationValue += 10;
+        int currentAngle = robotPositions[robotId][2];
+        if(currentAngle < desiredAngle) {
+            if(abs(desiredAngle - currentAngle) > 180)
+                currentAngle -= 10;
+            else
+                currentAngle += 10;
+        } else if (currentAngle > desiredAngle){
+            if(abs(desiredAngle - currentAngle) > 180)
+                currentAngle += 10;
+            else
+                currentAngle -= 10;
+        }
 
-        if(robotXPos > xPos * tilePixelWidth + 5)
-            robotXPos -= 5;
-        else if(robotXPos < xPos * tilePixelWidth + 5)
-            robotXPos += 5;
-        if(robotYPos > yPos * tilePixelHeight + 5)
-            robotYPos -= 5;
-        else if(robotYPos < yPos * tilePixelHeight + 5)
-            robotYPos += 5;
+        currentAngle = Math.floorMod(currentAngle, 360);
+
+        robotPositions[robotId][2] = currentAngle;
 
 
-        sprite.setPosition(robotXPos, robotYPos);
-        sprite.setRotation(robotRotationValue);
+        if(robotPositions[robotId][0] > xPos * tilePixelWidth + 5)
+            robotPositions[robotId][0] -= 5;
+        else if(robotPositions[robotId][0] < xPos * tilePixelWidth + 5)
+            robotPositions[robotId][0] += 5;
+        if(robotPositions[robotId][1] > yPos * tilePixelHeight + 5)
+            robotPositions[robotId][1] -= 5;
+        else if(robotPositions[robotId][1] < yPos * tilePixelHeight + 5)
+            robotPositions[robotId][1] += 5;
+
+
+        sprite.setPosition(robotPositions[robotId][0], robotPositions[robotId][1]);
+        sprite.setRotation(currentAngle);
     }
 
     @Override
@@ -168,12 +189,14 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         batch.begin();
+        batch.setProjectionMatrix(camera.combined);
 
-        calculateRobotPosition();
+        calculateRobotPosition(0);
         sprite.draw(batch);
         spriteP.draw(batch);
         spriteDamageRed.draw(batch);
@@ -210,24 +233,8 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
                 font.draw(batch, Integer.toString(availableCards.get(i).getPriority()), i * 105 + 66, y + 128);
                 int type = availableCards.get(i).getType();
-                String strType = "";
-                String strValue = "";
-                String strDir = "";
-                if (type == 1) {
-                    ICardMovement tempCard = (ICardMovement) availableCards.get(i);
-                    strType = "Move";
-                    strValue = Integer.toString(tempCard.getMoveValue());
-                } else if (type == 2) {
-                    ICardRotation tempCard = (ICardRotation) availableCards.get(i);
-                    strType = "Rotate";
-                    strValue = Integer.toString(tempCard.getRotationValue());
-                    if (tempCard.getRotationDirection())
-                        strDir = "RIGHT";
-                    else
-                        strDir = "LEFT";
-                }
-                String str = strType + " " + strValue + "\n" + strDir;
-                font.draw(batch, str, i * 105 + 35, y + 100);
+
+                font.draw(batch, createCardTypeString(type, availableCards, i), i * 105 + 35, y + 100);
             } else {
                 cardSpriteTest[i] = new Sprite(cardBack);
                 int y = 10;
@@ -240,6 +247,26 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             }
         }
         batch.end();
+    }
+
+    private String createCardTypeString(int type, ArrayList<ICard> cards, int i) {
+        String strType = "";
+        String strValue = "";
+        String strDir = "";
+        if (type == 1) {
+            ICardMovement tempCard = (ICardMovement) cards.get(i);
+            strType = "Move";
+            strValue = Integer.toString(tempCard.getMoveValue());
+        } else if (type == 2) {
+            ICardRotation tempCard = (ICardRotation) cards.get(i);
+            strType = "Rotate";
+            strValue = Integer.toString(tempCard.getRotationValue());
+            if (tempCard.getRotationDirection())
+                strDir = "RIGHT";
+            else
+                strDir = "LEFT";
+        }
+        return strType + " " + strValue + "\n" + strDir;
     }
 
     private void renderActiveCards(ArrayList<ICard> activeCards) {
@@ -255,36 +282,31 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             int y = 680;
             int x = 970;
             activeCardArray[i].setPosition(i * 110 + x, y);
-            //activeCardArray[i].setSize();
             activeCardArray[i].draw(batch);
-
 
             font.draw(batch, Integer.toString(activeCards.get(i).getPriority()), i * 110 + 56 + x, y + 136);
             int type = activeCards.get(i).getType();
-            String strType = "";
-            String strValue = "";
-            String strDir = "";
-            if(type == 1) {
-                ICardMovement tempCard = (ICardMovement) activeCards.get(i);
-                strType = "Move";
-                strValue = Integer.toString(tempCard.getMoveValue());
-            } else if(type == 2) {
-                ICardRotation tempCard = (ICardRotation) activeCards.get(i);
-                strType = "Rotate";
-                strValue = Integer.toString(tempCard.getRotationValue());
-                if(tempCard.getRotationDirection())
-                    strDir = "RIGHT";
-                else
-                    strDir = "LEFT";
-            }
-            String str = strType+ " " + strValue + "\n" + strDir;
-            font.draw(batch, str,i * 110 + 25 + x, y + 100);
+            font.draw(batch, createCardTypeString(type, activeCards, i),i * 110 + 25 + x, y + 100);
         }
         batch.end();
     }
 
     private void choseCard() {
         game.getCurrentRegister().makeCardActive(cardId);
+    }
+
+    //TODO: should print to the screen
+    public void printText(String input) {
+        System.out.println(input);
+    }
+
+    public void flipShowCard() {
+        showCards = !showCards;
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     @Override
@@ -294,6 +316,18 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
+        if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) {
+            if(keycode == Input.Keys.Y) {
+                game.powerDownRobot(game.getCurrentRegister(), true);
+                game.progressGameState();
+            }
+            if(keycode == Input.Keys.N) {
+                game.powerDownRobot(game.getCurrentRegister(), false);
+                game.progressGameState();
+            }
+
+        }
+
         if(keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             if(showCards) {
                 if(cardId == 0)
@@ -320,14 +354,14 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
             tiledMap.getLayers().get(3).setVisible(!tiledMap.getLayers().get(3).isVisible());
         if(keycode == Input.Keys.NUM_5)
             tiledMap.getLayers().get(4).setVisible(!tiledMap.getLayers().get(4).isVisible());
-        if(keycode == Input.Keys.C)
-            showCards = !showCards;
         if(keycode == Input.Keys.ENTER) {
             if(showCards)
                 choseCard();
         }
         if(keycode == Input.Keys.SPACE)
-            game.doPhase(phaseNumber++);
+            game.doRound(this);
+        if(keycode == Input.Keys.E) //TODO: used for testing, remove before hand-in
+            game.activateConveyorBelts();
 
         return false;
     }
@@ -339,6 +373,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
         return false;
     }
 
@@ -349,6 +384,10 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        float x = Gdx.input.getDeltaX() * camera.zoom;
+        float y = Gdx.input.getDeltaY() * camera.zoom;
+
+        camera.translate(-x,y);
         return false;
     }
 
@@ -359,7 +398,9 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean scrolled(int amount) {
-        return false;
+        float zoomAmount = amount;
+        camera.zoom += zoomAmount / 10;
+        return true;
     }
 
 }

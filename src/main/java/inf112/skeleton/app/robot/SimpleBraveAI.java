@@ -5,14 +5,9 @@ import inf112.skeleton.app.board.IProgramRegister;
 /**
  * Chooses random cards, never powers down
  */
-public class SimpleBraveAI implements IAI{
+public class SimpleBraveAI extends SimpleAI{
     @Override
     public void decideIfPowerDown(IProgramRegister register) {
-
-    }
-
-    @Override
-    public void activateCards(IProgramRegister register) {
-
+        //Does nothing, because the AI is never supposed to power down
     }
 }

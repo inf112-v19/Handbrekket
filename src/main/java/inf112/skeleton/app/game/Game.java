@@ -33,6 +33,8 @@ public class Game implements IGame {
     private IProgramRegister currentRegister;
     private Board board;
 
+    private IAI AI;
+
     private GameState gameState;
     private int phaseNumber = 0;
 
@@ -43,6 +45,7 @@ public class Game implements IGame {
         initialize();
         createDeck();
         shuffleDeck();
+        AI = new SimpleBraveAI();
         programRegistersFactory(numberOfPlayers);
         currentRegister = allProgramRegisters.get(0);
         boardWalls[0] = northWalls;
@@ -371,6 +374,11 @@ public class Game implements IGame {
                 graphicsInterface.flipShowCard();
                 break;
             case CHOOSING_CARDS:
+                for(IProgramRegister register : allProgramRegisters) {
+                    if(!register.isPlayerHuman())
+                        AI.activateCards(register);
+                }
+
                 int playersNotReady = getNumberOfPlayersNotReady();
                 if(playersNotReady == 0) {
                     graphicsInterface.flipShowCard();
@@ -384,7 +392,12 @@ public class Game implements IGame {
                 if(playersNotReady == 1 && allProgramRegisters.size() != 1)
                     startTimer();
                 break;
-            case ANNOUNCING_POWER_DOWN: break;
+            case ANNOUNCING_POWER_DOWN:
+                for(IProgramRegister register : allProgramRegisters) {
+                    if(!register.isPlayerHuman())
+                        AI.decideIfPowerDown(register);
+                }
+                break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
                     phaseNumber = 0;
@@ -402,7 +415,6 @@ public class Game implements IGame {
                 break;
         }
     }
-
 
     public void powerDownRobot(IProgramRegister register, boolean powerDown) {
         if(powerDown)register.powerDown();

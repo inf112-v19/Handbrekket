@@ -63,7 +63,7 @@ public interface IGame {
 	/**
 	 * execute a round
 	 */
-	void doRound(GFX GraphicsInterface);
+	void progressRound(GFX GraphicsInterface);
 
 
 	/**

@@ -280,8 +280,6 @@ public class Game implements IGame {
 
     }
 
-    //TODO: failing in board class, method getLaser
-
     public void initializeLaser(int x, int y) {
         if (board.getLaser(x, y)!= null){
             laser.add(board.getLaser(x,y));
@@ -321,12 +319,6 @@ public class Game implements IGame {
         } else if (inputCard.getType() == 2) { // Rotation Cards
             rotationMove(robot, (ICardRotation) inputCard);
         }
-    }
-
-    public void destroyRobot(IProgramRegister register) {
-        int[] outsidePosisition = {-1, -1};
-        register.getRobot().setPosition(outsidePosisition);
-        register.removeLife();
     }
 
     /**
@@ -383,9 +375,8 @@ public class Game implements IGame {
             checkIfOnHoleOrOutsideBoard(register.getRobot());
     }
 
-    //TODO: should probably be renamed for clarity's sake
     @Override
-    public void doRound(GFX graphicsInterface) {
+    public void progressRound(GFX graphicsInterface) {
         switch (gameState) {
             case SETUP:
                 progressGameState(); //TODO: should be changed later
@@ -421,6 +412,7 @@ public class Game implements IGame {
             case END_OF_ROUND_CLEANUP:
                     doRepairs();
                     for(IProgramRegister register:allProgramRegisters) {
+                        register.powerOn();
                         if (register.isDestroyed())
                             restoreRobot(register);
                     }

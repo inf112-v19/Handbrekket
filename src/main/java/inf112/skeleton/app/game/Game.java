@@ -184,13 +184,13 @@ public class Game implements IGame {
 
                 if (currentRegister.getRobot().getPosition()[0] == (currentLaser.getPosition())[0] &&
                     currentRegister.getRobot().getPosition()[1] == (currentLaser.getPosition())[1] ) {
-                    currentRegister.changeHP(-currentLaser.getDamage());
+                    currentRegister.changeDamage(-currentLaser.getDamage());
 
                     break;
                 }
             }
         }
-        System.out.println("HP:" + currentRegister.getHP()); //For testin
+        System.out.println("Damage:" + currentRegister.getDamage()); //For testin
     }
     @Override
     public void doRepairs () {
@@ -448,12 +448,10 @@ public class Game implements IGame {
      * @param programRegister to be repaired
      */
     public void repair(IProgramRegister programRegister) {
-        programRegister.changeHP(-1);
+        programRegister.changeDamage(-1);
     }
 
     /**
-     * Mari
-     *
      * @param robot to update the backup of
      */
     public void updateBackUp(IRobot robot) {
@@ -474,7 +472,7 @@ public class Game implements IGame {
         for (IProgramRegister register : allProgramRegisters) {
             register.discardAllCards(this); //Removes any cards, just in case there are some
 
-            final int numberOfCardsToDeal = register.getHP();
+            final int numberOfCardsToDeal = register.getDamage();
             ArrayList<ICard> temp = new ArrayList<>(deck.subList(0, numberOfCardsToDeal));
             deck.removeAll(temp); //Removes the cards from the deck
             register.setAvailableCards(temp);
@@ -508,7 +506,7 @@ public class Game implements IGame {
         int[] pos = programRegister.getRobot().getBackup();
         programRegister.getRobot().setPosition(pos);
         programRegister.removeLife();
-        programRegister.setHP(0);
+        programRegister.setDamage(0);
     }
 
     /**

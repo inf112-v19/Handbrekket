@@ -77,29 +77,29 @@ public interface IProgramRegister {
     void removeLife();
 
     /**
-     * Absolute HP change (the HP value becomes the new HP)
+     * Absolute Damage change (the Damage value becomes the new Damage)
      *
-     * @param HP the new HP
-     * @return new HP
+     * @param Damage the new Damage
+     * @return new Damage
      */
-    void setHP(int HP);
+    void setDamage(int Damage);
 
     /**
-     * Changes the HP,
-     * Positive to add health
-     * Negative to remove health
+     * Changes the Damage,
+     * Positive to add Damage
+     * Negative to remove Damage
      *
-     * @param HP the HP to be added/removed
-     * @return new HP
+     * @param Damage the Damage to be added/removed
+     * @return new Damage
      */
-    void changeHP(int HP);
+    void changeDamage(int Damage);
 
     /**
-     * Returns the current HP
+     * Returns the current Damage
      *
      * @return
      */
-    int getHP();
+    int getDamage();
 
     /**
      * Checks if all five card slots are filled

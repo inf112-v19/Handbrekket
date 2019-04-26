@@ -1,6 +1,8 @@
 package inf112.skeleton.app.board;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import inf112.skeleton.app.board.ConveyorBelts.IConveyorBelt;
+
 import java.util.ArrayList;
 
 /**
@@ -32,13 +34,31 @@ public interface IBoard {
     TiledMap getMap();
 
     /**
+     * Returns a Laser from a square, given the x and y coordinates, will return null if there is no laser
+     *
+     * @param x the x coordinate of the square to be checked
+     * @param y the y coordinate of the square to be checked
+     * @return Laser, if there is one
+     */
+    ILaser getLaser(int x, int y);
+
+    /**
+     * If there is a conveyor belt in the given position, it constructs and returns a corresponding object
+     *
+     * @param x the x coordinate of the square to be checked
+     * @param y the y coordinate of the square to be checked
+     * @return ConveyorBelt object, if it's present on the board
+     */
+    IConveyorBelt getConveyorBelt(int x, int y);
+
+    /**
      * Returns a BoardElement from a square, given the x and y coordinate, will return null if it's a normal square
      *
      * @param x the x coordinate of the square to be checked
      * @param y the y coordinate of the square to be checked
      * @return the type of BoardElement in the square, or null if none are present
      */
-    BoardElements checkSquare(int x, int y);
+    BoardElement getBoardElement(int x, int y);
 
     /**
     * Returns all (if any) walls in a square
@@ -47,5 +67,5 @@ public interface IBoard {
     * @param y the y coordinate of the square to check
     * @return a list of wall BoardElements or null if none are present
     */
-    ArrayList<BoardElements> getWall(int x, int y);
+    ArrayList<BoardElement> getWalls(int x, int y);
 }

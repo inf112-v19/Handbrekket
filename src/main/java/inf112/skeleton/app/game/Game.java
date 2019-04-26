@@ -312,8 +312,17 @@ public class Game implements IGame {
     }
 
     @Override
+    //TODO: incomplete; how to know if robot hits flags in correct order?
+    @Override
     public void activateFlag() {
-
+        while (game.checkIfOnFlag()) { //checks if there is a flag and a robot
+            for (IProgramRegister register : boardFlags) {
+                if (Arrays.equals(robot.getPosition(), register.getRobot().getFlagCounter)) { //checks if the robot hits flags in right order.
+                        register.getRobot().increaseFlagCounter(); //updates the robot programming card.
+                }
+            }
+            game.updateArchiveLocation(robot) //places a new backup
+        }
     }
 
     /**
@@ -394,6 +403,11 @@ public class Game implements IGame {
     public boolean checkIfContainsRobot(int[] coordinate) {
         return false;
     }
+
+    @Override
+    public void activateFlag() {
+    }
+
 
     @Override
     public void activateConveyorBelts() {

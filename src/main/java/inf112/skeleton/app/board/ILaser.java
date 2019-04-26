@@ -15,4 +15,10 @@ public interface ILaser {
      * @return direction, true if vertical, false if horizontal
      */
     boolean isVertical();
+
+    /**
+     * Returns the position of the laser
+     * @return int[] array, int[0] = x, int [1] = y.
+     */
+    int[] getPosition();
 }

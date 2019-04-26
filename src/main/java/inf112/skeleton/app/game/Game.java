@@ -27,7 +27,7 @@ public class Game implements IGame {
     private ArrayList<int[]> southWalls = new ArrayList<>();
     private ArrayList<int[]>[] boardWalls = new ArrayList[4];
     private ArrayList<IConveyorBelt> conveyorBelts = new ArrayList<>();
-    private ArrayList<int[]> laser = new ArrayList<>();
+    private ArrayList<ILaser> laser = new ArrayList<>();
     //private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
@@ -50,7 +50,7 @@ public class Game implements IGame {
         boardWalls[2] = southWalls;
         boardWalls[3] = westWalls;
 
-        int[] testPos = {0, 1}; //TODO: for tests, remove later
+        int[] testPos = {0, 4}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos);
     }
 
@@ -178,7 +178,22 @@ public class Game implements IGame {
     }
 
     @Override
-    public void doRepairs() {
+    public void activateLasers() {
+        for(IProgramRegister currentRegister : allProgramRegisters){
+            for(ILaser currentLaser : laser) {
+
+                if (currentRegister.getRobot().getPosition()[0] == (currentLaser.getPosition())[0] &&
+                    currentRegister.getRobot().getPosition()[1] == (currentLaser.getPosition())[1] ) {
+                    currentRegister.changeHP(-currentLaser.getDamage());
+
+                    break;
+                }
+            }
+        }
+        System.out.println("HP:" + currentRegister.getHP()); //For testin
+    }
+    @Override
+    public void doRepairs () {
         for (IProgramRegister currentRegister : allProgramRegisters) {
             for (int[] repairSitePos : boardRepairSites) {
                 if (Arrays.equals(currentRegister.getRobot().getPosition(), repairSitePos)) {
@@ -188,7 +203,7 @@ public class Game implements IGame {
         }
     }
 
-    private void initialize() {
+    private void initialize () {
         int width = board.getWidth();
         int height = board.getHeight();
 
@@ -202,10 +217,10 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: make this
+        //TODO: make this
     private void initializeStartingPoints() {
-
     }
+
 
     /**
      * Goes through the board and initializes the walls into their perspective ArrayLists
@@ -234,12 +249,11 @@ public class Game implements IGame {
     //TODO: failing in board class, method getLaser
 
     public void initializeLaser(int x, int y) {
-/**
-        if (board.getLaser(x, y) != null) {
-            int[] tempCoord = {x, y};
-            laser.add(tempCoord);
+        if (board.getLaser(x, y)!= null){
+            laser.add(board.getLaser(x,y));
+
         }
- */
+
     }
 
     private void initializeBoardElements(int x, int y) {
@@ -323,7 +337,7 @@ public class Game implements IGame {
         //TODO: should be expanded to have all boardElements
 
         activateBoardElements();
-        //fireLasers(); not implemented yet
+        activateLasers();
     }
 
     //A collection method to simplify activation
@@ -384,7 +398,7 @@ public class Game implements IGame {
     }
 
     public void powerDownRobot(IProgramRegister register, boolean powerDown) {
-        register.powerDown();
+        if(powerDown)register.powerDown();
     }
 
     /**
@@ -461,7 +475,7 @@ public class Game implements IGame {
         for (IProgramRegister register : allProgramRegisters) {
             register.discardAllCards(this); //Removes any cards, just in case there are some
 
-            final int numberOfCardsToDeal = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue() - register.getHP();
+            final int numberOfCardsToDeal = register.getHP();
             ArrayList<ICard> temp = new ArrayList<>(deck.subList(0, numberOfCardsToDeal));
             deck.removeAll(temp); //Removes the cards from the deck
             register.setAvailableCards(temp);

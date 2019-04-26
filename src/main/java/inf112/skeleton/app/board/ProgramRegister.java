@@ -38,7 +38,7 @@ public class ProgramRegister implements IProgramRegister {
         this.robot = robot;
         lives = maxLives;
         powerDowned = false;
-        hp = 0;
+        hp = GameRuleConstants.MAX_DAMAGE.getValue();
         flagCounter = 0;
     }
 

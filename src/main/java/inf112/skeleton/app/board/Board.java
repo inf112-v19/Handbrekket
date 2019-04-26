@@ -2,6 +2,7 @@ package inf112.skeleton.app.board;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.board.ConveyorBelts.*;
 
@@ -110,14 +111,15 @@ public class Board implements IBoard {
 	@Override
 	public ILaser getLaser(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("lasers");
-        MapProperties properties = layer.getCell(x,y).getTile().getProperties();
+        TiledMapTileLayer.Cell cell = layer.getCell(x,y);
+        if (cell == null){
+        	return null;
+		}
+        MapProperties properties = cell.getTile().getProperties();
         String type = properties.get("type").toString();
-        if(type.isEmpty())
-            return null;
-
         String direction = properties.get("direction").toString();
         int value = (int) properties.get("value");
-        return new Laser(value, direction);
+        return new Laser(value, direction, x, y);
 	}
 
 	@Override

@@ -87,6 +87,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         sprite = new Sprite(texture);
         sprite.setSize(tilePixelWidth - 10, tilePixelHeight - 10);
+        sprite.setOrigin(35,35);
 
         programRegisterGFX = new ProgramRegisterGFX();
 
@@ -104,7 +105,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     }
 
     private void createGame() {
-        game = new Game(tiledMap, 2);
+        game = new Game(tiledMap, 1);
 
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;

@@ -20,6 +20,7 @@ import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameRuleConstants;
 import inf112.skeleton.app.game.GameState;
+import inf112.skeleton.app.graphics.Menu;
 import inf112.skeleton.app.graphics.ProgramRegisterGFX;
 import inf112.skeleton.app.robot.IRobot;
 
@@ -29,13 +30,12 @@ import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
 public class GFX extends ApplicationAdapter implements InputProcessor{
-    private final String MAP_1 = "assets/map1.tmx";
-
     private TiledMap tiledMap;
-    private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
+    private OrthographicCamera camera;
     private FitViewport viewport;
     private ProgramRegisterGFX programRegisterGFX;
+    private Menu menu;
 
     private SpriteBatch batch;
     private Texture texture;
@@ -70,7 +70,9 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 
-        tiledMap = new TmxMapLoader().load(MAP_1);
+        //opens a Menu and gets the tiledmap from the menu class.
+        menu = new Menu();
+        tiledMap = menu.getTiledMap();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         MapProperties properties = tiledMap.getProperties();
@@ -87,6 +89,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         sprite = new Sprite(texture);
         sprite.setSize(tilePixelWidth - 10, tilePixelHeight - 10);
+        sprite.setOrigin(35,35);
 
         programRegisterGFX = new ProgramRegisterGFX();
 
@@ -104,8 +107,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     }
 
     private void createGame() {
-        game = new Game(tiledMap, 1);
-
+        game = new Game(tiledMap, menu.getNumberOfRealPlayers());
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
         robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
@@ -171,15 +173,19 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown());
 
+
         calculateRobotPosition(0);
         sprite.draw(batch);
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
+        menu.render(batch);
+
         batch.end();
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
         renderActiveCards(game.getCurrentRegister().getActiveCards());
+
     }
 
     private void renderAvailableCards(ArrayList<ICard> availableCards) {

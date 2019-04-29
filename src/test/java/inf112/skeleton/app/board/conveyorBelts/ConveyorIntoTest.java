@@ -44,7 +44,7 @@ public class ConveyorIntoTest {
 
     }
     @Test
-    public void shouldrotateTes() {
+    public void shouldrotateTest() {
         int[] testPosition = new int[2];
         testPosition[0] = 2;
         testPosition[1] = 2;

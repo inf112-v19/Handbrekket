@@ -15,7 +15,7 @@ import java.util.Collections;
 public class Game implements IGame {
     private ArrayList<ICard> deck = new ArrayList<>();
     private ArrayList<int[]> boardHoles = new ArrayList<>();
-    private ArrayList<int[]> boardFlags = new ArrayList<>(); //TODO: consider sorting the flags
+    private ArrayList<IFlag> boardFlags = new ArrayList<>(); //TODO: consider sorting the flags
     private ArrayList<int[]> boardRepairSites = new ArrayList<>();
     private ArrayList<IConveyorTurn> gears = new ArrayList<>(); //Uses the "turn" type conveyor, since it's essentially a 0 move turner
     //Works very similar to straight conveyors, thus uses the same class
@@ -52,7 +52,7 @@ public class Game implements IGame {
         boardWalls[2] = southWalls;
         boardWalls[3] = westWalls;
 
-        int[] testPos = {0, 4}; //TODO: for tests, remove later
+        int[] testPos = {8, 3}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos);
     }
 
@@ -174,7 +174,8 @@ public class Game implements IGame {
     @Override
     public boolean checkIfOnFlag(IRobot robot) {
         int[] robotPos = robot.getPosition();
-        for (int[] flagPos : boardFlags) {
+        for (int i = 0; i < boardFlags.size(); i++) {
+            int[] flagPos = boardFlags.get(i).getPosition();
             if (Arrays.equals(flagPos, robotPos))
                 return true;
         }
@@ -293,7 +294,7 @@ public class Game implements IGame {
         BoardElement elem = board.getBoardElement(x, y);
         int[] tempCoordinates = {x, y}; //Temporarily creates coordinates for the elements that need those
         if (BoardElement.FLAGS.contains(elem)) {
-            boardFlags.add(tempCoordinates);
+            boardFlags.add(new Flag(elem.getValue() - 1, x, y));
         } else if (elem == BoardElement.CONVEYORBELT) {
             conveyorBelts.add(board.getConveyorBelt(x, y));
         } else if (BoardElement.GEARS.contains(elem)) {
@@ -365,6 +366,8 @@ public class Game implements IGame {
 
         activateBoardElements();
         activateLasers();
+        activateFlag();
+        System.out.println("Flag counter: " + currentRegister.getFlagCounter());
     }
 
     //A collection method to simplify activation
@@ -598,21 +601,22 @@ public class Game implements IGame {
         deck.add(card);
     }
 
-
-    //TODO: possibly incomplete
     @Override
     public void activateFlag() {
-        while (checkIfOnFlag()) { //checks if there is a flag and a robot on a tile
-            for (IFlag flag : boardFlags) {
-                for (IProgramRegister register : allProgramRegisters) {
-                    if (register.getRobot().getPosition().getFlagCounter() == flag.getPosition().getFlagId()) { //checks if the robot hits flags in right order.
-                        register.getRobot().increaseFlagCounter(); //updates the robot programming card.
-                        updateBackUp(robot); //places a new backup
+            for (IProgramRegister register : allProgramRegisters) {
+                if(checkIfOnFlag(register.getRobot())) {
+                    for (IFlag flag : boardFlags) {
+                        if (register.getFlagCounter() == flag.getFlagId()) { //checks if the robot hits flags in right order.
+                            System.out.println();
+                            register.increaseFlagCounter(); //updates the robot programming card.
+                            updateBackUp(register.getRobot()); //places a new backup
+                            break;
+                        }
                     }
                 }
             }
-        }
     }
+
     public IProgramRegister checkIfContainsRobot(int[] coordinate) {
         for(IProgramRegister currentRegister : allProgramRegisters){
             if(currentRegister.getRobot().getPosition()[0] == coordinate[0] && currentRegister.getRobot().getPosition()[1] == coordinate[1]){
@@ -728,12 +732,13 @@ public class Game implements IGame {
 
     @Override
     public boolean winCheck() {
-        //if(register.getRobot().getFlagCounter() == 4)
-        if(register.getRobot().containsAll(boardFlags)){
-            System.out.println("Winner! The robot has registered all of its flags.");
-            return true;
+        for(IProgramRegister register : allProgramRegisters) {
+            if (register.getFlagCounter() == boardFlags.size() - 1) {
+                System.out.println("Winner! The robot has registered all of its flags.");
+                return true;
+            }
         }
-        return false
+        return false;
     }
 
     @Override

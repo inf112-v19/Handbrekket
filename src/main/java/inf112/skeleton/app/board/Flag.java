@@ -1,9 +1,8 @@
 package inf112.skeleton.app.board;
 
 public class Flag implements IFlag{
-
     private int flagId;
-    private int[] coordinates;
+    private int[] coordinates = new int[2];
 
     public Flag (int flagId, int x, int y) {
         this.flagId = flagId;
@@ -17,7 +16,7 @@ public class Flag implements IFlag{
     }
 
     @Override
-    public int getFlagId{
+    public int getFlagId() {
         return flagId;
     }
 

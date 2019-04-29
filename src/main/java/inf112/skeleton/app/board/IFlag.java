@@ -15,6 +15,6 @@ public interface IFlag {
      * Returns the identification number of the flag
      * @return flagId
      */
-    int getFlagId{);
+    int getFlagId();
 
 }

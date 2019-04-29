@@ -177,10 +177,9 @@ public interface IGame {
 
     /**
      * Checks if a robot has won the game
-     * @param robot The robot to be checked
      * @return true if robot has won, false otherwise
      */
-    boolean winCheck(IRobot robot);
+    boolean winCheck();
 
     /**
      * Ends the game if robot has won

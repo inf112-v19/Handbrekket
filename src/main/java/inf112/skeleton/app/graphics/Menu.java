@@ -20,22 +20,42 @@ public class Menu {
         spriteMenuBackground = new Sprite(menuBackground);
         spriteMenuBackground.setPosition(65,100);
     }
+
+    /**
+     * Render and draws the Menu to the screen
+     * @param batch - Neds the batch to be able to draw to the screen.
+     */
     public void render(Batch batch){
         if(showMenu()) {
             spriteMenuBackground.draw(batch);
         }
         showingMenu = false;
     }
+
+    /**
+     *
+     * @return the number of real players chosen in the menu
+     */
     public int getNumberOfRealPlayers(){
         return 1;
     }
+
+    /**
+     *
+     * @return The number of AI chosen in the menu
+     */
     public int getNumbersOfAI(){
         return 0;
     }
 
+    /**
+     *
+     * @return The tiledMap chosen in the menu
+     */
     public TiledMap getTiledMap() {
         return tiledMap;
     }
+
     private boolean showMenu(){
         return showingMenu;
     }

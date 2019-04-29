@@ -4,41 +4,43 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum BoardElement {
-    FLAG1(null),
-    FLAG2(null),
-    FLAG3(null),
-    FLAG4(null),
-    CONVEYORBELT(null),
-    GEAR_LEFT(null),
-    GEAR_RIGHT(null),
-    HOLE(null),
-    WRENCH(null),
-    SPECIAL_WRENCH(null),
-    STARTING_POSITION_1(null),
-    STARTING_POSITION_2(null),
-    STARTING_POSITION_3(null),
-    STARTING_POSITION_4(null),
-    STARTING_POSITION_5(null),
-    STARTING_POSITION_6(null),
-    STARTING_POSITION_7(null),
-    STARTING_POSITION_8(null),
-    PUSHER_EVEN_NORTH(Direction.NORTH),
-    PUSHER_EVEN_EAST(Direction.EAST),
-    PUSHER_EVEN_SOUTH(Direction.SOUTH),
-    PUSHER_EVEN_WEST(Direction.WEST),
-    PUSHER_ODD_NORTH(Direction.NORTH),
-    PUSHER_ODD_EAST(Direction.EAST),
-    PUSHER_ODD_SOUTH(Direction.SOUTH),
-    PUSHER_ODD_WEST(Direction.WEST),
-    WALL_NORTH(Direction.NORTH),
-    WALL_EAST(Direction.EAST),
-    WALL_SOUTH(Direction.SOUTH),
-    WALL_WEST(Direction.WEST);
+    FLAG1(null, 1),
+    FLAG2(null, 2),
+    FLAG3(null, 3),
+    FLAG4(null, 4) ,
+    CONVEYORBELT(null, -1),
+    GEAR_LEFT(null, -1),
+    GEAR_RIGHT(null, -1),
+    HOLE(null, -1),
+    WRENCH(null, -1),
+    SPECIAL_WRENCH(null, -1),
+    STARTING_POSITION_1(null, 1),
+    STARTING_POSITION_2(null, 2),
+    STARTING_POSITION_3(null, 3),
+    STARTING_POSITION_4(null, 4),
+    STARTING_POSITION_5(null, 5),
+    STARTING_POSITION_6(null, 6),
+    STARTING_POSITION_7(null, 7),
+    STARTING_POSITION_8(null, 8),
+    PUSHER_EVEN_NORTH(Direction.NORTH, -1),
+    PUSHER_EVEN_EAST(Direction.EAST, -1),
+    PUSHER_EVEN_SOUTH(Direction.SOUTH, -1),
+    PUSHER_EVEN_WEST(Direction.WEST, -1),
+    PUSHER_ODD_NORTH(Direction.NORTH, -1),
+    PUSHER_ODD_EAST(Direction.EAST, -1),
+    PUSHER_ODD_SOUTH(Direction.SOUTH, -1),
+    PUSHER_ODD_WEST(Direction.WEST, -1),
+    WALL_NORTH(Direction.NORTH, -1),
+    WALL_EAST(Direction.EAST, -1),
+    WALL_SOUTH(Direction.SOUTH, -1),
+    WALL_WEST(Direction.WEST, -1);
 
     private final Direction direction;
+    private final int value;
 
-    BoardElement(Direction dir) {
+    BoardElement(Direction dir, int value) {
         this.direction = dir;
+        this.value = value;
     }
 
     /**
@@ -47,6 +49,14 @@ public enum BoardElement {
      */
     public Direction getDirection() {
         return direction;
+    }
+
+    /**
+     * Returns the value
+     * @return value an integer valuable
+     */
+    public int getValue() {
+        return value;
     }
 
     /**

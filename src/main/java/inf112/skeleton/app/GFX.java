@@ -108,7 +108,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     private void createGame() {
         game = new Game(tiledMap, menu.getNumberOfRealPlayers());
-
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
         robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;

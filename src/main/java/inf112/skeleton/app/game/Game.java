@@ -611,6 +611,7 @@ public class Game implements IGame {
                     }
                 }
             }
+        }
     }
     public IProgramRegister checkIfContainsRobot(int[] coordinate) {
         for(IProgramRegister currentRegister : allProgramRegisters){
@@ -727,6 +728,7 @@ public class Game implements IGame {
 
     @Override
     public boolean winCheck() {
+        //if(register.getRobot().getFlagCounter() == 4)
         if(register.getRobot().containsAll(boardFlags)){
             System.out.println("Winner! The robot has registered all of its flags.");
             return true;

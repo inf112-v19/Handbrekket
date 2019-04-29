@@ -1,9 +1,7 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
@@ -20,8 +19,6 @@ import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameRuleConstants;
 import inf112.skeleton.app.game.GameState;
-import inf112.skeleton.app.graphics.Menu;
-import inf112.skeleton.app.graphics.ProgramRegisterGFX;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
@@ -29,13 +26,12 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
-public class GFX extends ApplicationAdapter implements InputProcessor{
+public class GameGFX extends Stage {
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
     private OrthographicCamera camera;
     private FitViewport viewport;
     private ProgramRegisterGFX programRegisterGFX;
-    private Menu menu;
 
     private SpriteBatch batch;
     private Texture texture;
@@ -62,24 +58,29 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private int phaseNumber = 0;
 
     private Game game;
+    private Menu menu;
 
-    @Override
-    public void create () {
+    private int numberOfRealPlayers;
+    private int numberOfAI;
+
+
+    public void create (int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
+        numberOfRealPlayers = numPlayersIn;
+        numberOfAI = numAIIn;
+        tiledMap = tiledMapIn;
         font = new BitmapFont();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-
-        //opens a Menu and gets the tiledmap from the menu class.
         menu = new Menu();
-        tiledMap = menu.getTiledMap();
+        //opens a Menu and gets the tiledmap from the menu class.
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        Gdx.input.setInputProcessor(menu);
 
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);
         tilePixelHeight = properties.get("tileheight", Integer.class);
 
-        Gdx.input.setInputProcessor(this);
         createGame();
         initialiseSprites();
     }
@@ -107,7 +108,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     }
 
     private void createGame() {
-        game = new Game(tiledMap, menu.getNumberOfRealPlayers());
+        game = new Game(tiledMap, numberOfRealPlayers);
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
         robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
@@ -159,7 +160,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         sprite.setRotation(currentAngle);
     }
 
-    @Override
     public void render () {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -179,13 +179,11 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
-        menu.render(batch);
 
         batch.end();
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
         renderActiveCards(game.getCurrentRegister().getActiveCards());
-
     }
 
     private void renderAvailableCards(ArrayList<ICard> availableCards) {
@@ -277,7 +275,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         showCards = !showCards;
     }
 
-    @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
     }

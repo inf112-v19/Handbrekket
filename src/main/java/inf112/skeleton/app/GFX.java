@@ -35,7 +35,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     private OrthographicCamera camera;
     private FitViewport viewport;
     private ProgramRegisterGFX programRegisterGFX;
-    private Menu menu;
 
     private SpriteBatch batch;
     private Texture texture;
@@ -63,7 +62,9 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
     private Game game;
 
-    @Override
+    public GFX(int numberOfRealPlayer, int numberOfIA, TiledMap tiledMapIn){
+
+    }
     public void create () {
         font = new BitmapFont();
         camera = new OrthographicCamera();
@@ -71,8 +72,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 
         //opens a Menu and gets the tiledmap from the menu class.
-        menu = new Menu();
-        tiledMap = menu.getTiledMap();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         MapProperties properties = tiledMap.getProperties();
@@ -107,7 +106,7 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
     }
 
     private void createGame() {
-        game = new Game(tiledMap, menu.getNumberOfRealPlayers());
+        game = new Game(tiledMap, 1);
         //TODO: should be dynamically assigned
         robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
         robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
@@ -179,7 +178,6 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
-        menu.render(batch);
 
         batch.end();
         if(showCards)

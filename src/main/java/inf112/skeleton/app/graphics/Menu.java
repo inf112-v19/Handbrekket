@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import inf112.skeleton.app.GFX;
-import org.lwjgl.Sys;
 
 public class Menu extends ApplicationAdapter implements InputProcessor {
     private Sprite[] increase;
@@ -43,7 +41,12 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
     private boolean menuActive;
     private int currentPosition;
 
-    public void create(){
+
+    public Menu(){
+        numberOfRealPlayers = 0;
+        numberOfAI = 0;
+        mapNumber = 0;
+        font = new BitmapFont();
         currentPosition = 0;
         menuActive = true;
         camera = new OrthographicCamera();
@@ -54,7 +57,6 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         batch = new SpriteBatch();
         initialiseSprites();
-        Gdx.input.setInputProcessor(this);
     }
     private void initialiseSprites(){
         menuActive = true;
@@ -85,6 +87,7 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
                 increase[0].setPosition(increase[0].getX()+20, increase[0].getY());
                 break;
             case (1):
+                System.out.println("test");
                 decrease[0].setPosition(decrease[0].getX()+20, decrease[0].getY());
                 break;
             case (2):
@@ -104,6 +107,14 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
                 break;
         }
     }
+    private void initialiseText(){
+        font.draw(batch, ("Number of Real Players:".concat(Integer.toString(getNumberOfRealPlayers()))), 900, 700);
+        font.draw(batch, ("Number of AI:".concat(Integer.toString(getNumbersOfAI()))),900, 550);
+        font.draw(batch, ("Map number:".concat((Integer.toString(mapNumber)))), 900, 370);
+    }
+    private void renderText(){
+        initialiseText();
+    }
     public void render(){
         camera.update();
         tiledMapRenderer.setView(camera);
@@ -115,13 +126,14 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
             increase[i].draw(batch);
         }
         start.draw(batch);
+        initialiseText();
         batch.end();
     }
     public int getNumberOfRealPlayers(){
-        return 1;
+        return numberOfRealPlayers;
     }
     public int getNumbersOfAI(){
-        return 0;
+        return numberOfAI;
     }
 
     public TiledMap getTiledMap() {
@@ -178,21 +190,12 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
                         mapNumber--;
                         break;
                     case (6):
-                        initialiseGFX(); //start
+                        menuActive = false;
                         break;
                 }
-                System.out.println("NumPlay: " + numberOfRealPlayers);
-                System.out.println("NumAI: " + numberOfAI);
-                System.out.println("MapNumber: " + mapNumber);
-                System.out.println();
             }
         }
         return false;
-    }
-
-    private void initialiseGFX() {
-        menuActive = false;
-        new GFX(numberOfRealPlayers, numberOfAI, tiledMap);
     }
 
     @Override
@@ -223,5 +226,8 @@ public class Menu extends ApplicationAdapter implements InputProcessor {
     @Override
     public boolean scrolled(int i) {
         return false;
+    }
+    public Boolean isMenuActive(){
+        return menuActive;
     }
 }

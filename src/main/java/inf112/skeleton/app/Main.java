@@ -2,11 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import inf112.skeleton.app.graphics.Menu;
-import org.lwjgl.Sys;
-
-
-import java.util.ArrayList;
+import inf112.skeleton.app.graphics.GFX;
 
 
 public class Main {
@@ -16,7 +12,7 @@ public class Main {
         cfg.width = 1520;
         cfg.height = 960;
 
-        new LwjglApplication(new Menu(), cfg);
+        new LwjglApplication(new GFX(), cfg);
     }
 
 }

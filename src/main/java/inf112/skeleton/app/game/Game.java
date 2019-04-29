@@ -1,13 +1,12 @@
 package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import inf112.skeleton.app.GFX;
 import inf112.skeleton.app.board.*;
 import inf112.skeleton.app.board.ConveyorBelts.*;
 import inf112.skeleton.app.card.*;
+import inf112.skeleton.app.graphics.GameGFX;
 import inf112.skeleton.app.robot.*;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -380,7 +379,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void progressRound(GFX graphicsInterface) {
+    public void progressRound(GameGFX graphicsInterface) {
         switch (gameState) {
             case SETUP:
                 progressGameState(); //TODO: should be changed later

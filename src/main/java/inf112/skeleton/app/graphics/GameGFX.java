@@ -54,9 +54,6 @@ public class GameGFX extends Stage {
     private boolean showCards = false;
     private BitmapFont font;
     private int cardId = 0;
-
-    private int phaseNumber = 0;
-
     private Game game;
     private Menu menu;
 
@@ -280,11 +277,6 @@ public class GameGFX extends Stage {
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
     public boolean keyUp(int keycode) {
         if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) {
             if(keycode == Input.Keys.Y) {
@@ -335,34 +327,12 @@ public class GameGFX extends Stage {
 
         return false;
     }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         float x = Gdx.input.getDeltaX() * camera.zoom;
         float y = Gdx.input.getDeltaY() * camera.zoom;
 
         camera.translate(-x,y);
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
 

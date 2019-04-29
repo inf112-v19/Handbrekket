@@ -33,4 +33,9 @@ public class GFX extends ApplicationAdapter {
         }
     }
 }
+/**
+ * VIKTIG!
+ * Menyen sender per nå kun antall ekte spillere videre.
+ *
+ */
 

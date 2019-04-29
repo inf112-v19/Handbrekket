@@ -5,6 +5,12 @@ public class Flag implements IFlag{
     private int flagId;
     private int[] coordinates;
 
+    public Flag (int flagId, int x, int y) {
+        this.flagId = flagId;
+        coordinates[0] = x;
+        coordinates[1] = y;
+    }
+
     @Override
     public int[] getPosition() {
         return coordinates;

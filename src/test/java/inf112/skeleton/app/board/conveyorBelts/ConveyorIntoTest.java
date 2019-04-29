@@ -1,6 +1,5 @@
 package inf112.skeleton.app.board.conveyorBelts;
 
-import ...
 import inf112.skeleton.app.board.ConveyorBelts.ConveyorInto;
 import inf112.skeleton.app.board.Direction;
 import org.junit.Assert;
@@ -11,12 +10,10 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ConveyorIntoTest {
     private ConveyorInto testConveyorInto ;
-    private int moveValue = 1;
+    private int moveValue = 2;
     private Direction dir = Direction.NORTH;
     private int[] position = {1,2};
-    private boolean turnDirection;
-    private boolean shouldRotate;
-
+    private boolean turnDirection = true;
 
     @Before
     public void setup (){
@@ -42,12 +39,16 @@ public class ConveyorIntoTest {
 
     }
     @Test
-    public void expresstypeTest(){assert(testConveyorInto.isExpressType());
+    public void expresstypeTest(){
+        assert(testConveyorInto.isExpressType());
 
     }
     @Test
     public void shouldrotateTes() {
-        assert (testConveyorInto.shouldRotate());
+        int[] testPosition = new int[2];
+        testPosition[0] = 2;
+        testPosition[1] = 2;
+        assert (testConveyorInto.shouldRotate(testPosition));
     }
 
 }

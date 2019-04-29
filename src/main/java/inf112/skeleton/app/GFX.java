@@ -174,15 +174,19 @@ public class GFX extends ApplicationAdapter implements InputProcessor{
 
         programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown());
 
+
         calculateRobotPosition(0);
         sprite.draw(batch);
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
+        menu.render(batch);
+
         batch.end();
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
         renderActiveCards(game.getCurrentRegister().getActiveCards());
+
     }
 
     private void renderAvailableCards(ArrayList<ICard> availableCards) {

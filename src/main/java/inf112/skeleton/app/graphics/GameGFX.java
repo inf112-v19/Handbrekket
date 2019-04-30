@@ -59,8 +59,6 @@ public class GameGFX extends Stage {
     private int numberOfRealPlayers;
     private int numberOfAI;
 
-    private Game game;
-
     public void create (int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
         numberOfRealPlayers = numPlayersIn;
         numberOfAI = numAIIn;
@@ -158,7 +156,6 @@ public class GameGFX extends Stage {
             robotPositions[robotId][1] += 5;
     }
 
-    @Override
     public void render() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

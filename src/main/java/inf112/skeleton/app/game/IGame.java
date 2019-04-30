@@ -121,9 +121,10 @@ public interface IGame {
 	void removeCard(boolean[] cards);
 
 	/**
-	 * Activate Coveyorbelts
+	 * Activate Coveyorbelts, can chose whether to activate all belts or only express
+	 * @param activateOnlyExpressConveyorBelts true if you only want to activate express conveyors
 	 */
-	void activateConveyorBelts();
+	void activateConveyorBelts(boolean activateOnlyExpressConveyorBelts);
 
 	/**
 	 * Adds a card to the deck

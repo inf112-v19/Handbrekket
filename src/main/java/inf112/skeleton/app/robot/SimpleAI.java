@@ -15,8 +15,8 @@ public class SimpleAI implements IAI {
 
     @Override
     public void activateCards(IProgramRegister register) {
-        while(register.getActiveCards().size() < GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue()) {
-            int cardNumber = (int)(Math.random() * register.getAvailableCards().size()) + 1;
+        for(int i = 0; i < GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue(); i++) {
+            int cardNumber = (int)(Math.random() * register.getAvailableCards().size());
             register.makeCardActive(cardNumber);
         }
     }

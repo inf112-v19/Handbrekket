@@ -55,8 +55,9 @@ public class Game implements IGame {
 
         int[] testPos1 = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
-        int[] testPos2 = {6, 0};
+        int[] testPos2 = {9, 11};
         allProgramRegisters.get(1).getRobot().setPosition(testPos2);
+        allProgramRegisters.get(1).turnHumanPlayerIntoAI(); //TODO: should be done automatically
     }
 
     public ArrayList<IProgramRegister> getAllProgramRegisters() {
@@ -108,6 +109,11 @@ public class Game implements IGame {
         //get current position of robot
         int[] coordinates = robot.getPosition();
 
+        if(moveValue < 0) { //Makes backward movement work properly
+            dir = dir.next().next();
+            moveValue = Math.abs(moveValue);
+        }
+
         //Checks if the robot encounters a wall for each movement
         for(int i = 0; i < moveValue; i++) {
             if(!checkForWall(coordinates, dir)) {
@@ -144,7 +150,7 @@ public class Game implements IGame {
     @Override
     public void rotationMove(IRobot robot, ICardRotation card) {
         for (int i = 0; i < card.getRotationValue(); i++)
-            currentRegister.getRobot().rotate(card.getRotationDirection());
+            robot.rotate(card.getRotationDirection());
     }
 
     /**
@@ -378,13 +384,13 @@ public class Game implements IGame {
                 dealCards();
                 progressGameState();
                 graphicsInterface.flipShowCard();
-                break;
-            case CHOOSING_CARDS:
+
                 for(IProgramRegister register : allProgramRegisters) {
                     if(!register.isPlayerHuman())
                         AI.activateCards(register);
                 }
-
+                break;
+            case CHOOSING_CARDS:
                 int playersNotReady = getNumberOfPlayersNotReady();
                 if(playersNotReady == 0) {
                     graphicsInterface.flipShowCard();
@@ -433,8 +439,9 @@ public class Game implements IGame {
     private int getNumberOfPlayersNotReady() {
         int notReadyCounter = 0;
         for(IProgramRegister register : allProgramRegisters) {
-            if (!register.isCardSlotsFilled())
+            if (!register.isCardSlotsFilled()) {
                 notReadyCounter++;
+            }
         }
         return notReadyCounter;
     }

@@ -66,6 +66,7 @@ public class GameGFX extends Stage {
         font = new BitmapFont();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.translate(0, 320);
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         menu = new Menu();
         //opens a Menu and gets the tiledmap from the menu class.
@@ -89,7 +90,9 @@ public class GameGFX extends Stage {
         for(int i = 0; i < otherPlayerSprites.length; i++)
             otherPlayerSprites[i] = new Sprite(texture);
 
-        programRegisterGFX = new ProgramRegisterGFX();
+        int programRegisterXPos = 960;
+        int programRegisterYPos = 1080;
+        programRegisterGFX = new ProgramRegisterGFX(programRegisterXPos, programRegisterYPos);
 
         cardBack = new Texture(Gdx.files.internal("assets/card_back.png"));
         cardFront = new Texture(Gdx.files.internal("assets/card_front.png"));
@@ -98,7 +101,7 @@ public class GameGFX extends Stage {
         cards = new Sprite[5];
         for(int i = 0; i < 5; i++){
             cards[i] = new Sprite(cardBack);
-            cards[i].setPosition(970+(i*110), 680);
+            cards[i].setPosition(programRegisterXPos + 10 + (i*110), programRegisterYPos - 80);
         }
         spriteCardBack = new Sprite(cardBack);
         spriteCardFront = new Sprite(cardFront);

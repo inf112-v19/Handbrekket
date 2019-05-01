@@ -107,12 +107,15 @@ public class Game implements IGame {
 
     /**
      * Attempts to move a robot in a given direction
-     * @param robot
-     * @param dir
-     * @param moveValue
-     * @return
+     * @param robot the robot to be moved
+     * @param dir the direction to move
+     * @param moveValue the amount of movement that should be done
+     * @return true if successful, false otherwise
      */
     public boolean relativeMoveStraight(IRobot robot, Direction dir, int moveValue) {
+        if(getRegisterFromRobot(robot).isDestroyed())
+            return false;
+
         //get current position of robot
         int[] coordinates = robot.getPosition();
 
@@ -173,6 +176,9 @@ public class Game implements IGame {
      */
     @Override
     public void rotationMove(IRobot robot, ICardRotation card) {
+        if(getRegisterFromRobot(robot).isDestroyed())
+            return; //Rotation is not performed if robot is destroyed
+
         for (int i = 0; i < card.getRotationValue(); i++)
             robot.rotate(card.getRotationDirection());
     }
@@ -325,7 +331,9 @@ public class Game implements IGame {
     private void initializeBoardElements(int x, int y) {
         BoardElement elem = board.getBoardElement(x, y);
         int[] tempCoordinates = {x, y}; //Temporarily creates coordinates for the elements that need those
-        if (BoardElement.FLAGS.contains(elem)) {
+        if (elem == BoardElement.NORMAL_TILE) {
+            //If it's a normal tile you might as well do nothing and stop
+        } else if(BoardElement.FLAGS.contains(elem)) {
             boardFlags.add(new Flag(elem.getValue() - 1, x, y));
         } else if (elem == BoardElement.CONVEYORBELT) {
             conveyorBelts.add(board.getConveyorBelt(x, y));
@@ -398,7 +406,6 @@ public class Game implements IGame {
         activateBoardElements();
         activateLasers();
         activateFlag();
-        System.out.println("Flag counter: " + currentRegister.getFlagCounter());
     }
 
     //A collection method to simplify activation
@@ -451,15 +458,17 @@ public class Game implements IGame {
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
                     phaseNumber = 0;
                     progressGameState();
-                } else
+                } else {
+                    System.out.println("Executing phase " + (phaseNumber + 1));
                     doPhase(phaseNumber++);
+                }
                 break;
             case END_OF_ROUND_CLEANUP:
                     doRepairs();
                     for(IProgramRegister register:allProgramRegisters) {
                         register.powerOn();
                         if (register.isDestroyed())
-                            restoreRobot(register);
+                            register.restoreRobot(this);
                     }
                     progressGameState();
                 break;
@@ -566,16 +575,6 @@ public class Game implements IGame {
     }
 
     /**
-     * @param programRegister
-     */
-    public void restoreRobot(IProgramRegister programRegister) {
-        int[] pos = programRegister.getRobot().getBackup();
-        programRegister.getRobot().setPosition(pos);
-        programRegister.removeLife();
-        programRegister.setDamage(0);
-    }
-
-    /**
      * @param cards
      */
     public void removeCard(boolean[] cards) {
@@ -658,9 +657,10 @@ public class Game implements IGame {
     }
 
     public IProgramRegister checkIfContainsRobot(int[] coordinate) {
-        for(IProgramRegister currentRegister : allProgramRegisters){
-            if(currentRegister.getRobot().getPosition()[0] == coordinate[0] && currentRegister.getRobot().getPosition()[1] == coordinate[1]){
-                return currentRegister;
+        for(IProgramRegister register : allProgramRegisters){
+            if(register.getRobot().getPosition()[0] == coordinate[0]
+                    && register.getRobot().getPosition()[1] == coordinate[1] && !register.isDestroyed()){
+                return register;
             }
         }
         return null;
@@ -680,8 +680,14 @@ public class Game implements IGame {
             isMoved[i] = false;
             conveyorsWithRobot[i][0] = null;
             conveyorsWithRobot[i][1] = null;
-
-            int[] robotPos = allProgramRegisters.get(i).getRobot().getPosition();
+            int[] robotPos = new int[2];
+            if(allProgramRegisters.get(i).isDestroyed()) {
+                //Sets the position of a destroyed robot to be outside of the board to avoid incorrect
+                robotPos[0] = Integer.MIN_VALUE;
+                robotPos[1] = Integer.MIN_VALUE;
+            } else {
+                robotPos = allProgramRegisters.get(i).getRobot().getPosition();
+            }
             predictedPositions[i] = robotPos.clone();
             for(IConveyorBelt conveyorBelt : conveyorBelts) {
                 if((conveyorBelt.isExpressType() == activateOnlyExpressConveyors) || !activateOnlyExpressConveyors) {
@@ -753,7 +759,7 @@ public class Game implements IGame {
         int deltaY = destinationCoordinates[1] - startCoordinates[1];
         if (deltaX > 1 || deltaX < -1 || deltaY > 1 || deltaY < -1)
             throw new IllegalArgumentException("The positions are not adjacent");
-        
+
 
         return true;
     }

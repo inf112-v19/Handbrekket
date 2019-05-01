@@ -185,13 +185,15 @@ public class GameGFX extends Stage {
         calculateRobotPosition(0);
         thisPlayerSprite.setPosition(robotPositions[0][0], robotPositions[0][1]);
         thisPlayerSprite.setRotation(robotPositions[0][2]);
-        thisPlayerSprite.draw(batch);
+        if(!game.getCurrentRegister().isDestroyed())
+            thisPlayerSprite.draw(batch);
         for(int i = 1; i < game.getAllProgramRegisters().size(); i++) {
             calculateRobotPosition(i);
             //Subtracts 1 in the otherPlayerSprites array since it's 1 shorter in length
             otherPlayerSprites[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
             otherPlayerSprites[i - 1].setRotation(robotPositions[i][2]);
-            otherPlayerSprites[i - 1].draw(batch);
+            if(!game.getAllProgramRegisters().get(i).isDestroyed())
+                otherPlayerSprites[i - 1].draw(batch);
         }
     }
 

@@ -37,7 +37,7 @@ public class Menu extends Stage {
 
 
     public Menu(){
-        numberOfRealPlayers = 0;
+        numberOfRealPlayers = 1;
         numberOfAI = 0;
         mapNumber = 0;
         font = new BitmapFont();

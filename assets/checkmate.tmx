@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="tileProperties.tsx"/>
  <layer id="1" name="boardElements" width="12" height="16">
   <data encoding="base64" compression="zlib">
-   eJwTY2BgEBvFo3iEYgDlaBCB
+   eJwTY2BgECMS80BpcSDmI4AlkPSxAjEXlA2juYFYDkqD+Gxo6kE0MxY9MBpdPbr5zGh6sJkPUytKhvmiaPbgMx/dLbjMl8fhV0LmEwofBSDmJ4AV0eJ4sOBEII6Asv2htBsQu0PZAVA6EoiTyDAfAOplD40=
   </data>
  </layer>
  <layer id="6" name="lasers" width="12" height="16">
@@ -13,22 +13,22 @@
  </layer>
  <layer id="2" name="wallsWEST" width="12" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DkAgADAAAB
+   eJxjYKAt0KGxubQ2n1T1Q9W/gxmg+10HCWOTJwUAAPM+ApU=
   </data>
  </layer>
  <layer id="3" name="wallsSOUTH" width="12" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DkAgADAAAB
+   eJxjYCAfCCLRgmhio2BoA2zxOZTimFj3AwD9OADN
   </data>
  </layer>
  <layer id="4" name="wallsEAST" width="12" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DkAgADAAAB
+   eJxjYBg8QBmNHizmDzb3kGr+KMANABAeARk=
   </data>
  </layer>
  <layer id="5" name="wallsNORTH" width="12" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DkAgADAAAB
+   eJxjYIAADjQal9goGLoAOT6pHbdDNf0AAJbAAGE=
   </data>
  </layer>
 </map>

@@ -38,15 +38,14 @@ public class Game implements IGame {
     private GameState gameState;
     private int phaseNumber = 0;
 
-    //TODO: consider making numberOfPlayers a private variable in Game
-    public Game(TiledMap tiledMap, int numberOfPlayers) {
+    public Game(TiledMap tiledMap, int numberOfPlayers, int numberOfHumanPlayers) {
         gameState = GameState.SETUP;
         board = new Board(tiledMap);
         initialize();
         createDeck();
         shuffleDeck();
         AI = new SimpleBraveAI();
-        programRegistersFactory(numberOfPlayers);
+        programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
         boardWalls[0] = northWalls;
         boardWalls[1] = eastWalls;
@@ -57,7 +56,6 @@ public class Game implements IGame {
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
         int[] testPos2 = {9, 11};
         allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
-        allProgramRegisters.get(1).turnHumanPlayerIntoAI(); //TODO: should be done automatically
     }
 
     public ArrayList<IProgramRegister> getAllProgramRegisters() {
@@ -73,12 +71,12 @@ public class Game implements IGame {
         gameState = gameState.nextState(false);
     }
 
-    private void programRegistersFactory(int numberOfPlayers) {
+    private void programRegistersFactory(int numberOfPlayers, int numberOfHumanPlayers) {
         for (int i = 0; i < numberOfPlayers; i++) {
-            //TODO: get starting position from the board.
             int[] robotPos = startingPoints[i];
             Robot robot = new Robot(i + 1, robotPos);
-            ProgramRegister programRegister = new ProgramRegister(robot, true); //TODO: needs to dynamically assign SimpleBraveAI players
+            boolean isPlayerHuman = i < numberOfHumanPlayers;
+            ProgramRegister programRegister = new ProgramRegister(robot, isPlayerHuman);
             allProgramRegisters.add(programRegister);
         }
     }

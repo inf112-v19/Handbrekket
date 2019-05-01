@@ -37,8 +37,8 @@ public class GameGFX extends Stage {
     private Texture cardBack;
     private Texture cardFront;
 
-    private Sprite humanPlayerSprite;
-    private Sprite[] robotPlayerSprite = new Sprite[1]; //TODO: needs to be assigned dynamically & should be renamed
+    private Sprite thisPlayerSprite;
+    private Sprite[] otherPlayerSprites;
     private Sprite spriteCardBack;
     private Sprite spriteCardFront;
     private Sprite[] cards;
@@ -47,7 +47,7 @@ public class GameGFX extends Stage {
     private int tilePixelHeight;
 
     //Stores all of the robots values, TODO: initialise in create based on number of players
-    private int[][] robotPositions = new int[2][3];
+    private int[][] robotPositions;
 
     //Used for testing, should not be pushed
     private boolean showCards = false;
@@ -76,17 +76,18 @@ public class GameGFX extends Stage {
         tilePixelWidth = properties.get("tilewidth", Integer.class);
         tilePixelHeight = properties.get("tileheight", Integer.class);
 
-        createGame();
-        initialiseSprites();
+        createGame(numberOfRealPlayers + numAIIn, numberOfRealPlayers);
+        initialiseSprites(numberOfRealPlayers + numAIIn);
     }
 
-    private void initialiseSprites() {
+    private void initialiseSprites(int numberOfSprites) {
         batch = new SpriteBatch();
         Texture texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
-        humanPlayerSprite = new Sprite(texture);
+        thisPlayerSprite = new Sprite(texture);
         texture = new Texture(Gdx.files.internal("assets/bot-r.gif"));
-        for(int i = 0; i < robotPlayerSprite.length; i++)
-            robotPlayerSprite[i] = new Sprite(texture);
+        otherPlayerSprites = new Sprite[numberOfSprites];
+        for(int i = 0; i < otherPlayerSprites.length; i++)
+            otherPlayerSprites[i] = new Sprite(texture);
 
         programRegisterGFX = new ProgramRegisterGFX();
 
@@ -103,17 +104,15 @@ public class GameGFX extends Stage {
         spriteCardFront = new Sprite(cardFront);
     }
 
-    private void createGame() {
-        game = new Game(tiledMap, 2);
+    private void createGame(int numberOfPlayers, int numberOfRealPlayers) {
+        game = new Game(tiledMap, numberOfPlayers, numberOfRealPlayers);
+        robotPositions = new int[numberOfPlayers][3];
 
-        //TODO: should be dynamically assigned
-        robotPositions[0][0] = game.getCurrentRegister().getRobot().getPosition()[0] * tilePixelWidth;
-        robotPositions[0][1] = game.getCurrentRegister().getRobot().getPosition()[1] * tilePixelHeight;
-        robotPositions[0][2] = 0; //Rotation value
-
-        robotPositions[1][0] = game.getAllProgramRegisters().get(1).getRobot().getPosition()[0] * tilePixelWidth;
-        robotPositions[1][1] = game.getAllProgramRegisters().get(1).getRobot().getPosition()[1] * tilePixelHeight;
-        robotPositions[1][2] = 0; //Rotation value
+        for(int i = 0; i < numberOfPlayers; i++) {
+            robotPositions[i][0] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[0] * tilePixelWidth;
+            robotPositions[i][1] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[1] * tilePixelHeight;
+            robotPositions[i][2] = 0;
+        }
     }
 
     //Used to render the robot
@@ -181,15 +180,15 @@ public class GameGFX extends Stage {
 
     private void renderRobots() {
         calculateRobotPosition(0);
-        humanPlayerSprite.setPosition(robotPositions[0][0], robotPositions[0][1]);
-        humanPlayerSprite.setRotation(robotPositions[0][2]);
-        humanPlayerSprite.draw(batch);
+        thisPlayerSprite.setPosition(robotPositions[0][0], robotPositions[0][1]);
+        thisPlayerSprite.setRotation(robotPositions[0][2]);
+        thisPlayerSprite.draw(batch);
         for(int i = 1; i < game.getAllProgramRegisters().size(); i++) {
             calculateRobotPosition(i);
-            //Subtracts 1 in the robotPlayerSprite array since it's 1 shorter in length
-            robotPlayerSprite[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
-            robotPlayerSprite[i - 1].setRotation(robotPositions[i][2]);
-            robotPlayerSprite[i - 1].draw(batch);
+            //Subtracts 1 in the otherPlayerSprites array since it's 1 shorter in length
+            otherPlayerSprites[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
+            otherPlayerSprites[i - 1].setRotation(robotPositions[i][2]);
+            otherPlayerSprites[i - 1].draw(batch);
         }
     }
 

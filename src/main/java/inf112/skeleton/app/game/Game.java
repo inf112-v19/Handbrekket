@@ -134,7 +134,6 @@ public class Game implements IGame {
                 }
             } else {
                 System.out.println("Robot in {" + coordinates[0] + "," + coordinates[1] + "} hit a wall going " + dir);
-                return false;
             }
         }
         robot.setPosition(coordinates);

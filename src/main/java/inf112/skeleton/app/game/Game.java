@@ -20,6 +20,7 @@ public class Game implements IGame {
     //Works very similar to straight conveyors, thus uses the same class
     private ArrayList<ConveyorStraight> pushersEven = new ArrayList<>();
     private ArrayList<ConveyorStraight> pushersOdd = new ArrayList<>();
+    private int[][] startingPoints = new int[GameRuleConstants.NUMBER_OF_STARTING_POINTS.getValue()][2]; //Stores starting points in order
 
     private ArrayList<int[]> northWalls = new ArrayList<>();
     private ArrayList<int[]> westWalls = new ArrayList<>();
@@ -28,7 +29,6 @@ public class Game implements IGame {
     private ArrayList<int[]>[] boardWalls = new ArrayList[4];
     private ArrayList<IConveyorBelt> conveyorBelts = new ArrayList<>();
     private ArrayList<ILaser> laser = new ArrayList<>();
-    //private ArrayList<IMovementBoardElement> expressConveyorBelts = new ArrayList<>();
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
@@ -53,10 +53,10 @@ public class Game implements IGame {
         boardWalls[2] = southWalls;
         boardWalls[3] = westWalls;
 
-        int[] testPos1 = {0, 1}; //TODO: for tests, remove later
+        /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
         int[] testPos2 = {9, 11};
-        allProgramRegisters.get(1).getRobot().setPosition(testPos2);
+        allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
         allProgramRegisters.get(1).turnHumanPlayerIntoAI(); //TODO: should be done automatically
     }
 
@@ -76,7 +76,7 @@ public class Game implements IGame {
     private void programRegistersFactory(int numberOfPlayers) {
         for (int i = 0; i < numberOfPlayers; i++) {
             //TODO: get starting position from the board.
-            int[] robotPos = {i + 5, 5};
+            int[] robotPos = startingPoints[i];
             Robot robot = new Robot(i + 1, robotPos);
             ProgramRegister programRegister = new ProgramRegister(robot, true); //TODO: needs to dynamically assign SimpleBraveAI players
             allProgramRegisters.add(programRegister);
@@ -279,13 +279,14 @@ public class Game implements IGame {
                 initializeBoardElements(i, j);
                 initializeLaser(i, j);
                 initializeWalls(i, j);
-                initializeStartingPoints();
             }
         }
     }
 
-        //TODO: make this
-    private void initializeStartingPoints() {
+    //Helper method used by initializeBoardElements
+    private void initializeStartingPoint(BoardElement startingPoint, int xCoordinate, int yCoordinate) {
+        int[] tempCoordinate = {xCoordinate, yCoordinate};
+        startingPoints[startingPoint.getValue() - 1] = tempCoordinate;
     }
 
 
@@ -342,6 +343,8 @@ public class Game implements IGame {
                 pushersEven.add(new ConveyorStraight(elem.getDirection(), 1, tempCoordinates));
             else if (BoardElement.PUSHERS_ODD.contains(elem))
                 pushersOdd.add(new ConveyorStraight(elem.getDirection(), 1, tempCoordinates));
+        } else if (BoardElement.STARTING_POINTS.contains(elem)) {
+            initializeStartingPoint(elem, x, y);
         }
     }
 

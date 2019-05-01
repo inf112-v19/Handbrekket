@@ -47,7 +47,7 @@ public class Menu extends Stage {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 
-        tiledMap = new TmxMapLoader().load("assets/map1.tmx");
+        tiledMap = new TmxMapLoader().load("assets/risky_exchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         batch = new SpriteBatch();
         initialiseSprites();

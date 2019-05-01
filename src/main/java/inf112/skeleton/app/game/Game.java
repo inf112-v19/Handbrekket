@@ -124,6 +124,7 @@ public class Game implements IGame {
         }
         robot.setPosition(coordinates);
         if(checkIfOnHoleOrOutsideBoard(robot)) {
+            getRegisterFromRobot(robot).destroyRobot();
             //getRegisterFromRobot(robot).destro(); TODO: make this work
         }
     }

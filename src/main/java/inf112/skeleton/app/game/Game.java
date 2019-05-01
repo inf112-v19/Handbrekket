@@ -41,16 +41,18 @@ public class Game implements IGame {
     public Game(TiledMap tiledMap, int numberOfPlayers, int numberOfHumanPlayers) {
         gameState = GameState.SETUP;
         board = new Board(tiledMap);
+        boardWalls[0] = northWalls;
+        boardWalls[1] = eastWalls;
+        boardWalls[2] = southWalls;
+        boardWalls[3] = westWalls;
+
         initialize();
         createDeck();
         shuffleDeck();
         AI = new SimpleBraveAI();
         programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
-        boardWalls[0] = northWalls;
-        boardWalls[1] = eastWalls;
-        boardWalls[2] = southWalls;
-        boardWalls[3] = westWalls;
+
 
         /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
@@ -103,7 +105,14 @@ public class Game implements IGame {
         relativeMoveStraight(robot, robot.getDir(),  card.getMoveValue());
     }
 
-    public void relativeMoveStraight(IRobot robot, Direction dir, int moveValue) {
+    /**
+     * Attempts to move a robot in a given direction
+     * @param robot
+     * @param dir
+     * @param moveValue
+     * @return
+     */
+    public boolean relativeMoveStraight(IRobot robot, Direction dir, int moveValue) {
         //get current position of robot
         int[] coordinates = robot.getPosition();
 
@@ -115,16 +124,32 @@ public class Game implements IGame {
         //Checks if the robot encounters a wall for each movement
         for(int i = 0; i < moveValue; i++) {
             if(!checkForWall(coordinates, dir)) {
-                coordinates[0] += dir.getDeltaX();
-                coordinates[1] += dir.getDeltaY();
-            } else
-                System.out.println("Robot in {"+coordinates[0]+","+coordinates[1]+"} hit a wall going "+dir);
+                coordinates = getPositionInDirection(coordinates, dir);
+                if(checkIfContainsRobot(coordinates) != null) {
+                    if(!relativeMoveStraight(checkIfContainsRobot(coordinates).getRobot(), dir, 1))
+                        return false;
+                }
+            } else {
+                System.out.println("Robot in {" + coordinates[0] + "," + coordinates[1] + "} hit a wall going " + dir);
+                return false;
+            }
         }
         robot.setPosition(coordinates);
         if(checkIfOnHoleOrOutsideBoard(robot)) {
             getRegisterFromRobot(robot).destroyRobot();
             //getRegisterFromRobot(robot).destro(); TODO: make this work
         }
+        return true;
+    }
+
+    /**
+     * Small help-method to get an adjacent position in a direction without affecting the input
+     */
+    private int[] getPositionInDirection(int[] startPos, Direction dir) {
+        int[] endPos = startPos.clone();
+        endPos[0] += dir.getDeltaX();
+        endPos[1] += dir.getDeltaY();
+        return  endPos;
     }
 
     /**
@@ -167,8 +192,8 @@ public class Game implements IGame {
         }
         return checkIfOutsideBoard(robot.getPosition());
     }
-    private boolean checkIfOutsideBoard(int[] position){
 
+    private boolean checkIfOutsideBoard(int[] position){
         //Checks if the robot is outside of the board
         if (position[0] > board.getWidth() || position[0] < 0)
             return true;
@@ -188,9 +213,7 @@ public class Game implements IGame {
         }
 
         //Gets the coordinates of the square the robot is moving into
-        int[] adjacentPosition = position.clone();
-        adjacentPosition[0] += dir.getDeltaX();
-        adjacentPosition[1] += dir.getDeltaY();
+        int[] adjacentPosition = getPositionInDirection(position, dir);
         //Might seem like redundant code, but means you only have to go through two of the wall Lists
         for(int[] wallPosition : boardWalls[dir.next().next().getDirectionValue()]) { //Uses next() twice to get the opposite direction
             if(Arrays.equals(adjacentPosition, wallPosition)) {
@@ -224,35 +247,24 @@ public class Game implements IGame {
                 }
             }
         }
-        System.out.println("Damage:" + currentRegister.getDamage()); //For testin
     }
     @Override
     public void activateRobotLasers(){
         int[] position;
         Direction direction;
-        int[] positionChange;
         boolean hit;
 
         for(IProgramRegister currentRegister : allProgramRegisters) {
             position = currentRegister.getRobot().getPosition();
             direction = currentRegister.getRobot().getDir();
-            positionChange = new int[2];
-            switch (direction){
-                case EAST: positionChange[0] = 1;
-                case SOUTH: positionChange[1] = -1;
-                case WEST: positionChange[0] = -1;
-                case NORTH: positionChange[1] = 1;
-            }
             while (true) {
                 if(checkIfOutsideBoard(position));
                 if(checkForWall(position, direction)) break;
                 if (checkIfContainsRobot(position) != null) {
                     checkIfContainsRobot(position).changeDamage(1);
                     break;
-                }
-                else{
-                    position[0] += positionChange[0];
-                    position[1] += positionChange[1];
+                } else{
+                    position = getPositionInDirection(position, direction);
                 }
             }
         }
@@ -298,26 +310,16 @@ public class Game implements IGame {
             for (BoardElement wall : walls) {
                 if (!BoardElement.WALLS.contains(wall))
                     throw new IllegalArgumentException("The given element is not a wall");
-                else if (wall.getDirection() == Direction.NORTH)
-                    northWalls.add(tempPos);
-                else if (wall.getDirection() == Direction.EAST)
-                    eastWalls.add(tempPos);
-                else if (wall.getDirection() == Direction.SOUTH)
-                    southWalls.add(tempPos);
-                else if (wall.getDirection() == Direction.WEST)
-                    westWalls.add(tempPos);
+                else
+                    boardWalls[wall.getDirection().getDirectionValue()].add(tempPos);
             }
         }
-
-
     }
 
-    public void initializeLaser(int x, int y) {
+    private void initializeLaser(int x, int y) {
         if (board.getLaser(x, y)!= null){
             laser.add(board.getLaser(x,y));
-
         }
-
     }
 
     private void initializeBoardElements(int x, int y) {
@@ -535,7 +537,7 @@ public class Game implements IGame {
         }
     }
 
-    //Can this handle locked-in cards?
+    //TODO: Can this handle locked-in cards?
     @Override
     public void dealCards() {
         for (IProgramRegister register : allProgramRegisters) {
@@ -634,7 +636,6 @@ public class Game implements IGame {
         Collections.shuffle(deck);
     }
 
-    //TODO: should probably have guards
     @Override
     public void addCardToDeck(ICard card) {
         deck.add(card);
@@ -686,8 +687,7 @@ public class Game implements IGame {
                 if((conveyorBelt.isExpressType() == activateOnlyExpressConveyors) || !activateOnlyExpressConveyors) {
                     //Goes through all of the conveyor belts and calculates the predicted position & stores relevant conveyors
                     if (Arrays.equals(robotPos, conveyorBelt.getPosition())) {
-                        predictedPositions[i][0] = robotPos[0] + conveyorBelt.getDirection().getDeltaX();
-                        predictedPositions[i][1] = robotPos[1] + conveyorBelt.getDirection().getDeltaY();
+                        predictedPositions[i] = getPositionInDirection(robotPos, conveyorBelt.getDirection());
 
                         conveyorsWithRobot[i][0] = conveyorBelt;
                         conveyorsWithRobot[i][1] = getConveyorInPosition(predictedPositions[i]);
@@ -745,20 +745,7 @@ public class Game implements IGame {
         return null;
     }
 
-    /**
-     * Help-method to check if a square is empty, used primarily by conveyor belts
-     * @param position the position to check
-     * @return true if empty, false if not
-     */
-    private boolean isSquareEmpty(int[] position) {
-        for(IProgramRegister register : allProgramRegisters) {
-            if(Arrays.equals(register.getRobot().getPosition(), position))
-                return true;
-        }
-        return false;
-    }
-
-    //TODO: complete
+    //TODO: complete or remove
     @Override
     public boolean canMove(int[] startCoordinates, int[] destinationCoordinates) {
         //Checks to see if the positions are adjacent
@@ -766,7 +753,7 @@ public class Game implements IGame {
         int deltaY = destinationCoordinates[1] - startCoordinates[1];
         if (deltaX > 1 || deltaX < -1 || deltaY > 1 || deltaY < -1)
             throw new IllegalArgumentException("The positions are not adjacent");
-
+        
 
         return true;
     }
@@ -789,8 +776,6 @@ public class Game implements IGame {
             System.exit(0);
         }
     }
-
-
 }
 
 

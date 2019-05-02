@@ -126,7 +126,6 @@ public class Menu extends Stage {
     private void initialiseText(){
         font.draw(batch, ("Number of Real Players:".concat(Integer.toString(getNumberOfRealPlayers()))), 900, 700);
         font.draw(batch, ("Number of AI:".concat(Integer.toString(getNumbersOfAI()))),900, 550);
-        font.draw(batch, ("Map:".concat(mapName.get(mapNumber))), 900, 370);
     }
 
     public void render(){

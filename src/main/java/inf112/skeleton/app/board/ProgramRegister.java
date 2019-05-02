@@ -78,6 +78,10 @@ public class ProgramRegister implements IProgramRegister {
         return robot;
     }
 
+    public void setLives (int live) {
+        lives=live;
+    }
+
     @Override
     public void destroyRobot() {
         isRobotDestroyed = true;

@@ -51,6 +51,8 @@ public class CardTest {
         rotationValueTest(rotationCardArray, ROTATION_VALUE);
     }
 
+
+
     private void priorityTests(ICard[] cardArray, int intervalStart, int interval){
         for(int i = 0; i < cardArray.length; i++){
             assertEquals(intervalStart + i * interval, cardArray[i].getPriority());

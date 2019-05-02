@@ -14,6 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTest {
+    /**
 
     private IRobot robot;
     private Game game;
@@ -27,7 +28,7 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        int[] testCoordinates = {1,1};
+        int[] testCoordinates = {0,0};
         robot = new Robot(0,testCoordinates);
         robot.setDir(Direction.EAST);
         TiledMap map = new TiledMap();
@@ -36,66 +37,69 @@ public class GameTest {
 +
     @Test
     public void testMoveTwoSteps() {
-        game.relativeMoveStraight(robot, Direction.EAST, 2);
-        int newPos = {3,1}
-        assertEquals(robot.getPosition(), newPos);
+        moveTwoSteps = new MovementCard(1,2);
+        game.relativeMove(robot, moveTwoSteps);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 2));
     }
 
     @Test
     public void testMoveOneStep() {
-        game.relativeMoveStraight(robot, Direction.EAST, 1);
-        int newPos = {2,1}
-        assertEquals(robot.getPosition(), newPos);
+        moveThreeSteps = new MovementCard(3,1);
+        game.relativeMove(robot, moveThreeSteps);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 3));
     }
 
 
     @Test
     public void testMoveThreeStep() {
-        game.relativeMoveStraight(robot, Direction.EAST, 3);
-        int newPos = {4,1}
-        assertEquals(robot.getPosition(), newPos);
+        moveOneStep = new MovementCard(2,3);
+        game.relativeMove(robot, moveOneStep);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 1));
     }
 
     @Test
     public void testMoveOneBackwards() {
-        game.relativeMoveStraight(robot, Direction.EAST, -1);
-        int newPos = {0,1}
-        assertEquals(robot.getPosition(), newPos);
+        moveOneBackwards = new MovementCard(1,-1);
+        game.relativeMove(robot, moveOneBackwards);
+        robot.setPosition(robot.getPosition());
+        int[] robotPos = robot.getPosition();
+        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == -1));
     }
 
     @Test
     public void testRotateRight() {
-        RotationCard moveRight = new RotationCard(1,true,1);
+        System.out.println("Robot has direction " + robot.getDir() + " before rotate-right-card.");
+        moveRight = new RotationCard(2,true,1);
         game.rotationMove(robot, moveRight);
+
+        System.out.println("Robot has direction " + robot.getDir() + " after rotate-right-card.");
         assertEquals(robot.getDir(), Direction.SOUTH);
     }
 
     @Test
     public void testRotateLeft() {
-        RotationCard moveLeft = new RotationCard(1,false,1);
+        System.out.println("Robot has direction " + robot.getDir() + " before rotate-left-card.");
+        moveLeft = new RotationCard(1,false,1);
         game.rotationMove(robot, moveLeft);
+
+        System.out.println("Robot has direction " + robot.getDir() + " after rotate-left-card.");
         assertEquals(robot.getDir(), Direction.NORTH);
     }
 
     @Test
     public void testUTurn() {
-        RotationCard uTurn = new RotationCard(1,true,2);
+        System.out.println("Robot has direction " + robot.getDir() + " before u-turn-card.");
+        uTurn = new RotationCard(1,true,2);
         game.rotationMove(robot, uTurn);
+
+        System.out.println("Robot has direction " + robot.getDir() + " after u-turn-card.");
         assertEquals(robot.getDir(), Direction.WEST);
     }
-
-
-    @Test
-    public void checkIfOnHoleTest() {
-
-        int[] holePos = new int[2];
-        holePos[0] = 3;
-        holePos[1] = 1;
-
-        gsme.relativeMoveStraight(robot, Direction.EAST, 2);
-        assertEquals(holePos, robot.getPosition);
-
-    }
-
-
+*/
 }

@@ -17,9 +17,10 @@ public class ProgramRegister implements IProgramRegister {
     private IRobot robot;           //The robot associated with the program register
     private int lives;              //The current amount of lives
     private boolean powerDowned;    //Whether the robot in the register should be powered down or not
-    private int hp;
+    private int damage;
     private int flagCounter;
-
+    private boolean isRobotDestroyed;
+    private boolean isPlayerHuman;
 
     /**
      * All of the variables and lists relating to cards
@@ -33,12 +34,28 @@ public class ProgramRegister implements IProgramRegister {
     private int maxAvailableCardAmount = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
     private int maxActiveCardAmount = GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue();
 
-    public ProgramRegister(IRobot robot){
+    public ProgramRegister(IRobot robot, boolean isPlayerHuman){
         this.robot = robot;
+        this.isPlayerHuman = isPlayerHuman;
         lives = maxLives;
         powerDowned = false;
-        hp = 0;
+        damage = 0;
         flagCounter = 0;
+        isRobotDestroyed = false;
+    }
+
+    @Override
+    public boolean isPlayerHuman() {
+        return isPlayerHuman;
+    }
+
+    @Override
+    public void turnHumanPlayerIntoAI() {
+        if(!isPlayerHuman)
+            throw new IllegalArgumentException("The player is already an SimpleBraveAI!");
+        else
+            isPlayerHuman = false;
+
     }
 
     @Override
@@ -61,61 +78,67 @@ public class ProgramRegister implements IProgramRegister {
         return robot;
     }
 
-    /**
-     * power down a robot
-     *
-     */
+    @Override
+    public void destroyRobot() {
+        isRobotDestroyed = true;
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isRobotDestroyed;
+    }
+
+    @Override
+    public void restoreRobot() {
+        isRobotDestroyed = false;
+    }
+
     @Override
     public void powerDown() {
-        setHP(0);
+        setDamage(0);
         powerDowned = true;
     }
 
-    /**
-     * checks if a robot is powered down
-     *
-     * @return
-     */
     @Override
     public boolean isPoweredDown() {
         return powerDowned;
     }
 
     /**
-     * Checks how many lives a robot has left
-     *
-     * @return int lives
+     * activates robot from powerDown
      */
+    @Override
+    public void powerOn() {
+        powerDowned = false;
+    }
+
     @Override
     public int getLives() {
         return lives;
     }
 
-    /**
-     * removes one life from a robot
-     *
-     */
     @Override
     public void removeLife() {
         lives--;
     }
 
-
     @Override
-    public int getHP() {
-        return hp;
+    public int getDamage() {
+        return damage;
     }
 
     @Override
-    public void setHP(int HP) {
-        hp = HP;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     @Override
-    public void changeHP(int HP) {
-        hp += HP;
-        if(hp < 0)
-            hp = 0;
+    public void changeDamage(int dam) {
+        damage += dam;
+        if(damage < 0)
+            damage = 0;
+        if(damage >= maxDamage)
+            isRobotDestroyed = true;
     }
 
     /**
@@ -133,11 +156,30 @@ public class ProgramRegister implements IProgramRegister {
         return true;
     }
 
+    //TODO: uses the exact same code as discardAllCards first part, consider merging methods
     @Override
     public void discardUnusedCards(IGame game) {
-        for(int i = maxActiveCardAmount - 1; i < activeCards.length; i++) {
-            game.addCardToDeck(activeCards[i]);
-            activeCards[i] = null;
+        int availableCardsSize = availableCards.size();
+        for(int i = 0; i < availableCardsSize; i++) {
+            game.addCardToDeck(availableCards.get(0));
+            availableCards.remove(0);
+        }
+    }
+
+    //TODO: should not remove a card if it's "locked in" because of damage
+    @Override
+    public void discardAllCards(IGame game) {
+        int availableCardsSize = availableCards.size();
+        for(int i = 0; i < availableCardsSize; i++) {
+            game.addCardToDeck(availableCards.get(0));
+            availableCards.remove(0);
+        }
+
+        for(int i = 0; i < activeCards.length; i++) {
+            if(activeCards[i] != null) {
+                game.addCardToDeck(activeCards[i]);
+                activeCards[i] = null;
+            }
         }
     }
 

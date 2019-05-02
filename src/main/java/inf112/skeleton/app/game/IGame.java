@@ -6,6 +6,7 @@ import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
+import inf112.skeleton.app.graphics.GameGFX;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
@@ -39,12 +40,12 @@ public interface IGame {
 
 
 	/**
-	 * Checks if tile contains a robot
+	 * Checks if tile contains a robot and returns the robot
 	 * @param coordinate x-ccordinate on index 0,
 	 *                   y-ccordinate on index 1 on board
-	 * @return
+	 * @return IRobot robot
 	 */
-	boolean checkIfContainsRobot(int[] coordinate);
+	IProgramRegister checkIfContainsRobot(int[] coordinate);
 
 	/**
 	 * Turns the current Robot
@@ -62,7 +63,7 @@ public interface IGame {
 	/**
 	 * execute a round
 	 */
-	void doRound();
+	void progressRound(GameGFX GraphicsInterface);
 
 
 	/**
@@ -120,9 +121,10 @@ public interface IGame {
 	void removeCard(boolean[] cards);
 
 	/**
-	 * Activate Coveyorbelts
+	 * Activate Coveyorbelts, can chose whether to activate all belts or only express
+	 * @param activateOnlyExpressConveyorBelts true if you only want to activate express conveyors
 	 */
-	void activateConveyorBelts();
+	void activateConveyorBelts(boolean activateOnlyExpressConveyorBelts);
 
 	/**
 	 * Adds a card to the deck
@@ -156,11 +158,32 @@ public interface IGame {
      */
     boolean checkIfOnFlag(IRobot robot);
 
+	/**
+	 * Activate lasers
+	 * Iterate over the robots and lasers
+	 * Changes HP
+	 */
+	void activateLasers();
+
+	/**
+	 * Activate robot lasers
+	 */
+	void activateRobotLasers();
+
     /**
      * Iterates through the registers and performs any repairs on robots on repairSites
-     * @param robot The robot to check
-     * @param programRegister The programregister to be repaired
      * @return true if it is on a repairSite, false otherwise
      */
     void doRepairs();
+
+    /**
+     * Checks if a robot has won the game
+     * @return true if robot has won, false otherwise
+     */
+    boolean winCheck();
+
+    /**
+     * Ends the game if robot has won
+     */
+    void gameOver();
 }

@@ -840,11 +840,13 @@ public class Game implements IGame {
     }
 
     @Override
-    public void gameOver() {
+    public boolean gameOver() {
         if (winCheck()) {
             System.out.println("Game over");
-            System.exit(0);
+            //System.exit(0);
+            return true;
         }
+        return false;
     }
     public PhaseState getPhaseState(){
         return phaseState;

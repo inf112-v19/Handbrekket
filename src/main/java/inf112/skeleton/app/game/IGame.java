@@ -57,7 +57,7 @@ public interface IGame {
 	/**
 	 * execute a phase
 	 */
-	void doPhase(int phaseNumber);
+	void progressPhase();
 
 
 	/**

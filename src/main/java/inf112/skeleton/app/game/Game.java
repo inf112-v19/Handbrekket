@@ -38,12 +38,16 @@ public class Game implements IGame {
     private IAI AI;
 
     private GameState gameState;
+    private PhaseState phaseState;
     private int phaseNumber = 0;
+    private ArrayList<IProgramRegister> robotsToMove = new ArrayList<>();
+
 
     public Game(TiledMap tiledMap, int numberOfPlayers, int numberOfHumanPlayers) {
         rLaserIsActive = false;
         robotLaserEnd = new ArrayList<>();
         gameState = GameState.SETUP;
+        phaseState = PhaseState.REVEAL_CARDS;
         board = new Board(tiledMap);
         boardWalls[0] = northWalls;
         boardWalls[1] = eastWalls;
@@ -397,7 +401,7 @@ public class Game implements IGame {
      * Eirik
      */
     @Override
-    public void doPhase(int phaseNumber) {
+    public void progressPhase() {
         /**
          * Phase order:
          * 1: Reveal Program Cards
@@ -406,35 +410,64 @@ public class Game implements IGame {
          * TODO 4: Lasers Fire
          * TODO 5: Touch checkpoints
          */
+        switch (phaseState) {
+            case REVEAL_CARDS:
+                //Flips a card in each of the registers
+                for (IProgramRegister register : allProgramRegisters) {
+                    register.turnACard(phaseNumber);
+                }
+                phaseState = phaseState.nextState();
+                break;
 
-        //Flips a card in each of the registers
-        for (IProgramRegister register : allProgramRegisters) {
-            register.turnACard(phaseNumber);
-        }
-
-        //Makes a new list of all of the registers then in turn does the move of the highest priority then removes that register from the list
-        //TODO: needs to be tested, not sure if it works as intended to be honest
-        ArrayList<IProgramRegister> programRegistersToSort = new ArrayList<>(allProgramRegisters);
-        for (int i = 0; i < allProgramRegisters.size(); i++) {
-            int highestPriorityIndex = 0;
-            for (int j = 1; j < programRegistersToSort.size(); j++) {
-                int highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
-                int newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
-                if (newPriority > highestPrioritySoFar)
-                    highestPriorityIndex = j;
+            case MAKE_MOVEMENT_PRIORITY_LIST:
+            //Makes a new list of all of the registers then in turn does the move of the highest priority then removes that register from the list
+            //TODO: needs to be tested, not sure if it works as intended to be honest
+            ArrayList<IProgramRegister> programRegistersToSort = new ArrayList<>(allProgramRegisters);
+            for (int i = 0; i < allProgramRegisters.size(); i++) {
+                IProgramRegister currentHighestPriority = null;
+                int highestPriorityIndex = 0;
+                for (int j = 1; j < programRegistersToSort.size(); j++) {
+                    int highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
+                    int newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
+                    if (newPriority > highestPrioritySoFar)
+                        highestPriorityIndex = j;
+                    currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
+                }
+                robotsToMove.add(currentHighestPriority);
             }
-            IProgramRegister currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
-            doMoveAccordingToCardType(currentHighestPriority.getRobot(), currentHighestPriority.getActiveCardInPosition(phaseNumber));
+            robotsToMove = programRegistersToSort;
+            phaseState = phaseState.nextState();
+            break;
 
-            programRegistersToSort.remove(currentHighestPriority);
+            case MOVE_ROBOTS:
+
+                    if (robotsToMove.get(0).isPoweredDown())
+                        robotsToMove.remove(0);
+                    else {
+                        doMoveAccordingToCardType(robotsToMove.get(0).getRobot(), robotsToMove.get(0).getActiveCardInPosition(phaseNumber));
+                        robotsToMove.remove(0);
+                    }
+
+                if (robotsToMove.isEmpty())
+                    phaseState = phaseState.nextState();
+                break;
+
+                //TODO: should be expanded to have all boardElements
+            case ACTIVATE_BOARD_ELEMENTS:
+                activateBoardElements();
+                phaseState = phaseState.nextState();
+                break;
+            case FIRE_LASERS:
+            activateLasers();
+                phaseState = phaseState.nextState();
+                break;
+            case ACTIVATE_CHECKPOINTS:
+                activateFlag();
+                phaseState = phaseState.nextState();
+                phaseNumber++;
+                break;
+
         }
-
-        //TODO: should be expanded to have all boardElements
-
-        activateBoardElements();
-        activateLasers();
-        activateRobotLasers();
-        activateFlag();
     }
 
     //A collection method to simplify activation
@@ -469,9 +502,9 @@ public class Game implements IGame {
                     graphicsInterface.flipShowCard();
                     discardAllUnusedCards();
                     progressGameState();
-                    graphicsInterface.printText("Please chose if you want to power down by pressing y/n");
+                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
                 } else {
-                    graphicsInterface.printText("Everyone is not ready");
+                    graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
                 }
 
                 if(playersNotReady == 1 && allProgramRegisters.size() != 1)
@@ -488,8 +521,8 @@ public class Game implements IGame {
                     phaseNumber = 0;
                     progressGameState();
                 } else {
-                    System.out.println("Executing phase " + (phaseNumber + 1));
-                    doPhase(phaseNumber++);
+                    System.out.println("Phase state: " + (phaseState)+ ", phaseNumber:" + (phaseNumber+ 1));
+                    progressPhase();
                 }
                 break;
             case END_OF_ROUND_CLEANUP:

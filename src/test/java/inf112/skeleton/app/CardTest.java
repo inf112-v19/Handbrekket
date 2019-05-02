@@ -71,10 +71,13 @@ public class CardTest {
         }
     }
 
+
     private void rotationDirectionTest(ICardRotation[] rotationCardArray, boolean rotationDirection){
         for(ICardRotation card : rotationCardArray){
             assertEquals(rotationDirection, card.getRotationDirection());
         }
+
+
     }
 
     private void rotationValueTest(ICardRotation[] rotationCardArray, int rotationValue){

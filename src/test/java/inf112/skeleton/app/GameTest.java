@@ -89,14 +89,14 @@ public class GameTest {
     public void checkIfOnHoleTest() {
         boardHoles.add(3);
         game.relativeMoveStraight(robot, Direction.EAST, 2);
-        assert(game.checkIfOnHoleOrOutSideBoard(robot));
+        assertTrue(game.checkIfOnHoleOrOutSideBoard(robot));
     }
 
     @Test
     public void checkIfOnFlagTest() {
         boardFlags.add(2);
         game.relativeMoveStraight(robot, Direction.EAST, 1);
-        assert(game.checkIfOnFlag(robot));
+        assertTrue(game.checkIfOnFlag(robot));
     }
 
     @Test
@@ -107,13 +107,13 @@ public class GameTest {
         int[] position = new position[2]; //robot's position
         position[0] = 10;
         position[1] = 10;
-        assert(game.checkIfOutsideBoard(position));
+        assertTrue(game.checkIfOutsideBoard(position));
 
         //Test that robot is not outside the given board
         position[0] = 4;
         position[1] = 4;
 
-        assert(!game.checkIfOutsideBoard(position));
+        assertFalse(game.checkIfOutsideBoard(position));
 
     }
 
@@ -126,5 +126,4 @@ public class GameTest {
         assertEquals(2, robotPos[0]); //only moved two steps (not three!)
         assertEquals(1, robotPos[1]);
     }
-
 }

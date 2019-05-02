@@ -96,16 +96,28 @@ public class RobotTest {
 
 
 
-
     @Test
     public void backupTest () {
 
+    int [] listOfBackup = {1,2,3,4,5,6};
 
+    robot.setBackup(listOfBackup);
+
+    assertEquals(listOfBackup,robot.getBackup());
 
     }
 
     @Test
     public void positionTest () {
+        int [] position = {2,3};
+        robot.setPosition(position);
+
+        assertEquals(position,robot.getPosition());
+
+    }
+
+    @Test
+    public void hashCodeTest () {
 
     }
 

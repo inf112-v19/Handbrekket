@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="properties/tileProperties.tsx"/>
  <layer id="1" name="boardElements" width="12" height="16">
   <data encoding="base64" compression="zlib">
-   eJyNkLsOgCAMRfERB1+TsqmTcfMzdNRRR/3/jxCTmtzclMhwUmgPUFoaY6wQSYxpjbVCYqL4PfgpuCH3f+RA5fFr4M1NdAf6TKHwV8uJz68VtDcz6aeV/eB5syLfSk7rFeeJPs8zCfRT+hv7lvy3Vjouz581bolHgHvS7BvHpni7Y1TmM8PZxbGC04H3AENDDd4=
+   eJyNkLsOgCAMRfERB1+TsqmTcfMzdNRRR/3/jxCTmtzclMhwUmgPUFoaY6wQSYxpjbVCYqL4PfgVuCH3f+RA6vFr4M1NdAf6TKHwV8uJz68VtDcz6aeV/eB5MyXfSk7rFeeJPs8zCfQr+hv7lvy3Vjouz581bolHgHvS7BvHpni7Y1TmM8PZxbGC04H3ADTrDdU=
   </data>
  </layer>
  <layer id="6" name="lasers" width="12" height="16">

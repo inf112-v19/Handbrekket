@@ -306,7 +306,11 @@ public class GameGFX extends Stage {
 
     public void printTextToDefaultPosition(String input, float scale, int duration) {
         int[] defaultPos = {1000, 800};
-        MessageGFX tempMessage = new MessageGFX(input, defaultPos, true, scale, duration);
+        print(input, defaultPos, scale, duration);
+    }
+
+    public void print(String input, int[] position, float scale, int duration) {
+        MessageGFX tempMessage = new MessageGFX(input, position, true, scale, duration);
         messages.add(tempMessage);
     }
 

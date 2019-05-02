@@ -11,6 +11,12 @@ import inf112.skeleton.app.robot.IRobot;
  */
 public interface IProgramRegister {
     /**
+     * Returns a boolean array representing which cards are "flipped"
+     * @return boolean[] of flipped cards
+     */
+    boolean[] getIsCardFlipped();
+
+    /**
      * Returns whether the associated player should be human or an SimpleBraveAI
      * @return true for human, false for SimpleBraveAI
      */

@@ -45,6 +45,11 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
+    public boolean[] getIsCardFlipped() {
+        return isCardFlipped;
+    }
+
+    @Override
     public boolean isPlayerHuman() {
         return isPlayerHuman;
     }

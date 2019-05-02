@@ -9,10 +9,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class Menu extends Stage {
     private Sprite[] increase;
@@ -22,11 +26,14 @@ public class Menu extends Stage {
     private Texture textureDecrease;
     private Texture textureStart;
     private TiledMap tiledMap;
+    private ArrayList<TiledMap> mapList;
     private TiledMapRenderer tiledMapRenderer;
+    private TiledMapRenderer tiledMapRenderer2;
     private Texture menuBackground;
     private Sprite spriteMenuBackground;
     private BitmapFont font;
     private OrthographicCamera camera;
+    private OrthographicCamera camera2;
     private FitViewport viewport;
     private SpriteBatch batch;
     private int numberOfRealPlayers;
@@ -44,13 +51,20 @@ public class Menu extends Stage {
         currentPosition = 0;
         menuActive = true;
         camera = new OrthographicCamera();
+        camera2 = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-
-        tiledMap = new TmxMapLoader().load("assets/risky_exchange.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         batch = new SpriteBatch();
         initialiseSprites();
+        mapList = new ArrayList<TiledMap>();
+        File[] files = new File("assets/map").listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                String fileName = file.getName();
+                System.out.println("assets/map/".concat(fileName));
+                mapList.add(new TmxMapLoader().load("assets/map/".concat(fileName)));
+            }
+        }
     }
     private void initialiseSprites(){
         menuActive = true;
@@ -104,14 +118,11 @@ public class Menu extends Stage {
     private void initialiseText(){
         font.draw(batch, ("Number of Real Players:".concat(Integer.toString(getNumberOfRealPlayers()))), 900, 700);
         font.draw(batch, ("Number of AI:".concat(Integer.toString(getNumbersOfAI()))),900, 550);
-        font.draw(batch, ("Map number:".concat((Integer.toString(mapNumber)))), 900, 370);
+        font.draw(batch, ("Map number:".concat(mapList.get(mapNumber).toString())), 900, 370);
     }
-    private void renderText(){
-        initialiseText();
-    }
+
     public void render(){
         camera.update();
-        tiledMapRenderer.setView(camera);
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         spriteMenuBackground.draw(batch);
@@ -131,7 +142,7 @@ public class Menu extends Stage {
     }
 
     public TiledMap getTiledMap() {
-        return tiledMap;
+        return mapList.get(mapNumber);
     }
 
     public Boolean isMenuActive(){

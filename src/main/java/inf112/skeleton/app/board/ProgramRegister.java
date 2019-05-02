@@ -52,7 +52,7 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void turnHumanPlayerIntoAI() {
         if(!isPlayerHuman)
-            throw new IllegalArgumentException("The player is already an SimpleBraveAI!");
+            throw new IllegalArgumentException("The player is already an AI!");
         else
             isPlayerHuman = false;
 
@@ -80,16 +80,20 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public void destroyRobot() {
+        int[] backUpLocation = robot.getBackup(); //TODO: should check if there is already a robot there, and handle that
+        robot.setPosition(backUpLocation); //Does the move here to avoid weird animations
         isRobotDestroyed = true;
     }
 
     @Override
     public boolean isDestroyed() {
-        return isRobotDestroyed;
+        return isRobotDestroyed || isDead(); //If the robot is dead it's also destroyed
     }
 
     @Override
-    public void restoreRobot() {
+    public void restoreRobot(IGame game) {
+        removeLife();
+        setDamage(2);
         isRobotDestroyed = false;
     }
 

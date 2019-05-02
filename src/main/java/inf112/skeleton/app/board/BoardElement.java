@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum BoardElement {
+    NORMAL_TILE(null, -1),
     FLAG1(null, 1),
     FLAG2(null, 2),
     FLAG3(null, 3),

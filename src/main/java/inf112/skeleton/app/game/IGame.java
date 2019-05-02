@@ -107,14 +107,6 @@ public interface IGame {
 	void activateFlag();
 
 	/**
-	 * restores the destroyed robot and places it back on the board in the
-	 * backup location
-	 * @param programRegister
-	 */
-	void restoreRobot(IProgramRegister programRegister);
-
-
-	/**
 	 * removes the card
 	 * @param cards
 	 */

@@ -27,7 +27,7 @@
  </tile>
  <tile id="3">
   <properties>
-   <property name="rotationDirection" type="bool" value="true"/>
+   <property name="rotationDirection" type="bool" value="false"/>
    <property name="type" value="gear"/>
   </properties>
  </tile>
@@ -89,7 +89,7 @@
  </tile>
  <tile id="12">
   <properties>
-   <property name="rotationDirection" type="bool" value="false"/>
+   <property name="rotationDirection" type="bool" value="true"/>
    <property name="type" value="gear"/>
   </properties>
  </tile>

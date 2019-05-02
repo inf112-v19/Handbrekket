@@ -33,18 +33,18 @@ public class GameTest {
         TiledMap map = new TiledMap();
         game = new Game(map, 1);
     }
-+
+
     @Test
     public void testMoveTwoSteps() {
         game.relativeMoveStraight(robot, Direction.EAST, 2);
-        int newPos = {3,1}
+        int [] newPos = {3,1};
         assertEquals(robot.getPosition(), newPos);
     }
 
     @Test
     public void testMoveOneStep() {
         game.relativeMoveStraight(robot, Direction.EAST, 1);
-        int newPos = {2,1}
+        int [] newPos = {2,1};
         assertEquals(robot.getPosition(), newPos);
     }
 
@@ -52,14 +52,14 @@ public class GameTest {
     @Test
     public void testMoveThreeStep() {
         game.relativeMoveStraight(robot, Direction.EAST, 3);
-        int newPos = {4,1}
+        int [] newPos = {4,1};
         assertEquals(robot.getPosition(), newPos);
     }
 
     @Test
     public void testMoveOneBackwards() {
         game.relativeMoveStraight(robot, Direction.EAST, -1);
-        int newPos = {0,1}
+        int [] newPos = {0,1};
         assertEquals(robot.getPosition(), newPos);
     }
 
@@ -92,8 +92,8 @@ public class GameTest {
         holePos[0] = 3;
         holePos[1] = 1;
 
-        gsme.relativeMoveStraight(robot, Direction.EAST, 2);
-        assertEquals(holePos, robot.getPosition);
+        game.relativeMoveStraight(robot, Direction.EAST, 2);
+        assertEquals(holePos, robot.getPosition());
 
     }
 

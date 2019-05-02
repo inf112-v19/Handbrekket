@@ -128,7 +128,7 @@ public class Board implements IBoard {
 		MapProperties properties = layer.getCell(x, y).getTile().getProperties();
 		String type = properties.get("type").toString();
 
-		BoardElement elementType = null;
+		BoardElement elementType = BoardElement.NORMAL_TILE;
 		switch (type) {
 			case "conveyorBelt": elementType = BoardElement.CONVEYORBELT; break;
 			case "hole": elementType = BoardElement.HOLE; break;

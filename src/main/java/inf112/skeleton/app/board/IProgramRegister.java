@@ -62,7 +62,7 @@ public interface IProgramRegister {
     /**
      * reset isRobotDestroyed value
      */
-    void restoreRobot();
+    void restoreRobot(IGame game);
 
     /**
      * power down a robot
@@ -72,7 +72,7 @@ public interface IProgramRegister {
     /**
      * checks if a robot is powered down
      *
-     * @return
+     * @return true if powerd down, false if not
      */
     boolean isPoweredDown();
 

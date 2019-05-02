@@ -5,15 +5,17 @@ public class MessageGFX {
     private int[] position;
     private boolean isVisible;
     private int duration;
+    private float scale;
 
-    public MessageGFX(String message, int[] position, boolean isVisible) {
-        this(message, position, isVisible, -1);
+    public MessageGFX(String message, int[] position, boolean isVisible, float scale) {
+        this(message, position, isVisible, scale, -1);
     }
 
-    public MessageGFX(String message, int[] position, boolean isVisible, int duration) {
+    public MessageGFX(String message, int[] position, boolean isVisible, float scale, int duration) {
         this.message = message;
         this.position = position;
         this.isVisible = isVisible;
+        this.scale = scale;
         this.duration = duration;
     }
 
@@ -45,5 +47,9 @@ public class MessageGFX {
 
     public int getDuration() {
         return duration;
+    }
+
+    public float getScale() {
+        return scale;
     }
 }

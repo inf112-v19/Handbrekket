@@ -280,8 +280,17 @@ public class GameGFX extends Stage {
     //TODO: should print to the screen
     public void printText(String input) {
         int[] defaultPos = {1000, 800};
-        MessageGFX tempMessage = new MessageGFX(input, defaultPos, true);
+        MessageGFX tempMessage = new MessageGFX(input, defaultPos, true, 10);
         messages.add(tempMessage);
+    }
+
+    private void renderText() {
+        batch.begin();
+        float oldScale = font.getData().scaleX;
+        for(MessageGFX message : messages) {
+            font.draw(batch, message.getMessage(), message.getPosition()[0], message.getPosition()[1]);
+        }
+        batch.end();
     }
 
     public void flipShowCard() {

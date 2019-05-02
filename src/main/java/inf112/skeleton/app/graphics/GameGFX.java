@@ -13,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
@@ -22,6 +24,7 @@ import inf112.skeleton.app.game.GameState;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static java.lang.Math.abs;
 
@@ -43,6 +46,13 @@ public class GameGFX extends Stage {
     private Sprite spriteCardFront;
     private Sprite[] cards;
 
+    private Texture laserVertical;
+    private Texture laserHorizontal;
+
+    private ArrayList<Sprite> spriteLaserVerticalList;
+    private ArrayList<Sprite> spriteLaserHorizontalList;
+
+
     private int tilePixelWidth;
     private int tilePixelHeight;
 
@@ -58,8 +68,14 @@ public class GameGFX extends Stage {
 
     private int numberOfRealPlayers;
     private int numberOfAI;
+    private ArrayList<int[]> startRobotLaser;
+    private ArrayList<int[]> endRobotLaser;
 
     public void create (int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
+        spriteLaserVerticalList = new ArrayList<>();
+        spriteLaserHorizontalList = new ArrayList<>();
+        startRobotLaser = new ArrayList<>();
+        endRobotLaser = new ArrayList<>();
         numberOfRealPlayers = numPlayersIn;
         numberOfAI = numAIIn;
         tiledMap = tiledMapIn;
@@ -76,12 +92,13 @@ public class GameGFX extends Stage {
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);
         tilePixelHeight = properties.get("tileheight", Integer.class);
-
         createGame(numberOfRealPlayers + numAIIn, numberOfRealPlayers);
         initialiseSprites(numberOfRealPlayers + numAIIn);
     }
 
     private void initialiseSprites(int numberOfSprites) {
+        laserHorizontal = new Texture(Gdx.files.internal("assets/laserHorizontal.png"));
+        laserVertical = new Texture(Gdx.files.internal("assets/laserVertical.png"));
         batch = new SpriteBatch();
         Texture texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         thisPlayerSprite = new Sprite(texture);
@@ -106,11 +123,40 @@ public class GameGFX extends Stage {
         spriteCardBack = new Sprite(cardBack);
         spriteCardFront = new Sprite(cardFront);
     }
+    private void initialiseRobotLasers(){
+        ArrayList<IProgramRegister> robotRegister = game.getAllProgramRegisters();
+        spriteLaserVerticalList = new ArrayList<>();
+        for(int i = 0; i < robotRegister.size(); i++) {
+            Direction temDir = robotRegister.get(i).getRobot().getDir();
+            int[] tempPos;
+            int j = robotRegister.get(i).getRobot().getDir().getDirectionValue();
+            tempPos = robotRegister.get(i).getRobot().getPosition().clone();
+            boolean run = true;
+            for(int k = 0; k < 10; k++) {
+                if (j % 2 == 0) {
+                    tempPos = game.getPositionInDirection(tempPos, temDir);
+                    spriteLaserVerticalList.add(new Sprite(laserVertical));
+                    spriteLaserVerticalList.get(k).setPosition(tilePixelWidth*tempPos[0]+40, tilePixelHeight*tempPos[1]);
+                    spriteLaserVerticalList.get(k).draw(batch);
+                    if(!game.possibleLaser(tempPos,temDir)) break;
+                }
+                else if (j % 2 != 0) {
+                    tempPos = game.getPositionInDirection(tempPos, temDir);
+                    spriteLaserHorizontalList.add(new Sprite(laserHorizontal));
+                    spriteLaserHorizontalList.get(k).setPosition(tilePixelWidth*tempPos[0], tilePixelHeight*tempPos[1]+40);
+                    spriteLaserHorizontalList.get(k).draw(batch);
+                    if(!game.possibleLaser(tempPos,temDir)) break;
+                }
+            }
+        }
+    }
+    private void runRobotLasers(){
+
+    }
 
     private void createGame(int numberOfPlayers, int numberOfRealPlayers) {
         game = new Game(tiledMap, numberOfPlayers, numberOfRealPlayers);
         robotPositions = new int[numberOfPlayers][3];
-
         for(int i = 0; i < numberOfPlayers; i++) {
             robotPositions[i][0] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[0] * tilePixelWidth;
             robotPositions[i][1] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[1] * tilePixelHeight;
@@ -174,7 +220,9 @@ public class GameGFX extends Stage {
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
-
+        if(game.robotLaserIsActive()){
+            initialiseRobotLasers();
+        }
         batch.end();
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());

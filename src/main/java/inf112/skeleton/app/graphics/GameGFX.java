@@ -94,6 +94,14 @@ public class GameGFX extends Stage {
         };
         timer.scheduleTask(updateMessageDurations, 0f, 1f, Integer.MAX_VALUE);
         timer.start();
+        int x = -500;
+        int y = 1180;
+        for(int i = 0; i < otherPlayerSprites.length; i++) {
+            int[] tempPos = {x, y};
+            MessageGFX tempMessage = new MessageGFX("Robot " + (i + 1) + " active cards:", tempPos, false, 2);
+            messages.add(tempMessage);
+            y -= tilePixelHeight * 2;
+        }
     }
 
     private void initialiseSprites(int numberOfSprites) {
@@ -194,6 +202,25 @@ public class GameGFX extends Stage {
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
         renderActiveCards(game.getCurrentRegister().getActiveCards());
         renderText();
+
+        if(game.getGameState() == GameState.EXECUTING_PHASES)
+            changeOtherActiveCardsVisibility(true);
+        //else
+            //changeOtherActiveCardsVisibility(false);
+    }
+
+    private void renderOtherActiveCards(int xPos, int yPos) {
+        for(int i = 0; i < otherPlayerSprites.length; i++) {
+
+        }
+    }
+
+    private void changeOtherActiveCardsVisibility(boolean shouldBeVisible) {
+        for(MessageGFX message : messages) {
+            if(message.getMessage().contains("Robot")) {
+                message.setVisible(shouldBeVisible);
+            }
+        }
     }
 
     private void renderRobots() {
@@ -319,8 +346,10 @@ public class GameGFX extends Stage {
         float oldScaleX = font.getData().scaleX;
         float oldScaleY = font.getData().scaleY;
         for(MessageGFX message : messages) {
-            font.getData().setScale(message.getScale(), message.getScale());
-            font.draw(batch, message.getMessage(), message.getPosition()[0], message.getPosition()[1]);
+            if(message.isVisible()) {
+                font.getData().setScale(message.getScale(), message.getScale());
+                font.draw(batch, message.getMessage(), message.getPosition()[0], message.getPosition()[1]);
+            }
         }
         font.getData().setScale(oldScaleX, oldScaleY);
         batch.end();

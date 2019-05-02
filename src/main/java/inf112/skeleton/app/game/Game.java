@@ -439,9 +439,9 @@ public class Game implements IGame {
                     graphicsInterface.flipShowCard();
                     discardAllUnusedCards();
                     progressGameState();
-                    graphicsInterface.printText("Please chose if you want to power down by pressing y/n");
+                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
                 } else {
-                    graphicsInterface.printText("Everyone is not ready");
+                    graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
                 }
 
                 if(playersNotReady == 1 && allProgramRegisters.size() != 1)

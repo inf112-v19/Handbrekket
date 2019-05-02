@@ -60,6 +60,7 @@ public class GameGFX extends Stage {
     private int numberOfAI;
 
     private int[] programRegisterPosition = {960, 1080};
+    private ArrayList<MessageGFX> messages = new ArrayList<>();
 
     public void create (int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
         numberOfRealPlayers = numPlayersIn;
@@ -278,7 +279,9 @@ public class GameGFX extends Stage {
 
     //TODO: should print to the screen
     public void printText(String input) {
-        System.out.println(input);
+        int[] defaultPos = {1000, 800};
+        MessageGFX tempMessage = new MessageGFX(input, defaultPos, true);
+        messages.add(tempMessage);
     }
 
     public void flipShowCard() {

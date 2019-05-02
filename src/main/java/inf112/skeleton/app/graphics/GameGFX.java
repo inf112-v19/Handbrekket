@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
@@ -62,6 +63,7 @@ public class GameGFX extends Stage {
 
     private int[] programRegisterPosition = {960, 1080};
     private ArrayList<MessageGFX> messages = new ArrayList<>();
+    private Timer timer = new Timer();
 
     public void create (int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
         numberOfRealPlayers = numPlayersIn;
@@ -82,6 +84,16 @@ public class GameGFX extends Stage {
 
         createGame(numberOfRealPlayers + numAIIn, numberOfRealPlayers);
         initialiseSprites(numberOfRealPlayers + numAIIn);
+
+        Timer.Task updateMessageDurations = new Timer.Task() {
+            @Override
+            public void run() {
+                decreaseMessageTimer();
+
+            }
+        };
+        timer.scheduleTask(updateMessageDurations, 0f, 1f, Integer.MAX_VALUE);
+        timer.start();
     }
 
     private void initialiseSprites(int numberOfSprites) {
@@ -116,7 +128,7 @@ public class GameGFX extends Stage {
         for(int i = 0; i < numberOfPlayers; i++) {
             robotPositions[i][0] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[0] * tilePixelWidth;
             robotPositions[i][1] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[1] * tilePixelHeight;
-            robotPositions[i][2] = 0;
+            robotPositions[i][2] = 180; //TODO: change if the sprite for the robot is changed
         }
     }
 
@@ -280,19 +292,33 @@ public class GameGFX extends Stage {
         game.getCurrentRegister().makeCardActive(cardId);
     }
 
-    //TODO: should print to the screen
-    public void printText(String input) {
+    private void decreaseMessageTimer() {
+        for(int i = 0; i < messages.size(); i++) {
+            MessageGFX message = messages.get(i);
+            if(message.hasDuration()) {
+                if(message.decreaseDuration()) {
+                    messages.remove(message);
+                    i--;
+                }
+            }
+        }
+    }
+
+    public void printTextToDefaultPosition(String input, float scale, int duration) {
         int[] defaultPos = {1000, 800};
-        MessageGFX tempMessage = new MessageGFX(input, defaultPos, true, 10);
+        MessageGFX tempMessage = new MessageGFX(input, defaultPos, true, scale, duration);
         messages.add(tempMessage);
     }
 
     private void renderText() {
         batch.begin();
-        float oldScale = font.getData().scaleX;
+        float oldScaleX = font.getData().scaleX;
+        float oldScaleY = font.getData().scaleY;
         for(MessageGFX message : messages) {
+            font.getData().setScale(message.getScale(), message.getScale());
             font.draw(batch, message.getMessage(), message.getPosition()[0], message.getPosition()[1]);
         }
+        font.getData().setScale(oldScaleX, oldScaleY);
         batch.end();
     }
 

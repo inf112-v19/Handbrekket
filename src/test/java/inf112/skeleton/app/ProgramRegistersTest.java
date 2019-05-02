@@ -147,7 +147,7 @@ public class ProgramRegistersTest {
 
         assertTrue(programRegister.isDestroyed());
 
-        programRegister.restoreRobot();
+        //programRegister.restoreRobot();
 
         assertFalse(programRegister.isDestroyed());
 

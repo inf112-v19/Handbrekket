@@ -50,12 +50,8 @@ public class Menu extends Stage {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-<<<<<<< HEAD
-
             tiledMap = new TmxMapLoader().load("assets/map1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-=======
->>>>>>> 0442ddd51a621cfff7df7995d1fc495f710313a3
         batch = new SpriteBatch();
         initialiseSprites();
         mapList = new ArrayList<TiledMap>();

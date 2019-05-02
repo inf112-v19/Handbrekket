@@ -31,7 +31,7 @@ public class GameTest {
         robot = new Robot(0,testCoordinates);
         robot.setDir(Direction.EAST);
         TiledMap map = new TiledMap();
-        game = new Game(map, 1);
+        game = new Game(map,1,2);
     }
 
     @Test

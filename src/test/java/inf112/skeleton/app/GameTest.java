@@ -27,119 +27,75 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        int[] testCoordinates = {0,0};
+        int[] testCoordinates = {1,1};
         robot = new Robot(0,testCoordinates);
         robot.setDir(Direction.EAST);
         TiledMap map = new TiledMap();
         game = new Game(map, 1);
     }
-
++
     @Test
     public void testMoveTwoSteps() {
-        moveTwoSteps = new MovementCard(1,2);
-        game.relativeMove(robot, moveTwoSteps);
-        robot.setPosition(robot.getPosition());
-        int[] robotPos = robot.getPosition();
-        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 2));
+        game.relativeMoveStraight(robot, Direction.EAST, 2);
+        int newPos = {3,1}
+        assertEquals(robot.getPosition(), newPos);
     }
 
     @Test
     public void testMoveOneStep() {
-        moveThreeSteps = new MovementCard(3,1);
-        game.relativeMove(robot, moveThreeSteps);
-        robot.setPosition(robot.getPosition());
-        int[] robotPos = robot.getPosition();
-        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 3));
+        game.relativeMoveStraight(robot, Direction.EAST, 1);
+        int newPos = {2,1}
+        assertEquals(robot.getPosition(), newPos);
     }
 
 
     @Test
     public void testMoveThreeStep() {
-        moveOneStep = new MovementCard(2,3);
-        game.relativeMove(robot, moveOneStep);
-        robot.setPosition(robot.getPosition());
-        int[] robotPos = robot.getPosition();
-        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == 1));
+        game.relativeMoveStraight(robot, Direction.EAST, 3);
+        int newPos = {4,1}
+        assertEquals(robot.getPosition(), newPos);
     }
 
     @Test
     public void testMoveOneBackwards() {
-        moveOneBackwards = new MovementCard(1,-1);
-        game.relativeMove(robot, moveOneBackwards);
-        robot.setPosition(robot.getPosition());
-        int[] robotPos = robot.getPosition();
-        assertTrue(robot.getPosition().equals(robotPos[0] == 0 && robotPos[1] == -1));
+        game.relativeMoveStraight(robot, Direction.EAST, -1);
+        int newPos = {0,1}
+        assertEquals(robot.getPosition(), newPos);
     }
 
     @Test
     public void testRotateRight() {
-        System.out.println("Robot has direction " + robot.getDir() + " before rotate-right-card.");
-        moveRight = new RotationCard(2,true,1);
+        RotationCard moveRight = new RotationCard(1,true,1);
         game.rotationMove(robot, moveRight);
-
-        System.out.println("Robot has direction " + robot.getDir() + " after rotate-right-card.");
         assertEquals(robot.getDir(), Direction.SOUTH);
     }
 
     @Test
     public void testRotateLeft() {
-        System.out.println("Robot has direction " + robot.getDir() + " before rotate-left-card.");
-        moveLeft = new RotationCard(1,false,1);
+        RotationCard moveLeft = new RotationCard(1,false,1);
         game.rotationMove(robot, moveLeft);
-
-        System.out.println("Robot has direction " + robot.getDir() + " after rotate-left-card.");
         assertEquals(robot.getDir(), Direction.NORTH);
     }
 
     @Test
     public void testUTurn() {
-        System.out.println("Robot has direction " + robot.getDir() + " before u-turn-card.");
-        uTurn = new RotationCard(1,true,2);
+        RotationCard uTurn = new RotationCard(1,true,2);
         game.rotationMove(robot, uTurn);
-
-        System.out.println("Robot has direction " + robot.getDir() + " after u-turn-card.");
         assertEquals(robot.getDir(), Direction.WEST);
     }
 
-    //TODO: incomplete
+
     @Test
-    public void testCheckIfOnHole() {
+    public void checkIfOnHoleTest() {
 
-        int[] coord = new int[2];
-        coord[0] = 1;
-        coord[1] = 1;
-        game.absoluteMove(robot, coord);
+        int[] holePos = new int[2];
+        holePos[0] = 3;
+        holePos[1] = 1;
 
-        //assert(checkIfOnHoleOrOutsideBoard(robot));
-        //assertEquals(coord, game.getHoles);
+        gsme.relativeMoveStraight(robot, Direction.EAST, 2);
+        assertEquals(holePos, robot.getPosition);
+
     }
-
-    //TODO: incomplete
-    @Test
-    public void testCheckIfOnFlag() {
-
-        int[] coord = new int[2];
-        coord[0] = 6;
-        coord[1] = 2;
-        game.absoluteMove(robot, coord);
-
-        //assert(checkIfOnHoleOrOutsideBoard(robot));
-        //assertEquals(coord, game.getFlags);
-    }
-
-    @Test //TODO: incomplete
-    public void testCheckIfOnRepairSite() {
-
-        int[] coord = new int[2];
-        coord[0] = 2;
-        coord[1] = 3;
-        game.absoluteMove(robot, coord);
-
-        //assert(checkIfOnHoleOrOutsideBoard(robot));
-        //assertEquals(coord, game.getRepairSites);
-    }
-
-
 
 
 }

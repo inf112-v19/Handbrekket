@@ -55,13 +55,11 @@ public class Menu extends Stage {
         batch = new SpriteBatch();
         initialiseSprites();
         mapList = new ArrayList<TiledMap>();
-        mapName = new ArrayList<String>();
         File[] files = new File("assets/map").listFiles();
         for (File file : files) {
             if (file.isFile()) {
                 String fileName = file.getName();
-                mapName.add(file.getName());
-                System.out.println("assets/map/".concat(fileName));
+                System.out.println("assets/map/".concat(fileName)); //TODO:Remove
                 mapList.add(new TmxMapLoader().load("assets/map/".concat(fileName)));
             }
         }

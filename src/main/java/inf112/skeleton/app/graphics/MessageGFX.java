@@ -45,6 +45,10 @@ public class MessageGFX {
         return isVisible;
     }
 
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
     public int getDuration() {
         return duration;
     }

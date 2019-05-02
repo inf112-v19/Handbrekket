@@ -87,6 +87,7 @@ public class GameGFX extends Stage {
         numberOfAI = numAIIn;
         tiledMap = tiledMapIn;
         font = new BitmapFont();
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
@@ -110,6 +111,14 @@ public class GameGFX extends Stage {
         };
         timer.scheduleTask(updateMessageDurations, 0f, 1f, Integer.MAX_VALUE);
         timer.start();
+        int x = -850;
+        int y = 1210;
+        for(int i = 0; i < otherPlayerSprites.length; i++) {
+            int[] tempPos = {x, y};
+            MessageGFX tempMessage = new MessageGFX("Robot " + (i + 1) + " active cards:", tempPos, false, 2);
+            messages.add(tempMessage);
+            y -= tilePixelHeight * 2;
+        }
     }
 
     private void initialiseSprites(int numberOfSprites) {
@@ -240,8 +249,54 @@ public class GameGFX extends Stage {
         batch.end();
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
-        renderActiveCards(game.getCurrentRegister().getActiveCards());
+
         renderText();
+        renderActiveCards(programRegisterPosition[0]+10, programRegisterPosition[1] -80, game.getCurrentRegister(), true); //Renders the cards on the program register
+        if(game.getGameState() == GameState.EXECUTING_PHASES) {
+            changeOtherActiveCardsVisibility(true);
+            int x = 1125;
+            for(int i = 0; i < otherPlayerSprites.length; i++) { //Renders the cards of all of the robots as they are flipped
+                renderActiveCards(-575, x, game.getAllProgramRegisters().get(i), false);
+                x -= tilePixelHeight * 2;
+            }
+        } else
+            changeOtherActiveCardsVisibility(false);
+    }
+
+    private void renderActiveCards(int xPos, int yPos, IProgramRegister register, boolean ignoreFlipped) {
+        ArrayList<ICard> activeCards = register.getActiveCards();
+        Sprite[] activeCardArray = new Sprite[activeCards.size()];
+
+        batch.begin();
+        for(int i = 0; i < activeCardArray.length; i++) {
+            if(activeCards.get(i) == null)
+                break;
+
+            boolean drawText = false;
+            if(register.getIsCardFlipped()[i] || ignoreFlipped) {
+                activeCardArray[i] = new Sprite(cardFront);
+                drawText = true;
+            } else
+                activeCardArray[i] = new Sprite(cardBack);
+
+            activeCardArray[i].setPosition(i * 110 + xPos, yPos);
+            activeCardArray[i].draw(batch);
+
+            if(drawText) {
+                font.draw(batch, Integer.toString(activeCards.get(i).getPriority()), i * 110 + 56 + xPos, yPos + 136);
+                int type = activeCards.get(i).getType();
+                font.draw(batch, createCardTypeString(type, activeCards, i), i * 110 + 25 + xPos, yPos + 100);
+            }
+        }
+        batch.end();
+    }
+
+    private void changeOtherActiveCardsVisibility(boolean shouldBeVisible) {
+        for(MessageGFX message : messages) {
+            if(message.getMessage().contains("Robot")) {
+                message.setVisible(shouldBeVisible);
+            }
+        }
     }
 
     private void renderRobots() {
@@ -314,28 +369,6 @@ public class GameGFX extends Stage {
         return strType + " " + strValue + "\n" + strDir;
     }
 
-    private void renderActiveCards(ArrayList<ICard> activeCards) {
-        Sprite[] activeCardArray = new Sprite[activeCards.size()];
-
-        batch.begin();
-        for(int i = 0; i < activeCardArray.length; i++) {
-            if(activeCards.get(i) == null)
-                break;
-
-            activeCardArray[i] = new Sprite(cardFront);
-
-            int x = programRegisterPosition[0] + 10;
-            int y = programRegisterPosition[1] -80;
-            activeCardArray[i].setPosition(i * 110 + x, y);
-            activeCardArray[i].draw(batch);
-
-            font.draw(batch, Integer.toString(activeCards.get(i).getPriority()), i * 110 + 56 + x, y + 136);
-            int type = activeCards.get(i).getType();
-            font.draw(batch, createCardTypeString(type, activeCards, i),i * 110 + 25 + x, y + 100);
-        }
-        batch.end();
-    }
-
     private void choseCard() {
         game.getCurrentRegister().makeCardActive(cardId);
     }
@@ -367,8 +400,10 @@ public class GameGFX extends Stage {
         float oldScaleX = font.getData().scaleX;
         float oldScaleY = font.getData().scaleY;
         for(MessageGFX message : messages) {
-            font.getData().setScale(message.getScale(), message.getScale());
-            font.draw(batch, message.getMessage(), message.getPosition()[0], message.getPosition()[1]);
+            if(message.isVisible()) {
+                font.getData().setScale(message.getScale(), message.getScale());
+                font.draw(batch, message.getMessage(), message.getPosition()[0], message.getPosition()[1]);
+            }
         }
         font.getData().setScale(oldScaleX, oldScaleY);
         batch.end();

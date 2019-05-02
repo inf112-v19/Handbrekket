@@ -80,6 +80,8 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public void destroyRobot() {
+        int[] backUpLocation = robot.getBackup(); //TODO: should check if there is already a robot there, and handle that
+        robot.setPosition(backUpLocation); //Does the move here to avoid weird animations
         isRobotDestroyed = true;
     }
 
@@ -90,8 +92,6 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public void restoreRobot(IGame game) {
-        int[] backUpLocation = robot.getBackup(); //TODO: should check if there is already a robot there, and handle that
-        robot.setPosition(backUpLocation);
         removeLife();
         setDamage(2);
         isRobotDestroyed = false;

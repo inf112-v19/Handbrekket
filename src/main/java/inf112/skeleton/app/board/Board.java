@@ -20,8 +20,8 @@ public class Board implements IBoard {
 	 */
 	public Board(TiledMap map) {
 		MapProperties properties = map.getProperties();
-		this.width = properties.get("width", Integer.class);
-		this.height = properties.get("height", Integer.class);
+		this.width = (int) properties.get("width");
+		this.height = (int) properties.get("height");
 		this.map = map;
 	}
 	

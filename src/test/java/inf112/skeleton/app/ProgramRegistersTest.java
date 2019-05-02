@@ -1,11 +1,15 @@
 
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.board.ProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.MovementCard;
 import inf112.skeleton.app.card.RotationCard;
+import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.game.IGame;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Robot;
 import org.junit.Before;
@@ -21,26 +25,35 @@ import static junit.framework.TestCase.*;
 public class ProgramRegistersTest {
     IRobot robot;
     IProgramRegister programRegister;
-    ArrayList<ICard> activeCards;
+    ArrayList<ICard> availableCards;
+    IGame game;
 
     @Before
     public void initialize(){
         int[] testCoordinates = {1,1};
         robot = new Robot(1,testCoordinates);
         programRegister = new ProgramRegister(robot, true);
-        activeCards=new ArrayList<>();
+        availableCards=new ArrayList<>();
         ICard moveCard1 = new MovementCard(450,3);
         ICard moveCard2 = new MovementCard(120,1);
         ICard moveCard3 = new MovementCard(300,2);
+        ICard moveCard4 = new MovementCard(90,1);
+        ICard moveCard5 = new MovementCard(270,2);
+        ICard moveCard6 = new MovementCard(390,3);
         ICard rotateCard1 = new RotationCard(230,true,1);
         ICard rotateCard2 = new RotationCard(190,false,1);
         ICard rotateCard3 = new RotationCard(60,true,1);
-        activeCards.add(moveCard1);
-        activeCards.add(moveCard2);
-        activeCards.add(moveCard3);
-        activeCards.add(rotateCard1);
-        activeCards.add(rotateCard3);
-
+        availableCards.add(moveCard1);
+        availableCards.add(moveCard2);
+        availableCards.add(moveCard3);
+        availableCards.add(rotateCard1);
+        availableCards.add(rotateCard3);
+        availableCards.add(rotateCard2);
+        availableCards.add(moveCard4);
+        availableCards.add(moveCard5);
+        availableCards.add(moveCard6);
+        //TiledMap map = new TmxMapLoader().load("assets/map1.tmx");
+        //game=new Game(map,3);
     }
 
     @Test
@@ -188,38 +201,77 @@ public class ProgramRegistersTest {
     @Test
     public void cardSlotFilledTest() {
 
-        programRegister.setAvailableCards(activeCards);
+        programRegister.setAvailableCards(availableCards);
+
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(4);
+        programRegister.makeCardActive(1);
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(0);
+
 
         assertTrue(programRegister.isCardSlotsFilled());
     }
 
     @Test
     public void discardOfUnusedCardTest() {
+
+        programRegister.setAvailableCards(availableCards);
+
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(4);
+        programRegister.makeCardActive(1);
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(0);
+
+        //programRegister.discardUnusedCards(game);
+
     }
 
     @Test
     public void discardOfAllCardsTest() {
+
+        //TODO : must figure out initilization of game to work
 
     }
 
     @Test
     public void setAvailableCardsTest() {
 
+        programRegister.setAvailableCards(availableCards);
+
+        assertEquals(availableCards,programRegister.getAvailableCards());
+
     }
 
     @Test
     public void turnACardTest() {
 
+        programRegister.turnACard(3);
+
+        boolean flipped = programRegister.isCardFlipped(3);
+
+        assertTrue(flipped);
     }
 
     @Test
     public void makeACardActiveTest() {
 
+        programRegister.setAvailableCards(availableCards);
+
+        programRegister.makeCardActive(0);
+
+        ICard availableCard = programRegister.getAvailableCards().get(0);
+        ICard activeCard = programRegister.getActiveCards().get(0);
+
+        assertEquals(availableCard,activeCard);
     }
 
     @Test
     public void getAvailableCardsTest() {
+        programRegister.setAvailableCards(availableCards);
 
+        assertEquals(availableCards,programRegister.getAvailableCards());
     }
 
     @Test

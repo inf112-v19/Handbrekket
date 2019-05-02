@@ -203,6 +203,11 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
+    public boolean isCardFlipped (int numCard) {
+        return isCardFlipped[numCard];
+    }
+
+    @Override
     public boolean makeCardActive(int numCard) {
         for(int i = 0; i < activeCards.length; i++) {
             if(activeCards[i] == null){

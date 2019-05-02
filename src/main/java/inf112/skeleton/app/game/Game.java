@@ -32,6 +32,7 @@ public class Game implements IGame {
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
+    private ArrayList<int[]> robotLaserEnd;
 
     private IAI AI;
 
@@ -272,7 +273,11 @@ public class Game implements IGame {
                     position = getPositionInDirection(position, direction);
                 }
             }
+            robotLaserEnd.add(position);
         }
+    }
+    public ArrayList<int[]> getRobotLaserEnd(){
+        return robotLaserEnd;
     }
     @Override
     public void doRepairs () {

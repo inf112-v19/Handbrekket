@@ -3,6 +3,7 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -24,9 +25,14 @@ public class ProgramRegisterGFX {
     private Sprite spriteDamageRed;
     private Sprite[] damageArrback;
     private Sprite spriteP;
+    private BitmapFont font;
+    private int xPosition;
+    private int yPosition;
 
 
     public ProgramRegisterGFX(int xPos, int yPos){
+        xPosition = xPos;
+        yPosition = yPos;
         textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
         lives = new Texture(Gdx.files.internal("assets/lives.png"));
         livesBack = new Texture(Gdx.files.internal("assets/lives_background.png"));
@@ -36,6 +42,8 @@ public class ProgramRegisterGFX {
         spritePowerDown = new Sprite(powerDown);
         spritePowerDownBack.setPosition(xPos + 10,yPos + 125);
         spritePowerDown.setPosition(xPos + 10,yPos + 125);
+        font = new BitmapFont();
+
 
         spriteP = new Sprite(textureP);
         spriteP.setPosition(xPos, yPos);
@@ -69,7 +77,7 @@ public class ProgramRegisterGFX {
 
 
     }
-    public void render(SpriteBatch batch, int damage, int lives, boolean isPowerDown){
+    public void render(SpriteBatch batch, int damage, int lives, boolean isPowerDown, int flagCounter){
         spriteP.draw(batch);
         spriteDamageRed.draw(batch);
         if(isPowerDown){
@@ -85,5 +93,6 @@ public class ProgramRegisterGFX {
         } for (int i = 0; i < lives; i++){
             livesArr[i].draw(batch);
         }
+        font.draw(batch,"Flag Counter:  ".concat(Integer.toString(flagCounter)), xPosition+440, yPosition+160);
     }
 }

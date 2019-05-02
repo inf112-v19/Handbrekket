@@ -177,5 +177,5 @@ public interface IGame {
     /**
      * Ends the game if robot has won
      */
-    void gameOver();
+    boolean gameOver();
 }

@@ -400,7 +400,10 @@ public class Game implements IGame {
                     highestPriorityIndex = j;
             }
             IProgramRegister currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
-            doMoveAccordingToCardType(currentHighestPriority.getRobot(), currentHighestPriority.getActiveCardInPosition(phaseNumber));
+            if(currentHighestPriority.isPoweredDown())
+                continue;
+            else
+                doMoveAccordingToCardType(currentHighestPriority.getRobot(), currentHighestPriority.getActiveCardInPosition(phaseNumber));
 
             programRegistersToSort.remove(currentHighestPriority);
         }

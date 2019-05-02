@@ -87,14 +87,10 @@ public class GameTest {
 
     @Test
     public void checkIfOnHoleTest() {
-
-        int[] holePos = new int[2];
-        holePos[0] = 3;
-        holePos[1] = 1;
-
+        boardHoles.add(3);
+        boardHoles.add(1);
         game.relativeMoveStraight(robot, Direction.EAST, 2);
-        assertEquals(holePos, robot.getPosition());
-
+        assert(checkIfOnHoleOrOutSideBoard(robot));
     }
 
 

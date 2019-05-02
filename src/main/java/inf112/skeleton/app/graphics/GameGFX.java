@@ -236,7 +236,7 @@ public class GameGFX extends Stage {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
 
-        programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown());
+        programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown(), game.getCurrentRegister().getFlagCounter() );
         renderRobots();
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);

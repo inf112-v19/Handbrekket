@@ -34,6 +34,7 @@ public class GameGFX extends Stage {
     private ProgramRegisterGFX programRegisterGFX;
 
     private SpriteBatch batch;
+    private SpriteBatch absoluteBatch;
     private Texture cardBack;
     private Texture cardFront;
 
@@ -85,6 +86,7 @@ public class GameGFX extends Stage {
 
     private void initialiseSprites(int numberOfSprites) {
         batch = new SpriteBatch();
+        absoluteBatch = new SpriteBatch();
         Texture texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         thisPlayerSprite = new Sprite(texture);
         texture = new Texture(Gdx.files.internal("assets/bot-r.gif"));
@@ -179,6 +181,7 @@ public class GameGFX extends Stage {
         if(showCards)
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
         renderActiveCards(game.getCurrentRegister().getActiveCards());
+        renderText();
     }
 
     private void renderRobots() {
@@ -200,7 +203,7 @@ public class GameGFX extends Stage {
     private void renderAvailableCards(ArrayList<ICard> availableCards) {
         Sprite[] cardSpriteTest = new Sprite[GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue()];
 
-        batch.begin();
+        absoluteBatch.begin();
         for(int i = 0; i < cardSpriteTest.length; i++) {
             if(i < availableCards.size()) {
                 cardSpriteTest[i] = new Sprite(cardFront);
@@ -211,12 +214,12 @@ public class GameGFX extends Stage {
 
                 cardSpriteTest[i].setPosition(i * 105f + 15f, y);
                 cardSpriteTest[i].setSize(90f, 140f);
-                cardSpriteTest[i].draw(batch);
+                cardSpriteTest[i].draw(absoluteBatch);
 
-                font.draw(batch, Integer.toString(availableCards.get(i).getPriority()), i * 105 + 66, y + 128);
+                font.draw(absoluteBatch, Integer.toString(availableCards.get(i).getPriority()), i * 105 + 66, y + 128);
                 int type = availableCards.get(i).getType();
 
-                font.draw(batch, createCardTypeString(type, availableCards, i), i * 105 + 35, y + 100);
+                font.draw(absoluteBatch, createCardTypeString(type, availableCards, i), i * 105 + 35, y + 100);
             } else {
                 cardSpriteTest[i] = new Sprite(cardBack);
                 int y = 10;
@@ -225,10 +228,10 @@ public class GameGFX extends Stage {
 
                 cardSpriteTest[i].setPosition(i * 105 + 15, y);
                 cardSpriteTest[i].setSize(90f,140f);
-                cardSpriteTest[i].draw(batch);
+                cardSpriteTest[i].draw(absoluteBatch);
             }
         }
-        batch.end();
+        absoluteBatch.end();
     }
 
     private String createCardTypeString(int type, ArrayList<ICard> cards, int i) {

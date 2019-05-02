@@ -206,7 +206,7 @@ public class Game implements IGame {
         return checkIfOutsideBoard(robot.getPosition());
     }
 
-    private boolean checkIfOutsideBoard(int[] position){
+    public boolean checkIfOutsideBoard(int[] position){
         //Checks if the robot is outside of the board
         if (position[0] > board.getWidth() || position[0] < 0)
             return true;
@@ -277,11 +277,12 @@ public class Game implements IGame {
         for(IProgramRegister currentRegister : allProgramRegisters) {
             position = currentRegister.getRobot().getPosition();
             direction = currentRegister.getRobot().getDir();
-            while (true) {
+            for(int i = 0; i < board.getHeight(); i++) {
                 if(checkIfOutsideBoard(position));
                 if(checkForWall(position, direction)) break;
                 if (checkIfContainsRobot(position) != null && !Arrays.equals(position,currentRegister.getRobot().getPosition())) {
                     checkIfContainsRobot(position).changeDamage(1);
+                    System.out.println("hit");
                     break;
                 } else{
                     position = getPositionInDirection(position, direction);
@@ -289,14 +290,13 @@ public class Game implements IGame {
             }
             robotLaserEnd.add(position);
         }
-        System.out.print("fire");
         rLaserIsActive = true;
     }
     public boolean possibleLaser(int[] position, Direction direction){
         if(checkIfOutsideBoard(position)){
             return false;
         }
-        else if(checkForWall(position,direction)){
+        else if(checkForWall(position, direction)){
             return false;
         }
         else if(checkIfContainsRobot(position) != null){
@@ -458,7 +458,8 @@ public class Game implements IGame {
                 phaseState = phaseState.nextState();
                 break;
             case FIRE_LASERS:
-            activateLasers();
+                activateLasers();
+                activateRobotLasers();
                 phaseState = phaseState.nextState();
                 break;
             case ACTIVATE_CHECKPOINTS:
@@ -844,6 +845,9 @@ public class Game implements IGame {
             System.out.println("Game over");
             System.exit(0);
         }
+    }
+    public PhaseState getPhaseState(){
+        return phaseState;
     }
 }
 

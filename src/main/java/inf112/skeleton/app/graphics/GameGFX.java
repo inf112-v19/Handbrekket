@@ -22,6 +22,7 @@ import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameRuleConstants;
 import inf112.skeleton.app.game.GameState;
+import inf112.skeleton.app.game.PhaseState;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
@@ -141,25 +142,26 @@ public class GameGFX extends Stage {
         ArrayList<IProgramRegister> robotRegister = game.getAllProgramRegisters();
         spriteLaserVerticalList = new ArrayList<>();
         for(int i = 0; i < robotRegister.size(); i++) {
-            Direction temDir = robotRegister.get(i).getRobot().getDir();
+            Direction tempDir = robotRegister.get(i).getRobot().getDir();
             int[] tempPos;
             int j = robotRegister.get(i).getRobot().getDir().getDirectionValue();
             tempPos = robotRegister.get(i).getRobot().getPosition().clone();
             boolean run = true;
-            for(int k = 0; k < 10; k++) {
+            for(int k = 0; k < 20; k++) {
+                if(game.checkForWall(tempPos, tempDir)) break;
                 if (j % 2 == 0) {
-                    tempPos = game.getPositionInDirection(tempPos, temDir);
+                    tempPos = game.getPositionInDirection(tempPos, tempDir);
                     spriteLaserVerticalList.add(new Sprite(laserVertical));
-                    spriteLaserVerticalList.get(k).setPosition(tilePixelWidth*tempPos[0]+40, tilePixelHeight*tempPos[1]);
+                    spriteLaserVerticalList.get(k).setPosition((tilePixelWidth)*tempPos[0]+40, (tilePixelHeight)*tempPos[1]+3);
                     spriteLaserVerticalList.get(k).draw(batch);
-                    if(!game.possibleLaser(tempPos,temDir)) break;
+                    if(!game.possibleLaser(tempPos,tempDir)) break;
                 }
                 else if (j % 2 != 0) {
-                    tempPos = game.getPositionInDirection(tempPos, temDir);
+                    tempPos = game.getPositionInDirection(tempPos, tempDir);
                     spriteLaserHorizontalList.add(new Sprite(laserHorizontal));
-                    spriteLaserHorizontalList.get(k).setPosition(tilePixelWidth*tempPos[0], tilePixelHeight*tempPos[1]+40);
+                    spriteLaserHorizontalList.get(k).setPosition(tilePixelWidth + tempPos[0]+3, tilePixelHeight*tempPos[1]+40);
                     spriteLaserHorizontalList.get(k).draw(batch);
-                    if(!game.possibleLaser(tempPos,temDir)) break;
+                    if(!game.possibleLaser(tempPos,tempDir)) break;
                 }
             }
         }
@@ -234,7 +236,9 @@ public class GameGFX extends Stage {
         for (int i = 0; i < 5; i++){
             cards[i].draw(batch);
         }
-        if(game.robotLaserIsActive()){
+        if(game.getPhaseState().equals(PhaseState.FIRE_LASERS)){
+
+
             initialiseRobotLasers();
         }
         batch.end();

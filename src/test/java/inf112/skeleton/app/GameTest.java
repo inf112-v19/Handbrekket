@@ -87,11 +87,44 @@ public class GameTest {
 
     @Test
     public void checkIfOnHoleTest() {
-       // boardHoles.add(3);
-        //boardHoles.add(1);
+        boardHoles.add(3);
         game.relativeMoveStraight(robot, Direction.EAST, 2);
-        //assert(checkIfOnHoleOrOutSideBoard(robot));
+        assert(game.checkIfOnHoleOrOutSideBoard(robot));
     }
 
+    @Test
+    public void checkIfOnFlagTest() {
+        boardFlags.add(2);
+        game.relativeMoveStraight(robot, Direction.EAST, 1);
+        assert(game.checkIfOnFlag(robot));
+    }
+
+    @Test
+    public void checkIfOutsideBoardTest() {
+
+        //Tests that robot really is outside the given board
+        Board board = new Board(8, 7, mapIn);
+        int[] position = new position[2]; //robot's position
+        position[0] = 10;
+        position[1] = 10;
+        assert(game.checkIfOutsideBoard(position));
+
+        //Test that robot is not outside the given board
+        position[0] = 4;
+        position[1] = 4;
+
+        assert(!game.checkIfOutsideBoard(position));
+
+    }
+
+    @Test
+    public void noCrashWithWallTest() {
+        game.relativeMoveStraigt(robot, Direction.EAST, 3);
+        int[] robotPos = new int[2];
+        robotPos[0] = robot.getPosition(); //new x-coordinate
+        robotPos[1] = robot.getPosition(); //new y-coordinate
+        assertEquals(2, robotPos[0]); //only moved two steps (not three!)
+        assertEquals(1, robotPos[1]);
+    }
 
 }

@@ -36,8 +36,8 @@ public class GFX extends ApplicationAdapter {
             createGFX = false;
             renderGFX = true;
             }
-        else if(run)
-            if(gameGFX.gameOver()){
+        else if(run) {
+            if (gameGFX.gameOver()) {
                 end.create(gameGFX.gameOver(), gameGFX.getWinner());
                 createGFX = false;
                 gameGFX.dispose();
@@ -45,6 +45,7 @@ public class GFX extends ApplicationAdapter {
                 run = false;
                 renderGFX = false;
             }
+        }
         else if(!run && !renderGFX){
                 end.render();
             }

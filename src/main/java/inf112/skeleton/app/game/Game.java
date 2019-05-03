@@ -33,6 +33,7 @@ public class Game implements IGame {
     private IProgramRegister currentRegister;
     private Board board;
     private ArrayList<int[]> robotLaserEnd;
+    private boolean rLaserIsActive;
 
     private IAI AI;
 
@@ -40,9 +41,11 @@ public class Game implements IGame {
     private PhaseState phaseState;
     private int phaseNumber = 0;
     private ArrayList<IProgramRegister> robotsToMove = new ArrayList<>();
-
+    private boolean gameHasHumanPlayers;
 
     public Game(TiledMap tiledMap, int numberOfPlayers, int numberOfHumanPlayers) {
+        rLaserIsActive = false;
+        robotLaserEnd = new ArrayList<>();
         gameState = GameState.SETUP;
         phaseState = PhaseState.REVEAL_CARDS;
         board = new Board(tiledMap);
@@ -57,12 +60,17 @@ public class Game implements IGame {
         AI = new SimpleBraveAI();
         programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
-
+        gameHasHumanPlayers = numberOfHumanPlayers != 0;
 
         /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
         int[] testPos2 = {9, 11};
         allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
+    }
+
+    @Override
+    public boolean checkIfGameHasHumanPlayers() {
+        return gameHasHumanPlayers;
     }
 
     public ArrayList<IProgramRegister> getAllProgramRegisters() {
@@ -144,7 +152,6 @@ public class Game implements IGame {
         robot.setPosition(coordinates);
         if(checkIfOnHoleOrOutsideBoard(robot)) {
             getRegisterFromRobot(robot).destroyRobot();
-            //getRegisterFromRobot(robot).destro(); TODO: make this work
         }
         return true;
     }
@@ -152,7 +159,7 @@ public class Game implements IGame {
     /**
      * Small help-method to get an adjacent position in a direction without affecting the input
      */
-    private int[] getPositionInDirection(int[] startPos, Direction dir) {
+    public int[] getPositionInDirection(int[] startPos, Direction dir) {
         int[] endPos = startPos.clone();
         endPos[0] += dir.getDeltaX();
         endPos[1] += dir.getDeltaY();
@@ -203,7 +210,7 @@ public class Game implements IGame {
         return checkIfOutsideBoard(robot.getPosition());
     }
 
-    private boolean checkIfOutsideBoard(int[] position){
+    public boolean checkIfOutsideBoard(int[] position){
         //Checks if the robot is outside of the board
         if (position[0] > board.getWidth() || position[0] < 0)
             return true;
@@ -258,6 +265,13 @@ public class Game implements IGame {
             }
         }
     }
+
+    /**
+     * Ikke pent
+     */
+    public boolean robotLaserIsActive(){
+        return rLaserIsActive;
+    }
     @Override
     public void activateRobotLasers(){
         int[] position;
@@ -267,11 +281,12 @@ public class Game implements IGame {
         for(IProgramRegister currentRegister : allProgramRegisters) {
             position = currentRegister.getRobot().getPosition();
             direction = currentRegister.getRobot().getDir();
-            while (true) {
+            for(int i = 0; i < board.getHeight(); i++) {
                 if(checkIfOutsideBoard(position));
                 if(checkForWall(position, direction)) break;
-                if (checkIfContainsRobot(position) != null) {
+                if (checkIfContainsRobot(position) != null && !Arrays.equals(position,currentRegister.getRobot().getPosition())) {
                     checkIfContainsRobot(position).changeDamage(1);
+                    System.out.println("hit");
                     break;
                 } else{
                     position = getPositionInDirection(position, direction);
@@ -279,9 +294,22 @@ public class Game implements IGame {
             }
             robotLaserEnd.add(position);
         }
+        rLaserIsActive = true;
     }
-    public ArrayList<int[]> getRobotLaserEnd(){
-        return robotLaserEnd;
+    public boolean possibleLaser(int[] position, Direction direction){
+        if(checkIfOutsideBoard(position)){
+            return false;
+        }
+        else if(checkForWall(position, direction)){
+            return false;
+        }
+        else if(checkIfContainsRobot(position) != null){
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
     @Override
     public void doRepairs () {
@@ -434,7 +462,8 @@ public class Game implements IGame {
                 phaseState = phaseState.nextState();
                 break;
             case FIRE_LASERS:
-            activateLasers();
+                activateLasers();
+                activateRobotLasers();
                 phaseState = phaseState.nextState();
                 break;
             case ACTIVATE_CHECKPOINTS:
@@ -478,7 +507,8 @@ public class Game implements IGame {
                     graphicsInterface.flipShowCard();
                     discardAllUnusedCards();
                     progressGameState();
-                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
+                    if(checkIfGameHasHumanPlayers())
+                        graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
                 } else {
                     graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
                 }
@@ -491,6 +521,8 @@ public class Game implements IGame {
                     if(!register.isPlayerHuman())
                         AI.decideIfPowerDown(register);
                 }
+                if(!checkIfGameHasHumanPlayers())
+                    progressGameState();
                 break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
@@ -587,6 +619,7 @@ public class Game implements IGame {
     //TODO: Can this handle locked-in cards?
     @Override
     public void dealCards() {
+        rLaserIsActive = false;
         for (IProgramRegister register : allProgramRegisters) {
             register.discardAllCards(this); //Removes any cards, just in case there are some
 
@@ -814,11 +847,16 @@ public class Game implements IGame {
     }
 
     @Override
-    public void gameOver() {
+    public boolean gameOver() {
         if (winCheck()) {
             System.out.println("Game over");
-            System.exit(0);
+            //System.exit(0);
+            return true;
         }
+        return false;
+    }
+    public PhaseState getPhaseState(){
+        return phaseState;
     }
 }
 

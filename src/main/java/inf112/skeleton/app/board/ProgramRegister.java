@@ -45,6 +45,11 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
+    public boolean[] getIsCardFlipped() {
+        return isCardFlipped;
+    }
+
+    @Override
     public boolean isPlayerHuman() {
         return isPlayerHuman;
     }
@@ -188,6 +193,10 @@ public class ProgramRegister implements IProgramRegister {
                 game.addCardToDeck(activeCards[i]);
                 activeCards[i] = null;
             }
+        }
+
+        for(int i = 0; i < isCardFlipped.length; i++) {
+            isCardFlipped[i] = false;
         }
     }
 

@@ -1,6 +1,7 @@
 package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Input;
@@ -38,6 +39,7 @@ public class Menu extends Stage {
     private int mapNumber;
     private boolean menuActive;
     private int currentPosition;
+    private ArrayList<String> mapName;
 
 
     public Menu(){
@@ -59,7 +61,7 @@ public class Menu extends Stage {
         for (File file : files) {
             if (file.isFile()) {
                 String fileName = file.getName();
-                System.out.println("assets/map/".concat(fileName));
+                System.out.println("assets/map/".concat(fileName)); //TODO:Remove
                 mapList.add(new TmxMapLoader().load("assets/map/".concat(fileName)));
             }
         }
@@ -113,10 +115,19 @@ public class Menu extends Stage {
                 break;
         }
     }
+    private void showSmallMaps(){
+        OrthographicCamera cameraShowSmallMap = new OrthographicCamera();
+        cameraShowSmallMap.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        TiledMap tiledMapDraw = mapList.get(mapNumber);
+        TiledMapRenderer tMR = new OrthogonalTiledMapRenderer(tiledMapDraw, 1/4f);
+        cameraShowSmallMap.position.set(-300,200,0);
+        cameraShowSmallMap.update();
+        tMR.setView(cameraShowSmallMap);
+        tMR.render();
+    }
     private void initialiseText(){
         font.draw(batch, ("Number of Real Players:".concat(Integer.toString(getNumberOfRealPlayers()))), 900, 700);
         font.draw(batch, ("Number of AI:".concat(Integer.toString(getNumbersOfAI()))),900, 550);
-        font.draw(batch, ("Map number:".concat(mapList.get(mapNumber).toString())), 900, 370);
     }
 
     public void render(){
@@ -131,6 +142,7 @@ public class Menu extends Stage {
         start.draw(batch);
         initialiseText();
         batch.end();
+        showSmallMaps();
     }
     public int getNumberOfRealPlayers(){
         return numberOfRealPlayers;
@@ -185,10 +197,12 @@ public class Menu extends Stage {
                         numberOfAI--;
                         break;
                     case (4):
-                        mapNumber++;
+                        if(mapNumber >= mapList.size()-1){ mapNumber = 0;}
+                        else {mapNumber++;}
                         break;
                     case (5):
-                        mapNumber--;
+                        if(mapNumber <= 0){ mapNumber = mapList.size()-1;}
+                        else {mapNumber--;}
                         break;
                     case (6):
                         menuActive = false;

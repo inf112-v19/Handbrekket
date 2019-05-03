@@ -1,6 +1,6 @@
 package inf112.skeleton.app.board.ConveyorBelts;
 
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 
 public class ConveyorTurn implements IConveyorTurn {
     private Direction dir;
@@ -9,9 +9,9 @@ public class ConveyorTurn implements IConveyorTurn {
     private boolean turnDirection;
 
     /**
-     * @param dir The direction the conveyorbelt should move robots
-     * @param moveValue The amount of times a conveyorbelt should be activated per phase
-     * @param position the coordinates of the conveyorbelt
+     * @param dir           The direction the conveyorbelt should move robots
+     * @param moveValue     The amount of times a conveyorbelt should be activated per phase
+     * @param position      the coordinates of the conveyorbelt
      * @param turnDirection Direction the belt turns robot, true for clockwise, false for counterclockwise
      */
     public ConveyorTurn(Direction dir, int moveValue, int[] position, boolean turnDirection) {

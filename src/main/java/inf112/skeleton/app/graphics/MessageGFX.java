@@ -1,17 +1,17 @@
 package inf112.skeleton.app.graphics;
 
-public class MessageGFX {
+class MessageGFX {
     private String message;
     private int[] position;
     private boolean isVisible;
     private float duration;
     private float scale;
 
-    public MessageGFX(String message, int[] position, boolean isVisible, float scale) {
+    MessageGFX(String message, int[] position, boolean isVisible, float scale) {
         this(message, position, isVisible, scale, -1);
     }
 
-    public MessageGFX(String message, int[] position, boolean isVisible, float scale, float duration) {
+    MessageGFX(String message, int[] position, boolean isVisible, float scale, float duration) {
         this.message = message;
         this.position = position;
         this.isVisible = isVisible;
@@ -19,44 +19,48 @@ public class MessageGFX {
         this.duration = duration;
     }
 
-    public boolean hasDuration() {
+    boolean hasDuration() {
         return duration != -1;
     }
 
     /**
      * Decreases the duration by one time-unit and checks if the duration has expired (== 0)
+     *
      * @return true if duration = 0, false if != 0
      */
-    public boolean decreaseDuration() {
-        if(!hasDuration())
+    boolean decreaseDuration() {
+        if (!hasDuration())
             return false;
 
-        if(duration < 0);
+        if (duration < 0) {
             duration = 0;
+        } else {
+            duration--;
+        }
         return duration == 0;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 
-    public int[] getPosition() {
+    int[] getPosition() {
         return position;
     }
 
-    public boolean isVisible() {
+    boolean isVisible() {
         return isVisible;
     }
 
-    public void setVisible(boolean visible) {
+    void setVisible(boolean visible) {
         isVisible = visible;
     }
 
-    public float getDuration() {
+    float getDuration() {
         return duration;
     }
 
-    public float getScale() {
+    float getScale() {
         return scale;
     }
 }

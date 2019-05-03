@@ -1,4 +1,4 @@
-package inf112.skeleton.app.robot;
+package inf112.skeleton.app.robot.ai;
 
 import inf112.skeleton.app.board.IProgramRegister;
 
@@ -8,13 +8,15 @@ import inf112.skeleton.app.board.IProgramRegister;
 public interface IAI {
     /**
      * The AI decides whether it should power down, and performs a power down if it wants to
+     *
      * @param register the register to be judged
      */
-    public void decideIfPowerDown(IProgramRegister register);
+    void decideIfPowerDown(IProgramRegister register);
 
     /**
      * The AI activates the cards it thinks is best
+     *
      * @param register the register to be judged
      */
-    public void activateCards(IProgramRegister register);
+    void activateCards(IProgramRegister register);
 }

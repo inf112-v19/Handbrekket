@@ -2,7 +2,6 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +29,7 @@ public class ProgramRegisterGFX {
     private int yPosition;
 
 
-    public ProgramRegisterGFX(int xPos, int yPos){
+    public ProgramRegisterGFX(int xPos, int yPos) {
         xPosition = xPos;
         yPosition = yPos;
         textureP = new Texture(Gdx.files.internal("assets/programRegister.png"));
@@ -40,8 +39,8 @@ public class ProgramRegisterGFX {
         powerDown = new Texture(Gdx.files.internal("assets/powerDown.png"));
         spritePowerDownBack = new Sprite(powerDownBack);
         spritePowerDown = new Sprite(powerDown);
-        spritePowerDownBack.setPosition(xPos + 10,yPos + 125);
-        spritePowerDown.setPosition(xPos + 10,yPos + 125);
+        spritePowerDownBack.setPosition(xPos + 10, yPos + 125);
+        spritePowerDown.setPosition(xPos + 10, yPos + 125);
         font = new BitmapFont();
 
 
@@ -55,44 +54,48 @@ public class ProgramRegisterGFX {
         spriteDamageRed.setPosition(xPos + 40, yPos + 87);
         damageBack = new Texture(Gdx.files.internal("assets/damage_background.png"));
         damageArrback = new Sprite[9];
-        for(int i = 0; i < damageArrback.length; i++){
+        for (int i = 0; i < damageArrback.length; i++) {
             damageArrback[i] = new Sprite(damageBack);
-            damageArrback[i].setPosition((xPos + 87 + (i*50)), yPos + 87);
+            damageArrback[i].setPosition((xPos + 87 + (i * 50)), yPos + 87);
         }
-        for(int i = 0; i < damageArr.length; i++){
+        for (int i = 0; i < damageArr.length; i++) {
             damageArr[i] = new Sprite(damage);
-            damageArr[i].setPosition((xPos + 90 + (i*50)), yPos + 90);
+            damageArr[i].setPosition((xPos + 90 + (i * 50)), yPos + 90);
         }
         livesArr = new Sprite[3];
-        for(int i = 0; i < livesArr.length; i++){
+        for (int i = 0; i < livesArr.length; i++) {
             livesArr[i] = new Sprite(lives);
-            livesArr[i].setPosition((xPos + 241 + (i*50)), yPos + 141);
+            livesArr[i].setPosition((xPos + 241 + (i * 50)), yPos + 141);
         }
         livesArrBack = new Sprite[3];
-        for(int i = 0; i < livesArrBack.length; i++){
+        for (int i = 0; i < livesArrBack.length; i++) {
             livesArrBack[i] = new Sprite(livesBack);
-            livesArrBack[i].setPosition((xPos + 240 + (i*50)), yPos + 140);
+            livesArrBack[i].setPosition((xPos + 240 + (i * 50)), yPos + 140);
         }
-
 
 
     }
-    public void render(SpriteBatch batch, int damage, int lives, boolean isPowerDown, int flagCounter){
+
+    public void render(SpriteBatch batch, int damage, int lives, boolean isPowerDown, int flagCounter) {
         spriteP.draw(batch);
         spriteDamageRed.draw(batch);
-        if(isPowerDown){
+        if (isPowerDown) {
             spritePowerDown.draw(batch);
         } else {
             spritePowerDownBack.draw(batch);
-        } for (int i = 0; i < damageArrback.length; i++){
+        }
+        for (int i = 0; i < damageArrback.length; i++) {
             damageArrback[i].draw(batch);
-        } for (int i = 0; damage > i; i++){
-            damageArr[8-i].draw(batch);
-        } for (int i = 0; i < livesArrBack.length; i++){
+        }
+        for (int i = 0; damage > i; i++) {
+            damageArr[8 - i].draw(batch);
+        }
+        for (int i = 0; i < livesArrBack.length; i++) {
             livesArrBack[i].draw(batch);
-        } for (int i = 0; i < lives; i++){
+        }
+        for (int i = 0; i < lives; i++) {
             livesArr[i].draw(batch);
         }
-        font.draw(batch,"Flag Counter:  ".concat(Integer.toString(flagCounter)), xPosition+440, yPosition+160);
+        font.draw(batch, "Flag Counter:  ".concat(Integer.toString(flagCounter)), xPosition + 440, yPosition + 160);
     }
 }

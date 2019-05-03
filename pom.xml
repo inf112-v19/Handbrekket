@@ -8,9 +8,8 @@
   <artifactId>mvn-app</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>mvn-app</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>Robo-Rally</name>
+  <url>https://github.com/inf112-v19/Handbrekket</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,25 +44,12 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>org.jetbrains</groupId>
-          <artifactId>annotations-java5</artifactId>
-          <version>RELEASE</version>
-          <scope>compile</scope>
-      </dependency>
+    
     <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations-java5</artifactId>
       <version>17.0.0</version>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <version>4.1.35.Final</version>
-    </dependency>
-
   </dependencies>
 
 

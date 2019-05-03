@@ -1,14 +1,8 @@
-package inf112.skeleton.app.board;
+package inf112.skeleton.app.robot;
+
+import inf112.skeleton.app.util.Direction;
 
 public interface IMovementBoardElement {
-
-    /**
-     * Coordinates int[]
-     * Direction Direction
-     * MoveValue int
-     * rotationDirection Boolean
-     *
-     */
     /**
      * Return coordinates as a Array with X as the first value and Y as the second value
      *
@@ -18,12 +12,14 @@ public interface IMovementBoardElement {
 
     /**
      * Return the direction conveyor belt
+     *
      * @return
      */
-    Direction getDirection ();
+    Direction getDirection();
 
     /**
-     *Returns movement value
+     * Returns movement value
+     *
      * @return
      */
 
@@ -32,6 +28,7 @@ public interface IMovementBoardElement {
     /**
      * Returns the direction to rotate
      * True if rotate clockwise , False if rotate counter clockwise
+     *
      * @return
      */
     boolean getRotationDirection();

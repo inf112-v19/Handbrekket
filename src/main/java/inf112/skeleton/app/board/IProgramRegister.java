@@ -1,9 +1,10 @@
 package inf112.skeleton.app.board;
 
-import java.util.ArrayList;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.game.IGame;
 import inf112.skeleton.app.robot.IRobot;
+
+import java.util.ArrayList;
 
 /**
  * Construct a program register
@@ -12,12 +13,14 @@ import inf112.skeleton.app.robot.IRobot;
 public interface IProgramRegister {
     /**
      * Returns a boolean array representing which cards are "flipped"
+     *
      * @return boolean[] of flipped cards
      */
     boolean[] getIsCardFlipped();
 
     /**
      * Returns whether the associated player should be human or an SimpleBraveAI
+     *
      * @return true for human, false for SimpleBraveAI
      */
     boolean isPlayerHuman();
@@ -67,6 +70,7 @@ public interface IProgramRegister {
 
     /**
      * reset isRobotDestroyed value
+     *
      * @return true if successful, false if it didn't work
      */
     boolean restoreRobot();
@@ -101,14 +105,6 @@ public interface IProgramRegister {
     void removeLife();
 
     /**
-     * Absolute Damage change (the Damage value becomes the new Damage)
-     *
-     * @param Damage the new Damage
-     * @return new Damage
-     */
-    void setDamage(int Damage);
-
-    /**
      * Changes the Damage,
      * Positive to add Damage
      * Negative to remove Damage
@@ -126,6 +122,14 @@ public interface IProgramRegister {
     int getDamage();
 
     /**
+     * Absolute Damage change (the Damage value becomes the new Damage)
+     *
+     * @param Damage the new Damage
+     * @return new Damage
+     */
+    void setDamage(int Damage);
+
+    /**
      * Checks if all five card slots are filled
      *
      * @return true if they are filled
@@ -140,14 +144,7 @@ public interface IProgramRegister {
     /**
      * Removes all of the cards in the register, both active and available cards
      */
-    public void discardAllCards(IGame game);
-
-    /**
-     * Deals new cards
-     *
-     * @param listOfCards
-     */
-    void setAvailableCards(ArrayList<ICard> listOfCards);
+    void discardAllCards(IGame game);
 
     /**
      * Turns a card during a phase/register
@@ -156,7 +153,6 @@ public interface IProgramRegister {
      */
 
     void turnACard(int numCard);
-
 
     /**
      * Attempts to put a card into the first available active card slot
@@ -168,18 +164,28 @@ public interface IProgramRegister {
 
     /**
      * Returns all of the available cards
+     *
      * @return ArrayList<ICard> of available cards
      */
     ArrayList<ICard> getAvailableCards();
 
     /**
+     * Deals new cards
+     *
+     * @param listOfCards
+     */
+    void setAvailableCards(ArrayList<ICard> listOfCards);
+
+    /**
      * Returns all of the active cards
+     *
      * @return ArrayList<ICard> of active cards
      */
     ArrayList<ICard> getActiveCards();
 
     /**
      * Returns a card from the active card list
+     *
      * @param position the position of the card wanted
      * @return card in position
      */
@@ -187,8 +193,9 @@ public interface IProgramRegister {
 
     /**
      * Checks if card was flipped
+     *
      * @param numCard
      * @return
      */
-    boolean isCardFlipped (int numCard);
+    boolean isCardFlipped(int numCard);
 }

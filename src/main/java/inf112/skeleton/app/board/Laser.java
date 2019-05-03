@@ -17,9 +17,9 @@ public class Laser implements ILaser {
         position = new int[2];
         position[0] = x;
         position[1] = y;
-        if(direction.equals("vertical"))
+        if (direction.equals("vertical"))
             isVertical = true;
-        else if(direction.equals("horizontal"))
+        else if (direction.equals("horizontal"))
             isVertical = false;
         else
             throw new IllegalArgumentException("Direction has to be either horizontal or vertical");
@@ -37,5 +37,7 @@ public class Laser implements ILaser {
     }
 
     @Override
-    public int[] getPosition(){ return position; }
+    public int[] getPosition() {
+        return position;
+    }
 }

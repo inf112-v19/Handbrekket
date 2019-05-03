@@ -1,7 +1,6 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.board.Direction;
-import org.junit.Before;
+import inf112.skeleton.app.util.Direction;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -14,19 +13,24 @@ public class DirectionTest {
     private int dy = 0;
 
 
+    @Test
+    public void stringTest() {
+        assertEquals(symbol, Direction.EAST.getSymbol());
+    }
 
+    @Test
+    public void directionValueTest() {
+        assertEquals(directionValue, Direction.NORTH.getDirectionValue());
+    }
 
     @Test
-    public void stringTest() { assertEquals(symbol,Direction.EAST.getSymbol());
+    public void deltaXTest() {
+        assertEquals(dx, Direction.SOUTH.getDeltaX());
     }
+
     @Test
-    public void directionValueTest() {assertEquals(directionValue,Direction.NORTH.getDirectionValue());
-    }
-    @Test
-    public void deltaXTest() {assertEquals(dx,Direction.SOUTH.getDeltaX());
-    }
-    @Test
-    public void deltaYTest() {assertEquals(dy,Direction.WEST.getDeltaY());
+    public void deltaYTest() {
+        assertEquals(dy, Direction.WEST.getDeltaY());
     }
 
 }

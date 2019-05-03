@@ -61,7 +61,6 @@ public class GameGFX extends Stage {
     private int tilePixelWidth;
     private int tilePixelHeight;
 
-    //Stores all of the robots values, TODO: initialise in create based on number of players
     private int[][] robotPositions;
 
     //Used for testing, should not be pushed
@@ -263,11 +262,8 @@ public class GameGFX extends Stage {
         }
         renderRobots();
         if(game.getPhaseState().equals(PhaseState.FIRE_LASERS)){
-
-
             initialiseRobotLasers();
         }
-        batch.end();
         if(showCards && game.checkIfGameHasHumanPlayers())
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
 
@@ -281,13 +277,13 @@ public class GameGFX extends Stage {
             }
         } else
             changeOtherActiveCardsVisibility(false);
+        batch.end();
     }
 
     private void renderActiveCards(int xPos, int yPos, IProgramRegister register, boolean ignoreFlipped) {
         ArrayList<ICard> activeCards = register.getActiveCards();
         Sprite[] activeCardArray = new Sprite[activeCards.size()];
 
-        batch.begin();
         for(int i = 0; i < activeCardArray.length; i++) {
             if(activeCards.get(i) == null)
                 break;
@@ -308,7 +304,6 @@ public class GameGFX extends Stage {
                 font.draw(batch, createCardTypeString(type, activeCards, i), i * 110 + 25 + xPos, yPos + 100);
             }
         }
-        batch.end();
     }
 
     private void changeOtherActiveCardsVisibility(boolean shouldBeVisible) {
@@ -416,7 +411,6 @@ public class GameGFX extends Stage {
     }
 
     private void renderText() {
-        batch.begin();
         float oldScaleX = font.getData().scaleX;
         float oldScaleY = font.getData().scaleY;
         for(MessageGFX message : messages) {
@@ -426,7 +420,6 @@ public class GameGFX extends Stage {
             }
         }
         font.getData().setScale(oldScaleX, oldScaleY);
-        batch.end();
     }
 
     public void flipShowCard() {
@@ -454,14 +447,14 @@ public class GameGFX extends Stage {
         if(keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             if(showCards) {
                 if(cardId == 0)
-                    cardId = 9 - 1;
+                    cardId = game.getCurrentRegister().getAvailableCards().size() - 1;
                 else
                     cardId--;
             }
         }
         if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
             if(showCards) {
-                if(cardId == 9 - 1)
+                if(cardId == game.getCurrentRegister().getAvailableCards().size() - 1)
                     cardId = 0;
                 else
                     cardId++;
@@ -478,8 +471,11 @@ public class GameGFX extends Stage {
         if(keycode == Input.Keys.NUM_5)
             tiledMap.getLayers().get(4).setVisible(!tiledMap.getLayers().get(4).isVisible());
         if(keycode == Input.Keys.ENTER) {
-            if(showCards)
+            if(showCards) {
                 choseCard();
+                if(cardId > 0)
+                    cardId--;
+            }
         }
         if(keycode == Input.Keys.SPACE)
             game.progressRound(this);

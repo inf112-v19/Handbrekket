@@ -22,6 +22,7 @@ public class Game implements IGame {
     private ArrayList<IFlag> boardFlags = new ArrayList<>();
     private ArrayList<int[]> boardRepairSites = new ArrayList<>();
     private ArrayList<IConveyorTurn> gears = new ArrayList<>(); //Uses the "turn" type conveyor, since it's essentially a 0 move turner
+
     //Works very similar to straight conveyors, thus uses the same class
     private ArrayList<ConveyorStraight> pushersEven = new ArrayList<>();
     private ArrayList<ConveyorStraight> pushersOdd = new ArrayList<>();
@@ -39,9 +40,7 @@ public class Game implements IGame {
     private Board board;
     private ArrayList<int[]> robotLaserEnd;
     private boolean rLaserIsActive;
-
     private IAI AI;
-
     private GameState gameState;
     private PhaseState phaseState;
     private int phaseNumber = 0;
@@ -395,7 +394,7 @@ public class Game implements IGame {
 
     @Override
     public void progressPhase() {
-        /**
+        /*
          * Phase order:
          * 1: Reveal Program Cards
          * 2: Move robots according to priority
@@ -477,7 +476,6 @@ public class Game implements IGame {
         activateConveyorBelts(true);
         activateConveyorBelts(false);
         activateGears();
-
     }
 
     @Override

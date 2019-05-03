@@ -8,9 +8,6 @@ import inf112.skeleton.app.util.GameRuleConstants;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by mari on 24.02.2019.
- */
 public class ProgramRegister implements IProgramRegister {
     private final int maxLives = GameRuleConstants.MAX_LIVES.getValue();    //The max amount of lives
     private int maxDamage = GameRuleConstants.MAX_DAMAGE.getValue();    //The max amount of damage the register can register

@@ -87,7 +87,7 @@ public class GameTest {
         assertEquals(robot.getDir(), Direction.WEST);
     }
 
-
+/*
     @Test
     public void checkIfOnHoleTest() {
         boardHoles.add(3);
@@ -154,7 +154,9 @@ public class GameTest {
 
     @Test
     public void relativeMoveTest() {
-        MovementCard card = new MovementCard(290,2);
+        int priority = 290;
+        int moveValue = 2;
+        MovementCard card = new MovementCard(priority, moveValue);
         game.relativeMove(robot, card);
         int newPos = new int[2];
         newPos[0] = 3;
@@ -204,10 +206,29 @@ public class GameTest {
                 if(Arrays.equals(conveyorBelt.getPosition(), position))
                     return conveyorBelt;
             }
-  */
+  *
+    }
+
+    @Test
+    public void updateBackupTest() {
+        int[] robotPos = new int[2];
+        robotPos[0] = 4;
+        robotPos[1] = 10;
+        robot.setPosition(robotPos);
+        int backUp = new int[2];
+        backUp = robot.getPosition;
+
+        assertArrayEquals(robotPos, backUp);
+    }
+
+    @Test
+    public void repairTest() {
+
+        repair(IProgramRegister programRegister)
+        programRegister.changeDamage(-1);
     }
 
 
 
-
+**/
 }

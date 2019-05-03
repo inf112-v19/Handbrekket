@@ -36,6 +36,7 @@ Obligatorisk øvelse 5
 
 
 
+
 ## Deloppgave 2: Krav
 
 **Implemnenterte minstekrav for produktet**
@@ -54,6 +55,8 @@ Obligatorisk øvelse 5
   
    Vi fikk dessverre ikke med oss kravet om multiplayer over LAN eller Internet, før mot slutten av arbeidet, og da rakk vi dessverre      ikke å implementere det kravet på grunn av stor fravær i gruppen, grunnet sykdom.
    
+
+
 
 
 

@@ -11,10 +11,10 @@ Obligatorisk øvelse 5
  - Vi hadde vanskeligheter med å teste board, men fikk det på plass. 
  - Fordeling av oppgaver var utfordrende, vanskelig å gi alle like mye input. 
 	
-	• Hva vi gjorde for å forbedre arbeidet? 
-	- Ekstra gruppetimer. 
-	- Utviklet oss individuelt, brukte tid på å lære oss det vi ikke kan/kan minst.  
-  - Ble enige om å ikke gjenbruke branch, men heller slette det når en er ferdig med arbeidet, for å unngå merge conflict. 
+• Hva vi gjorde for å forbedre arbeidet? 
+- Ekstra gruppetimer. 
+- Utviklet oss individuelt, brukte tid på å lære oss det vi ikke kan/kan minst.  
+ - Ble enige om å ikke gjenbruke branch, men heller slette det når en er ferdig med arbeidet, for å unngå merge conflict. 
 
 
 **Gruppedynamikk**
@@ -23,13 +23,13 @@ Obligatorisk øvelse 5
 - Selv om gruppemedlemmmene er på ulike nivåer når det kommer til koding, har lederen til enhver tid passet på å inkludere alle  i arbeidet som blir gjort og fordele oppgaver jevnt som mulig. 
 
 **Kommunikasjon**
-Fungerer svært bra. Kommunikasjonen har foregått gjennom Slack, facebook og gruppetimene. Skype har blit benyttet når medlemmer ikke 
+  Fungerer svært bra. Kommunikasjonen har foregått gjennom Slack, facebook og gruppetimene. Skype har blit benyttet ved sykdom.
 
 ### Utfør et retrospektiv før leveranse med fokus på hele prosjektet:
 
   - Justert arbeidsmengden for å få unnagjort mest mulig arbeid på en effektiv måte. 
-	- Tok i bruk libgdx og project Board.
-	- Branch for hver issue, slik at vi ungår å gjenbruke/ flere bruker den sammen branchen. 
+  - Tok i bruk libgdx og project Board.
+  - Branch for hver issue, slik at vi ungår å gjenbruke/ flere bruker den sammen branchen. 
   - Det viktigste vi har lært: det tar tid å nå et punkt hvor alt går effektivt. Derfor er det viktig med grundig planlegging og god        arbeidsinnsats fra dag én.
 
 

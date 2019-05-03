@@ -32,7 +32,7 @@ import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
 public class GameGFX extends Stage {
-    private final boolean ANARCHY_MODE = false; //Makes the game run 3x faster than usual, used only for testing (and fun)
+    private final boolean ANARCHY_MODE = true; //Makes the game run 3x faster than usual, used only for testing (and fun)
 
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;

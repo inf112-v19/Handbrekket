@@ -220,6 +220,12 @@ public class ProgramRegister implements IProgramRegister {
     public boolean makeCardActive(int numCard) {
         for(int i = 0; i < activeCards.length; i++) {
             if(activeCards[i] == null){
+                ICard availableCard = null;
+                try {
+                    availableCard = availableCards.get(numCard);
+                } catch (IndexOutOfBoundsException e){
+                    return false;
+                }
                 activeCards[i] = availableCards.get(numCard);
                 availableCards.remove(numCard);
                 return true;

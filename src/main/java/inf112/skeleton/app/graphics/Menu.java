@@ -188,7 +188,7 @@ public class Menu extends Stage {
             if (menuActive){
                 switch (currentPosition) {
                     case (0):
-                        if(numberOfRealPlayers >= 8) numberOfRealPlayers = 1;
+                        if(numberOfRealPlayers >= 1) numberOfRealPlayers = 1;
                         else if((numberOfRealPlayers+numberOfAI >= 8)){
                             numberOfRealPlayers++;
                             numberOfAI--;

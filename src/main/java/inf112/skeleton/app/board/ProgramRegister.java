@@ -190,6 +190,10 @@ public class ProgramRegister implements IProgramRegister {
                 activeCards[i] = null;
             }
         }
+
+        for(int i = 0; i < isCardFlipped.length; i++) {
+            isCardFlipped[i] = false;
+        }
     }
 
     @Override

@@ -72,18 +72,6 @@ public interface IGame {
 
 
 	/**
-	 * @return an ordered list of events
-	 */
-	ArrayList<Event> makeEventList();
-
-
-	/**
-	 * reads and executes events in order
-	 */
-	Event readEvents(ArrayList<Event> listOfEvents);
-
-
-	/**
 	 * repair the robot
 	 *
 	 * @param programRegister to be repaired
@@ -179,6 +167,11 @@ public interface IGame {
 	 */
 	void doRepairs();
 
+    /**
+     * Checks if a robot has won the game
+     * @return true if robot has won, false otherwise
+     */
+    IRobot winCheck();
 
     /**
      * Ends the game if robot has won

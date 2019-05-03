@@ -39,7 +39,7 @@ public enum BoardElement {
     private final Direction direction;
     private final int value;
 
-    BoardElement(Direction dir, int value) {
+     BoardElement(Direction dir, int value) {
         this.direction = dir;
         this.value = value;
     }

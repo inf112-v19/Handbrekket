@@ -83,6 +83,10 @@ public class ProgramRegister implements IProgramRegister {
         return robot;
     }
 
+    public void setLives (int live) {
+        lives=live;
+    }
+
     @Override
     public void destroyRobot() {
         int[] backUpLocation = robot.getBackup();
@@ -217,6 +221,11 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void turnACard(int numCard) {
         isCardFlipped[numCard] = !isCardFlipped[numCard];
+    }
+
+    @Override
+    public boolean isCardFlipped (int numCard) {
+        return isCardFlipped[numCard];
     }
 
     @Override

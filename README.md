@@ -6,5 +6,11 @@
 Run the Main.java file
 
 ### Controls
-Press C to bring up the available cards and Enter to chose a card (Note: the game crashes if you attempt to chose one of the "empty" cards)
-After putting cardss into the register you can execute a phase using Space (Note: since we're lacking a doRound() method the game crashes if you attempt to do this more than five times or more than the amount of cards in the register).
+you can navigate in the menu using arrow keys or a,s,w,d keys. 
+press enter to choose. 
+When you enter the game you can zoom out by using gestures or the mousewheel.
+You can also drag the board around by using the mouse or touch screen.
+ 
+
+## How to run tests
+Right-click the package and choose "Run 'All Tests' with Coverage"

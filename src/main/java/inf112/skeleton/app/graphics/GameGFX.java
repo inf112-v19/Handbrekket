@@ -32,6 +32,8 @@ import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
 public class GameGFX extends Stage {
+    private final boolean ANARCHY_MODE = false; //Makes the game run 3x faster than usual, used only for testing (and fun)
+
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
     private OrthographicCamera camera;
@@ -106,7 +108,6 @@ public class GameGFX extends Stage {
             @Override
             public void run() {
                 decreaseMessageTimer();
-
             }
         };
         timer.scheduleTask(updateMessageDurations, 0f, 1f, Integer.MAX_VALUE);
@@ -183,6 +184,26 @@ public class GameGFX extends Stage {
             robotPositions[i][1] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[1] * tilePixelHeight;
             robotPositions[i][2] = 180; //TODO: change if the sprite for the robot is changed
         }
+
+        Timer.Task progressGame = new Timer.Task() {
+            @Override
+            public void run() {
+                progressGame();
+            }
+        };
+        float updateInterval;
+        if(game.checkIfGameHasHumanPlayers()) {
+            updateInterval = 0.5f;
+        } else if(ANARCHY_MODE) {
+            updateInterval = 0.1f;
+        } else {
+            updateInterval = 0.3f;
+        }
+        timer.scheduleTask(progressGame, 3f, updateInterval, Integer.MAX_VALUE);
+    }
+
+    private void progressGame() {
+        game.progressRound(this);
     }
 
     //Used to render the robot
@@ -236,22 +257,21 @@ public class GameGFX extends Stage {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
 
-        programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown(), game.getCurrentRegister().getFlagCounter() );
-        renderRobots();
-        for (int i = 0; i < 5; i++){
-            cards[i].draw(batch);
+        if(game.checkIfGameHasHumanPlayers()) {
+            programRegisterGFX.render(batch, game.getCurrentRegister().getDamage(), game.getCurrentRegister().getLives(), game.getCurrentRegister().isPoweredDown(), game.getCurrentRegister().getFlagCounter());
+            renderActiveCards(programRegisterPosition[0]+10, programRegisterPosition[1] -80, game.getCurrentRegister(), true); //Renders the cards on the program register
         }
+        renderRobots();
         if(game.getPhaseState().equals(PhaseState.FIRE_LASERS)){
 
 
             initialiseRobotLasers();
         }
         batch.end();
-        if(showCards)
+        if(showCards && game.checkIfGameHasHumanPlayers())
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
 
         renderText();
-        renderActiveCards(programRegisterPosition[0]+10, programRegisterPosition[1] -80, game.getCurrentRegister(), true); //Renders the cards on the program register
         if(game.getGameState() == GameState.EXECUTING_PHASES) {
             changeOtherActiveCardsVisibility(true);
             int x = 1125;

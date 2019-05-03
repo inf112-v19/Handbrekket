@@ -35,7 +35,7 @@ public class EndGFX extends Stage {
         int[] position = new int[2];
         position[0] = 200;
         position[1] = 200;
-        if(win){
+        if(win && robotIn.getID() != 10){
             endMessage = ("The winner is:  Robot ".concat(Integer.toString(robotIn.getID())));
         }
         else{

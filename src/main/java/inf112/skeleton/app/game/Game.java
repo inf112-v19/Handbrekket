@@ -808,17 +808,25 @@ public class Game implements IGame {
 
     @Override
     public IRobot winCheck() {
+        boolean isDead = false;
         for(IProgramRegister register : allProgramRegisters) {
+            if (register.getLives()<=0)
+                isDead = true;
+            else isDead = false;
             if (register.getFlagCounter() == boardFlags.size()) {
                 return register.getRobot();
             }
         }
+        if(isDead)
+            return new Robot(10,null) {
+            };
         return null;
     }
 
 
     public boolean gameOver() {
         if (winCheck() != null) {
+            if(winCheck().getID()==10)
             System.out.println("Game over");
             return true;
         }

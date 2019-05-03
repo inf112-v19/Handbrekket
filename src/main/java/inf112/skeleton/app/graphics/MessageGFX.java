@@ -32,8 +32,11 @@ public class MessageGFX {
         if (!hasDuration())
             return false;
 
-        if (duration < 0) ;
-        duration = 0;
+        if (duration < 0) {
+            duration = 0;
+        } else {
+            duration--;
+        }
         return duration == 0;
     }
 

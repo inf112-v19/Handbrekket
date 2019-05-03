@@ -1,17 +1,17 @@
 package inf112.skeleton.app.graphics;
 
-public class MessageGFX {
+class MessageGFX {
     private String message;
     private int[] position;
     private boolean isVisible;
     private float duration;
     private float scale;
 
-    public MessageGFX(String message, int[] position, boolean isVisible, float scale) {
+    MessageGFX(String message, int[] position, boolean isVisible, float scale) {
         this(message, position, isVisible, scale, -1);
     }
 
-    public MessageGFX(String message, int[] position, boolean isVisible, float scale, float duration) {
+    MessageGFX(String message, int[] position, boolean isVisible, float scale, float duration) {
         this.message = message;
         this.position = position;
         this.isVisible = isVisible;
@@ -19,7 +19,7 @@ public class MessageGFX {
         this.duration = duration;
     }
 
-    public boolean hasDuration() {
+    boolean hasDuration() {
         return duration != -1;
     }
 
@@ -28,7 +28,7 @@ public class MessageGFX {
      *
      * @return true if duration = 0, false if != 0
      */
-    public boolean decreaseDuration() {
+    boolean decreaseDuration() {
         if (!hasDuration())
             return false;
 
@@ -40,27 +40,27 @@ public class MessageGFX {
         return duration == 0;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 
-    public int[] getPosition() {
+    int[] getPosition() {
         return position;
     }
 
-    public boolean isVisible() {
+    boolean isVisible() {
         return isVisible;
     }
 
-    public void setVisible(boolean visible) {
+    void setVisible(boolean visible) {
         isVisible = visible;
     }
 
-    public float getDuration() {
+    float getDuration() {
         return duration;
     }
 
-    public float getScale() {
+    float getScale() {
         return scale;
     }
 }

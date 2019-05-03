@@ -105,14 +105,6 @@ public interface IProgramRegister {
     void removeLife();
 
     /**
-     * Absolute Damage change (the Damage value becomes the new Damage)
-     *
-     * @param Damage the new Damage
-     * @return new Damage
-     */
-    void setDamage(int Damage);
-
-    /**
      * Changes the Damage,
      * Positive to add Damage
      * Negative to remove Damage
@@ -128,6 +120,14 @@ public interface IProgramRegister {
      * @return
      */
     int getDamage();
+
+    /**
+     * Absolute Damage change (the Damage value becomes the new Damage)
+     *
+     * @param Damage the new Damage
+     * @return new Damage
+     */
+    void setDamage(int Damage);
 
     /**
      * Checks if all five card slots are filled
@@ -147,20 +147,12 @@ public interface IProgramRegister {
     void discardAllCards(IGame game);
 
     /**
-     * Deals new cards
-     *
-     * @param listOfCards
-     */
-    void setAvailableCards(ArrayList<ICard> listOfCards);
-
-    /**
      * Turns a card during a phase/register
      *
      * @param numCard
      */
 
     void turnACard(int numCard);
-
 
     /**
      * Attempts to put a card into the first available active card slot
@@ -176,6 +168,13 @@ public interface IProgramRegister {
      * @return ArrayList<ICard> of available cards
      */
     ArrayList<ICard> getAvailableCards();
+
+    /**
+     * Deals new cards
+     *
+     * @param listOfCards
+     */
+    void setAvailableCards(ArrayList<ICard> listOfCards);
 
     /**
      * Returns all of the active cards

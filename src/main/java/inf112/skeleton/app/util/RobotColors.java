@@ -11,9 +11,8 @@ public enum RobotColors {
     CYAN("assets/robots/cyan.png"),
     WHITE("assets/robots/white.png");
 
-    private final String string;
-
     private static RobotColors[] vals = values();
+    private final String string;
 
     RobotColors(String string) {
         this.string = string;

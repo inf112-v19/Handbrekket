@@ -80,10 +80,6 @@ public class ProgramRegister implements IProgramRegister {
         return robot;
     }
 
-    public void setLives(int live) {
-        lives = live;
-    }
-
     @Override
     public void destroyRobot() {
         int[] backUpLocation = robot.getBackup();
@@ -127,6 +123,10 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public int getLives() {
         return lives;
+    }
+
+    public void setLives(int live) {
+        lives = live;
     }
 
     @Override
@@ -205,11 +205,6 @@ public class ProgramRegister implements IProgramRegister {
 
     }
 
-    @Override
-    public void setAvailableCards(ArrayList<ICard> listOfCards) {
-        this.availableCards = listOfCards;
-    }
-
     /**
      * Turns a card during a phase/register
      *
@@ -246,6 +241,11 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public ArrayList<ICard> getAvailableCards() {
         return availableCards;
+    }
+
+    @Override
+    public void setAvailableCards(ArrayList<ICard> listOfCards) {
+        this.availableCards = listOfCards;
     }
 
     /**

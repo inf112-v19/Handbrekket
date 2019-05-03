@@ -9,8 +9,8 @@ import java.util.Objects;
  * Creates a robot character to assign to a player.
  */
 public class Robot implements IRobot {
-    private Direction dir;
     private final int id;
+    private Direction dir;
     private int[] coordinate;
     private int[] backup;
 

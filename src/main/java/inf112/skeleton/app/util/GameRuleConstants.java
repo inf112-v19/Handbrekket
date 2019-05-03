@@ -8,11 +8,11 @@ public enum GameRuleConstants {
     NUMBER_OF_PHASES_IN_ROUND(5),
     NUMBER_OF_STARTING_POINTS(8);
 
+    private final int value;
+
     GameRuleConstants(int value) {
         this.value = value;
     }
-
-    private final int value;
 
     public int getValue() {
         return value;

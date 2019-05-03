@@ -12,36 +12,29 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class Menu extends Stage {
+    private final ArrayList<TiledMap> mapList;
+    private final BitmapFont font;
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
     private Sprite[] increase;
     private Sprite[] decrease;
     private Sprite start;
     private Texture textureIncrease;
     private Texture textureDecrease;
-    private Texture textureStart;
-    private TiledMap tiledMap;
-    private ArrayList<TiledMap> mapList;
-    private TiledMapRenderer tiledMapRenderer;
-    private Texture menuBackground;
     private Sprite spriteMenuBackground;
-    private BitmapFont font;
-    private OrthographicCamera camera;
-    private FitViewport viewport;
-    private SpriteBatch batch;
     private int numberOfRealPlayers;
     private int numberOfAI;
     private int mapNumber;
     private boolean menuActive;
     private int currentPosition;
-    private ArrayList<String> mapName;
 
 
-    public Menu() {
+    Menu() {
         numberOfRealPlayers = 1;
         numberOfAI = 0;
         mapNumber = 0;
@@ -50,12 +43,11 @@ public class Menu extends Stage {
         menuActive = true;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         batch = new SpriteBatch();
         initialiseSprites();
-        mapList = new ArrayList<TiledMap>();
+        mapList = new ArrayList<>();
         File[] files = new File("assets/map").listFiles();
+        //noinspection ConstantConditions
         for (File file : files) {
             if (file.isFile()) {
                 String fileName = file.getName();
@@ -66,7 +58,7 @@ public class Menu extends Stage {
 
     private void initialiseSprites() {
         menuActive = true;
-        menuBackground = new Texture(Gdx.files.internal("assets/menuBack.png"));
+        Texture menuBackground = new Texture(Gdx.files.internal("assets/menuBack.png"));
         spriteMenuBackground = new Sprite(menuBackground);
         spriteMenuBackground.setPosition(65, 100);
         increase = new Sprite[3];
@@ -84,13 +76,9 @@ public class Menu extends Stage {
             increase[i].setPosition(700, 700 - i * 170);
             decrease[i].setPosition(700, 620 - i * 170);
         }
-        textureStart = new Texture(Gdx.files.internal("assets/start.png"));
+        Texture textureStart = new Texture(Gdx.files.internal("assets/start.png"));
         start = new Sprite(textureStart);
         start.setPosition(700, 170);
-    }
-
-    public TiledMap getMap() {
-        return tiledMap;
     }
 
     private void renderButtons() {
@@ -150,19 +138,19 @@ public class Menu extends Stage {
         showSmallMaps();
     }
 
-    public int getNumberOfRealPlayers() {
+    int getNumberOfRealPlayers() {
         return numberOfRealPlayers;
     }
 
-    public int getNumbersOfAI() {
+    int getNumbersOfAI() {
         return numberOfAI;
     }
 
-    public TiledMap getTiledMap() {
+    TiledMap getTiledMap() {
         return mapList.get(mapNumber);
     }
 
-    public Boolean isMenuActive() {
+    Boolean isMenuActive() {
         return menuActive;
     }
 

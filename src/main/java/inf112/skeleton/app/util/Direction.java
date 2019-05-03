@@ -11,12 +11,11 @@ public enum Direction {
     SOUTH("S", 2, 0, -1),
     WEST("W", 3, -1, 0);
 
+    private static Direction[] vals = values();
     private final String symbol;
     private final int directionValue;
     private final int deltaX;
     private final int deltaY;
-
-    private static Direction[] vals = values();
 
     Direction(String symbol, int directionValue, int dx, int dy) {
         this.symbol = symbol;

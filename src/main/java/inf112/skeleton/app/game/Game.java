@@ -38,7 +38,6 @@ public class Game implements IGame {
     private ArrayList<IProgramRegister> allProgramRegisters = new ArrayList<>();
     private IProgramRegister currentRegister;
     private Board board;
-    private ArrayList<int[]> robotLaserEnd;
     private boolean rLaserIsActive;
     private IAI AI;
     private GameState gameState;
@@ -49,7 +48,6 @@ public class Game implements IGame {
 
     public Game(TiledMap tiledMap, int numberOfPlayers, int numberOfHumanPlayers) {
         rLaserIsActive = false;
-        robotLaserEnd = new ArrayList<>();
         gameState = GameState.SETUP;
         phaseState = PhaseState.REVEAL_CARDS;
         board = new Board(tiledMap);
@@ -274,7 +272,7 @@ public class Game implements IGame {
             position = currentRegister.getRobot().getPosition();
             direction = currentRegister.getRobot().getDir();
             for (int i = 0; i < board.getHeight(); i++) {
-                if (checkIfOutsideBoard(position)) ;
+                checkIfOutsideBoard(position);
                 if (checkForWall(position, direction)) break;
                 if (checkIfContainsRobot(position) != null && !Arrays.equals(position, currentRegister.getRobot().getPosition())) {
                     checkIfContainsRobot(position).changeDamage(1);
@@ -283,7 +281,6 @@ public class Game implements IGame {
                     position = getPositionInDirection(position, direction);
                 }
             }
-            robotLaserEnd.add(position);
         }
         rLaserIsActive = true;
     }
@@ -353,9 +350,7 @@ public class Game implements IGame {
     private void initializeBoardElements(int x, int y) {
         BoardElement elem = board.getBoardElement(x, y);
         int[] tempCoordinates = {x, y}; //Temporarily creates coordinates for the elements that need those
-        if (elem == BoardElement.NORMAL_TILE) {
-            //If it's a normal tile you might as well do nothing and stop
-        } else if (BoardElement.FLAGS.contains(elem)) {
+        if (BoardElement.FLAGS.contains(elem)) {
             boardFlags.add(new Flag(elem.getValue() - 1, x, y));
         } else if (elem == BoardElement.CONVEYORBELT) {
             conveyorBelts.add(board.getConveyorBelt(x, y));

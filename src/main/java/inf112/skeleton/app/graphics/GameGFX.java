@@ -14,7 +14,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
@@ -33,68 +32,41 @@ import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
 public class GameGFX extends Stage {
-    private final boolean ANARCHY_MODE = false; //Makes the game run 9x faster than usual (when using only AI), used only for testing (and fun)
-
+    private final int[] programRegisterPosition = {960, 1080};
+    private final ArrayList<MessageGFX> messages = new ArrayList<>();
+    private final Timer timer = new Timer();
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
     private OrthographicCamera camera;
-    private FitViewport viewport;
     private ProgramRegisterGFX programRegisterGFX;
-
     private SpriteBatch batch;
     private SpriteBatch absoluteBatch;
     private Texture cardBack;
     private Texture cardFront;
-
-    private Sprite thisPlayerSprite;
     private Sprite[] otherPlayerSprites;
     private Sprite[] robotSprites;
-    private Sprite spriteCardBack;
-    private Sprite spriteCardFront;
-    private Sprite[] cards;
-
     private Texture laserVertical;
     private Texture laserHorizontal;
-
     private ArrayList<Sprite> spriteLaserVerticalList;
     private ArrayList<Sprite> spriteLaserHorizontalList;
-
-
     private int tilePixelWidth;
     private int tilePixelHeight;
-
     private int[][] robotPositions;
-
     //Used for testing, should not be pushed
     private boolean showCards = false;
     private BitmapFont font;
     private int cardId = 0;
     private Game game;
-    private Menu menu;
 
-    private int numberOfRealPlayers;
-    private int numberOfAI;
-    private ArrayList<int[]> startRobotLaser;
-    private ArrayList<int[]> endRobotLaser;
-
-    private int[] programRegisterPosition = {960, 1080};
-    private ArrayList<MessageGFX> messages = new ArrayList<>();
-    private Timer timer = new Timer();
-
-    public void create(int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
+    void create(int numPlayersIn, int numAIIn, TiledMap tiledMapIn) {
         spriteLaserVerticalList = new ArrayList<>();
         spriteLaserHorizontalList = new ArrayList<>();
-        startRobotLaser = new ArrayList<>();
-        endRobotLaser = new ArrayList<>();
-        numberOfRealPlayers = numPlayersIn;
-        numberOfAI = numAIIn;
         tiledMap = tiledMapIn;
         font = new BitmapFont();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-        menu = new Menu();
+        Menu menu = new Menu();
         //opens a Menu and gets the tiledmap from the menu class.
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         Gdx.input.setInputProcessor(menu);
@@ -102,8 +74,8 @@ public class GameGFX extends Stage {
         MapProperties properties = tiledMap.getProperties();
         tilePixelWidth = properties.get("tilewidth", Integer.class);
         tilePixelHeight = properties.get("tileheight", Integer.class);
-        createGame(numberOfRealPlayers + numAIIn, numberOfRealPlayers);
-        initialiseSprites(numberOfRealPlayers + numAIIn);
+        createGame(numPlayersIn + numAIIn, numPlayersIn);
+        initialiseSprites(numPlayersIn + numAIIn);
 
         Timer.Task updateMessageDurations = new Timer.Task() {
             @Override
@@ -128,8 +100,6 @@ public class GameGFX extends Stage {
         laserVertical = new Texture(Gdx.files.internal("assets/laserVertical.png"));
         batch = new SpriteBatch();
         absoluteBatch = new SpriteBatch();
-        Texture texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
-        thisPlayerSprite = new Sprite(texture);
         otherPlayerSprites = new Sprite[numberOfSprites];
         robotSprites = new Sprite[game.getAllProgramRegisters().size()];
         RobotColors robotColors = RobotColors.BLACK;
@@ -141,27 +111,23 @@ public class GameGFX extends Stage {
 
         cardBack = new Texture(Gdx.files.internal("assets/card_back.png"));
         cardFront = new Texture(Gdx.files.internal("assets/card_front.png"));
-        spriteCardBack = new Sprite(cardBack);
-        spriteCardFront = new Sprite(cardFront);
-        cards = new Sprite[5];
+        Sprite[] cards = new Sprite[5];
         for (int i = 0; i < 5; i++) {
             cards[i] = new Sprite(cardBack);
             cards[i].setPosition(programRegisterPosition[0] + 10 + (i * 110), programRegisterPosition[1] - 80);
         }
-        spriteCardBack = new Sprite(cardBack);
-        spriteCardFront = new Sprite(cardFront);
     }
 
     private void initialiseRobotLasers() {
         ArrayList<IProgramRegister> robotRegister = game.getAllProgramRegisters();
         spriteLaserVerticalList = new ArrayList<>();
-        for (int i = 0; i < robotRegister.size(); i++) {
-            Direction tempDir = robotRegister.get(i).getRobot().getDir();
+        for (IProgramRegister register : robotRegister) {
+            Direction tempDir = register.getRobot().getDir();
             int[] tempPos;
-            int j = robotRegister.get(i).getRobot().getDir().getDirectionValue();
-            tempPos = robotRegister.get(i).getRobot().getPosition().clone();
+            int j = register.getRobot().getDir().getDirectionValue();
+            tempPos = register.getRobot().getPosition().clone();
             for (int k = 0; k < 20; k++) {
-                if (robotRegister.get(i).isDestroyed()) break;
+                if (register.isDestroyed()) break;
                 if (game.checkForWall(tempPos, tempDir)) break;
 
                 tempPos = game.getPositionInDirection(tempPos, tempDir);
@@ -196,14 +162,16 @@ public class GameGFX extends Stage {
             }
         };
         float updateInterval;
+        //Makes the game run 9x faster than usual (when using only AI), used only for testing (and fun)
+        boolean ANARCHY_MODE = false;
         if (game.checkIfGameHasHumanPlayers()) {
             updateInterval = 0.5f;
         } else if (ANARCHY_MODE) {
-            updateInterval = 0.03f;
+            updateInterval = 0.1f;
         } else {
             updateInterval = 0.3f;
         }
-        timer.scheduleTask(progressGame, 3f, updateInterval, Integer.MAX_VALUE);
+        timer.scheduleTask(progressGame, 1f, updateInterval, Integer.MAX_VALUE);
     }
 
     private void progressGame() {
@@ -277,10 +245,10 @@ public class GameGFX extends Stage {
         renderText();
         if (game.getGameState() == GameState.EXECUTING_PHASES) {
             changeOtherActiveCardsVisibility(true);
-            int x = 1125;
+            int y = 1125;
             for (int i = 0; i < otherPlayerSprites.length; i++) { //Renders the cards of all of the robots as they are flipped
-                renderActiveCards(-575, x, game.getAllProgramRegisters().get(i), false);
-                x -= tilePixelHeight * 2;
+                renderActiveCards(-575, y, game.getAllProgramRegisters().get(i), false);
+                y -= tilePixelHeight * 2;
             }
         } else
             changeOtherActiveCardsVisibility(false);
@@ -408,7 +376,7 @@ public class GameGFX extends Stage {
         print(input, defaultPos, scale, duration);
     }
 
-    public void print(String input, int[] position, float scale, float duration) {
+    private void print(String input, int[] position, float scale, float duration) {
         MessageGFX tempMessage = new MessageGFX(input, position, true, scale, duration);
         messages.add(tempMessage);
     }
@@ -427,10 +395,6 @@ public class GameGFX extends Stage {
 
     public void flipShowCard() {
         showCards = !showCards;
-    }
-
-    public void resize(int width, int height) {
-        viewport.update(width, height);
     }
 
     @Override
@@ -494,6 +458,7 @@ public class GameGFX extends Stage {
 
     @Override
     public boolean scrolled(int amount) {
+        //noinspection UnnecessaryLocalVariable
         float zoomAmount = amount;
         camera.zoom += zoomAmount / 10;
         return true;

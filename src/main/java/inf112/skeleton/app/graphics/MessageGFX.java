@@ -28,8 +28,11 @@ public class MessageGFX {
      * @return true if duration = 0, false if != 0
      */
     public boolean decreaseDuration() {
-        if(duration > 0);
-            duration -= 1;
+        if(!hasDuration())
+            return false;
+
+        if(duration < 0);
+            duration = 0;
         return duration == 0;
     }
 

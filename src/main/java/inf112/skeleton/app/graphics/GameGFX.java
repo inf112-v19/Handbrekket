@@ -194,7 +194,7 @@ public class GameGFX extends Stage {
         if(game.checkIfGameHasHumanPlayers()) {
             updateInterval = 0.5f;
         } else if(ANARCHY_MODE) {
-            updateInterval = 0.1f;
+            updateInterval = 0.03f;
         } else {
             updateInterval = 0.3f;
         }

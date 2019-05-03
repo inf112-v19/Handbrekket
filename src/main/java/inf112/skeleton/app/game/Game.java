@@ -61,11 +61,6 @@ public class Game implements IGame {
         programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
         gameHasHumanPlayers = numberOfHumanPlayers != 0;
-
-        int[] testPos1 = {5, 10}; //TODO: for tests, remove later
-        allProgramRegisters.get(0).getRobot().setPosition(testPos1);
-        /*int[] testPos2 = {9, 11};
-        allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
     }
 
     @Override
@@ -212,9 +207,9 @@ public class Game implements IGame {
 
     public boolean checkIfOutsideBoard(int[] position){
         //Checks if the robot is outside of the board
-        if (position[0] > board.getWidth() || position[0] < 0)
+        if (position[0] > (board.getWidth() - 1) || position[0] < 0)
             return true;
-        if (position[1] > board.getHeight() || position[1] < 0)
+        if (position[1] > (board.getHeight() - 1) || position[1] < 0)
             return true;
 
         return false;
@@ -395,9 +390,15 @@ public class Game implements IGame {
 
     //TODO: consider renaming methods
     private void doMoveAccordingToCardType(IRobot robot, ICard inputCard) {
-        if (inputCard.getType() == 1) { //Movement Cards
+        int cardType = 0;
+        try {
+            cardType = inputCard.getType();
+        } catch (NullPointerException e) {
+            return;
+        }
+        if (cardType == 1) { //Movement Cards
             relativeMove(robot, (ICardMovement) inputCard);
-        } else if (inputCard.getType() == 2) { // Rotation Cards
+        } else if (cardType == 2) { // Rotation Cards
             rotationMove(robot, (ICardRotation) inputCard);
         }
     }
@@ -432,8 +433,18 @@ public class Game implements IGame {
                 IProgramRegister currentHighestPriority = null;
                 int highestPriorityIndex = 0;
                 for (int j = 1; j < programRegistersToSort.size(); j++) {
-                    int highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
-                    int newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
+                    int highestPrioritySoFar = 0;
+                    try {
+                        highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
+                    } catch (NullPointerException e){
+                        continue;
+                    }
+                    int newPriority = 0;
+                    try {
+                        newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
+                    } catch (NullPointerException e) {
+                        continue;
+                    }
                     if (newPriority > highestPrioritySoFar)
                         highestPriorityIndex = j;
                     currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
@@ -446,7 +457,7 @@ public class Game implements IGame {
 
             case MOVE_ROBOTS:
 
-                    if (robotsToMove.get(0).isPoweredDown())
+                    if (robotsToMove.get(0).isPoweredDown() || robotsToMove.get(0).getActiveCards().size() <= phaseNumber + 1)
                         robotsToMove.remove(0);
                     else {
                         doMoveAccordingToCardType(robotsToMove.get(0).getRobot(), robotsToMove.get(0).getActiveCardInPosition(phaseNumber));

@@ -187,7 +187,8 @@ public class Menu extends Stage {
                         else if((numberOfRealPlayers+numberOfAI >= 8)){
                             numberOfRealPlayers++;
                             numberOfAI--;
-                        }
+
+                            }
                         else numberOfRealPlayers++;
                         break;
                     case (1):

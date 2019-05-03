@@ -1,4 +1,6 @@
-package inf112.skeleton.app.board;
+package inf112.skeleton.app.robot;
+
+import inf112.skeleton.app.util.Direction;
 
 public interface IMovementBoardElement {
 

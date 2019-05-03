@@ -1,8 +1,7 @@
 package inf112.skeleton.app.board.conveyorBelts;
 
 import inf112.skeleton.app.board.ConveyorBelts.ConveyorInto;
-import inf112.skeleton.app.board.Direction;
-import org.junit.Assert;
+import inf112.skeleton.app.util.Direction;
 import org.junit.Before;
 import org.junit.Test;
 

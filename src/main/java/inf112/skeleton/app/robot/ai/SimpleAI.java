@@ -1,7 +1,7 @@
-package inf112.skeleton.app.robot;
+package inf112.skeleton.app.robot.ai;
 
 import inf112.skeleton.app.board.IProgramRegister;
-import inf112.skeleton.app.game.GameRuleConstants;
+import inf112.skeleton.app.util.GameRuleConstants;
 
 /**
  * Chooses random cards, powers down when damage is more than half of health pool

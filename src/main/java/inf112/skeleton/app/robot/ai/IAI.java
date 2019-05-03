@@ -1,4 +1,4 @@
-package inf112.skeleton.app.robot;
+package inf112.skeleton.app.robot.ai;
 
 import inf112.skeleton.app.board.IProgramRegister;
 

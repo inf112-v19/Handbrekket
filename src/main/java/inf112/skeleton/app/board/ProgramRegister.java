@@ -1,7 +1,7 @@
 package inf112.skeleton.app.board;
 
 import inf112.skeleton.app.card.*;
-import inf112.skeleton.app.game.GameRuleConstants;
+import inf112.skeleton.app.util.GameRuleConstants;
 import inf112.skeleton.app.game.IGame;
 import inf112.skeleton.app.robot.*;
 

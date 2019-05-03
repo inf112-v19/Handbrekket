@@ -1,6 +1,6 @@
 package inf112.skeleton.app.game;
 
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
@@ -8,8 +8,6 @@ import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.graphics.GameGFX;
 import inf112.skeleton.app.robot.IRobot;
-
-import java.util.ArrayList;
 
 /**
  * The interface contains the logic for the whole game.

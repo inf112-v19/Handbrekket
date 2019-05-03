@@ -1,7 +1,7 @@
 package inf112.skeleton.app.board.conveyorBelts;
 
 import inf112.skeleton.app.board.ConveyorBelts.ConveyorCombine;
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 import org.junit.Before;
 import org.junit.Test;
 

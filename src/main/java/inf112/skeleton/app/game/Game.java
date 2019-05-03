@@ -6,6 +6,10 @@ import inf112.skeleton.app.board.ConveyorBelts.*;
 import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.graphics.GameGFX;
 import inf112.skeleton.app.robot.*;
+import inf112.skeleton.app.robot.ai.IAI;
+import inf112.skeleton.app.robot.ai.SimpleBraveAI;
+import inf112.skeleton.app.util.Direction;
+import inf112.skeleton.app.util.GameRuleConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

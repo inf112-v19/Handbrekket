@@ -1,6 +1,6 @@
 package inf112.skeleton.app.board.ConveyorBelts;
 
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 
 public class ConveyorStraight implements IConveyorBelt{
     //Doesn't have it's own interface because it has no special effects

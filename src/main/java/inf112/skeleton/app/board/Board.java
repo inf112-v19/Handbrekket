@@ -2,9 +2,9 @@ package inf112.skeleton.app.board;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.board.ConveyorBelts.*;
+import inf112.skeleton.app.util.Direction;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package inf112.skeleton.app.board;
+package inf112.skeleton.app.util;
 
 /**
  * Short and simple implementation of a Direction Enum

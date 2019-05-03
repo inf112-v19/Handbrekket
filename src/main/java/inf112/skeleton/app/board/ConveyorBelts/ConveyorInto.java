@@ -1,6 +1,6 @@
 package inf112.skeleton.app.board.ConveyorBelts;
 
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 
 import java.util.Arrays;
 

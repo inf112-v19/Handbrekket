@@ -14,19 +14,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 import inf112.skeleton.app.board.IProgramRegister;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.ICardMovement;
 import inf112.skeleton.app.card.ICardRotation;
 import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.game.GameRuleConstants;
+import inf112.skeleton.app.util.GameRuleConstants;
 import inf112.skeleton.app.game.GameState;
 import inf112.skeleton.app.game.PhaseState;
 import inf112.skeleton.app.robot.IRobot;
+import inf112.skeleton.app.util.RobotColors;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.lang.Math.abs;
 

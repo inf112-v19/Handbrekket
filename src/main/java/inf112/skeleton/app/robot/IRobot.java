@@ -1,6 +1,6 @@
 package inf112.skeleton.app.robot;
 
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 
 /**
  * The most important piece in the game,

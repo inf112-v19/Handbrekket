@@ -1,16 +1,11 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import inf112.skeleton.app.board.Board;
-import inf112.skeleton.app.board.Direction;
-import inf112.skeleton.app.board.IBoard;
+import inf112.skeleton.app.util.Direction;
 import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.card.MovementCard;
 import inf112.skeleton.app.robot.*;
 import inf112.skeleton.app.robot.Robot;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertTrue;

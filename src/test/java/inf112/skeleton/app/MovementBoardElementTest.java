@@ -1,7 +1,7 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.board.Direction;
-import inf112.skeleton.app.board.MovementBoardElement;
+import inf112.skeleton.app.util.Direction;
+import inf112.skeleton.app.robot.MovementBoardElement;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,6 +1,4 @@
-package inf112.skeleton.app.graphics;
-
-import com.badlogic.gdx.graphics.Color;
+package inf112.skeleton.app.util;
 
 public enum RobotColors {
 

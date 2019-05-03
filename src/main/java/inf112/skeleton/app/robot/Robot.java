@@ -1,8 +1,7 @@
 package inf112.skeleton.app.robot;
 
-import inf112.skeleton.app.board.Direction;
+import inf112.skeleton.app.util.Direction;
 
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 

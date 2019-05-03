@@ -1,4 +1,4 @@
-package inf112.skeleton.app.game;
+package inf112.skeleton.app.util;
 
 public enum GameRuleConstants {
     MAX_LIVES(3),

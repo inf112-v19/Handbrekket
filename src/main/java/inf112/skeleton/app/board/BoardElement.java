@@ -1,5 +1,7 @@
 package inf112.skeleton.app.board;
 
+import inf112.skeleton.app.util.Direction;
+
 import java.util.Arrays;
 import java.util.List;
 

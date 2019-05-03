@@ -154,12 +154,12 @@ public class GameGFX extends Stage {
         ArrayList<IProgramRegister> robotRegister = game.getAllProgramRegisters();
         spriteLaserVerticalList = new ArrayList<>();
         for (int i = 0; i < robotRegister.size(); i++) {
-            if (robotRegister.get(i).isDestroyed()) break;
             Direction tempDir = robotRegister.get(i).getRobot().getDir();
             int[] tempPos;
             int j = robotRegister.get(i).getRobot().getDir().getDirectionValue();
             tempPos = robotRegister.get(i).getRobot().getPosition().clone();
             for (int k = 0; k < 20; k++) {
+                if (robotRegister.get(i).isDestroyed()) break;
                 if (game.checkForWall(tempPos, tempDir)) break;
                 if (j % 2 == 0) {
                     tempPos = game.getPositionInDirection(tempPos, tempDir);

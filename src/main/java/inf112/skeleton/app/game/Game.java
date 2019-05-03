@@ -207,9 +207,9 @@ public class Game implements IGame {
 
     public boolean checkIfOutsideBoard(int[] position){
         //Checks if the robot is outside of the board
-        if (position[0] > board.getWidth() || position[0] < 0)
+        if (position[0] > (board.getWidth() - 1) || position[0] < 0)
             return true;
-        if (position[1] > board.getHeight() || position[1] < 0)
+        if (position[1] > (board.getHeight() - 1) || position[1] < 0)
             return true;
 
         return false;

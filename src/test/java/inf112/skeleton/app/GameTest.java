@@ -149,7 +149,7 @@ public class GameTest {
         coordinates[0] = 8;
         coordinates[1] = 14;
         game.absoluteMove(robot, coordinates);
-        assertEquals(robot.getPosition(), coordinates);
+        assertArrayEquals(robot.getPosition(), coordinates);
     }
 
     @Test
@@ -159,7 +159,7 @@ public class GameTest {
         int newPos = new int[2];
         newPos[0] = 3;
         newPos[1] = 1;
-        assertEquals(robot.getPosition(), newPos);
+        assertArrayEquals(robot.getPosition(), newPos);
     }
 
     @Test
@@ -182,13 +182,32 @@ public class GameTest {
 
     }
 
-
     @Test
     public void addCardToDeckTest() {
         ICard card;
         game.addCardToDeck(card);
         assertEquals(deck.size(),1);
     }
+
+    @Test
+    public void getConveyorInPositionTest() {
+        int[] position = new int[2];
+        position[0] = 3;
+        position[1] = 5;
+        IConveyorBelt conveyorBelt;
+        ArrayList<IConveyorBelt> conveyorBelts = new ArrayList<>();
+        conveyorBelts.add(3);
+        assertArrayEquals(conveyorBelt.getPosition(), position);
+/*
+        private IConveyorBelt getConveyorInPosition(int[] position) {
+            for(IConveyorBelt conveyorBelt : conveyorBelts) {
+                if(Arrays.equals(conveyorBelt.getPosition(), position))
+                    return conveyorBelt;
+            }
+  */
+    }
+
+
 
 
 }

@@ -21,7 +21,7 @@ public enum GameState {
      */
     public GameState nextState(boolean includeSetup) {
         GameState nextState = states[(ordinal() + 1) % states.length];
-        if(!includeSetup && nextState == GameState.SETUP)
+        if (!includeSetup && nextState == GameState.SETUP)
             nextState = GameState.DEALING_CARDS;
 
         return nextState;

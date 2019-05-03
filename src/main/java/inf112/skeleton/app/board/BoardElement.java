@@ -10,7 +10,7 @@ public enum BoardElement {
     FLAG1(null, 1),
     FLAG2(null, 2),
     FLAG3(null, 3),
-    FLAG4(null, 4) ,
+    FLAG4(null, 4),
     CONVEYORBELT(null, -1),
     GEAR_LEFT(null, -1),
     GEAR_RIGHT(null, -1),
@@ -41,13 +41,14 @@ public enum BoardElement {
     private final Direction direction;
     private final int value;
 
-     BoardElement(Direction dir, int value) {
+    BoardElement(Direction dir, int value) {
         this.direction = dir;
         this.value = value;
     }
 
     /**
      * Returns the elements direction, if any
+     *
      * @return direction or null if empty
      */
     public Direction getDirection() {
@@ -56,6 +57,7 @@ public enum BoardElement {
 
     /**
      * Returns the value
+     *
      * @return value an integer valuable
      */
     public int getValue() {
@@ -88,12 +90,12 @@ public enum BoardElement {
     /**
      * Contains all of the pushers that activate on even phases
      */
-    public static final List<BoardElement> PUSHERS_EVEN = PUSHERS.subList(0,4);
+    public static final List<BoardElement> PUSHERS_EVEN = PUSHERS.subList(0, 4);
 
     /**
      * Contains all of the pushers that activate on odd phases
      */
-    public static final List<BoardElement> PUSHERS_ODD = PUSHERS.subList(4,8);
+    public static final List<BoardElement> PUSHERS_ODD = PUSHERS.subList(4, 8);
 
     /**
      * Contains all of the walls

@@ -25,14 +25,15 @@ public class MessageGFX {
 
     /**
      * Decreases the duration by one time-unit and checks if the duration has expired (== 0)
+     *
      * @return true if duration = 0, false if != 0
      */
     public boolean decreaseDuration() {
-        if(!hasDuration())
+        if (!hasDuration())
             return false;
 
-        if(duration < 0);
-            duration = 0;
+        if (duration < 0) ;
+        duration = 0;
         return duration == 0;
     }
 

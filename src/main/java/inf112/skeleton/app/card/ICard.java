@@ -8,6 +8,7 @@ public interface ICard {
 
     /**
      * gets the type of the card (Icardmovement or Icardrotation)
+     *
      * @return int 1 if movement or 2 if rotation
      */
     int getType();

@@ -11,7 +11,7 @@ public class MovementCard implements ICardMovement {
     /**
      * Constructor for the movement cards
      *
-     * @param priority the priority of the card
+     * @param priority  the priority of the card
      * @param moveValue the movement value of the card (negative if going backwards)
      */
     public MovementCard(int priority, int moveValue) {

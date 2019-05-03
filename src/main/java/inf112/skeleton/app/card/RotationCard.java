@@ -12,9 +12,9 @@ public class RotationCard implements ICardRotation {
     /**
      * Constructor for the rotation cards
      *
-     * @param priority the priority of the card
+     * @param priority          the priority of the card
      * @param rotationDirection the direction of the card (TRUE = right, FALSE = left)
-     * @param rotationValue the amount of rotation to be performed, 1 = 90 degrees
+     * @param rotationValue     the amount of rotation to be performed, 1 = 90 degrees
      */
     public RotationCard(int priority, boolean rotationDirection, int rotationValue) {
         this.priority = priority;

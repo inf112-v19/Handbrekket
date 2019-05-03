@@ -21,28 +21,28 @@ public class EndGFX extends Stage {
     private BitmapFont font;
     private String endMessage;
 
-    public void create(boolean win, IRobot robotIn){
+    public void create(boolean win, IRobot robotIn) {
         menuBack = new Texture(Gdx.files.internal("assets/menuBack.png"));
         menu = new Sprite(menuBack);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         batch = new SpriteBatch();
-        menu.setPosition(50,50);
+        menu.setPosition(50, 50);
         font = new BitmapFont();
-        font.getData().setScale(3,3);
+        font.getData().setScale(3, 3);
         font.setColor(Color.BLACK);
         int[] position = new int[2];
         position[0] = 200;
         position[1] = 200;
-        if(win && robotIn.getID() != 10){
+        if (win && robotIn.getID() != 10) {
             endMessage = ("The winner is:  Robot ".concat(Integer.toString(robotIn.getID())));
-        }
-        else{
+        } else {
             endMessage = "Game Over";
         }
     }
-    public void render(){
+
+    public void render() {
         batch.begin();
         menu.draw(batch);
 

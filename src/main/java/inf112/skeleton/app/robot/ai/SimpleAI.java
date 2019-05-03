@@ -9,14 +9,14 @@ import inf112.skeleton.app.util.GameRuleConstants;
 public class SimpleAI implements IAI {
     @Override
     public void decideIfPowerDown(IProgramRegister register) {
-        if((float)(register.getDamage() / GameRuleConstants.MAX_DAMAGE.getValue()) > 0.5)
+        if ((float) (register.getDamage() / GameRuleConstants.MAX_DAMAGE.getValue()) > 0.5)
             register.powerDown();
     }
 
     @Override
     public void activateCards(IProgramRegister register) {
-        for(int i = 0; i < GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue(); i++) {
-            int cardNumber = (int)(Math.random() * register.getAvailableCards().size());
+        for (int i = 0; i < GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue(); i++) {
+            int cardNumber = (int) (Math.random() * register.getAvailableCards().size());
             register.makeCardActive(cardNumber);
         }
     }

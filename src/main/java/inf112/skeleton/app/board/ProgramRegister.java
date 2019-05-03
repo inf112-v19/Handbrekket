@@ -1,9 +1,9 @@
 package inf112.skeleton.app.board;
 
-import inf112.skeleton.app.card.*;
-import inf112.skeleton.app.util.GameRuleConstants;
+import inf112.skeleton.app.card.ICard;
 import inf112.skeleton.app.game.IGame;
-import inf112.skeleton.app.robot.*;
+import inf112.skeleton.app.robot.IRobot;
+import inf112.skeleton.app.util.GameRuleConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,8 +83,8 @@ public class ProgramRegister implements IProgramRegister {
         return robot;
     }
 
-    public void setLives (int live) {
-        lives=live;
+    public void setLives(int live) {
+        lives = live;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public boolean restoreRobot() {
-        if(lives > 0) {
+        if (lives > 0) {
             setDamage(2);
             isRobotDestroyed = false;
             return true;
@@ -153,7 +153,7 @@ public class ProgramRegister implements IProgramRegister {
         if (damage < 0)
             damage = 0;
 
-        if(damage >= maxDamage) {
+        if (damage >= maxDamage) {
             destroyRobot();
             isRobotDestroyed = true;
             damage = maxDamage;
@@ -224,7 +224,7 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
-    public boolean isCardFlipped (int numCard) {
+    public boolean isCardFlipped(int numCard) {
         return isCardFlipped[numCard];
     }
 

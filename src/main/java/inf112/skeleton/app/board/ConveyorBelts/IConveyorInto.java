@@ -7,6 +7,7 @@ package inf112.skeleton.app.board.ConveyorBelts;
 public interface IConveyorInto extends IConveyorTurn {
     /**
      * Checks if a robot moved onto the conveyorbelt should rotate based on it's previous position
+     *
      * @param previousPosition the previous position of the robot (before moving onto this belt)
      * @return true if it should rotate, false if it should not
      */

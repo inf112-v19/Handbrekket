@@ -6,10 +6,9 @@ import java.util.Objects;
 
 
 /**
- *
  * Creates a robot character to assign to a player.
  */
-public class Robot implements IRobot{
+public class Robot implements IRobot {
     private Direction dir;
     private final int id;
     private int[] coordinate;
@@ -18,7 +17,7 @@ public class Robot implements IRobot{
     /**
      * Creates a robot using the coordinates and id supplied
      *
-     * @param id the id of the robot
+     * @param id         the id of the robot
      * @param coordinate the coordinates the robot is on
      */
     public Robot(int id, int[] coordinate) {
@@ -30,7 +29,7 @@ public class Robot implements IRobot{
 
     @Override
     public void rotate(Boolean rotateDirection) {
-        if(rotateDirection)
+        if (rotateDirection)
             dir = dir.next();
         else
             dir = dir.previous();
@@ -47,7 +46,7 @@ public class Robot implements IRobot{
     }
 
     @Override
-    public int getID(){
+    public int getID() {
         return this.id;
     }
 

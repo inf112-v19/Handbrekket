@@ -20,12 +20,14 @@ public interface IMovementBoardElement {
 
     /**
      * Return the direction conveyor belt
+     *
      * @return
      */
-    Direction getDirection ();
+    Direction getDirection();
 
     /**
-     *Returns movement value
+     * Returns movement value
+     *
      * @return
      */
 
@@ -34,6 +36,7 @@ public interface IMovementBoardElement {
     /**
      * Returns the direction to rotate
      * True if rotate clockwise , False if rotate counter clockwise
+     *
      * @return
      */
     boolean getRotationDirection();

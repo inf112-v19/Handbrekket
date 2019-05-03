@@ -2,8 +2,6 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import inf112.skeleton.app.robot.IRobot;
-import inf112.skeleton.app.robot.Robot;
 
 @SuppressWarnings("Since15")
 public class GFX extends ApplicationAdapter {
@@ -27,16 +25,14 @@ public class GFX extends ApplicationAdapter {
 
     @Override
     public void render() {
-        if(menu.isMenuActive()) {
+        if (menu.isMenuActive()) {
             menu.render();
-        }
-        else if(createGFX){
+        } else if (createGFX) {
             menu.dispose();
             gameGFX.create(menu.getNumberOfRealPlayers(), menu.getNumbersOfAI(), menu.getTiledMap());
             createGFX = false;
             renderGFX = true;
-            }
-        else if(run) {
+        } else if (run) {
             if (gameGFX.gameOver()) {
                 end.create(gameGFX.gameOver(), gameGFX.getWinner());
                 createGFX = false;
@@ -45,11 +41,10 @@ public class GFX extends ApplicationAdapter {
                 run = false;
                 renderGFX = false;
             }
+        } else if (!run && !renderGFX) {
+            end.render();
         }
-        else if(!run && !renderGFX){
-                end.render();
-            }
-        if(renderGFX) {
+        if (renderGFX) {
             gameGFX.render();
             Gdx.input.setInputProcessor(gameGFX);
         }
@@ -58,6 +53,5 @@ public class GFX extends ApplicationAdapter {
 /**
  * VIKTIG!
  * Menyen sender per nå kun antall ekte spillere videre.
- *
  */
 

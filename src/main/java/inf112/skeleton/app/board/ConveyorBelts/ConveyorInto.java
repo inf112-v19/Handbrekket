@@ -12,9 +12,9 @@ public class ConveyorInto implements IConveyorInto {
     private boolean turnDirection;
 
     /**
-     * @param dir The direction the conveyorbelt should move robots
-     * @param moveValue The amount of times a conveyorbelt should be activated per phase
-     * @param position the coordinates of the conveyorbelt
+     * @param dir           The direction the conveyorbelt should move robots
+     * @param moveValue     The amount of times a conveyorbelt should be activated per phase
+     * @param position      the coordinates of the conveyorbelt
      * @param turnDirection Direction the belt turns robot (if it should be turned), true for clockwise, false for counterclockwise
      */
     public ConveyorInto(Direction dir, int moveValue, int[] position, boolean turnDirection) {
@@ -48,7 +48,7 @@ public class ConveyorInto implements IConveyorInto {
     public boolean shouldRotate(int[] previousPosition) {
         //Calculates what the "previous" position must have been for a turn to take place
         int[] tempPos = position.clone();
-        if(turnDirection) {
+        if (turnDirection) {
             tempPos[0] += dir.next().getDeltaX();
             tempPos[1] += dir.next().getDeltaY();
         } else {

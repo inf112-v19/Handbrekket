@@ -10,9 +10,9 @@ public class ConveyorCombine implements IConveyorCombine {
     private int[] position;
 
     /**
-     * @param dir The direction the conveyorbelt should move robots
+     * @param dir       The direction the conveyorbelt should move robots
      * @param moveValue The amount of times a conveyorbelt should be activated per phase
-     * @param position the coordinates of the conveyorbelt
+     * @param position  the coordinates of the conveyorbelt
      */
     public ConveyorCombine(Direction dir, int moveValue, int[] position) {
         this.dir = dir;
@@ -32,9 +32,9 @@ public class ConveyorCombine implements IConveyorCombine {
         positionToTurnCounterClockwise[0] += dir.previous().getDeltaX();
         positionToTurnCounterClockwise[1] += dir.previous().getDeltaY();
 
-        if(Arrays.equals(previousPosition, positionToTurnClockwise))
+        if (Arrays.equals(previousPosition, positionToTurnClockwise))
             return true;
-        else if(Arrays.equals(previousPosition, positionToTurnClockwise))
+        else if (Arrays.equals(previousPosition, positionToTurnClockwise))
             return false;
         else
             throw new IllegalArgumentException("The supplied position could not have lead into this conveyor belt");

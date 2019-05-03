@@ -5,7 +5,7 @@ import inf112.skeleton.app.util.Direction;
 /**
  * The most important piece in the game,
  * represents the robots and controls their abilities
- *
+ * <p>
  * Should store its direction, HP and ID
  */
 public interface IRobot {

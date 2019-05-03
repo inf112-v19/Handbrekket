@@ -433,7 +433,7 @@ public class GameGFX extends Stage {
 
     @Override
     public boolean keyUp(int keycode) {
-        if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) { //TODO: move these to game
+        if(game.getGameState() == GameState.ANNOUNCING_POWER_DOWN) {
             if(keycode == Input.Keys.Y) {
                 game.powerDownRobot(game.getCurrentRegister(), true);
                 game.progressGameState();
@@ -478,12 +478,6 @@ public class GameGFX extends Stage {
                     cardId--;
             }
         }
-        if(keycode == Input.Keys.SPACE)
-            progressGame();
-
-        if(keycode == Input.Keys.E) //TODO: used for testing, remove before hand-in
-            game.activateBoardElements();
-
         return false;
     }
     @Override

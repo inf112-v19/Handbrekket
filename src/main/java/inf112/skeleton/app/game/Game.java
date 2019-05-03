@@ -14,7 +14,7 @@ import java.util.Collections;
 public class Game implements IGame {
     private ArrayList<ICard> deck = new ArrayList<>();
     private ArrayList<int[]> boardHoles = new ArrayList<>();
-    private ArrayList<IFlag> boardFlags = new ArrayList<>(); //TODO: consider sorting the flags
+    private ArrayList<IFlag> boardFlags = new ArrayList<>();
     private ArrayList<int[]> boardRepairSites = new ArrayList<>();
     private ArrayList<IConveyorTurn> gears = new ArrayList<>(); //Uses the "turn" type conveyor, since it's essentially a 0 move turner
     //Works very similar to straight conveyors, thus uses the same class
@@ -485,7 +485,7 @@ public class Game implements IGame {
     public void progressRound(GameGFX graphicsInterface) {
         switch (gameState) {
             case SETUP:
-                progressGameState(); //TODO: should be changed later
+                progressGameState();
                 break;
             case DEALING_CARDS:
                 shuffleDeck(); //Shuffles the deck at the start of each round
@@ -792,18 +792,6 @@ public class Game implements IGame {
         }
 
         return null;
-    }
-
-    //TODO: complete or remove
-    @Override
-    public boolean canMove(int[] startCoordinates, int[] destinationCoordinates) {
-        //Checks to see if the positions are adjacent
-        int deltaX = destinationCoordinates[0] - startCoordinates[0];
-        int deltaY = destinationCoordinates[1] - startCoordinates[1];
-        if (deltaX > 1 || deltaX < -1 || deltaY > 1 || deltaY < -1)
-            throw new IllegalArgumentException("The positions are not adjacent");
-
-        return true;
     }
 
     @Override

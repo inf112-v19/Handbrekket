@@ -60,7 +60,6 @@ public class Menu extends Stage {
         for (File file : files) {
             if (file.isFile()) {
                 String fileName = file.getName();
-                System.out.println("assets/map/".concat(fileName)); //TODO:Remove
                 mapList.add(new TmxMapLoader().load("assets/map/".concat(fileName)));
             }
         }

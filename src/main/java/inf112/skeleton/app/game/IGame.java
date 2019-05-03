@@ -121,16 +121,6 @@ public interface IGame {
 	void addCardToDeck(ICard card);
 
 	/**
-	 * Checks if it's possible to go from one space to the other
-	 * Has to be adjacent, if not, an exception will be thrown
-	 *
-	 * @param startCoordinates       the start of the movement
-	 * @param destinationCoordinates the end of the movement
-	 * @return true if possible, false if not
-	 */
-	boolean canMove(int[] startCoordinates, int[] destinationCoordinates);
-
-	/**
 	 * Checks if there is a wall in the given direction for the given position.
 	 *
 	 * @param position Position to check

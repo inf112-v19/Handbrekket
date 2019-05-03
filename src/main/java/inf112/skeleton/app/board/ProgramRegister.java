@@ -87,6 +87,7 @@ public class ProgramRegister implements IProgramRegister {
     public void destroyRobot() {
         int[] backUpLocation = robot.getBackup(); //TODO: should check if there is already a robot there, and handle that
         robot.setPosition(backUpLocation); //Does the move here to avoid weird animations
+        removeLife();
         isRobotDestroyed = true;
     }
 
@@ -96,10 +97,14 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
-    public void restoreRobot(IGame game) {
-        removeLife();
-        setDamage(2);
-        isRobotDestroyed = false;
+    public boolean restoreRobot() {
+        if(lives > 0) {
+            setDamage(2);
+            isRobotDestroyed = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

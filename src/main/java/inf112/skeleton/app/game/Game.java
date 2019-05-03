@@ -502,19 +502,20 @@ public class Game implements IGame {
                 }
                 break;
             case CHOOSING_CARDS:
-                int playersNotReady = getNumberOfPlayersNotReady();
-                if(playersNotReady == 0) {
-                    graphicsInterface.flipShowCard();
-                    discardAllUnusedCards();
-                    progressGameState();
-                    if(checkIfGameHasHumanPlayers())
-                        graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
-                } else {
-                    graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
-                }
+                if(checkIfGameHasHumanPlayers()) {
+                    int playersNotReady = getNumberOfPlayersNotReady();
+                    if (playersNotReady == 0) {
+                        graphicsInterface.flipShowCard();
+                        discardAllUnusedCards();
+                        progressGameState();
+                    } else {
+                        graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 1);
+                    }
 
-                if(playersNotReady == 1 && allProgramRegisters.size() != 1)
-                    startTimer();
+                    if (playersNotReady == 1 && allProgramRegisters.size() != 1)
+                        startTimer();
+                } else
+                    progressGameState();
                 break;
             case ANNOUNCING_POWER_DOWN:
                 for(IProgramRegister register : allProgramRegisters) {
@@ -523,6 +524,8 @@ public class Game implements IGame {
                 }
                 if(!checkIfGameHasHumanPlayers())
                     progressGameState();
+                else
+                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 1);
                 break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
@@ -538,7 +541,7 @@ public class Game implements IGame {
                     for(IProgramRegister register:allProgramRegisters) {
                         register.powerOn();
                         if (register.isDestroyed())
-                            register.restoreRobot(this);
+                            register.restoreRobot();
                     }
                     progressGameState();
                 break;

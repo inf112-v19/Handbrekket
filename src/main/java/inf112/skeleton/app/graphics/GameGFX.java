@@ -325,6 +325,7 @@ public class GameGFX extends Stage {
             //Subtracts 1 in the otherPlayerSprites array since it's 1 shorter in length
             otherPlayerSprites[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
             otherPlayerSprites[i - 1].setRotation(robotPositions[i][2]);
+            System.out.println();
             if(!game.getAllProgramRegisters().get(i).isDestroyed())
                 otherPlayerSprites[i - 1].draw(batch);
         }
@@ -400,12 +401,12 @@ public class GameGFX extends Stage {
         }
     }
 
-    public void printTextToDefaultPosition(String input, float scale, int duration) {
+    public void printTextToDefaultPosition(String input, float scale, float duration) {
         int[] defaultPos = {1000, 800};
         print(input, defaultPos, scale, duration);
     }
 
-    public void print(String input, int[] position, float scale, int duration) {
+    public void print(String input, int[] position, float scale, float duration) {
         MessageGFX tempMessage = new MessageGFX(input, position, true, scale, duration);
         messages.add(tempMessage);
     }

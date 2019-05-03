@@ -34,7 +34,7 @@ public class ProgramRegister implements IProgramRegister {
     private int maxAvailableCardAmount = GameRuleConstants.MAX_CARDS_IN_REGISTER.getValue();
     private int maxActiveCardAmount = GameRuleConstants.ACTIVE_CARDS_IN_REGISTER.getValue();
 
-    public ProgramRegister(IRobot robot, boolean isPlayerHuman){
+    public ProgramRegister(IRobot robot, boolean isPlayerHuman) {
         this.robot = robot;
         this.isPlayerHuman = isPlayerHuman;
         lives = maxLives;
@@ -56,7 +56,7 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public void turnHumanPlayerIntoAI() {
-        if(!isPlayerHuman)
+        if (!isPlayerHuman)
             throw new IllegalArgumentException("The player is already an AI!");
         else
             isPlayerHuman = false;
@@ -85,14 +85,14 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public void destroyRobot() {
-        int[] backUpLocation = robot.getBackup(); //TODO: should check if there is already a robot there, and handle that
-        robot.setPosition(backUpLocation); //Does the move here to avoid weird animations
+        int[] backUpLocation = robot.getBackup();
+        robot.setPosition(backUpLocation);
         isRobotDestroyed = true;
     }
 
     @Override
     public boolean isDestroyed() {
-        return isRobotDestroyed || isDead(); //If the robot is dead it's also destroyed
+        return isRobotDestroyed || isDead();
     }
 
     @Override
@@ -113,9 +113,6 @@ public class ProgramRegister implements IProgramRegister {
         return powerDowned;
     }
 
-    /**
-     * activates robot from powerDown
-     */
     @Override
     public void powerOn() {
         powerDowned = false;
@@ -144,10 +141,12 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void changeDamage(int dam) {
         damage += dam;
-        if(damage < 0)
+        if (damage < 0)
             damage = 0;
-        if(damage >= maxDamage)
+        if (damage >= maxDamage) {
             isRobotDestroyed = true;
+            damage = maxDamage;
+        }
     }
 
     /**
@@ -169,7 +168,7 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void discardUnusedCards(IGame game) {
         int availableCardsSize = availableCards.size();
-        for(int i = 0; i < availableCardsSize; i++) {
+        for (int i = 0; i < availableCardsSize; i++) {
             game.addCardToDeck(availableCards.get(0));
             availableCards.remove(0);
         }
@@ -179,21 +178,28 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void discardAllCards(IGame game) {
         int availableCardsSize = availableCards.size();
-        for(int i = 0; i < availableCardsSize; i++) {
+        for (int i = 0; i < availableCardsSize; i++) {
             game.addCardToDeck(availableCards.get(0));
             availableCards.remove(0);
         }
 
-        for(int i = 0; i < activeCards.length; i++) {
-            if(activeCards[i] != null) {
+        if (damage > 4) {
+            for (int i = 0; i < 9 - damage; i++) {
                 game.addCardToDeck(activeCards[i]);
                 activeCards[i] = null;
             }
+        } else {
+            for (int i = 0; i < activeCards.length; i++) {
+                if (activeCards[i] != null) {
+                    game.addCardToDeck(activeCards[i]);
+                    activeCards[i] = null;
+                }
+            }
         }
-
-        for(int i = 0; i < isCardFlipped.length; i++) {
+        for (int i = 0; i < isCardFlipped.length; i++) {
             isCardFlipped[i] = false;
         }
+
     }
 
     @Override
@@ -213,8 +219,8 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public boolean makeCardActive(int numCard) {
-        for(int i = 0; i < activeCards.length; i++) {
-            if(activeCards[i] == null){
+        for (int i = 0; i < activeCards.length; i++) {
+            if (activeCards[i] == null) {
                 activeCards[i] = availableCards.get(numCard);
                 availableCards.remove(numCard);
                 return true;
@@ -225,6 +231,7 @@ public class ProgramRegister implements IProgramRegister {
 
     /**
      * Returns all of the available cards
+     *
      * @return ArrayList<ICard> of available cards
      */
     @Override
@@ -234,6 +241,7 @@ public class ProgramRegister implements IProgramRegister {
 
     /**
      * Returns all of the active cards
+     *
      * @return ArrayList<ICard> of active cards
      */
     @Override

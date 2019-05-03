@@ -4,14 +4,14 @@ public class MessageGFX {
     private String message;
     private int[] position;
     private boolean isVisible;
-    private int duration;
+    private float duration;
     private float scale;
 
     public MessageGFX(String message, int[] position, boolean isVisible, float scale) {
         this(message, position, isVisible, scale, -1);
     }
 
-    public MessageGFX(String message, int[] position, boolean isVisible, float scale, int duration) {
+    public MessageGFX(String message, int[] position, boolean isVisible, float scale, float duration) {
         this.message = message;
         this.position = position;
         this.isVisible = isVisible;
@@ -28,8 +28,11 @@ public class MessageGFX {
      * @return true if duration = 0, false if != 0
      */
     public boolean decreaseDuration() {
-        if(duration > 0);
-            duration -= 1;
+        if(!hasDuration())
+            return false;
+
+        if(duration < 0);
+            duration = 0;
         return duration == 0;
     }
 
@@ -49,7 +52,7 @@ public class MessageGFX {
         isVisible = visible;
     }
 
-    public int getDuration() {
+    public float getDuration() {
         return duration;
     }
 

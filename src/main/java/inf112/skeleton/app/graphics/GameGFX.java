@@ -32,7 +32,7 @@ import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
 public class GameGFX extends Stage {
-    private final boolean ANARCHY_MODE = false; //Makes the game run 3x faster than usual, used only for testing (and fun)
+    private final boolean ANARCHY_MODE = true; //Makes the game run 3x faster than usual, used only for testing (and fun)
 
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
@@ -47,6 +47,7 @@ public class GameGFX extends Stage {
 
     private Sprite thisPlayerSprite;
     private Sprite[] otherPlayerSprites;
+    private Sprite[] robotSprites;
     private Sprite spriteCardBack;
     private Sprite spriteCardFront;
     private Sprite[] cards;
@@ -128,11 +129,13 @@ public class GameGFX extends Stage {
         absoluteBatch = new SpriteBatch();
         Texture texture = new Texture(Gdx.files.internal("assets/bot-g.gif"));
         thisPlayerSprite = new Sprite(texture);
-        texture = new Texture(Gdx.files.internal("assets/bot-r.gif"));
         otherPlayerSprites = new Sprite[numberOfSprites];
-        for(int i = 0; i < otherPlayerSprites.length; i++)
-            otherPlayerSprites[i] = new Sprite(texture);
-
+        robotSprites = new Sprite[game.getAllProgramRegisters().size()];
+        RobotColors robotColors = RobotColors.BLACK;
+        for(int i = 0; i < robotSprites.length; i++) {
+            robotSprites[i] = new Sprite(new Texture((Gdx.files.internal(robotColors.getColor()))));
+            robotColors = robotColors.next();
+        }
         programRegisterGFX = new ProgramRegisterGFX(programRegisterPosition[0], programRegisterPosition[1]);
 
         cardBack = new Texture(Gdx.files.internal("assets/card_back.png"));
@@ -151,12 +154,12 @@ public class GameGFX extends Stage {
         ArrayList<IProgramRegister> robotRegister = game.getAllProgramRegisters();
         spriteLaserVerticalList = new ArrayList<>();
         for (int i = 0; i < robotRegister.size(); i++) {
-            if (robotRegister.get(i).isDestroyed()) break;
             Direction tempDir = robotRegister.get(i).getRobot().getDir();
             int[] tempPos;
             int j = robotRegister.get(i).getRobot().getDir().getDirectionValue();
             tempPos = robotRegister.get(i).getRobot().getPosition().clone();
             for (int k = 0; k < 20; k++) {
+                if (robotRegister.get(i).isDestroyed()) break;
                 if (game.checkForWall(tempPos, tempDir)) break;
                 if (j % 2 == 0) {
                     tempPos = game.getPositionInDirection(tempPos, tempDir);
@@ -181,7 +184,7 @@ public class GameGFX extends Stage {
         for(int i = 0; i < numberOfPlayers; i++) {
             robotPositions[i][0] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[0] * tilePixelWidth;
             robotPositions[i][1] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[1] * tilePixelHeight;
-            robotPositions[i][2] = 180; //TODO: change if the sprite for the robot is changed
+            robotPositions[i][2] = 180;
         }
 
         Timer.Task progressGame = new Timer.Task() {
@@ -194,7 +197,7 @@ public class GameGFX extends Stage {
         if(game.checkIfGameHasHumanPlayers()) {
             updateInterval = 0.5f;
         } else if(ANARCHY_MODE) {
-            updateInterval = 0.1f;
+            updateInterval = 0.03f;
         } else {
             updateInterval = 0.3f;
         }
@@ -212,11 +215,11 @@ public class GameGFX extends Stage {
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
         int desiredAngle = robot.getDir().getDirectionInDegrees();
-        //Had to use this "hack" since the "default" rotation in libGDX is South, while in Direction it starts at North
-        if(desiredAngle == 180)
+        if(desiredAngle == 180) {
             desiredAngle = 0;
-        else if (desiredAngle == 0)
+        } else if (desiredAngle == 0) {
             desiredAngle = 180;
+        }
 
         int currentAngle = robotPositions[robotId][2];
         if(currentAngle < desiredAngle) {
@@ -264,8 +267,10 @@ public class GameGFX extends Stage {
         if(game.getPhaseState().equals(PhaseState.FIRE_LASERS)){
             initialiseRobotLasers();
         }
+        batch.end();
         if(showCards && game.checkIfGameHasHumanPlayers())
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
+        batch.begin();
 
         renderText();
         if(game.getGameState() == GameState.EXECUTING_PHASES) {
@@ -315,18 +320,14 @@ public class GameGFX extends Stage {
     }
 
     private void renderRobots() {
-        calculateRobotPosition(0);
-        thisPlayerSprite.setPosition(robotPositions[0][0], robotPositions[0][1]);
-        thisPlayerSprite.setRotation(robotPositions[0][2]);
-        if(!game.getCurrentRegister().isDestroyed())
-            thisPlayerSprite.draw(batch);
-        for(int i = 1; i < game.getAllProgramRegisters().size(); i++) {
+        for(int i = 0; i < robotSprites.length ; i++) {
             calculateRobotPosition(i);
             //Subtracts 1 in the otherPlayerSprites array since it's 1 shorter in length
-            otherPlayerSprites[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
-            otherPlayerSprites[i - 1].setRotation(robotPositions[i][2]);
-            if(!game.getAllProgramRegisters().get(i).isDestroyed())
-                otherPlayerSprites[i - 1].draw(batch);
+            robotSprites[i].setPosition(robotPositions[i][0], robotPositions[i][1]);
+            robotSprites[i].setRotation(robotPositions[i][2]);
+            if(!game.getAllProgramRegisters().get(i).isDestroyed()) {
+                robotSprites[i].draw(batch);
+            }
         }
     }
 
@@ -400,12 +401,12 @@ public class GameGFX extends Stage {
         }
     }
 
-    public void printTextToDefaultPosition(String input, float scale, int duration) {
+    public void printTextToDefaultPosition(String input, float scale, float duration) {
         int[] defaultPos = {1000, 800};
         print(input, defaultPos, scale, duration);
     }
 
-    public void print(String input, int[] position, float scale, int duration) {
+    public void print(String input, int[] position, float scale, float duration) {
         MessageGFX tempMessage = new MessageGFX(input, position, true, scale, duration);
         messages.add(tempMessage);
     }
@@ -473,12 +474,12 @@ public class GameGFX extends Stage {
         if(keycode == Input.Keys.ENTER) {
             if(showCards) {
                 choseCard();
-                if(cardId > 0)
+                if(cardId == game.getCurrentRegister().getAvailableCards().size())
                     cardId--;
             }
         }
         if(keycode == Input.Keys.SPACE)
-            game.progressRound(this);
+            progressGame();
 
         if(keycode == Input.Keys.E) //TODO: used for testing, remove before hand-in
             game.activateBoardElements();
@@ -502,6 +503,9 @@ public class GameGFX extends Stage {
     }
     public boolean gameOver(){
         return game.gameOver();
+    }
+    public IRobot getWinner(){
+        return game.winCheck();
     }
 
 }

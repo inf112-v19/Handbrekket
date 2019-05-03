@@ -61,11 +61,6 @@ public class Game implements IGame {
         programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
         gameHasHumanPlayers = numberOfHumanPlayers != 0;
-
-        /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
-        allProgramRegisters.get(0).getRobot().setPosition(testPos1);
-        int[] testPos2 = {9, 11};
-        allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
     }
 
     @Override
@@ -129,7 +124,6 @@ public class Game implements IGame {
         if(getRegisterFromRobot(robot).isDestroyed())
             return false;
 
-        //get current position of robot
         int[] coordinates = robot.getPosition();
 
         if(moveValue < 0) { //Makes backward movement work properly
@@ -196,7 +190,6 @@ public class Game implements IGame {
 
     /**
      * Checks if the robot from the currentRegister is on any of the holes in the board
-     * TODO: needs to be tested
      *
      * @return true if on any holes, false otherwise
      */
@@ -212,9 +205,9 @@ public class Game implements IGame {
 
     public boolean checkIfOutsideBoard(int[] position){
         //Checks if the robot is outside of the board
-        if (position[0] > board.getWidth() || position[0] < 0)
+        if (position[0] > (board.getWidth() - 1) || position[0] < 0)
             return true;
-        if (position[1] > board.getHeight() || position[1] < 0)
+        if (position[1] > (board.getHeight() - 1) || position[1] < 0)
             return true;
 
         return false;
@@ -245,8 +238,9 @@ public class Game implements IGame {
         int[] robotPos = robot.getPosition();
         for (int i = 0; i < boardFlags.size(); i++) {
             int[] flagPos = boardFlags.get(i).getPosition();
-            if (Arrays.equals(flagPos, robotPos))
+            if (Arrays.equals(flagPos, robotPos)) {
                 return true;
+            }
         }
         return false;
     }
@@ -266,12 +260,6 @@ public class Game implements IGame {
         }
     }
 
-    /**
-     * Ikke pent
-     */
-    public boolean robotLaserIsActive(){
-        return rLaserIsActive;
-    }
     @Override
     public void activateRobotLasers(){
         int[] position;
@@ -392,18 +380,20 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: consider renaming methods
     private void doMoveAccordingToCardType(IRobot robot, ICard inputCard) {
-        if (inputCard.getType() == 1) { //Movement Cards
+        int cardType = 0;
+        try {
+            cardType = inputCard.getType();
+        } catch (NullPointerException e) {
+            return;
+        }
+        if (cardType == 1) { //Movement Cards
             relativeMove(robot, (ICardMovement) inputCard);
-        } else if (inputCard.getType() == 2) { // Rotation Cards
+        } else if (cardType == 2) { // Rotation Cards
             rotationMove(robot, (ICardRotation) inputCard);
         }
     }
 
-    /**
-     * Eirik
-     */
     @Override
     public void progressPhase() {
         /**
@@ -411,8 +401,8 @@ public class Game implements IGame {
          * 1: Reveal Program Cards
          * 2: Move robots according to priority
          * 3: Board Elements Move
-         * TODO 4: Lasers Fire
-         * TODO 5: Touch checkpoints
+         * 4: Lasers Fire
+         * 5: Touch checkpoints
          */
         switch (phaseState) {
             case REVEAL_CARDS:
@@ -425,14 +415,23 @@ public class Game implements IGame {
 
             case MAKE_MOVEMENT_PRIORITY_LIST:
             //Makes a new list of all of the registers then in turn does the move of the highest priority then removes that register from the list
-            //TODO: needs to be tested, not sure if it works as intended to be honest
             ArrayList<IProgramRegister> programRegistersToSort = new ArrayList<>(allProgramRegisters);
             for (int i = 0; i < allProgramRegisters.size(); i++) {
                 IProgramRegister currentHighestPriority = null;
                 int highestPriorityIndex = 0;
                 for (int j = 1; j < programRegistersToSort.size(); j++) {
-                    int highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
-                    int newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
+                    int highestPrioritySoFar = 0;
+                    try {
+                        highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
+                    } catch (NullPointerException e){
+                        continue;
+                    }
+                    int newPriority = 0;
+                    try {
+                        newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
+                    } catch (NullPointerException e) {
+                        continue;
+                    }
                     if (newPriority > highestPrioritySoFar)
                         highestPriorityIndex = j;
                     currentHighestPriority = programRegistersToSort.get(highestPriorityIndex);
@@ -445,7 +444,7 @@ public class Game implements IGame {
 
             case MOVE_ROBOTS:
 
-                    if (robotsToMove.get(0).isPoweredDown())
+                    if (robotsToMove.get(0).isPoweredDown() || robotsToMove.get(0).getActiveCards().size() <= phaseNumber + 1)
                         robotsToMove.remove(0);
                     else {
                         doMoveAccordingToCardType(robotsToMove.get(0).getRobot(), robotsToMove.get(0).getActiveCardInPosition(phaseNumber));
@@ -456,7 +455,6 @@ public class Game implements IGame {
                     phaseState = phaseState.nextState();
                 break;
 
-                //TODO: should be expanded to have all boardElements
             case ACTIVATE_BOARD_ELEMENTS:
                 activateBoardElements();
                 phaseState = phaseState.nextState();
@@ -479,7 +477,6 @@ public class Game implements IGame {
     public void activateBoardElements() {
         activateConveyorBelts(true);
         activateConveyorBelts(false);
-        //activatePushers(); TODO: Make this method
         activateGears();
 
     }
@@ -502,19 +499,18 @@ public class Game implements IGame {
                 }
                 break;
             case CHOOSING_CARDS:
-                int playersNotReady = getNumberOfPlayersNotReady();
-                if(playersNotReady == 0) {
-                    graphicsInterface.flipShowCard();
-                    discardAllUnusedCards();
-                    progressGameState();
-                    if(checkIfGameHasHumanPlayers())
-                        graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
-                } else {
-                    graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
-                }
+                if(checkIfGameHasHumanPlayers()) {
+                    int playersNotReady = getNumberOfPlayersNotReady();
+                    if (playersNotReady == 0) {
+                        graphicsInterface.flipShowCard();
+                        discardAllUnusedCards();
+                        progressGameState();
+                    } else {
+                        graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 1);
+                    }
 
-                if(playersNotReady == 1 && allProgramRegisters.size() != 1)
-                    startTimer();
+                } else
+                    progressGameState();
                 break;
             case ANNOUNCING_POWER_DOWN:
                 for(IProgramRegister register : allProgramRegisters) {
@@ -523,6 +519,8 @@ public class Game implements IGame {
                 }
                 if(!checkIfGameHasHumanPlayers())
                     progressGameState();
+                else
+                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 1);
                 break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
@@ -538,7 +536,7 @@ public class Game implements IGame {
                     for(IProgramRegister register:allProgramRegisters) {
                         register.powerOn();
                         if (register.isDestroyed())
-                            register.restoreRobot(this);
+                            register.restoreRobot();
                     }
                     progressGameState();
                 break;
@@ -563,38 +561,7 @@ public class Game implements IGame {
         return notReadyCounter;
     }
 
-    private void startTimer() {
-        //TODO: Make this
-    }
-
     /**
-     * Marius
-     *
-     * @return
-     */
-    public ArrayList<Event> makeEventList() {
-        return null;
-    }
-    //TODO:
-    //Roboter beveger seg.
-    //MAP...
-    //liste over eventer i fasen
-
-    /**
-     * Marius
-     *
-     * @param listOfEvents
-     */
-    public Event readEvents(ArrayList<Event> listOfEvents) {
-        //TODO:
-        //
-        return null;
-
-    }
-
-    /**
-     * Eirik
-     *
      * @param programRegister to be repaired
      */
     public void repair(IProgramRegister programRegister) {
@@ -616,7 +583,6 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: Can this handle locked-in cards?
     @Override
     public void dealCards() {
         rLaserIsActive = false;
@@ -641,7 +607,6 @@ public class Game implements IGame {
                     register.getRobot().rotate(gear.getTurnDirection());
                 }
             }
-            //gear.rotate() Would be cool if we actually rotated the gears in GFX to show that they're activated
         }
     }
 
@@ -711,18 +676,26 @@ public class Game implements IGame {
         deck.add(card);
     }
 
+    private IFlag getFlagFromPosition(int[] position) {
+        IFlag outputFlag = null;
+        for(IFlag flag : boardFlags) {
+            if(Arrays.equals(position, flag.getPosition()))
+                outputFlag = flag;
+        }
+        return outputFlag;
+    }
+
     @Override
     public void activateFlag() {
             for (IProgramRegister register : allProgramRegisters) {
                 if(checkIfOnFlag(register.getRobot())) {
-                    for (IFlag flag : boardFlags) {
+                        IFlag flag = getFlagFromPosition(register.getRobot().getPosition());
                         if (register.getFlagCounter() == flag.getFlagId()) { //checks if the robot hits flags in right order.
-                            System.out.println();
                             register.increaseFlagCounter(); //updates the robot programming card.
                             updateBackUp(register.getRobot()); //places a new backup
                             break;
                         }
-                    }
+
                 }
             }
     }
@@ -803,7 +776,6 @@ public class Game implements IGame {
                 if(!Arrays.equals(robot.getPosition(), predictedPositions[i])) {
                     relativeMoveStraight(robot, conveyorsWithRobot[i][0].getDirection(), 1);
                 }
-                //absoluteMove(robot, predictedPositions[i]); OLD VERSION, KEEP IN CASE THE ABOVE DOESN'T WORK PROPERLY
             }
         }
     }
@@ -831,26 +803,23 @@ public class Game implements IGame {
         if (deltaX > 1 || deltaX < -1 || deltaY > 1 || deltaY < -1)
             throw new IllegalArgumentException("The positions are not adjacent");
 
-
         return true;
     }
 
     @Override
-    public boolean winCheck() {
+    public IRobot winCheck() {
         for(IProgramRegister register : allProgramRegisters) {
-            if (register.getFlagCounter() == boardFlags.size() - 1) {
-                System.out.println("Winner! The robot has registered all of its flags.");
-                return true;
+            if (register.getFlagCounter() == boardFlags.size()) {
+                return register.getRobot();
             }
         }
-        return false;
+        return null;
     }
 
-    @Override
+
     public boolean gameOver() {
-        if (winCheck()) {
+        if (winCheck() != null) {
             System.out.println("Game over");
-            //System.exit(0);
             return true;
         }
         return false;

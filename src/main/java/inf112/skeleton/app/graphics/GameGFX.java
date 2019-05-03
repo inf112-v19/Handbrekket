@@ -503,5 +503,8 @@ public class GameGFX extends Stage {
     public boolean gameOver(){
         return game.gameOver();
     }
+    public IRobot getWinner(){
+        return game.winCheck();
+    }
 
 }

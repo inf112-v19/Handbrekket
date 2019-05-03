@@ -836,21 +836,19 @@ public class Game implements IGame {
     }
 
     @Override
-    public boolean winCheck() {
+    public IRobot winCheck() {
         for(IProgramRegister register : allProgramRegisters) {
-            if (register.getFlagCounter() == boardFlags.size() - 1) {
-                System.out.println("Winner! The robot has registered all of its flags.");
-                return true;
+            if (register.getFlagCounter() == boardFlags.size()) {
+                return register.getRobot();
             }
         }
-        return false;
+        return null;
     }
 
     @Override
     public boolean gameOver() {
-        if (winCheck()) {
+        if (winCheck() != null) {
             System.out.println("Game over");
-            //System.exit(0);
             return true;
         }
         return false;

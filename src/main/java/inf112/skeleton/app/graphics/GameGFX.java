@@ -184,7 +184,7 @@ public class GameGFX extends Stage {
         for(int i = 0; i < numberOfPlayers; i++) {
             robotPositions[i][0] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[0] * tilePixelWidth;
             robotPositions[i][1] = game.getAllProgramRegisters().get(i).getRobot().getPosition()[1] * tilePixelHeight;
-            robotPositions[i][2] = 0;
+            robotPositions[i][2] = 180;
         }
 
         Timer.Task progressGame = new Timer.Task() {
@@ -215,6 +215,11 @@ public class GameGFX extends Stage {
         int xPos = robot.getPosition()[0];
         int yPos = robot.getPosition()[1];
         int desiredAngle = robot.getDir().getDirectionInDegrees();
+        if(desiredAngle == 180) {
+            desiredAngle = 0;
+        } else if (desiredAngle == 0) {
+            desiredAngle = 180;
+        }
 
         int currentAngle = robotPositions[robotId][2];
         if(currentAngle < desiredAngle) {

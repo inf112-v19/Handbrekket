@@ -178,4 +178,10 @@ public interface IGame {
      * Ends the game if robot has won
      */
     boolean gameOver();
+
+	/**
+	 * Checks if the game has any human players in it
+	 * @return true if human players > 0, false if it's == 0
+	 */
+	boolean checkIfGameHasHumanPlayers();
 }

@@ -41,7 +41,7 @@ public class Game implements IGame {
     private PhaseState phaseState;
     private int phaseNumber = 0;
     private ArrayList<IProgramRegister> robotsToMove = new ArrayList<>();
-
+    private boolean gameHasHumanPlayers;
 
     public Game(TiledMap tiledMap, int numberOfPlayers, int numberOfHumanPlayers) {
         rLaserIsActive = false;
@@ -60,12 +60,17 @@ public class Game implements IGame {
         AI = new SimpleBraveAI();
         programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
-
+        gameHasHumanPlayers = numberOfHumanPlayers != 0;
 
         /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
         int[] testPos2 = {9, 11};
         allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
+    }
+
+    @Override
+    public boolean checkIfGameHasHumanPlayers() {
+        return gameHasHumanPlayers;
     }
 
     public ArrayList<IProgramRegister> getAllProgramRegisters() {
@@ -502,7 +507,8 @@ public class Game implements IGame {
                     graphicsInterface.flipShowCard();
                     discardAllUnusedCards();
                     progressGameState();
-                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
+                    if(checkIfGameHasHumanPlayers())
+                        graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
                 } else {
                     graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
                 }
@@ -514,7 +520,10 @@ public class Game implements IGame {
                 for(IProgramRegister register : allProgramRegisters) {
                     if(!register.isPlayerHuman())
                         AI.decideIfPowerDown(register);
+                    else
+                        return;
                 }
+                progressGameState();
                 break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {

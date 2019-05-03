@@ -1,6 +1,8 @@
 
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.board.IProgramRegister;
@@ -10,6 +12,7 @@ import inf112.skeleton.app.card.MovementCard;
 import inf112.skeleton.app.card.RotationCard;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.IGame;
+import inf112.skeleton.app.graphics.GFX;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Robot;
 import org.junit.Before;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
 import static junit.framework.TestCase.*;
 
 /**
- * Created by mari on 08.03.2019.
+ * Test of Program registers
  */
 public class ProgramRegistersTest {
     IRobot robot;
@@ -52,6 +55,9 @@ public class ProgramRegistersTest {
         availableCards.add(moveCard4);
         availableCards.add(moveCard5);
         availableCards.add(moveCard6);
+
+
+
         //TiledMap map = new TmxMapLoader().load("assets/map1.tmx");
         //game=new Game(map,3);
     }
@@ -147,7 +153,22 @@ public class ProgramRegistersTest {
 
         assertTrue(programRegister.isDestroyed());
 
-        //programRegister.restoreRobot();
+        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+        cfg.title = "Board";
+        cfg.width = 1520;
+        cfg.height = 960;
+
+
+        LwjglApplication helper = new LwjglApplication(new GFX(),cfg);
+
+        TiledMap map = new TmxMapLoader().load("assets/map/test/testMap.tmx");
+
+        helper.exit();
+
+        game = new Game(map,1,1);
+
+
+        programRegister.restoreRobot(game);
 
         assertFalse(programRegister.isDestroyed());
 
@@ -224,14 +245,47 @@ public class ProgramRegistersTest {
         programRegister.makeCardActive(0);
         programRegister.makeCardActive(0);
 
-        //programRegister.discardUnusedCards(game);
+        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+        cfg.title = "Board";
+        cfg.width = 1520;
+        cfg.height = 960;
+
+
+        LwjglApplication helper = new LwjglApplication(new GFX(),cfg);
+
+        TiledMap map = new TmxMapLoader().load("assets/map/test/testMap.tmx");
+
+        helper.exit();
+
+        game = new Game(map,4,1);
+
+        programRegister.discardUnusedCards(game);
+
+        assertEquals(programRegister.getAvailableCards().size(),0);
 
     }
 
     @Test
     public void discardOfAllCardsTest() {
 
-        //TODO : must figure out initilization of game to work
+
+        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+        cfg.title = "Board";
+        cfg.width = 1520;
+        cfg.height = 960;
+
+
+        LwjglApplication helper = new LwjglApplication(new GFX(),cfg);
+
+        TiledMap map = new TmxMapLoader().load("assets/map/test/testMap.tmx");
+
+        helper.exit();
+
+        game = new Game(map,4,1);
+
+        programRegister.discardAllCards(game);
+
+        assertEquals(0,programRegister.getAvailableCards());
 
     }
 
@@ -259,12 +313,12 @@ public class ProgramRegistersTest {
 
         programRegister.setAvailableCards(availableCards);
 
-        programRegister.makeCardActive(0);
 
-        ICard availableCard = programRegister.getAvailableCards().get(0);
-        ICard activeCard = programRegister.getActiveCards().get(0);
+        boolean success = programRegister.makeCardActive(0);
 
-        assertEquals(availableCard,activeCard);
+        assertTrue(success);
+
+
     }
 
     @Test
@@ -276,6 +330,25 @@ public class ProgramRegistersTest {
 
     @Test
     public void getActiveCardsTest() {
+
+        programRegister.setAvailableCards(availableCards);
+
+        ICard card1 = programRegister.getAvailableCards().get(0);
+        ICard card2 = programRegister.getAvailableCards().get(1);
+        ICard card3 = programRegister.getAvailableCards().get(2);
+        ICard card4 = programRegister.getAvailableCards().get(3);
+        ICard card5 = programRegister.getAvailableCards().get(4);
+
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(0);
+        programRegister.makeCardActive(0);
+
+
+        ArrayList<ICard> listOfCards = programRegister.getActiveCards();
+
+        assertTrue(listOfCards.contains(card1));
 
     }
 

@@ -432,7 +432,12 @@ public class Game implements IGame {
                 IProgramRegister currentHighestPriority = null;
                 int highestPriorityIndex = 0;
                 for (int j = 1; j < programRegistersToSort.size(); j++) {
-                    int highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
+                    int highestPrioritySoFar = 0;
+                    try {
+                        highestPrioritySoFar = programRegistersToSort.get(highestPriorityIndex).getActiveCardInPosition(phaseNumber).getPriority();
+                    } catch (NullPointerException e){
+                        return;
+                    }
                     int newPriority = programRegistersToSort.get(j).getActiveCardInPosition(phaseNumber).getPriority();
                     if (newPriority > highestPrioritySoFar)
                         highestPriorityIndex = j;

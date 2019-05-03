@@ -32,7 +32,7 @@ import static java.lang.Math.abs;
 
 @SuppressWarnings("Since15")
 public class GameGFX extends Stage {
-    private final boolean ANARCHY_MODE = false; //Makes the game run 3x faster than usual, used only for testing (and fun)
+    private final boolean ANARCHY_MODE = true; //Makes the game run 3x faster than usual, used only for testing (and fun)
 
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
@@ -264,8 +264,10 @@ public class GameGFX extends Stage {
         if(game.getPhaseState().equals(PhaseState.FIRE_LASERS)){
             initialiseRobotLasers();
         }
+        batch.end();
         if(showCards && game.checkIfGameHasHumanPlayers())
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
+        batch.begin();
 
         renderText();
         if(game.getGameState() == GameState.EXECUTING_PHASES) {
@@ -400,12 +402,12 @@ public class GameGFX extends Stage {
         }
     }
 
-    public void printTextToDefaultPosition(String input, float scale, int duration) {
+    public void printTextToDefaultPosition(String input, float scale, float duration) {
         int[] defaultPos = {1000, 800};
         print(input, defaultPos, scale, duration);
     }
 
-    public void print(String input, int[] position, float scale, int duration) {
+    public void print(String input, int[] position, float scale, float duration) {
         MessageGFX tempMessage = new MessageGFX(input, position, true, scale, duration);
         messages.add(tempMessage);
     }
@@ -473,12 +475,12 @@ public class GameGFX extends Stage {
         if(keycode == Input.Keys.ENTER) {
             if(showCards) {
                 choseCard();
-                if(cardId > 0)
+                if(cardId == game.getCurrentRegister().getAvailableCards().size())
                     cardId--;
             }
         }
         if(keycode == Input.Keys.SPACE)
-            game.progressRound(this);
+            progressGame();
 
         if(keycode == Input.Keys.E) //TODO: used for testing, remove before hand-in
             game.activateBoardElements();

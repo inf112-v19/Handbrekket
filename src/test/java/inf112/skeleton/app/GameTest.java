@@ -24,6 +24,9 @@ public class GameTest {
     private ICardRotation moveRight;
     private ICardRotation moveLeft;
     private ICardRotation uTurn;
+    private GameState gameState;
+    private ArrayList<ICard> deck = new ArrayList<>();
+
 
     @Before
     public void setUp() {
@@ -84,7 +87,11 @@ public class GameTest {
         assertEquals(robot.getDir(), Direction.WEST);
     }
 
+<<<<<<< HEAD
 /**
+=======
+/*
+>>>>>>> 77be1b0fe4a7ad6688f9ee7f177b369244bd6336
     @Test
     public void checkIfOnHoleTest() {
         boardHoles.add(3);
@@ -118,6 +125,13 @@ public class GameTest {
     }
 
     @Test
+    public void checkForWallTest() {
+        boardWalls.add(3);
+        game.relativeMoveStraight(robot, Direction.EAST, 2);
+        assertTrue(game.checkForWall(robot.getPosition(), Direction.NORTH));
+    }
+
+    @Test
     public void noCrashWithWallTest() {
         game.relativeMoveStraigt(robot, Direction.EAST, 3);
         int[] robotPos = new int[2];
@@ -125,5 +139,104 @@ public class GameTest {
         robotPos[1] = robot.getPosition(); //new y-coordinate
         assertEquals(2, robotPos[0]); //only moved two steps (not three!)
         assertEquals(1, robotPos[1]);
+<<<<<<< HEAD
     }*/
+=======
+    }
+
+    @Test
+    public void getGameStateTest() {
+        gameState = GameState.DEALING_CARDS;
+        assertEquals(game.getGameState(), DEALING_CARDS);
+    }
+
+    @Test
+    public void absoluteMoveTest() {
+        int[] coordinates = new int[2];
+        coordinates[0] = 8;
+        coordinates[1] = 14;
+        game.absoluteMove(robot, coordinates);
+        assertArrayEquals(robot.getPosition(), coordinates);
+    }
+
+    @Test
+    public void relativeMoveTest() {
+        int priority = 290;
+        int moveValue = 2;
+        MovementCard card = new MovementCard(priority, moveValue);
+        game.relativeMove(robot, card);
+        int newPos = new int[2];
+        newPos[0] = 3;
+        newPos[1] = 1;
+        assertArrayEquals(robot.getPosition(), newPos);
+    }
+
+    @Test
+    public void canMoveTest() {
+
+        int[] destinationCoordinates = new int[2];
+        int[] startCoordinates = new int[2];
+
+        destinationCoordinates[0] = 4;
+        destinationCoordinates[1] = 7;
+        startCoordinates[0] = 3;
+        startCoordinates[1] = 8;
+        assertTrue(canMove(startCoordinates, destinationCoordinates));
+
+        destinationCoordinates[0] = 10;
+        destinationCoordinates[1] = 8;
+        startCoordinates[0] = 5;
+        startCoordinates[1] = 12;
+        assertFalse(canMove(startCoordinates, destinationCoordinates));
+
+    }
+
+    @Test
+    public void addCardToDeckTest() {
+        ICard card;
+        game.addCardToDeck(card);
+        assertEquals(deck.size(),1);
+    }
+
+    @Test
+    public void getConveyorInPositionTest() {
+        int[] position = new int[2];
+        position[0] = 3;
+        position[1] = 5;
+        IConveyorBelt conveyorBelt;
+        ArrayList<IConveyorBelt> conveyorBelts = new ArrayList<>();
+        conveyorBelts.add(3);
+        assertArrayEquals(conveyorBelt.getPosition(), position);
+/*
+        private IConveyorBelt getConveyorInPosition(int[] position) {
+            for(IConveyorBelt conveyorBelt : conveyorBelts) {
+                if(Arrays.equals(conveyorBelt.getPosition(), position))
+                    return conveyorBelt;
+            }
+  *
+    }
+
+    @Test
+    public void updateBackupTest() {
+        int[] robotPos = new int[2];
+        robotPos[0] = 4;
+        robotPos[1] = 10;
+        robot.setPosition(robotPos);
+        int backUp = new int[2];
+        backUp = robot.getPosition;
+
+        assertArrayEquals(robotPos, backUp);
+    }
+
+    @Test
+    public void repairTest() {
+
+        repair(IProgramRegister programRegister)
+        programRegister.changeDamage(-1);
+    }
+
+
+
+**/
+>>>>>>> 77be1b0fe4a7ad6688f9ee7f177b369244bd6336
 }

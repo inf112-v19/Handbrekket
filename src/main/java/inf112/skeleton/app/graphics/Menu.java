@@ -52,7 +52,7 @@ public class Menu extends Stage {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-            tiledMap = new TmxMapLoader().load("assets/map1.tmx");
+        tiledMap = new TmxMapLoader().load("assets/map1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         batch = new SpriteBatch();
         initialiseSprites();
@@ -88,6 +88,10 @@ public class Menu extends Stage {
         textureStart = new Texture(Gdx.files.internal("assets/start.png"));
         start = new Sprite(textureStart);
         start.setPosition(700,170);
+    }
+
+    public TiledMap getMap () {
+        return tiledMap;
     }
     private void renderButtons(){
         switch (currentPosition) {

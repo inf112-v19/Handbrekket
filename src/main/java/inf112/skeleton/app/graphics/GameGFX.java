@@ -264,8 +264,10 @@ public class GameGFX extends Stage {
         if(game.getPhaseState().equals(PhaseState.FIRE_LASERS)){
             initialiseRobotLasers();
         }
+        batch.end();
         if(showCards && game.checkIfGameHasHumanPlayers())
             renderAvailableCards(game.getCurrentRegister().getAvailableCards());
+        batch.begin();
 
         renderText();
         if(game.getGameState() == GameState.EXECUTING_PHASES) {
@@ -325,7 +327,6 @@ public class GameGFX extends Stage {
             //Subtracts 1 in the otherPlayerSprites array since it's 1 shorter in length
             otherPlayerSprites[i - 1].setPosition(robotPositions[i][0], robotPositions[i][1]);
             otherPlayerSprites[i - 1].setRotation(robotPositions[i][2]);
-            System.out.println();
             if(!game.getAllProgramRegisters().get(i).isDestroyed())
                 otherPlayerSprites[i - 1].draw(batch);
         }

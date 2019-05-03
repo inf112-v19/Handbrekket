@@ -182,33 +182,7 @@ public class GameTest {
         startCoordinates[1] = 12;
         assertFalse(game.canMove(startCoordinates, destinationCoordinates));
     }
-    /**
-     @Test
-     public void addCardToDeckTest() {
 
-     ArrayList<ICard> deck = new ArrayList<>();
-     ICard card;
-     game.addCardToDeck(ICard card);
-     assertEquals(deck.size(),1);
-     }
-     */
-
-    /**
-     @Test
-     public void getConveyorInPositionTest() {
-     int[] position = new int[2];
-     position[0] = 3;
-     position[1] = 5;
-     IConveyorBelt c;
-     ArrayList<IConveyorBelt> conveyorBelts = new ArrayList<>();
-     int[] coord = new int[2;
-     coord[0] = 1;
-     coord[1] = 1;
-     conveyorBelts.add(coord);
-     assertArrayEquals(c.getPosition(), position);
-
-     }
-     */
     @Test
     public void updateBackupTest(){
         int[] robotPos = new int[2];

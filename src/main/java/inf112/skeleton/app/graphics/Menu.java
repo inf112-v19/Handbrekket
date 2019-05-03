@@ -183,16 +183,41 @@ public class Menu extends Stage {
             if (menuActive){
                 switch (currentPosition) {
                     case (0):
-                        numberOfRealPlayers++;
+                        if(numberOfRealPlayers >= 8) numberOfRealPlayers = 1;
+                        else if((numberOfRealPlayers+numberOfAI >= 8)){
+                            numberOfRealPlayers++;
+                            numberOfAI--;
+
+                            }
+                        else numberOfRealPlayers++;
                         break;
                     case (1):
-                        numberOfRealPlayers--;
+                        if(numberOfRealPlayers+numberOfAI <=  1) {
+                            if (numberOfAI == 0 || numberOfRealPlayers == 0) {
+                                numberOfRealPlayers = 0;
+                                numberOfAI = 1;
+                            } else numberOfRealPlayers--;
+                        }
+                        else if (numberOfRealPlayers <= 0) numberOfRealPlayers = 0;
+                        else numberOfRealPlayers--;
                         break;
                     case (2):
-                        numberOfAI++;
+                        if(numberOfAI >= 8) numberOfAI = 1;
+                        else if((numberOfRealPlayers+numberOfAI >= 8)){
+                            numberOfAI++;
+                            numberOfRealPlayers--;
+                        }
+                        else numberOfAI++;
                         break;
                     case (3):
-                        numberOfAI--;
+                        if(numberOfRealPlayers+numberOfAI <=  1) {
+                            if (numberOfRealPlayers == 0 || numberOfAI == 0) {
+                                numberOfAI = 0;
+                                numberOfRealPlayers = 1;
+                            } else numberOfAI--;
+                        }
+                        else if (numberOfAI <= 0) numberOfAI = 0;
+                        else numberOfAI--;
                         break;
                     case (4):
                         if(mapNumber >= mapList.size()-1){ mapNumber = 0;}

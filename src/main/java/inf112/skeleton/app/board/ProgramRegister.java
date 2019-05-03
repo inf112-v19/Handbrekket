@@ -86,7 +86,8 @@ public class ProgramRegister implements IProgramRegister {
     @Override
     public void destroyRobot() {
         int[] backUpLocation = robot.getBackup();
-        robot.setPosition(backUpLocation);
+        robot.setPosition(backUpLocation); //Does the move here to avoid weird animations
+        removeLife();
         isRobotDestroyed = true;
     }
 
@@ -96,10 +97,14 @@ public class ProgramRegister implements IProgramRegister {
     }
 
     @Override
-    public void restoreRobot(IGame game) {
-        removeLife();
-        setDamage(2);
-        isRobotDestroyed = false;
+    public boolean restoreRobot() {
+        if(lives > 0) {
+            setDamage(2);
+            isRobotDestroyed = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -219,6 +224,7 @@ public class ProgramRegister implements IProgramRegister {
 
     @Override
     public boolean makeCardActive(int numCard) {
+
         for (int i = 0; i < activeCards.length; i++) {
             if (activeCards[i] == null) {
                 activeCards[i] = availableCards.get(numCard);

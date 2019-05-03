@@ -62,9 +62,9 @@ public class Game implements IGame {
         currentRegister = allProgramRegisters.get(0);
         gameHasHumanPlayers = numberOfHumanPlayers != 0;
 
-        /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
+        int[] testPos1 = {5, 10}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
-        int[] testPos2 = {9, 11};
+        /*int[] testPos2 = {9, 11};
         allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
     }
 
@@ -245,8 +245,9 @@ public class Game implements IGame {
         int[] robotPos = robot.getPosition();
         for (int i = 0; i < boardFlags.size(); i++) {
             int[] flagPos = boardFlags.get(i).getPosition();
-            if (Arrays.equals(flagPos, robotPos))
+            if (Arrays.equals(flagPos, robotPos)) {
                 return true;
+            }
         }
         return false;
     }
@@ -502,19 +503,20 @@ public class Game implements IGame {
                 }
                 break;
             case CHOOSING_CARDS:
-                int playersNotReady = getNumberOfPlayersNotReady();
-                if(playersNotReady == 0) {
-                    graphicsInterface.flipShowCard();
-                    discardAllUnusedCards();
-                    progressGameState();
-                    if(checkIfGameHasHumanPlayers())
-                        graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 5);
-                } else {
-                    graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 5);
-                }
+                if(checkIfGameHasHumanPlayers()) {
+                    int playersNotReady = getNumberOfPlayersNotReady();
+                    if (playersNotReady == 0) {
+                        graphicsInterface.flipShowCard();
+                        discardAllUnusedCards();
+                        progressGameState();
+                    } else {
+                        graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 1);
+                    }
 
-                if(playersNotReady == 1 && allProgramRegisters.size() != 1)
-                    startTimer();
+                    if (playersNotReady == 1 && allProgramRegisters.size() != 1)
+                        startTimer();
+                } else
+                    progressGameState();
                 break;
             case ANNOUNCING_POWER_DOWN:
                 for(IProgramRegister register : allProgramRegisters) {
@@ -523,6 +525,8 @@ public class Game implements IGame {
                 }
                 if(!checkIfGameHasHumanPlayers())
                     progressGameState();
+                else
+                    graphicsInterface.printTextToDefaultPosition("Please chose if you want to power down by pressing y/n", 2f, 1);
                 break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {
@@ -538,7 +542,7 @@ public class Game implements IGame {
                     for(IProgramRegister register:allProgramRegisters) {
                         register.powerOn();
                         if (register.isDestroyed())
-                            register.restoreRobot(this);
+                            register.restoreRobot();
                     }
                     progressGameState();
                 break;
@@ -711,18 +715,26 @@ public class Game implements IGame {
         deck.add(card);
     }
 
+    private IFlag getFlagFromPosition(int[] position) {
+        IFlag outputFlag = null;
+        for(IFlag flag : boardFlags) {
+            if(Arrays.equals(position, flag.getPosition()))
+                outputFlag = flag;
+        }
+        return outputFlag;
+    }
+
     @Override
     public void activateFlag() {
             for (IProgramRegister register : allProgramRegisters) {
                 if(checkIfOnFlag(register.getRobot())) {
-                    for (IFlag flag : boardFlags) {
+                        IFlag flag = getFlagFromPosition(register.getRobot().getPosition());
                         if (register.getFlagCounter() == flag.getFlagId()) { //checks if the robot hits flags in right order.
-                            System.out.println();
                             register.increaseFlagCounter(); //updates the robot programming card.
                             updateBackUp(register.getRobot()); //places a new backup
                             break;
                         }
-                    }
+
                 }
             }
     }
@@ -836,21 +848,19 @@ public class Game implements IGame {
     }
 
     @Override
-    public boolean winCheck() {
+    public IRobot winCheck() {
         for(IProgramRegister register : allProgramRegisters) {
-            if (register.getFlagCounter() == boardFlags.size() - 1) {
-                System.out.println("Winner! The robot has registered all of its flags.");
-                return true;
+            if (register.getFlagCounter() == boardFlags.size()) {
+                return register.getRobot();
             }
         }
-        return false;
+        return null;
     }
 
-    @Override
+
     public boolean gameOver() {
-        if (winCheck()) {
+        if (winCheck() != null) {
             System.out.println("Game over");
-            //System.exit(0);
             return true;
         }
         return false;

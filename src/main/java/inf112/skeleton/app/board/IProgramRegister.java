@@ -67,8 +67,9 @@ public interface IProgramRegister {
 
     /**
      * reset isRobotDestroyed value
+     * @return true if successful, false if it didn't work
      */
-    void restoreRobot(IGame game);
+    boolean restoreRobot();
 
     /**
      * power down a robot

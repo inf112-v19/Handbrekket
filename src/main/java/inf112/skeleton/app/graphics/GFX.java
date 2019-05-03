@@ -2,6 +2,8 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import inf112.skeleton.app.robot.IRobot;
+import inf112.skeleton.app.robot.Robot;
 
 @SuppressWarnings("Since15")
 public class GFX extends ApplicationAdapter {
@@ -31,6 +33,7 @@ public class GFX extends ApplicationAdapter {
             }
         else if(gameGFX.gameOver()){
             gameGFX.dispose();
+            end.create(gameGFX.gameOver(), gameGFX.getWinner());
             end.render();
         }
         else {

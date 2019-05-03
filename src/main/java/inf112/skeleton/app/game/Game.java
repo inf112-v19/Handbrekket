@@ -61,11 +61,6 @@ public class Game implements IGame {
         programRegistersFactory(numberOfPlayers, numberOfHumanPlayers);
         currentRegister = allProgramRegisters.get(0);
         gameHasHumanPlayers = numberOfHumanPlayers != 0;
-
-        int[] testPos1 = {5, 10}; //TODO: for tests, remove later
-        allProgramRegisters.get(0).getRobot().setPosition(testPos1);
-        /*int[] testPos2 = {9, 11};
-        allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
     }
 
     @Override

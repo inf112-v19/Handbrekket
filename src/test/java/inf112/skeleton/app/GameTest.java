@@ -153,7 +153,7 @@ public class GameTest {
     }
 
     @Test
-    public void relativeMove() {
+    public void relativeMoveTest() {
         MovementCard card = new MovementCard(290,2);
         game.relativeMove(robot, card);
         int newPos = new int[2];

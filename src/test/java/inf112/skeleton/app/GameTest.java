@@ -84,7 +84,7 @@ public class GameTest {
         assertEquals(robot.getDir(), Direction.WEST);
     }
 
-
+/**
     @Test
     public void checkIfOnHoleTest() {
         boardHoles.add(3);
@@ -125,5 +125,5 @@ public class GameTest {
         robotPos[1] = robot.getPosition(); //new y-coordinate
         assertEquals(2, robotPos[0]); //only moved two steps (not three!)
         assertEquals(1, robotPos[1]);
-    }
+    }*/
 }

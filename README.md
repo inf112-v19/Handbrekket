@@ -14,3 +14,6 @@ You can also drag the board around by using the mouse or touch screen.
 
 ## How to run tests
 Right-click the package and choose "Run 'All Tests' with Coverage"
+
+## Multiplayer
+We didn't manage to implement multiplayer over LAN in time, so there can only be 1 human player.

@@ -9,13 +9,13 @@ import static org.junit.Assert.assertEquals;
 public class BoardElementTest {
 
     @Test
-    public void getDirectionTest () {
+    public void getDirectionTest() {
         Direction directionFromMethod = BoardElement.WALL_EAST.getDirection();
 
 
         Direction direction = Direction.EAST;
 
-        assertEquals(direction,directionFromMethod);
+        assertEquals(direction, directionFromMethod);
     }
 
     @Test
@@ -23,7 +23,7 @@ public class BoardElementTest {
         int valueFromMethod = BoardElement.WALL_EAST.getValue();
         int value = -1;
 
-        assertEquals(value,valueFromMethod);
+        assertEquals(value, valueFromMethod);
 
     }
 

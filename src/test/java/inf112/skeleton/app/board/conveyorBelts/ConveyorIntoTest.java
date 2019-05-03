@@ -8,40 +8,42 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
 public class ConveyorIntoTest {
-    private ConveyorInto testConveyorInto ;
+    private ConveyorInto testConveyorInto;
     private int moveValue = 2;
     private Direction dir = Direction.NORTH;
-    private int[] position = {1,2};
+    private int[] position = {1, 2};
     private boolean turnDirection = true;
 
     @Before
-    public void setup (){
+    public void setup() {
 
-        testConveyorInto = new ConveyorInto(dir,moveValue,position,turnDirection);
+        testConveyorInto = new ConveyorInto(dir, moveValue, position, turnDirection);
     }
 
     @Test
-    public void DirectionTest () {
+    public void DirectionTest() {
         assertEquals(dir, testConveyorInto.getDirection());
     }
 
     @Test
-    public void positionTest(){
-        assertEquals(position,testConveyorInto.getPosition());
+    public void positionTest() {
+        assertEquals(position, testConveyorInto.getPosition());
     }
 
 
     @Test
-    public void turnDirectionTest(){
-        assert(testConveyorInto.getTurnDirection());
+    public void turnDirectionTest() {
+        assert (testConveyorInto.getTurnDirection());
 
 
     }
+
     @Test
-    public void expresstypeTest(){
-        assert(testConveyorInto.isExpressType());
+    public void expresstypeTest() {
+        assert (testConveyorInto.isExpressType());
 
     }
+
     @Test
     public void shouldrotateTest() {
         int[] testPosition = new int[2];

@@ -13,16 +13,23 @@ public class FlagTest {
     private int y = 1;
 
     @Before
-    public void setup(){ testFlag = new Flag(flagId, x, y); }
+    public void setup() {
+        testFlag = new Flag(flagId, x, y);
+    }
 
     @Test
-    public void flagIdTest(){assertEquals(flagId,testFlag.getFlagId());
+    public void flagIdTest() {
+        assertEquals(flagId, testFlag.getFlagId());
     }
+
     @Test
-    public void xTest(){assertEquals(x,testFlag.getPosition()[0]);
+    public void xTest() {
+        assertEquals(x, testFlag.getPosition()[0]);
     }
+
     @Test
-    public void yTest(){assertEquals(y,testFlag.getPosition()[1]);
+    public void yTest() {
+        assertEquals(y, testFlag.getPosition()[1]);
     }
 
 }

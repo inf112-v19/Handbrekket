@@ -62,9 +62,9 @@ public class Game implements IGame {
         currentRegister = allProgramRegisters.get(0);
         gameHasHumanPlayers = numberOfHumanPlayers != 0;
 
-        /*int[] testPos1 = {0, 1}; //TODO: for tests, remove later
+        int[] testPos1 = {5, 10}; //TODO: for tests, remove later
         allProgramRegisters.get(0).getRobot().setPosition(testPos1);
-        int[] testPos2 = {9, 11};
+        /*int[] testPos2 = {9, 11};
         allProgramRegisters.get(1).getRobot().setPosition(testPos2);*/
     }
 
@@ -245,8 +245,9 @@ public class Game implements IGame {
         int[] robotPos = robot.getPosition();
         for (int i = 0; i < boardFlags.size(); i++) {
             int[] flagPos = boardFlags.get(i).getPosition();
-            if (Arrays.equals(flagPos, robotPos))
+            if (Arrays.equals(flagPos, robotPos)) {
                 return true;
+            }
         }
         return false;
     }
@@ -714,18 +715,26 @@ public class Game implements IGame {
         deck.add(card);
     }
 
+    private IFlag getFlagFromPosition(int[] position) {
+        IFlag outputFlag = null;
+        for(IFlag flag : boardFlags) {
+            if(Arrays.equals(position, flag.getPosition()))
+                outputFlag = flag;
+        }
+        return outputFlag;
+    }
+
     @Override
     public void activateFlag() {
             for (IProgramRegister register : allProgramRegisters) {
                 if(checkIfOnFlag(register.getRobot())) {
-                    for (IFlag flag : boardFlags) {
+                        IFlag flag = getFlagFromPosition(register.getRobot().getPosition());
                         if (register.getFlagCounter() == flag.getFlagId()) { //checks if the robot hits flags in right order.
-                            System.out.println();
                             register.increaseFlagCounter(); //updates the robot programming card.
                             updateBackUp(register.getRobot()); //places a new backup
                             break;
                         }
-                    }
+
                 }
             }
     }
@@ -849,7 +858,7 @@ public class Game implements IGame {
         return false;
     }
 
-    @Override
+
     public boolean gameOver() {
         if (winCheck()) {
             System.out.println("Game over");

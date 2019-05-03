@@ -475,12 +475,12 @@ public class GameGFX extends Stage {
         if(keycode == Input.Keys.ENTER) {
             if(showCards) {
                 choseCard();
-                if(cardId > 0)
+                if(cardId == game.getCurrentRegister().getAvailableCards().size())
                     cardId--;
             }
         }
         if(keycode == Input.Keys.SPACE)
-            game.progressRound(this);
+            progressGame();
 
         if(keycode == Input.Keys.E) //TODO: used for testing, remove before hand-in
             game.activateBoardElements();

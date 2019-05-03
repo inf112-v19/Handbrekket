@@ -8,7 +8,7 @@ import static  org.junit.Assert.*;
 
 public class ConveyorStraightTest {
     private ConveyorStraight testConveyorStraight;
-    private int moveValue = 1;
+    private int moveValue = 2;
     private Direction dir = Direction.NORTH;
     private int[] position = {3,4};
 
@@ -23,9 +23,10 @@ public class ConveyorStraightTest {
         assertEquals(dir,testConveyorStraight.getDirection());
 
     }
+
     @Test
-    public void expresstypetest(){
-        assert(testConveyorStraight.isExpressType());
+    public void expresstypeTest(){
+        assert testConveyorStraight.isExpressType();
     }
     @Test
     public void positionTest(){

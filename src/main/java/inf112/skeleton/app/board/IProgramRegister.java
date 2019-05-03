@@ -184,4 +184,11 @@ public interface IProgramRegister {
      * @return card in position
      */
     ICard getActiveCardInPosition(int position);
+
+    /**
+     * Checks if card was flipped
+     * @param numCard
+     * @return
+     */
+    boolean isCardFlipped (int numCard);
 }

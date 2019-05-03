@@ -520,10 +520,9 @@ public class Game implements IGame {
                 for(IProgramRegister register : allProgramRegisters) {
                     if(!register.isPlayerHuman())
                         AI.decideIfPowerDown(register);
-                    else
-                        return;
                 }
-                progressGameState();
+                if(!checkIfGameHasHumanPlayers())
+                    progressGameState();
                 break;
             case EXECUTING_PHASES:
                 if(phaseNumber == (GameRuleConstants.NUMBER_OF_PHASES_IN_ROUND.getValue())) {

@@ -5,7 +5,7 @@ Obligatorisk øvelse 5
 
 ### Erfaringer
 
- - Vi fikk en dårlig start. De 4 første ukene ble ineffektiv på grunn av mangel på kommunikasjon og uvitenhet om programmet tidle, som      kunne ha bidratt til å utføre arbedidet på en effektiv måte.
+ - Vi fikk en dårlig start. De 4 første ukene ble ineffektiv på grunn av mangel på kommunikasjon og uvitenhet om programmet tiled, som      kunne ha bidratt til å utføre arbedidet på en effektiv måte.
  - Blitt bedre på å kommunisere. Gruppetimene har gitt oss en god erfaring på hvordan kommunikasjon bidrar til å forbedre                  arbeidsinnsatsen.  
  - Gjennom ProjectBoard har vi hatt muligheten til å arbeide indiviuelt, samtidig som alle i gruppen har en god oversikt over arbeid som    må gjøres, blir gjort og som er utført.  
  - Vi hadde vanskeligheter med å teste board, men fikk det på plass. 

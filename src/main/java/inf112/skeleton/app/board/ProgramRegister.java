@@ -151,8 +151,10 @@ public class ProgramRegister implements IProgramRegister {
         damage += dam;
         if(damage < 0)
             damage = 0;
-        if(damage >= maxDamage)
+        if(damage >= maxDamage) {
             isRobotDestroyed = true;
+            damage = maxDamage;
+        }
     }
 
     /**

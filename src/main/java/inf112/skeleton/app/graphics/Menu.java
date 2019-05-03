@@ -99,7 +99,6 @@ public class Menu extends Stage {
                 increase[0].setPosition(increase[0].getX() + 20, increase[0].getY());
                 break;
             case (1):
-                System.out.println("test");
                 decrease[0].setPosition(decrease[0].getX() + 20, decrease[0].getY());
                 break;
             case (2):
@@ -132,8 +131,8 @@ public class Menu extends Stage {
     }
 
     private void initialiseText() {
-        font.draw(batch, ("Number of Real Players:".concat(Integer.toString(getNumberOfRealPlayers()))), 900, 700);
-        font.draw(batch, ("Number of AI:".concat(Integer.toString(getNumbersOfAI()))), 900, 550);
+        font.draw(batch, ("Number of Real Players: ".concat(Integer.toString(getNumberOfRealPlayers()))), 850, 700);
+        font.draw(batch, ("Number of AI: ".concat(Integer.toString(getNumbersOfAI()))), 850, 550);
     }
 
     public void render() {

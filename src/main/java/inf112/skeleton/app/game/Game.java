@@ -279,7 +279,6 @@ public class Game implements IGame {
                 if (checkForWall(position, direction)) break;
                 if (checkIfContainsRobot(position) != null && !Arrays.equals(position, currentRegister.getRobot().getPosition())) {
                     checkIfContainsRobot(position).changeDamage(1);
-                    System.out.println("hit");
                     break;
                 } else {
                     position = getPositionInDirection(position, direction);
@@ -527,7 +526,6 @@ public class Game implements IGame {
                     phaseNumber = 0;
                     progressGameState();
                 } else {
-                    System.out.println("Phase state: " + (phaseState) + ", phaseNumber:" + (phaseNumber + 1));
                     progressPhase();
                 }
                 break;

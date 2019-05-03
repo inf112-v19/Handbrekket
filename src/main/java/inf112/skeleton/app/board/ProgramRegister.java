@@ -148,7 +148,9 @@ public class ProgramRegister implements IProgramRegister {
         damage += dam;
         if (damage < 0)
             damage = 0;
-        if (damage >= maxDamage) {
+
+        if(damage >= maxDamage) {
+
             isRobotDestroyed = true;
             damage = maxDamage;
         }
@@ -169,7 +171,6 @@ public class ProgramRegister implements IProgramRegister {
         return true;
     }
 
-    //TODO: uses the exact same code as discardAllCards first part, consider merging methods
     @Override
     public void discardUnusedCards(IGame game) {
         int availableCardsSize = availableCards.size();
@@ -179,14 +180,9 @@ public class ProgramRegister implements IProgramRegister {
         }
     }
 
-    //TODO: should not remove a card if it's "locked in" because of damage
     @Override
     public void discardAllCards(IGame game) {
-        int availableCardsSize = availableCards.size();
-        for (int i = 0; i < availableCardsSize; i++) {
-            game.addCardToDeck(availableCards.get(0));
-            availableCards.remove(0);
-        }
+        discardUnusedCards(game);
 
         if (damage > 4) {
             for (int i = 0; i < 9 - damage; i++) {
@@ -201,6 +197,7 @@ public class ProgramRegister implements IProgramRegister {
                 }
             }
         }
+
         for (int i = 0; i < isCardFlipped.length; i++) {
             isCardFlipped[i] = false;
         }

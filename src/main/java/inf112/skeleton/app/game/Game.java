@@ -124,7 +124,6 @@ public class Game implements IGame {
         if(getRegisterFromRobot(robot).isDestroyed())
             return false;
 
-        //get current position of robot
         int[] coordinates = robot.getPosition();
 
         if(moveValue < 0) { //Makes backward movement work properly
@@ -191,7 +190,6 @@ public class Game implements IGame {
 
     /**
      * Checks if the robot from the currentRegister is on any of the holes in the board
-     * TODO: needs to be tested
      *
      * @return true if on any holes, false otherwise
      */
@@ -262,12 +260,6 @@ public class Game implements IGame {
         }
     }
 
-    /**
-     * Ikke pent
-     */
-    public boolean robotLaserIsActive(){
-        return rLaserIsActive;
-    }
     @Override
     public void activateRobotLasers(){
         int[] position;
@@ -388,7 +380,6 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: consider renaming methods
     private void doMoveAccordingToCardType(IRobot robot, ICard inputCard) {
         int cardType = 0;
         try {
@@ -403,9 +394,6 @@ public class Game implements IGame {
         }
     }
 
-    /**
-     * Eirik
-     */
     @Override
     public void progressPhase() {
         /**
@@ -413,8 +401,8 @@ public class Game implements IGame {
          * 1: Reveal Program Cards
          * 2: Move robots according to priority
          * 3: Board Elements Move
-         * TODO 4: Lasers Fire
-         * TODO 5: Touch checkpoints
+         * 4: Lasers Fire
+         * 5: Touch checkpoints
          */
         switch (phaseState) {
             case REVEAL_CARDS:
@@ -427,7 +415,6 @@ public class Game implements IGame {
 
             case MAKE_MOVEMENT_PRIORITY_LIST:
             //Makes a new list of all of the registers then in turn does the move of the highest priority then removes that register from the list
-            //TODO: needs to be tested, not sure if it works as intended to be honest
             ArrayList<IProgramRegister> programRegistersToSort = new ArrayList<>(allProgramRegisters);
             for (int i = 0; i < allProgramRegisters.size(); i++) {
                 IProgramRegister currentHighestPriority = null;
@@ -468,7 +455,6 @@ public class Game implements IGame {
                     phaseState = phaseState.nextState();
                 break;
 
-                //TODO: should be expanded to have all boardElements
             case ACTIVATE_BOARD_ELEMENTS:
                 activateBoardElements();
                 phaseState = phaseState.nextState();
@@ -491,7 +477,6 @@ public class Game implements IGame {
     public void activateBoardElements() {
         activateConveyorBelts(true);
         activateConveyorBelts(false);
-        //activatePushers(); TODO: Make this method
         activateGears();
 
     }
@@ -524,8 +509,6 @@ public class Game implements IGame {
                         graphicsInterface.printTextToDefaultPosition("Everyone is not ready", 3f, 1);
                     }
 
-                    if (playersNotReady == 1 && allProgramRegisters.size() != 1)
-                        startTimer();
                 } else
                     progressGameState();
                 break;
@@ -578,38 +561,7 @@ public class Game implements IGame {
         return notReadyCounter;
     }
 
-    private void startTimer() {
-        //TODO: Make this
-    }
-
     /**
-     * Marius
-     *
-     * @return
-     */
-    public ArrayList<Event> makeEventList() {
-        return null;
-    }
-    //TODO:
-    //Roboter beveger seg.
-    //MAP...
-    //liste over eventer i fasen
-
-    /**
-     * Marius
-     *
-     * @param listOfEvents
-     */
-    public Event readEvents(ArrayList<Event> listOfEvents) {
-        //TODO:
-        //
-        return null;
-
-    }
-
-    /**
-     * Eirik
-     *
      * @param programRegister to be repaired
      */
     public void repair(IProgramRegister programRegister) {
@@ -631,7 +583,6 @@ public class Game implements IGame {
         }
     }
 
-    //TODO: Can this handle locked-in cards?
     @Override
     public void dealCards() {
         rLaserIsActive = false;
@@ -656,7 +607,6 @@ public class Game implements IGame {
                     register.getRobot().rotate(gear.getTurnDirection());
                 }
             }
-            //gear.rotate() Would be cool if we actually rotated the gears in GFX to show that they're activated
         }
     }
 
@@ -826,7 +776,6 @@ public class Game implements IGame {
                 if(!Arrays.equals(robot.getPosition(), predictedPositions[i])) {
                     relativeMoveStraight(robot, conveyorsWithRobot[i][0].getDirection(), 1);
                 }
-                //absoluteMove(robot, predictedPositions[i]); OLD VERSION, KEEP IN CASE THE ABOVE DOESN'T WORK PROPERLY
             }
         }
     }
@@ -853,7 +802,6 @@ public class Game implements IGame {
         int deltaY = destinationCoordinates[1] - startCoordinates[1];
         if (deltaX > 1 || deltaX < -1 || deltaY > 1 || deltaY < -1)
             throw new IllegalArgumentException("The positions are not adjacent");
-
 
         return true;
     }

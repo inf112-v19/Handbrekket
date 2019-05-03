@@ -179,6 +179,13 @@ public interface IGame {
 	 */
 	void doRepairs();
 
+<<<<<<< HEAD
+    /**
+     * Ends the game if robot has won
+     */
+
+    boolean gameOver();
+=======
 	/**
 	 * Checks if a robot has won the game
 	 *
@@ -191,6 +198,7 @@ public interface IGame {
 	 */
 
 	boolean gameOver();
+>>>>>>> e1e989509b2e076a52b8043da0d30302eee00e11
 
 	/**
 	 * Checks if the game has any human players in it
@@ -198,8 +206,11 @@ public interface IGame {
 	 * @return true if human players > 0, false if it's == 0
 	 */
 	boolean checkIfGameHasHumanPlayers();
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> e1e989509b2e076a52b8043da0d30302eee00e11
 }
 
 

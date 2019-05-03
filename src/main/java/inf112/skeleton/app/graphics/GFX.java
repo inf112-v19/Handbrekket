@@ -3,7 +3,6 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
-@SuppressWarnings("Since15")
 public class GFX extends ApplicationAdapter {
     private boolean createGFX;
     private Menu menu;

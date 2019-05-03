@@ -163,14 +163,14 @@ public class GameGFX extends Stage {
             for (int k = 0; k < 20; k++) {
                 if (robotRegister.get(i).isDestroyed()) break;
                 if (game.checkForWall(tempPos, tempDir)) break;
+
+                tempPos = game.getPositionInDirection(tempPos, tempDir);
                 if (j % 2 == 0) {
-                    tempPos = game.getPositionInDirection(tempPos, tempDir);
                     spriteLaserVerticalList.add(new Sprite(laserVertical));
                     spriteLaserVerticalList.get(k).setPosition((tilePixelWidth) * tempPos[0] + 40, (tilePixelHeight) * tempPos[1] + 3);
                     spriteLaserVerticalList.get(k).draw(batch);
                     if (!game.possibleLaser(tempPos, tempDir)) break;
-                } else if (j % 2 != 0) {
-                    tempPos = game.getPositionInDirection(tempPos, tempDir);
+                } else {
                     spriteLaserHorizontalList.add(new Sprite(laserHorizontal));
                     spriteLaserHorizontalList.get(k).setPosition(tilePixelWidth * tempPos[0] + 3, tilePixelHeight * tempPos[1] + 40);
                     spriteLaserHorizontalList.get(k).draw(batch);
